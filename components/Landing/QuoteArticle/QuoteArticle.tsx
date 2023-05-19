@@ -1,6 +1,6 @@
 import { QuoteArticleTypes } from './types';
 
-const QuoteArticle = (props: QuoteArticleTypes) => {
+const QuoteArticle: React.FC<QuoteArticleTypes> = (props) => {
   return (
     <article
       className='bg-landing-back-img sm:bg-center bg-fixed bg-cover bg-no-repeat h-screen w-full'
