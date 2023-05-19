@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-const useNavbar = () => {
-  const [shouldDropDown, setShouldDropDown] = useState<boolean>(false);
+const useDropdown = () => {
+  const [shouldDropDown, setShouldDropDown] = useState(false);
 
   const handleDropDown = () => {
     setShouldDropDown(!shouldDropDown);
@@ -13,4 +13,4 @@ const useNavbar = () => {
   };
 };
 
-export default useNavbar;
+export default useDropdown;

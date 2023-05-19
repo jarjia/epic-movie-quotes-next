@@ -1,6 +1,6 @@
 import { DropDownIcon } from '@/components';
 import Link from 'next/link';
-import useDropdown from '../Dropdown/useDropdown';
+import useDropdown from './useDropdown';
 
 const Dropdown: React.FC = () => {
   const { handleDropDown, shouldDropDown } = useDropdown();

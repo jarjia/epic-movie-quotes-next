@@ -1,4 +1,4 @@
-import { DropDown } from '../Dropdown';
+import { DropDown } from '@/components';
 
 const Navbar: React.FC = () => {
   return (
