@@ -7,10 +7,21 @@ module.exports = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+      screens: {
+        sm: { max: '625px' },
+      },
+      backgroundPosition: {
+        'landing-back-img': 'center',
+      },
+      colors: {
+        'default-btn': '#E31221',
+        hover: '#CC0E10',
+        active: '#B80D0F',
+        title: '#DDCCAA',
+      },
+      fontSize: {
+        h1: '60px',
+        'quote-size': '45px',
       },
     },
   },

@@ -1,0 +1,16 @@
+.linear {
+  background: linear-gradient(
+    180deg,
+    #11101a 0%,
+    #08080d 50.52%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+.footer-linear {
+  background: linear-gradient(
+    187.16deg,
+    #181623 0.07%,
+    #191725 51.65%,
+    #0d0b14 98.75%
+  );
+}
