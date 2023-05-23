@@ -27,7 +27,9 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const finalData = { ...data, name: data.username };
+    const finalData = { ...data };
+    delete finalData.confirm_password;
+
     sessionStorage.setItem('email-for-redirection', JSON.stringify(data.email));
 
     registerUser(finalData);

@@ -17,7 +17,7 @@ const RegisterForm: React.FC<RegisterFormTypes> = ({ handleFormStatus }) => {
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <Input
-            name='username'
+            name='name'
             type='text'
             placeholder='At least 3 & max.15 lower case characters'
             label='Name'

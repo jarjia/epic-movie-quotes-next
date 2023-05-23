@@ -2,7 +2,7 @@ import z from 'zod';
 
 export const registerSchema = z
   .object({
-    username: z
+    name: z
       .string()
       .nonempty({ message: 'Name field is required' })
       .min(3, 'Name field should be at least 3 characters long')
