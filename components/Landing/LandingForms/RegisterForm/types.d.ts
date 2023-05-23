@@ -1,3 +1,3 @@
 export type RegisterFormTypes = {
-  handleToggleLogin: (toggle: boolean) => void;
+  handleFormStatus: (status: string) => void;
 };
