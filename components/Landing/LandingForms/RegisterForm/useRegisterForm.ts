@@ -9,7 +9,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from 'react-query';
 import { postRegister } from '@/services';
-import { postRegisterTypes } from './types';
+import { PostRegisterTypes } from './types';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const form: UseFormReturn = useForm({
@@ -28,7 +28,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const finalData: postRegisterTypes = {
+    const finalData: PostRegisterTypes = {
       name: data.name,
       email: data.email,
       password: data.password,
