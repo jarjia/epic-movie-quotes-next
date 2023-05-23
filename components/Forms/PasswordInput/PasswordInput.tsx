@@ -1,14 +1,10 @@
-import { useFormContext } from 'react-hook-form';
 import { PasswordInputTypes } from './types';
-import { HidePasswordIcon } from '@/components/icons';
-import { useState } from 'react';
+import { HidePasswordIcon } from '@/components';
+import usePasswordInput from './usePasswordInput';
 
 const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
-  const {
-    register,
-    formState: { touchedFields },
-  } = useFormContext();
-  const [showPassword, setShowPassword] = useState(false);
+  const { touchedFields, register, showPassword, handleTogglePasswordShow } =
+    usePasswordInput();
 
   return (
     <div className='flex flex-col mb-5'>
@@ -32,7 +28,7 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
       <div className='flex justify-end relative bottom-7 right-2 w-full'>
         <button
           type='button'
-          onClick={() => setShowPassword(!showPassword)}
+          onClick={handleTogglePasswordShow}
           className='absolute'
         >
           <HidePasswordIcon />

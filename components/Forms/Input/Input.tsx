@@ -1,16 +1,9 @@
-import { useFormContext, useWatch } from 'react-hook-form';
 import { InputTypes } from './types';
 import { InvalidIcon, ValidIcon } from '@/components';
+import useInput from './useInput';
 
 const Input: React.FC<InputTypes> = (props) => {
-  const {
-    register,
-    control,
-    formState: { touchedFields },
-  } = useFormContext();
-
-  const input = useWatch({ control, name: props.name });
-
+  const { touchedFields, input, register } = useInput(props.name);
   return (
     <div className='flex flex-col mb-5'>
       <label className='text-white mb-1' htmlFor={props.name}>
@@ -20,7 +13,7 @@ const Input: React.FC<InputTypes> = (props) => {
         type={props.type}
         {...register(props.name)}
         name={props.name}
-        className={`px-2 py-[6px] placeholder-placeholder ${
+        className={`px-2 py-1.5 placeholder-placeholder ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn'
             : touchedFields[props.name]
