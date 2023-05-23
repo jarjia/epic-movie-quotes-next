@@ -1,3 +1,3 @@
 export type NavbarTypes = {
-  handleFormStatus: (status) => void;
+  handleFormStatus: (status: string) => void;
 };

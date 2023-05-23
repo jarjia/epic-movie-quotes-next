@@ -1,7 +1,5 @@
 import classes from '@/styles/Landing.module.css';
-type ErrorLayoutTypes = {
-  children: JSX.Element;
-};
+import { ErrorLayoutTypes } from './types';
 
 const ErrorLayout: React.FC<ErrorLayoutTypes> = (props) => {
   return (
