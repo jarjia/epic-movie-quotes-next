@@ -1,38 +1,32 @@
 import { useEffect, useState } from 'react';
 
 const useMain = () => {
-  const [showRegister, setShowRegister] = useState(false);
-  const [showLogin, setShowLogin] = useState(false);
+  const [formStatus, setFormStatus] = useState<string | null>(null);
 
-  const handleToggleRegister = (toggle: boolean) => {
-    setShowRegister(toggle);
-    setShowLogin(false);
-  };
+  useEffect(() => {
+    setFormStatus(JSON.parse(sessionStorage.getItem('form-status') || 'null'));
+  }, []);
 
-  const handleToggleLogin = (toggle: boolean) => {
-    setShowLogin(toggle);
-    setShowRegister(false);
-  };
-
-  const handleCloseAll = () => {
-    setShowLogin(false);
-    setShowRegister(false);
+  const handleFormStatus = (status: string) => {
+    sessionStorage.setItem('form-status', JSON.stringify(status));
+    setFormStatus(status);
   };
 
   useEffect(() => {
-    if (showLogin || showRegister) {
-      document.body.classList.add('no-scroll');
-    } else {
+    if (
+      formStatus === 'null' ||
+      formStatus === null ||
+      formStatus === undefined
+    ) {
       document.body.classList.remove('no-scroll');
+    } else {
+      document.body.classList.add('no-scroll');
     }
-  }, [showLogin, showRegister]);
+  }, [formStatus]);
 
   return {
-    handleCloseAll,
-    handleToggleLogin,
-    handleToggleRegister,
-    showLogin,
-    showRegister,
+    handleFormStatus,
+    formStatus,
   };
 };
 
