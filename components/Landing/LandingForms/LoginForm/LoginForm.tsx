@@ -1,7 +1,6 @@
-import { GoogleIcon, Input } from '@/components';
+import { GoogleIcon, Input, Checkbox } from '@/components';
 import { LoginFormTypes } from './types';
 import useLoginForm from './useLoginForm';
-import { Checkbox } from '@/components/Forms/Checkbox';
 
 const LoginForm: React.FC<LoginFormTypes> = (props) => {
   const { errors, handleSubmit, onSubmit, form, FormProvider } = useLoginForm();

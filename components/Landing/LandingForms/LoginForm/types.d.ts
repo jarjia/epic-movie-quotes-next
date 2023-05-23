@@ -1,3 +1,3 @@
 export type LoginFormTypes = {
-  handleFormStatus: (status) => void;
+  handleFormStatus: (status: string) => void;
 };
