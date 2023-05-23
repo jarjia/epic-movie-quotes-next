@@ -1,6 +1,5 @@
-export type InputTypes = {
+export type PasswordInputTypes = {
   label: string;
-  type: string;
   placeholder: string;
   name: string;
   errors: Record<string | {}>;

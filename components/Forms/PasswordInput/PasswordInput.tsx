@@ -1,15 +1,14 @@
-import { useFormContext, useWatch } from 'react-hook-form';
-import { InputTypes } from './types';
-import { InvalidIcon, ValidIcon } from '@/components';
+import { useFormContext } from 'react-hook-form';
+import { PasswordInputTypes } from './types';
+import { HidePasswordIcon } from '@/components/icons';
+import { useState } from 'react';
 
-const Input: React.FC<InputTypes> = (props) => {
+const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
   const {
     register,
-    control,
     formState: { touchedFields },
   } = useFormContext();
-
-  const input = useWatch({ control, name: props.name });
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className='flex flex-col mb-5'>
@@ -17,7 +16,7 @@ const Input: React.FC<InputTypes> = (props) => {
         {props.label} <span className='text-form-required'>*</span>
       </label>
       <input
-        type={props.type}
+        type={showPassword ? 'text' : 'password'}
         {...register(props.name)}
         name={props.name}
         className={`px-2 py-[6px] placeholder-placeholder ${
@@ -31,11 +30,13 @@ const Input: React.FC<InputTypes> = (props) => {
         autoComplete='off'
       />
       <div className='flex justify-end relative bottom-7 right-2 w-full'>
-        {props.errors[props.name] ? (
-          <InvalidIcon />
-        ) : input?.length > 0 && touchedFields[props.name] ? (
-          <ValidIcon />
-        ) : null}
+        <button
+          type='button'
+          onClick={() => setShowPassword(!showPassword)}
+          className='absolute'
+        >
+          <HidePasswordIcon />
+        </button>
       </div>
       <div className='mt-[2px]'>
         <p className='absolute text-default-btn font-normal text-sm'>
@@ -46,4 +47,4 @@ const Input: React.FC<InputTypes> = (props) => {
   );
 };
 
-export default Input;
+export default PasswordInput;
