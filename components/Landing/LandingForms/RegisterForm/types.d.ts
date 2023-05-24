@@ -1,3 +1,8 @@
 export type RegisterFormTypes = {
-  handleToggleLogin: (toggle: boolean) => void;
+  handleFormStatus: (status: string) => void;
+};
+export type PostRegisterTypes = {
+  name: string;
+  email: string;
+  password: string;
 };

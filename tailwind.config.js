@@ -38,6 +38,7 @@ module.exports = {
         h1: '60px',
         'quote-size': '45px',
         'form-title': '32px',
+        'error-page-title': '47px',
       },
     },
   },

@@ -12,7 +12,7 @@ const Navbar: React.FC<NavbarTypes> = (props) => {
         <div className='flex gap-8 sm:gap-3'>
           <div>
             <button
-              onClick={() => props.handleToggleRegister(true)}
+              onClick={() => props.handleFormStatus('register')}
               className='text-white rounded sm:px-4 sm:py-[4px] px-6 py-[8px] bg-default-btn hover:bg-hover active:bg-active'
             >
               Sign Up
@@ -20,7 +20,7 @@ const Navbar: React.FC<NavbarTypes> = (props) => {
           </div>
           <div>
             <button
-              onClick={() => props.handleToggleLogin(true)}
+              onClick={() => props.handleFormStatus('login')}
               className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] border-2 border-white'
             >
               Log in

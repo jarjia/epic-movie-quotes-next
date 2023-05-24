@@ -6,34 +6,30 @@ import {
   FormLayout,
   RegisterForm,
   LoginForm,
+  EmailSent,
 } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
 
 const Main: React.FC = () => {
-  const {
-    handleToggleLogin,
-    handleCloseAll,
-    handleToggleRegister,
-    showLogin,
-    showRegister,
-  } = useMain();
+  const { handleFormStatus, formStatus } = useMain();
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
-      {showRegister ? (
-        <FormLayout handleCloseAll={handleCloseAll}>
-          <RegisterForm handleToggleLogin={handleToggleLogin} />
+      {formStatus === 'register' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <RegisterForm handleFormStatus={handleFormStatus} />
         </FormLayout>
-      ) : showLogin ? (
-        <FormLayout handleCloseAll={handleCloseAll}>
-          <LoginForm handleToggleRegister={handleToggleRegister} />
+      ) : formStatus === 'login' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <LoginForm handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'email-sent' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <EmailSent />
         </FormLayout>
       ) : null}
-      <Navbar
-        handleToggleLogin={handleToggleLogin}
-        handleToggleRegister={handleToggleRegister}
-      />
+      <Navbar handleFormStatus={handleFormStatus} />
       <Title />
       <QuoteArticle
         image='/assets/images/interstellar.png'

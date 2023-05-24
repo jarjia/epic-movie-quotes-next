@@ -4,3 +4,6 @@ export * from './GoogleIcon';
 export * from './InvalidIcon';
 export * from './ValidIcon';
 export * from './HidePasswordIcon';
+export * from './404Icon';
+export * from './403Icon';
+export * from './EmailSentIcon';
