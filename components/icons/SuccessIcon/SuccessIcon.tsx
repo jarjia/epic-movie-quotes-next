@@ -1,4 +1,4 @@
-const EmailSentIcon = () => {
+const SuccessIcon = () => {
   return (
     <svg
       width='57'
@@ -30,4 +30,4 @@ const EmailSentIcon = () => {
   );
 };
 
-export default EmailSentIcon;
+export default SuccessIcon;
