@@ -14,7 +14,6 @@ const useMain = () => {
 
   const handleFormStatus = useCallback(
     (status: string) => {
-      console.log(status);
       sessionStorage.setItem('form-status', JSON.stringify(status));
       setFormStatus(status);
       (status === 'null' ||
@@ -34,7 +33,6 @@ const useMain = () => {
   useEffect(() => {
     if (
       router.query.email !== undefined &&
-      router.query.token !== undefined &&
       router.query.expires !== undefined
     ) {
       const expires = router.query.expires as string;
@@ -54,7 +52,11 @@ const useMain = () => {
           clearInterval(interval);
           handleFormStatus('link-expired');
         } else {
-          registerUser(data);
+          if (router.query.token !== undefined) {
+            registerUser(data);
+          } else if (router.query.recover_token !== undefined) {
+            handleFormStatus('recover-password');
+          }
         }
       }, 1000);
 
@@ -63,35 +65,6 @@ const useMain = () => {
       };
     }
   }, [registerUser, router, handleFormStatus]);
-
-  useEffect(() => {
-    if (
-      router.query.email !== undefined &&
-      router.query.recover_token !== undefined &&
-      router.query.expires !== undefined
-    ) {
-      const expires = router.query.expires as string;
-      const targetDate = new Date(expires);
-
-      const interval = setInterval(() => {
-        const currentTime = new Date();
-        const elapsedMinutes = Math.floor(
-          (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
-        );
-
-        if (elapsedMinutes >= 30) {
-          clearInterval(interval);
-          handleFormStatus('link-expired');
-        } else {
-          handleFormStatus('recover-password');
-        }
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
-    }
-  }, [handleFormStatus, router]);
 
   useEffect(() => {
     if (
