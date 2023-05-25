@@ -5,8 +5,6 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
   handleFormStatus,
   children,
 }) => {
-  console.log(children.type);
-
   return (
     <div
       className={`${

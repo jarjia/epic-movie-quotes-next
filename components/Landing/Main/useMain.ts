@@ -37,10 +37,6 @@ const useMain = () => {
     ) {
       const expires = router.query.expires as string;
       const targetDate = new Date(expires);
-      const data: PostVerifyTypes = {
-        email: router.query.email,
-        token: router.query.token,
-      };
 
       const interval = setInterval(() => {
         const currentTime = new Date();
@@ -53,6 +49,12 @@ const useMain = () => {
           handleFormStatus('link-expired');
         } else {
           if (router.query.token !== undefined) {
+            let email = router.query.email as string;
+            let token = router.query.token as string;
+            const data: PostVerifyTypes = {
+              email,
+              token,
+            };
             registerUser(data);
           } else if (router.query.recover_token !== undefined) {
             handleFormStatus('recover-password');

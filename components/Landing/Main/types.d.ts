@@ -1,6 +1,6 @@
 export type PostVerifyTypes = {
-  email: string | string[];
-  token: string | string[] | undefined;
+  email: string;
+  token: string;
 };
 export type CurrentFormTypes = {
   formStatus: string | null;

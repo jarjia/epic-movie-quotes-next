@@ -4,8 +4,8 @@ export type PostRegisterTypes = {
   password: string;
 };
 export type PostVerifyTypes = {
-  email: string | string[];
-  token: string | string[] | undefined;
+  email: string;
+  token: string;
 };
 export type PostRecoverEmailTypes = {
   email: string;
