@@ -14,7 +14,7 @@ const PasswordRecovered: React.FC<HandleFormStatusTypes> = ({
         Success!
       </h2>
       <p className='my-2 text-center text-white'>
-        Your Email changed successfully
+        Your Password changed successfully
       </p>
       <button
         onClick={() => handleFormStatus('login')}

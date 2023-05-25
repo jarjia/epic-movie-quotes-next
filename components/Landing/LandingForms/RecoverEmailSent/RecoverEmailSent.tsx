@@ -10,7 +10,7 @@ const RecoverEmailSent: React.FC<HandleFormStatusTypes> = ({
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <EmailSentIcon />
-      <h2 className='my-6 text-error-page-title text-white text-3xl'>
+      <h2 className='my-6 text-center leading-[1.15] text-error-page-title text-white text-3xl'>
         Check your email
       </h2>
       <p className='my-2 text-center text-white'>

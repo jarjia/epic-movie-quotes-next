@@ -7,3 +7,4 @@ export * from './RecoverEmail';
 export * from './RecoverEmailSent';
 export * from './RecoverPassword';
 export * from './PasswordRecovered';
+export * from './LinkExpired';
