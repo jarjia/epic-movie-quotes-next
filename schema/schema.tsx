@@ -18,7 +18,7 @@ export const registerSchema = z
     password: z
       .string()
       .nonempty({ message: 'Password field is required' })
-      .min(3, 'Password field should be at least 8 characters long')
+      .min(8, 'Password field should be at least 8 characters long')
       .max(15, "Password field shouldn't be more than 15 characters long")
       .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
         message:
@@ -35,6 +35,31 @@ export const LoginSchema = z.object({
   user: z
     .string()
     .nonempty({ message: 'This field is required' })
-    .min(3, 'This field should be at least 3 characters long'),
+    .min(8, 'This field should be at least 8 characters long'),
   password: z.string().nonempty('Password field is required'),
 });
+
+export const RecoverEmailSchema = z.object({
+  email: z
+    .string()
+    .nonempty({ message: 'Email field is required' })
+    .email('Email field should be valid email address'),
+});
+
+export const RecoverPasswordSchema = z
+  .object({
+    password: z
+      .string()
+      .nonempty({ message: 'Password field is required' })
+      .min(8, 'Password field should be at least 8 characters long')
+      .max(15, "Password field shouldn't be more than 15 characters long")
+      .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        message:
+          'Password field should only contain lowercase characters and numbers',
+      }),
+    confirm_password: z.string(),
+  })
+  .refine((schema) => schema.confirm_password === schema.password, {
+    message: "Passwords don't match",
+    path: ['confirm_password'],
+  });
