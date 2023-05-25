@@ -1,4 +1,4 @@
-import { PasswordRecoveredIcon } from '@/components/icons/PasswordRecoveredIcon';
+import { PasswordRecoveredIcon } from '@/components';
 import { HandleFormStatusTypes } from '@/types';
 import classes from '@/styles/Landing.module.css';
 
