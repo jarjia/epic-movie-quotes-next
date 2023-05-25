@@ -9,3 +9,4 @@ export * from './403Icon';
 export * from './EmailSentIcon';
 export * from './SuccessIcon';
 export * from './BackArrowIcon';
+export * from './LinkExpiredIcon';
