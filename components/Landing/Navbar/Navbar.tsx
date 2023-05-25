@@ -1,7 +1,7 @@
 import { DropDown } from '@/components';
-import { NavbarTypes } from './types';
+import { HandleFormStatusTypes } from '@/types';
 
-const Navbar: React.FC<NavbarTypes> = (props) => {
+const Navbar: React.FC<HandleFormStatusTypes> = (props) => {
   return (
     <nav className='flex justify-between items-center sm:px-4 px-16 py-5 fixed bg-transparent w-full'>
       <div>
