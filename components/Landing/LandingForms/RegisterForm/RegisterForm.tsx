@@ -1,8 +1,10 @@
 import { Input, GoogleIcon, PasswordInput } from '@/components';
-import { RegisterFormTypes } from './types';
 import useRegisterForm from './useRegisterForm';
+import { HandleFormStatusTypes } from '@/types';
 
-const RegisterForm: React.FC<RegisterFormTypes> = ({ handleFormStatus }) => {
+const RegisterForm: React.FC<HandleFormStatusTypes> = ({
+  handleFormStatus,
+}) => {
   const { errors, handleSubmit, onSubmit, form, FormProvider } =
     useRegisterForm(handleFormStatus);
 
