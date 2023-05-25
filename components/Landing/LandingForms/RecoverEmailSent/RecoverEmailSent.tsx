@@ -1,19 +1,20 @@
 import { EmailSentIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
 import { HandleFormStatusTypes } from '@/types';
+import classes from '@/styles/Landing.module.css';
 
-const EmailSent: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const RecoverEmailSent: React.FC<HandleFormStatusTypes> = ({
+  handleFormStatus,
+}) => {
   return (
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <EmailSentIcon />
-      <h2 className='my-6 text-error-page-title text-white text-3xl'>
-        Thank you!
+      <h2 className='my-6 text-center leading-[1.15] text-error-page-title text-white text-3xl'>
+        Check your email
       </h2>
       <p className='my-2 text-center text-white'>
-        Please check your email and follow the instructions to activate your
-        account.
+        We have sent a password recover instructions to your email
       </p>
       <button
         onClick={() => handleFormStatus('login')}
@@ -21,8 +22,14 @@ const EmailSent: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
       >
         Log in
       </button>
+      <button
+        onClick={() => handleFormStatus('null')}
+        className='mt-8 hover:underline text-form-small-title'
+      >
+        Skip, I’ll confirm later
+      </button>
     </div>
   );
 };
 
-export default EmailSent;
+export default RecoverEmailSent;

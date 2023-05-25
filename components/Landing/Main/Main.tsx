@@ -7,6 +7,12 @@ import {
   RegisterForm,
   LoginForm,
   EmailSent,
+  Verified,
+  RecoverEmail,
+  RecoverEmailSent,
+  RecoverPassword,
+  PasswordRecovered,
+  LinkExpired,
 } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
@@ -16,17 +22,29 @@ const Main: React.FC = () => {
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
-      {formStatus === 'register' ? (
+      {formStatus !== ('null' || null || undefined) ? (
         <FormLayout handleFormStatus={handleFormStatus}>
-          <RegisterForm handleFormStatus={handleFormStatus} />
-        </FormLayout>
-      ) : formStatus === 'login' ? (
-        <FormLayout handleFormStatus={handleFormStatus}>
-          <LoginForm handleFormStatus={handleFormStatus} />
-        </FormLayout>
-      ) : formStatus === 'email-sent' ? (
-        <FormLayout handleFormStatus={handleFormStatus}>
-          <EmailSent />
+          {formStatus === 'register' ? (
+            <RegisterForm handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'login' ? (
+            <LoginForm handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'email-sent' ? (
+            <EmailSent handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'verified' ? (
+            <Verified handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'recover-email' ? (
+            <RecoverEmail handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'recover-email-sent' ? (
+            <RecoverEmailSent handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'recover-password' ? (
+            <RecoverPassword handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'recovered-password' ? (
+            <PasswordRecovered handleFormStatus={handleFormStatus} />
+          ) : formStatus === 'link-expired' ? (
+            <LinkExpired handleFormStatus={handleFormStatus} />
+          ) : (
+            <section></section>
+          )}
         </FormLayout>
       ) : null}
       <Navbar handleFormStatus={handleFormStatus} />

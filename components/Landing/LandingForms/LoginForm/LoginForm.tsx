@@ -1,8 +1,8 @@
 import { GoogleIcon, Input, Checkbox } from '@/components';
-import { LoginFormTypes } from './types';
 import useLoginForm from './useLoginForm';
+import { HandleFormStatusTypes } from '@/types';
 
-const LoginForm: React.FC<LoginFormTypes> = (props) => {
+const LoginForm: React.FC<HandleFormStatusTypes> = (props) => {
   const { errors, handleSubmit, onSubmit, form, FormProvider } = useLoginForm();
 
   return (
@@ -20,8 +20,8 @@ const LoginForm: React.FC<LoginFormTypes> = (props) => {
           <Input
             name='user'
             type='text'
-            placeholder='Enter your email'
-            label='Email'
+            placeholder='Enter your username or email'
+            label='Username or Email'
             errors={errors}
           />
           <Input
@@ -35,9 +35,12 @@ const LoginForm: React.FC<LoginFormTypes> = (props) => {
             <div className='flex items-center gap-2 mb-2'>
               <Checkbox name='remember_me' label='Remember me' />
             </div>
-            <a href='#' className='text-link underline'>
+            <button
+              className='text-link underline'
+              onClick={() => props.handleFormStatus('recover-email')}
+            >
               Forgot password
-            </a>
+            </button>
           </div>
           <div className='pt-1'>
             <button

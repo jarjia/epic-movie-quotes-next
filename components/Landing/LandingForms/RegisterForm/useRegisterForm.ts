@@ -34,8 +34,6 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
       password: data.password,
     };
 
-    sessionStorage.setItem('email-for-redirection', JSON.stringify(data.email));
-
     registerUser(finalData);
   };
 

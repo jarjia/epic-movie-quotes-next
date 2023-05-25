@@ -1,19 +1,20 @@
-import { EmailSentIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
+import { PasswordRecoveredIcon } from '@/components';
 import { HandleFormStatusTypes } from '@/types';
+import classes from '@/styles/Landing.module.css';
 
-const EmailSent: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const PasswordRecovered: React.FC<HandleFormStatusTypes> = ({
+  handleFormStatus,
+}) => {
   return (
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
-      <EmailSentIcon />
+      <PasswordRecoveredIcon />
       <h2 className='my-6 text-error-page-title text-white text-3xl'>
-        Thank you!
+        Success!
       </h2>
       <p className='my-2 text-center text-white'>
-        Please check your email and follow the instructions to activate your
-        account.
+        Your Password changed successfully
       </p>
       <button
         onClick={() => handleFormStatus('login')}
@@ -25,4 +26,4 @@ const EmailSent: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
   );
 };
 
-export default EmailSent;
+export default PasswordRecovered;

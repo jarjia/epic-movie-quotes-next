@@ -1,28 +1,27 @@
-import { EmailSentIcon } from '@/components';
+import { SuccessIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import { HandleFormStatusTypes } from '@/types';
 
-const EmailSent: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const Verified: React.FC<HandleFormStatusTypes> = (props) => {
   return (
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
-      <EmailSentIcon />
+      <SuccessIcon />
       <h2 className='my-6 text-error-page-title text-white text-3xl'>
         Thank you!
       </h2>
       <p className='my-2 text-center text-white'>
-        Please check your email and follow the instructions to activate your
-        account.
+        Your account has been activated.
       </p>
       <button
-        onClick={() => handleFormStatus('login')}
+        onClick={() => props.handleFormStatus('login')}
         className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
       >
-        Log in
+        Go to log in
       </button>
     </div>
   );
 };
 
-export default EmailSent;
+export default Verified;
