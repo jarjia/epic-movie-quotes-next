@@ -12,6 +12,7 @@ import {
   RecoverEmailSent,
   RecoverPassword,
   PasswordRecovered,
+  LinkExpired,
 } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
@@ -21,27 +22,41 @@ const Main: React.FC = () => {
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
-      {formStatus !== 'null' ? (
+      {formStatus === 'register' ? (
         <FormLayout handleFormStatus={handleFormStatus}>
-          {formStatus === 'register' ? (
-            <RegisterForm handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'login' ? (
-            <LoginForm handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'email-sent' ? (
-            <EmailSent handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'verified' ? (
-            <Verified handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'recover-email' ? (
-            <RecoverEmail handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'recover-email-sent' ? (
-            <RecoverEmailSent handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'recover-password' ? (
-            <RecoverPassword handleFormStatus={handleFormStatus} />
-          ) : formStatus === 'recovered-password' ? (
-            <PasswordRecovered handleFormStatus={handleFormStatus} />
-          ) : (
-            <div></div>
-          )}
+          <RegisterForm handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'login' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <LoginForm handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'email-sent' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <EmailSent handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'verified' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <Verified handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'recover-email' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <RecoverEmail handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'recover-email-sent' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <RecoverEmailSent handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'recover-password' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <RecoverPassword handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'recovered-password' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <PasswordRecovered handleFormStatus={handleFormStatus} />
+        </FormLayout>
+      ) : formStatus === 'link-expired' ? (
+        <FormLayout handleFormStatus={handleFormStatus}>
+          <LinkExpired handleFormStatus={handleFormStatus} />
         </FormLayout>
       ) : null}
       <Navbar handleFormStatus={handleFormStatus} />

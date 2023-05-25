@@ -14,9 +14,12 @@ const useMain = () => {
 
   const handleFormStatus = useCallback(
     (status: string) => {
+      console.log(status);
       sessionStorage.setItem('form-status', JSON.stringify(status));
       setFormStatus(status);
-      JSON.parse(sessionStorage.getItem('form-status') || 'null') === 'null' &&
+      (status === 'null' ||
+        status === 'verified' ||
+        status === 'recovered-password') &&
         router.push('/');
     },
     [router]
@@ -29,21 +32,64 @@ const useMain = () => {
   });
 
   useEffect(() => {
-    if (router.query.email !== undefined && router.query.token !== undefined) {
+    if (
+      router.query.email !== undefined &&
+      router.query.token !== undefined &&
+      router.query.expires !== undefined
+    ) {
+      const expires = router.query.expires as string;
+      const targetDate = new Date(expires);
       const data: PostVerifyTypes = {
         email: router.query.email,
         token: router.query.token,
       };
-      registerUser(data);
+
+      const interval = setInterval(() => {
+        const currentTime = new Date();
+        const elapsedMinutes = Math.floor(
+          (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
+        );
+
+        if (elapsedMinutes >= 30) {
+          clearInterval(interval);
+          handleFormStatus('link-expired');
+        } else {
+          registerUser(data);
+        }
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
-  }, [registerUser, router]);
+  }, [registerUser, router, handleFormStatus]);
 
   useEffect(() => {
     if (
       router.query.email !== undefined &&
-      router.query.recover_token !== undefined
+      router.query.recover_token !== undefined &&
+      router.query.expires !== undefined
     ) {
-      handleFormStatus('recover-password');
+      const expires = router.query.expires as string;
+      const targetDate = new Date(expires);
+
+      const interval = setInterval(() => {
+        const currentTime = new Date();
+        const elapsedMinutes = Math.floor(
+          (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
+        );
+
+        if (elapsedMinutes >= 30) {
+          clearInterval(interval);
+          handleFormStatus('link-expired');
+        } else {
+          handleFormStatus('recover-password');
+        }
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
     }
   }, [handleFormStatus, router]);
 
