@@ -15,3 +15,14 @@ export type PostRecoverPasswordTypes = {
   email: string;
   token: string;
 };
+export type LoginCredentialsTypes = {
+  user: string;
+  password: string;
+  remember_me: boolean;
+};
+export type LoginWithGoogleQueryTypes = {
+  code: string | undefined | string[];
+  authUser: string | undefined | string[];
+  prompt: string | undefined | string[];
+  scope: string | undefined | string[];
+};
