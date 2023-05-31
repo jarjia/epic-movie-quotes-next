@@ -3,7 +3,7 @@ import { InvalidIcon, ValidIcon } from '@/components';
 import useInput from './useInput';
 
 const Input: React.FC<InputTypes> = (props) => {
-  const { touchedFields, input, register } = useInput(props.name);
+  const { input, register } = useInput(props.name);
   return (
     <div className='flex flex-col mb-5'>
       <label className='text-white mb-1' htmlFor={props.name}>
@@ -16,7 +16,7 @@ const Input: React.FC<InputTypes> = (props) => {
         className={`px-2 py-1.5 placeholder-placeholder ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn'
-            : touchedFields[props.name]
+            : input?.length > 0
             ? 'border-[1px] border-valid-form'
             : null
         } focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
@@ -26,7 +26,7 @@ const Input: React.FC<InputTypes> = (props) => {
       <div className='flex justify-end relative bottom-7 right-2 w-full'>
         {props.errors[props.name] ? (
           <InvalidIcon />
-        ) : input?.length > 0 && touchedFields[props.name] ? (
+        ) : input?.length > 0 && !props.errors[props.name] ? (
           <ValidIcon />
         ) : null}
       </div>
