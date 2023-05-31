@@ -1,7 +1,7 @@
+import { LoginWithGoogleQueryTypes } from '@/types';
 import axios from './axios';
 import {
   LoginCredentialsTypes,
-  LoginWithGoogleQueryTypes,
   PostRecoverEmailTypes,
   PostRecoverPasswordTypes,
   PostRegisterTypes,

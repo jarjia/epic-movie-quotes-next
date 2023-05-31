@@ -9,7 +9,7 @@ const usePasswordInput = (name: string) => {
   } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
 
-  const input = useWatch({ control, name: name });
+  const input = useWatch({ control, name });
 
   const handleTogglePasswordShow = () => {
     setShowPassword(!showPassword);
