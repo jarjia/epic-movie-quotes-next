@@ -17,7 +17,8 @@ import {
 } from '@/services';
 import { useMutation } from 'react-query';
 import { useEffect, useState } from 'react';
-import { ErrorResponseTypes, LoginWithGoogleQueryTypes } from './types';
+import { LoginWithGoogleQueryTypes } from '@/types';
+import { toast } from 'react-toastify';
 
 const useLoginForm = () => {
   const form: UseFormReturn = useForm({
@@ -39,7 +40,7 @@ const useLoginForm = () => {
       localStorage.setItem('auth', 'true');
       router.push('/newsfeed');
     },
-    onError: (err: ErrorResponseTypes) => {
+    onError: (err: any) => {
       setApiError(err.response.data);
     },
   });
@@ -50,22 +51,24 @@ const useLoginForm = () => {
       localStorage.setItem('auth', 'true');
       router.push('/newsfeed');
     },
-    onError: (err: ErrorResponseTypes) => {
+    onError: (err: any) => {
       setApiError(err.response.data);
     },
   });
 
   useEffect(() => {
+    const { code, authUser, prompt, scope } =
+      router.query as LoginWithGoogleQueryTypes;
     const loginGoogleUser = () => {
-      let queryData: LoginWithGoogleQueryTypes = {
-        code: router.query.code,
-        authUser: router.query.authUser,
-        prompt: router.query.prompt,
-        scope: router.query.scope,
+      let queryData = {
+        code,
+        authUser,
+        prompt,
+        scope,
       };
       loginViaGoogle(queryData);
     };
-    if (router.query.code !== undefined) {
+    if (code !== undefined) {
       loginGoogleUser();
     }
   }, [router, loginViaGoogle]);
@@ -82,7 +85,9 @@ const useLoginForm = () => {
         loginUser(finalData);
       }
     } catch (err) {
-      console.log(err);
+      toast('An error occured while trying to login', {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
@@ -93,7 +98,9 @@ const useLoginForm = () => {
         router.push(res.data);
       }
     } catch (error) {
-      console.log(error);
+      toast('An error occured while trying to register', {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 

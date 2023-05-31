@@ -16,12 +16,14 @@ import {
 } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
+import { ToastContainer } from 'react-toastify';
 
 const Main: React.FC = () => {
   const { handleFormStatus, formStatus } = useMain();
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
+      <ToastContainer className='w-80 bg-white h-16 rounded-xl text-red-500 text-center flex justify-center items-center absolute left-[39%] top-4 z-[100]' />
       {formStatus !== ('null' || null || undefined) ? (
         <FormLayout handleFormStatus={handleFormStatus}>
           {formStatus === 'register' ? (

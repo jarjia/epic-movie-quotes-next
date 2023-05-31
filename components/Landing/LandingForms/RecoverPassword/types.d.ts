@@ -1,5 +1,5 @@
 export type PostRecoverPasswordTypes = {
   password: string;
   email: string;
-  token: string;
+  recover_token: string;
 };

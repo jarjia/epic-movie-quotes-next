@@ -9,7 +9,7 @@ import {
   FieldValues,
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { ErrorResponseTypes, PostRecoverEmailTypes } from './types';
+import { PostRecoverEmailTypes } from './types';
 import { useState } from 'react';
 
 const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
@@ -27,7 +27,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     onSuccess: () => {
       handleFormStatus('recover-email-sent');
     },
-    onError: (err: ErrorResponseTypes) => {
+    onError: (err: any) => {
       setApiError(err.response.data);
     },
   });

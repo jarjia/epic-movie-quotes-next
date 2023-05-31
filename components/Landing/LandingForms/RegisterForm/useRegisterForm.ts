@@ -14,9 +14,11 @@ import {
   getUserGoogleRedirect,
   postRegister,
 } from '@/services';
-import { LoginWithGoogleQueryTypes, PostRegisterTypes } from './types';
+import { PostRegisterTypes } from './types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { LoginWithGoogleQueryTypes } from '@/types';
+import { toast } from 'react-toastify';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const form: UseFormReturn = useForm({
@@ -41,22 +43,26 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
       localStorage.setItem('auth', 'true');
       router.push('/newsfeed');
     },
-    onError: (err) => {
-      console.log(err);
+    onError: () => {
+      toast('An error occured while trying to register', {
+        position: toast.POSITION.TOP_CENTER,
+      });
     },
   });
 
   useEffect(() => {
+    const { code, authUser, prompt, scope } =
+      router.query as LoginWithGoogleQueryTypes;
     const loginGoogleUser = () => {
-      let queryData: LoginWithGoogleQueryTypes = {
-        code: router.query.code,
-        authUser: router.query.authUser,
-        prompt: router.query.prompt,
-        scope: router.query.scope,
+      let queryData = {
+        code,
+        authUser,
+        prompt,
+        scope,
       };
       loginViaGoogle(queryData);
     };
-    if (router.query.code !== undefined) {
+    if (code !== undefined) {
       loginGoogleUser();
     }
   }, [router, loginViaGoogle]);
@@ -78,7 +84,9 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
         router.push(res.data);
       }
     } catch (error) {
-      console.log(error);
+      toast('An error occured while trying to register', {
+        position: toast.POSITION.TOP_CENTER,
+      });
     }
   };
 
