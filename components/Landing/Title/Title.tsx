@@ -1,4 +1,6 @@
-const Title: React.FC = () => {
+import { HandleFormStatusTypes } from '@/types';
+
+const Title: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
   return (
     <section>
       <div className='flex flex-col justify-center items-center h-[calc(100vh-100px)]'>
@@ -8,7 +10,10 @@ const Title: React.FC = () => {
           </h1>
         </div>
         <div className='mt-4'>
-          <button className='text-white capitalize rounded px-6 py-[8px] bg-default-btn hover:bg-hover active:bg-active'>
+          <button
+            onClick={() => handleFormStatus('register')}
+            className='text-white capitalize rounded px-6 py-[8px] bg-default-btn hover:bg-hover active:bg-active'
+          >
             get started
           </button>
         </div>

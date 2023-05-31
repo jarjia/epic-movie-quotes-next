@@ -1,12 +1,15 @@
 import { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, useWatch } from 'react-hook-form';
 
-const usePasswordInput = () => {
+const usePasswordInput = (name: string) => {
   const {
     register,
     formState: { touchedFields },
+    control,
   } = useFormContext();
   const [showPassword, setShowPassword] = useState(false);
+
+  const input = useWatch({ control, name });
 
   const handleTogglePasswordShow = () => {
     setShowPassword(!showPassword);
@@ -15,6 +18,7 @@ const usePasswordInput = () => {
   return {
     showPassword,
     register,
+    input,
     touchedFields,
     handleTogglePasswordShow,
   };

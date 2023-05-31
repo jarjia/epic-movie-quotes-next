@@ -7,7 +7,7 @@ const useInput = (name: string) => {
     formState: { touchedFields },
   } = useFormContext();
 
-  const input = useWatch({ control, name: name });
+  const input = useWatch({ control, name });
 
   return {
     input,

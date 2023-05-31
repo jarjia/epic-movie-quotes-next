@@ -13,5 +13,11 @@ export type PostRecoverEmailTypes = {
 export type PostRecoverPasswordTypes = {
   password: string;
   email: string;
-  token: string;
+  recover_token: string;
+};
+
+export type LoginCredentialsTypes = {
+  user: string;
+  password: string;
+  remember_me: boolean;
 };

@@ -1,9 +1,18 @@
-import { GoogleIcon, Input, Checkbox } from '@/components';
+import { GoogleIcon, Input, Checkbox, PasswordInput } from '@/components';
 import useLoginForm from './useLoginForm';
 import { HandleFormStatusTypes } from '@/types';
 
-const LoginForm: React.FC<HandleFormStatusTypes> = (props) => {
-  const { errors, handleSubmit, onSubmit, form, FormProvider } = useLoginForm();
+const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+  const {
+    errors,
+    handleSubmit,
+    onSubmit,
+    handleUserRedirectGoogle,
+    form,
+    handleResetApiError,
+    FormProvider,
+    apiError,
+  } = useLoginForm();
 
   return (
     <div className='w-full h-full'>
@@ -24,9 +33,8 @@ const LoginForm: React.FC<HandleFormStatusTypes> = (props) => {
             label='Username or Email'
             errors={errors}
           />
-          <Input
+          <PasswordInput
             name='password'
-            type='password'
             placeholder='At least 8 & max.15 lower case characters'
             label='Password'
             errors={errors}
@@ -37,20 +45,29 @@ const LoginForm: React.FC<HandleFormStatusTypes> = (props) => {
             </div>
             <button
               className='text-link underline'
-              onClick={() => props.handleFormStatus('recover-email')}
+              onClick={() => handleFormStatus('recover-email')}
             >
               Forgot password
             </button>
           </div>
+          <div className='pb-7 pt-1 flex justify-center'>
+            {apiError !== '' && (
+              <p className='absolute text-center text-default-btn font-normal text-md'>
+                {apiError}
+              </p>
+            )}
+          </div>
           <div className='pt-1'>
             <button
               type='submit'
+              onClick={handleResetApiError}
               className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
             >
               Sign in
             </button>
             <button
               type='button'
+              onClick={handleUserRedirectGoogle}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >
               <GoogleIcon />
@@ -64,7 +81,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = (props) => {
           Don&apos;t have an account?
           <button
             className='underline text-link'
-            onClick={() => props.handleFormStatus('register')}
+            onClick={() => handleFormStatus('register')}
           >
             Sign up
           </button>

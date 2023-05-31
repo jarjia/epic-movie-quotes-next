@@ -1,5 +1,5 @@
 import { RecoverEmailSchema } from '@/schema';
-import { postRecoverEmail } from '@/services';
+import { getCrsfToken, postRecoverEmail } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   UseFormReturn,
@@ -10,6 +10,7 @@ import {
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { PostRecoverEmailTypes } from './types';
+import { useState } from 'react';
 
 const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
   const form: UseFormReturn = useForm({
@@ -20,10 +21,14 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     formState: { errors },
     handleSubmit,
   } = form;
+  const [apiError, setApiError] = useState('');
 
   const { mutate: recoverUserEmail } = useMutation(postRecoverEmail, {
     onSuccess: () => {
       handleFormStatus('recover-email-sent');
+    },
+    onError: (err: any) => {
+      setApiError(err.response.data);
     },
   });
 
@@ -31,7 +36,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     const finalData: PostRecoverEmailTypes = {
       email: data.email,
     };
-
+    await getCrsfToken();
     recoverUserEmail(finalData);
   };
 
@@ -41,6 +46,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     form,
     errors,
     FormProvider,
+    apiError,
   };
 };
 

@@ -6,7 +6,7 @@ import { BackArrowIcon, Input } from '@/components';
 const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
-  const { handleSubmit, errors, form, onSubmit, FormProvider } =
+  const { handleSubmit, errors, form, apiError, onSubmit, FormProvider } =
     useRecoverEmail(handleFormStatus);
 
   return (
@@ -29,6 +29,13 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
             label='Email'
             errors={errors}
           />
+          <div className='pb-6 flex justify-center'>
+            {apiError !== '' && (
+              <p className='absolute text-center text-default-btn font-normal text-md'>
+                {apiError}
+              </p>
+            )}
+          </div>
           <div className='pt-2'>
             <button
               type='submit'

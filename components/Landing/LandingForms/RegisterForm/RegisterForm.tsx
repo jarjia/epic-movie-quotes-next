@@ -5,8 +5,14 @@ import { HandleFormStatusTypes } from '@/types';
 const RegisterForm: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
-  const { errors, handleSubmit, onSubmit, form, FormProvider } =
-    useRegisterForm(handleFormStatus);
+  const {
+    errors,
+    handleSubmit,
+    onSubmit,
+    handleUserRedirectGoogle,
+    form,
+    FormProvider,
+  } = useRegisterForm(handleFormStatus);
 
   return (
     <div className='w-full h-full'>
@@ -53,6 +59,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
             </button>
             <button
               type='button'
+              onClick={handleUserRedirectGoogle}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >
               <GoogleIcon />

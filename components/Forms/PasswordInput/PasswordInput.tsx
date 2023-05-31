@@ -3,8 +3,8 @@ import { HidePasswordIcon } from '@/components';
 import usePasswordInput from './usePasswordInput';
 
 const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
-  const { touchedFields, register, showPassword, handleTogglePasswordShow } =
-    usePasswordInput();
+  const { register, input, showPassword, handleTogglePasswordShow } =
+    usePasswordInput(props.name);
 
   return (
     <div className='flex flex-col mb-5'>
@@ -18,7 +18,7 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
         className={`px-2 py-[6px] placeholder-placeholder ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn'
-            : touchedFields[props.name]
+            : input?.length > 0
             ? 'border-[1px] border-valid-form'
             : null
         } focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
