@@ -35,7 +35,7 @@ export const LoginSchema = z.object({
   user: z
     .string()
     .nonempty({ message: 'This field is required' })
-    .min(8, 'This field should be at least 8 characters long'),
+    .min(3, 'This field should be at least 3 characters long'),
   password: z.string().nonempty('Password field is required'),
 });
 
