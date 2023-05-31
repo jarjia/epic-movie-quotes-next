@@ -48,7 +48,7 @@ const Main: React.FC = () => {
         </FormLayout>
       ) : null}
       <Navbar handleFormStatus={handleFormStatus} />
-      <Title />
+      <Title handleFormStatus={handleFormStatus} />
       <QuoteArticle
         image='/assets/images/interstellar.png'
         quote='You have to leave something behind to go forward'
