@@ -1,8 +1,8 @@
-const BackArrowIcon = () => {
+const BackArrowIcon: React.FC<{ isSearch: boolean }> = (props) => {
   return (
     <svg
-      width='16'
-      height='14'
+      width={`${props.isSearch ? '24' : '16'}`}
+      height={`${props.isSearch ? '18' : '14'}`}
       viewBox='0 0 13 10'
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
