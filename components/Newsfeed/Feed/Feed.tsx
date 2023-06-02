@@ -1,20 +1,26 @@
-import useFeed from './useFeed';
+import { useRouter } from 'next/router';
+import { FeedLayout } from '../FeedLayout';
+import { NewsFeedControl, Posts } from './components';
+import { useEffect } from 'react';
 
 const Feed = () => {
-  const { data, handleLogout } = useFeed();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (localStorage.getItem('auth') === null) {
+      router.push('/403');
+    } else {
+      sessionStorage.removeItem('form-status');
+    }
+  }, [router]);
 
   return (
-    <div className='p-8'>
-      <h1>{data?.data.name}</h1>
-      <h3>{data?.data.email}</h3>
-      <button
-        className='border-2 border-black bg-gray-500'
-        onClick={handleLogout}
-      >
-        log out
-      </button>
-      News Feed
-    </div>
+    <FeedLayout>
+      <>
+        <NewsFeedControl />
+        <Posts />
+      </>
+    </FeedLayout>
   );
 };
 
