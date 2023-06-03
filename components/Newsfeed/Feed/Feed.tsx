@@ -1,22 +1,19 @@
-import { useRouter } from 'next/router';
 import { NewsFeedControl, Posts } from './components';
-import { useEffect } from 'react';
-import { FeedLayout } from '@/components';
+import { AddQuoteModal, FeedFormLayout, FeedLayout } from '@/components';
+import useFeed from './useFeed';
 
 const Feed = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    if (localStorage.getItem('auth') === null) {
-      router.push('/403');
-    } else {
-      sessionStorage.removeItem('form-status');
-    }
-  }, [router]);
+  const { feedFormStatus } = useFeed();
 
   return (
     <FeedLayout>
       <>
+        {feedFormStatus === 'add-quote' ? (
+          <FeedFormLayout title='write new quote'>
+            <AddQuoteModal />
+          </FeedFormLayout>
+        ) : null}
+        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
         <NewsFeedControl />
         <Posts />
       </>
