@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
 module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -20,19 +21,39 @@ module.exports = {
       borderRadius: {
         'form-radius': '10px',
       },
+      padding: {
+        'newsfeed-layout': '340px',
+        'large-newsfeed-layout': '480px',
+      },
+      gridTemplateColumns: {
+        'mobile-search-cols': '15% 85%',
+      },
       colors: {
         'default-btn': '#E31221',
         hover: '#CC0E10',
         active: '#B80D0F',
         title: '#DDCCAA',
+        'post-bg': '#11101A',
         'form-back': '#222030',
         'form-small-title': '#6C757D',
         'form-required': '#DC3545',
         placeholder: '#6C757D',
+        'date-of-notification': '#D9D9D9',
         input: '#CED4DA',
         'ring-offset-color': 'rgba(13, 110, 253, 0.25)',
         link: '#0D6EFD',
         'valid-form': '#198754',
+        'notify-color': '#E33812',
+        'add-quote-bg': '#24222F',
+        'search-bar-border': 'rgba(239, 239, 239, 0.3)',
+        'choose-file': '#9747FF',
+        'mobile-search': '#12101A',
+      },
+      width: {
+        profile: '60px',
+      },
+      height: {
+        profile: '60px',
       },
       fontSize: {
         h1: '60px',
@@ -45,6 +66,23 @@ module.exports = {
   plugins: [
     require('@tailwindcss/forms')({
       strategy: 'base',
+    }),
+    plugin(({ addBase }) => {
+      addBase({
+        '.scrollbar': {
+          overflowY: 'auto',
+          scrollbarColor: `#808189 transparent`,
+          scrollbarWidth: 'thin',
+        },
+        '.scrollbar::-webkit-scrollbar': {
+          height: '4px',
+          width: '6px',
+        },
+        '.scrollbar::-webkit-scrollbar-thumb': {
+          backgroundColor: '#808189',
+          borderRadius: '50px',
+        },
+      });
     }),
   ],
 };

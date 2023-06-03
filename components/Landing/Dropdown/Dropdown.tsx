@@ -2,18 +2,18 @@ import { DropDownIcon } from '@/components';
 import Link from 'next/link';
 import useDropdown from './useDropdown';
 
-const Dropdown: React.FC = () => {
+const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
   const { handleDropDown, shouldDropDown } = useDropdown();
 
   return (
     <>
       {shouldDropDown && (
         <div
-          className='absolute top-0 z-[1] left-0 w-screen h-screen'
+          className='absolute top-0 z-[99] left-0 w-screen h-screen'
           onClick={handleDropDown}
         ></div>
       )}
-      <div className='sm:hidden z-[99]'>
+      <div className={`sm:hidden z-[${props.isNotification ? '90' : '99'}]`}>
         <button
           className='text-white capitalize tracking-[1px] gap-2 px-4 py-2.5 text-center inline-flex items-center'
           type='button'

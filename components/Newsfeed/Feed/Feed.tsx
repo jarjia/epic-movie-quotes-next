@@ -1,20 +1,23 @@
+import { NewsFeedControl, Posts } from './components';
+import { AddQuoteModal, FeedFormLayout, FeedLayout } from '@/components';
 import useFeed from './useFeed';
 
 const Feed = () => {
-  const { data, handleLogout } = useFeed();
+  const { feedFormStatus } = useFeed();
 
   return (
-    <div className='p-8'>
-      <h1>{data?.data.name}</h1>
-      <h3>{data?.data.email}</h3>
-      <button
-        className='border-2 border-black bg-gray-500'
-        onClick={handleLogout}
-      >
-        log out
-      </button>
-      News Feed
-    </div>
+    <FeedLayout>
+      <>
+        {feedFormStatus === 'add-quote' ? (
+          <FeedFormLayout title='write new quote'>
+            <AddQuoteModal />
+          </FeedFormLayout>
+        ) : null}
+        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
+        <NewsFeedControl />
+        <Posts />
+      </>
+    </FeedLayout>
   );
 };
 
