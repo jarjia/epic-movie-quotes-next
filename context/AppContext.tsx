@@ -1,18 +1,16 @@
 import { getUserData } from '@/services';
 import { createContext, useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
 import { UserDataTypes } from './types';
 import { useRouter } from 'next/router';
 
 export const AppContext = createContext({
   feedFormStatus: '' as string | null,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   handleFeedFormStatus: (status: string) => {},
   userData: {} as UserDataTypes,
   handleIsBurger: () => {},
   handleIsSearch: () => {},
-  isBurger: false as boolean,
-  isSearch: false as boolean,
+  isBurger: false,
+  isSearch: false,
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -28,7 +26,6 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   });
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const { data } = useQuery('user-data', getUserData);
   const router = useRouter();
 
   const handleIsSearch = () => {
@@ -45,13 +42,19 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     } else {
       setFeedFormStatus(sessionStorage.getItem('feed-form-status'));
     }
-    if (data?.statusText === 'OK') {
-      setUserData(data?.data);
-    } else if (data?.statusText === 'Unauthorized') {
-      localStorage.clear();
-      router.push('/403');
+    const getUser = async () => {
+      try {
+        const res = await getUserData();
+        setUserData(res.data);
+      } catch (error) {
+        localStorage.clear();
+        router.push('/403');
+      }
+    };
+    if (router.asPath === '/newsfeed') {
+      getUser();
     }
-  }, [data, router]);
+  }, [router]);
 
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);
