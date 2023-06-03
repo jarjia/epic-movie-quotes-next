@@ -1,7 +1,4 @@
-type TextareaTypes = {
-  placeholder: string;
-  lang: string;
-};
+import { TextareaTypes } from './types';
 
 const FeedTextarea: React.FC<TextareaTypes> = (props) => {
   return (
