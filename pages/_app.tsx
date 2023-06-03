@@ -1,7 +1,6 @@
 import '@/styles/globals.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { AppProps } from 'next/app';
-import React from 'react';
 import { AppContextProvider } from '@/context';
 
 const queryClient = new QueryClient();
