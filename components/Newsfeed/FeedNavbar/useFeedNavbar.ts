@@ -1,12 +1,14 @@
+import { AppContext } from '@/context';
 import { getLogoutUser } from '@/services';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useQueryClient } from 'react-query';
 
 const useFeedNavbar = () => {
   const router = useRouter();
   const query = useQueryClient();
   const [isNotification, setIsNotification] = useState(false);
+  const { handleIsBurger, handleIsSearch, isSearch } = useContext(AppContext);
 
   const handleisNotification = () => {
     setIsNotification(!isNotification);
@@ -29,6 +31,9 @@ const useFeedNavbar = () => {
     handleLogout,
     handleisNotification,
     isNotification,
+    isSearch,
+    handleIsSearch,
+    handleIsBurger,
   };
 };
 

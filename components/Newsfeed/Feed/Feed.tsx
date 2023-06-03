@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
-import { FeedLayout } from '../FeedLayout';
 import { NewsFeedControl, Posts } from './components';
 import { useEffect } from 'react';
+import { FeedLayout } from '@/components';
 
 const Feed = () => {
   const router = useRouter();

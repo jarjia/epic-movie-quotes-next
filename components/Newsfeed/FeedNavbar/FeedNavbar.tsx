@@ -1,16 +1,19 @@
 import { BellIcon, BurgerIcon, DropDown, SearchbarIcon } from '@/components';
 import useFeedNavbar from './useFeedNavbar';
 import { MobileSearchbar, Notification } from './components';
-import { useContext } from 'react';
-import { AppContext } from '@/context';
 
 const FeedNavbar = () => {
-  const { handleLogout, isNotification, handleisNotification } =
-    useFeedNavbar();
-  const { handleIsBurger, handleIsSearch, isSearch } = useContext(AppContext);
+  const {
+    handleLogout,
+    isNotification,
+    isSearch,
+    handleIsBurger,
+    handleIsSearch,
+    handleisNotification,
+  } = useFeedNavbar();
 
   return (
-    <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-[#222030] w-full'>
+    <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
       <div>
         <h3 className='text-title uppercase sm:text-base sm:hidden'>
           Movie quotes
