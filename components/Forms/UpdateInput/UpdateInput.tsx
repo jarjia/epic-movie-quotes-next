@@ -1,13 +1,10 @@
-import { useContext } from 'react';
 import { UpdateInputTypes } from './types';
 import useUpdateInput from './useUpdateInput';
-import { AppContext } from '@/context';
 import { UserDataTypes } from '@/types';
 
 const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
-  const { register, isEdit, handleIsEdit } = useUpdateInput(props);
-  const { userData } = useContext(AppContext);
-  let index = props.name;
+  const { register, isEdit, handleIsEdit, userData, index } =
+    useUpdateInput(props);
 
   return (
     <div className='flex flex-col items-center my-2'>

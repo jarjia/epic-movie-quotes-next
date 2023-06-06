@@ -6,8 +6,8 @@ export type UpdateInputTypes = {
   newLabel?: string;
   defaultValue: string;
   cancel?: boolean;
-  handleCancel?: (bool) => void;
-  handleEditing?: (bool) => void;
+  handleCancel: (bool) => void;
+  handleEditing: (bool) => void;
   handleEditProfile: (bool) => void;
   repeatName: string;
   repeatLabel?: string;
