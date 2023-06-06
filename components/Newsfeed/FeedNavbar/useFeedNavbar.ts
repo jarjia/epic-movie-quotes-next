@@ -34,6 +34,7 @@ const useFeedNavbar = () => {
     isSearch,
     handleIsSearch,
     handleIsBurger,
+    router,
   };
 };
 

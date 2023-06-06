@@ -9,6 +9,7 @@ const FeedNavbar = () => {
     isSearch,
     handleIsBurger,
     handleIsSearch,
+    router,
     handleisNotification,
   } = useFeedNavbar();
 
@@ -29,9 +30,11 @@ const FeedNavbar = () => {
             onClick={handleisNotification}
           ></div>
         )}
-        <button onClick={handleIsSearch} className='sm:block hidden'>
-          <SearchbarIcon />
-        </button>
+        {router.asPath === '/newsfeed' && (
+          <button onClick={handleIsSearch} className='sm:block hidden'>
+            <SearchbarIcon />
+          </button>
+        )}
         {isSearch && <MobileSearchbar />}
         <div className='z-[98]'>
           <div onClick={handleisNotification} className='cursor-pointer'>
