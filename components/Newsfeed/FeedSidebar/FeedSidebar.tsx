@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useContext } from 'react';
 
 const FeedSidebar = () => {
-  const { userData, handleIsBurger, isBurger } = useContext(AppContext);
+  const { userData, handleIsNotBurger, isBurger } = useContext(AppContext);
 
   return (
     <aside
@@ -14,7 +14,7 @@ const FeedSidebar = () => {
     >
       <div className='block sm:hidden'>
         <Link
-          onClick={handleIsBurger}
+          onClick={handleIsNotBurger}
           href='/profile'
           className='my-4 cursor-pointer flex items-center gap-6'
         >
@@ -27,7 +27,7 @@ const FeedSidebar = () => {
           </div>
         </Link>
         <Link
-          onClick={handleIsBurger}
+          onClick={handleIsNotBurger}
           href='/newsfeed'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
@@ -35,7 +35,7 @@ const FeedSidebar = () => {
           <p className='text-white text-2xl'>News feed</p>
         </Link>
         <Link
-          onClick={handleIsBurger}
+          onClick={handleIsNotBurger}
           href='/movie-list'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
@@ -47,11 +47,11 @@ const FeedSidebar = () => {
         <>
           <div
             className='fixed sm:block hidden w-full h-full z-[-1]'
-            onClick={handleIsBurger}
+            onClick={handleIsNotBurger}
           ></div>
           <div className='sm:block hidden px-6 py-16 z-[999] bg-post-bg w-full h-full rounded-xl'>
             <Link
-              onClick={handleIsBurger}
+              onClick={handleIsNotBurger}
               href='/profile'
               className='cursor-pointer flex items-center gap-6'
             >
@@ -69,7 +69,7 @@ const FeedSidebar = () => {
               </div>
             </Link>
             <Link
-              onClick={handleIsBurger}
+              onClick={handleIsNotBurger}
               href='/newsfeed'
               className='flex cursor-pointer items-center gap-8 pl-4 my-8'
             >
@@ -77,7 +77,7 @@ const FeedSidebar = () => {
               <p className='text-white text-2xl sm:text-xl'>News feed</p>
             </Link>
             <Link
-              onClick={handleIsBurger}
+              onClick={handleIsNotBurger}
               href='/movie-list'
               className='flex cursor-pointer items-center gap-8 pl-4 my-8'
             >

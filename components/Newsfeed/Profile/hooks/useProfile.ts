@@ -3,13 +3,16 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 const useProfile = () => {
-  const [editProfile, setEditProfile] = useState<MobileInputTypes>({
+  const editProfileInitials = {
     name: '',
     label: '',
     placeholder: '',
     isEdit: false,
     type: '',
-  });
+  };
+
+  const [editProfile, setEditProfile] =
+    useState<MobileInputTypes>(editProfileInitials);
   const [isSure, setIsSure] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
@@ -41,13 +44,7 @@ const useProfile = () => {
   };
 
   const handleEditProfileClear = () => {
-    setEditProfile({
-      name: '',
-      label: '',
-      placeholder: '',
-      isEdit: false,
-      type: '',
-    });
+    setEditProfile(editProfileInitials);
   };
 
   const handleBackButton = () => {

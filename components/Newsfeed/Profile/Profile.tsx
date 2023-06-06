@@ -33,6 +33,7 @@ const Profile = () => {
         >
           {editProfile.isEdit === false ? (
             <UserUpdate
+              editProfile={editProfile}
               handleEditProfileClear={handleEditProfileClear}
               handleEditProfile={handleEditProfile}
               handleIsSuccess={handleIsSuccess}

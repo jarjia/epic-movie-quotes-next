@@ -1,7 +1,7 @@
 import { useUserUpdate } from '@/components';
 import { MobileInputUpdateTypes } from './types';
 import { IsSure } from './components';
-import { useWatch } from 'react-hook-form';
+import { hookUserUpdateTypes } from '@/types';
 
 const MobileUserUpdate = ({
   editProfile,
@@ -10,15 +10,21 @@ const MobileUserUpdate = ({
   handleIsSuccess,
   isSure,
 }: MobileInputUpdateTypes) => {
-  const { form, FormProvider, control, handleSubmit, errors, onSubmit } =
-    useUserUpdate(handleEditProfileClear, handleIsSuccess);
-  const error: any = errors;
-
-  const isObjEmpty = (obj: {}) => {
-    return Object.keys(obj).length === 0;
+  const userUpdateProps: hookUserUpdateTypes = {
+    handleIsSuccess,
+    handleEditProfileClear,
+    editProfile,
   };
-
-  const input = useWatch({ control, name: editProfile.name });
+  const {
+    form,
+    FormProvider,
+    handleSubmit,
+    input,
+    isObjEmpty,
+    errors,
+    onSubmit,
+  } = useUserUpdate(userUpdateProps);
+  const error: any = errors;
 
   return (
     <FormProvider {...form}>

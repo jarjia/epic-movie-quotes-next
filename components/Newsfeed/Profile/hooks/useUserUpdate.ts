@@ -12,11 +12,14 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
+import { hookUserUpdateTypes } from '@/types';
+import { useMutation } from 'react-query';
 
-const useUserUpdate = (
-  handleEditProfileClear: () => void,
-  handleIsSuccess: (bool: boolean) => void
-) => {
+const useUserUpdate = ({
+  handleEditProfileClear,
+  handleIsSuccess,
+  editProfile,
+}: hookUserUpdateTypes) => {
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(UpdateProfileSchema),
@@ -41,6 +44,10 @@ const useUserUpdate = (
     }
   };
 
+  const isObjEmpty = (obj: {}) => {
+    return Object.keys(obj).length === 0;
+  };
+
   const handleEditing = (bool: boolean) => {
     setIsEditing(bool);
   };
@@ -50,6 +57,7 @@ const useUserUpdate = (
   };
 
   const thumbnail = useWatch({ control, name: 'thumbnail' });
+  const input = useWatch({ control, name: editProfile.name });
 
   useEffect(() => {
     if (thumbnail !== undefined) {
@@ -57,6 +65,19 @@ const useUserUpdate = (
       setIsEditing(true);
     }
   }, [thumbnail]);
+
+  const { mutate: UpdateUserCredentials } = useMutation(postUserUpdateProfile, {
+    onSuccess: () => {
+      setCancel(true);
+      setIsEditing(false);
+      handleEditProfileClear();
+      router.push('/profile');
+      handleIsSuccess(true);
+    },
+    onError: (error: any) => {
+      setApiError(error?.response?.data);
+    },
+  });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     const formData = new FormData();
@@ -70,18 +91,7 @@ const useUserUpdate = (
       formData.append('thumbnail', thumbnail[0]);
     }
 
-    try {
-      const res = await postUserUpdateProfile(formData);
-      if (res.status === 200) {
-        setCancel(true);
-        setIsEditing(false);
-        handleEditProfileClear();
-        router.push('/profile');
-        handleIsSuccess(true);
-      }
-    } catch (error: any) {
-      setApiError(error?.response?.data);
-    }
+    UpdateUserCredentials(formData);
   };
 
   return {
@@ -93,12 +103,14 @@ const useUserUpdate = (
     isEditing,
     apiError,
     onSubmit,
+    isObjEmpty,
     handleClearApiError,
     userData,
     FormProvider,
     control,
     errors,
     form,
+    input,
     thumbnail,
   };
 };

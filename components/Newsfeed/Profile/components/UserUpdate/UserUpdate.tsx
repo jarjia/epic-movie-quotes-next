@@ -1,11 +1,18 @@
 import { UserProfile, UpdateInput, useUserUpdate } from '@/components';
 import { UserUpdateTypes } from './types';
+import { hookUserUpdateTypes } from '@/types';
 
 const UserUpdate: React.FC<UserUpdateTypes> = ({
   handleEditProfile,
   handleEditProfileClear,
   handleIsSuccess,
+  editProfile,
 }) => {
+  const userUpdateProps: hookUserUpdateTypes = {
+    handleIsSuccess,
+    handleEditProfileClear,
+    editProfile,
+  };
   const {
     userData,
     handleSubmit,
@@ -20,7 +27,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     apiError,
     handleClearApiError,
     errors,
-  } = useUserUpdate(handleEditProfileClear, handleIsSuccess);
+  } = useUserUpdate(userUpdateProps);
 
   return (
     <FormProvider {...form}>
@@ -70,6 +77,8 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             name='email'
             label='Email'
             defaultValue={userData?.email}
+            handleCancel={handleCancel}
+            handleEditing={handleEditing}
             handleEditProfile={handleEditProfile}
             repeatName=''
           />

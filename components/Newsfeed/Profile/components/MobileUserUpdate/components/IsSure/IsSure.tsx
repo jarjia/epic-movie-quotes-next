@@ -1,10 +1,7 @@
 import classes from '@/styles/Landing.module.css';
+import { IsSureTypes } from './types';
 
-const IsSure = ({
-  handleIsSure,
-}: {
-  handleIsSure: (bool: boolean) => void;
-}) => {
+const IsSure = ({ handleIsSure }: IsSureTypes) => {
   return (
     <div className='w-full flex items-center justify-center'>
       <div
