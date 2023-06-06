@@ -48,6 +48,7 @@ module.exports = {
         'search-bar-border': 'rgba(239, 239, 239, 0.3)',
         'choose-file': '#9747FF',
         'mobile-search': '#12101A',
+        'success-message-bg': '#D1E7DD',
       },
       width: {
         profile: '60px',
