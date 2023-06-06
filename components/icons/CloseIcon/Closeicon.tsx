@@ -1,4 +1,6 @@
-const Closeicon: React.FC<{ color: boolean }> = (props) => {
+import { CloseIconTypes } from './types';
+
+const Closeicon: React.FC<CloseIconTypes> = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
