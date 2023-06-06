@@ -25,7 +25,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
   return (
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
-        <div className='pb-8 w-full mt-4 bg-post-bg sm:bg-add-quote-bg sm:pb-24 sm:pt-8 rounded-xl'>
+        <div className='pb-8 w-full large:pb-24 mt-4 bg-post-bg sm:bg-add-quote-bg sm:pb-24 sm:pt-8 rounded-xl'>
           <div className='flex items-center justify-center w-full '>
             <div className='w-1/4 sm:w-1/2 sm:bottom-0 relative bottom-16'>
               <label className='cursor-pointer'>

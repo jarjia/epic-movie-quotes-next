@@ -16,9 +16,9 @@ const Profile = () => {
 
   return (
     <FeedLayout>
-      <div className='pb-8'>
+      <div className='pb-8 large:px-16'>
         {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
-        <h1 className='text-white text-2xl p-2 px-8 sm:hidden block'>
+        <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>
           My profile
         </h1>
         <div className='hidden sm:flex p-5'>
@@ -27,7 +27,7 @@ const Profile = () => {
           </button>
         </div>
         <div
-          className={`opacity-1 ${
+          className={`large:pt-20 opacity-1 ${
             isSuccess ? 'sm:opacity-[0.2]' : 'sm:opacity-1'
           }`}
         >
