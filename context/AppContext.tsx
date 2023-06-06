@@ -51,7 +51,11 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
         router.push('/403');
       }
     };
-    if (router.asPath === '/newsfeed') {
+    if (
+      router.asPath === '/newsfeed' ||
+      router.asPath === '/profile' ||
+      router.asPath === '/movie-list'
+    ) {
       getUser();
     }
   }, [router]);
