@@ -18,9 +18,9 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({ children, title }) => {
           <div>
             <button
               onClick={() => handleFeedFormStatus('')}
-              className='relative rotate-45 cursor-pointer'
+              className='relative cursor-pointer'
             >
-              <CloseIcon />
+              <CloseIcon color={false} />
             </button>
           </div>
         </div>
