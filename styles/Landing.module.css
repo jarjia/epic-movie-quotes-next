@@ -30,6 +30,15 @@
     #0d0b14 98.75%
   );
 }
+.is-sure {
+  background: linear-gradient(
+    112.94deg,
+    rgba(239, 239, 239, 0.3) -1.81%,
+    rgba(239, 239, 239, 0.00514528) 102.5%,
+    rgba(1, 1, 1, 0.00260417) 102.51%,
+    rgba(239, 239, 239, 0.05) 102.52%
+  );
+}
 @media (max-width: 625px) {
   .mobile-linear {
     background: linear-gradient(

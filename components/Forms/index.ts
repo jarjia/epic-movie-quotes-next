@@ -5,3 +5,4 @@ export * from './FeedFormLayout';
 export * from './FeedTextarea';
 export * from './FileInput';
 export * from './SelectMovie';
+export * from './UpdateInput';

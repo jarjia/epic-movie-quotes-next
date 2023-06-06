@@ -7,7 +7,7 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
   const { feedFormStatus } = useFeedLayout();
 
   return (
-    <section className={`${classes.newsfeed} w-screen h-full`}>
+    <section className={`${classes.newsfeed} w-screen h-full min-h-screen`}>
       <FeedNavbar />
       <FeedSidebar />
       {feedFormStatus !== '' && (

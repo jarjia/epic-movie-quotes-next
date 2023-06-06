@@ -4,3 +4,4 @@ export * from './Forms';
 export * from './Error';
 export * from './Newsfeed';
 export * from './FeedLayout';
+export * from './UserProfile';

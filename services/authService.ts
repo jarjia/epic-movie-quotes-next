@@ -49,3 +49,7 @@ export const getUserGoogleCallback = (query: LoginWithGoogleQueryTypes) => {
     params: query,
   });
 };
+
+export const postUserUpdateProfile = (data: FormData) => {
+  return axios.post('/api/profile/update', data);
+};

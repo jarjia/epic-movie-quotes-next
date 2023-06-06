@@ -15,9 +15,9 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
         <div className='float-right relative bottom-5 left-5 sm:left-2'>
           <div
             onClick={() => handleFormStatus('null')}
-            className='absolute rotate-45 cursor-pointer'
+            className='absolute cursor-pointer'
           >
-            <CloseIcon />
+            <CloseIcon color={false} />
           </div>
         </div>
         {children}

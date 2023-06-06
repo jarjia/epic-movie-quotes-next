@@ -1,6 +1,6 @@
 import { getUserData } from '@/services';
 import { createContext, useEffect, useState } from 'react';
-import { UserDataTypes } from './types';
+import { UserDataTypes } from '@/types';
 import { useRouter } from 'next/router';
 
 export const AppContext = createContext({
@@ -9,6 +9,7 @@ export const AppContext = createContext({
   userData: {} as UserDataTypes,
   handleIsBurger: () => {},
   handleIsSearch: () => {},
+  handleIsNotBurger: () => {},
   isBurger: false,
   isSearch: false,
 });
@@ -22,6 +23,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     email_verified_at: '',
     created_at: '',
     updated_at: '',
+    google_id: '',
     thumbnail: '',
   });
   const [isBurger, setIsBurger] = useState(false);
@@ -33,6 +35,10 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   };
 
   const handleIsBurger = () => {
+    setIsBurger(!isBurger);
+  };
+
+  const handleIsNotBurger = () => {
     setIsBurger(!isBurger);
   };
 
@@ -51,7 +57,11 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
         router.push('/403');
       }
     };
-    if (router.asPath === '/newsfeed') {
+    if (
+      router.asPath === '/newsfeed' ||
+      router.asPath === '/profile' ||
+      router.asPath === '/movie-list'
+    ) {
       getUser();
     }
   }, [router]);
@@ -69,6 +79,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     handleIsSearch,
     isBurger,
     isSearch,
+    handleIsNotBurger,
   };
 
   return (
