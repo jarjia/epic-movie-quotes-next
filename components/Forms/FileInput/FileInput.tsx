@@ -1,9 +1,12 @@
 import { FileCameraIcon } from '@/components';
+import { useFormContext } from 'react-hook-form';
 
 const FileInput = () => {
+  const { register } = useFormContext();
+
   return (
     <label>
-      <input type='file' className='hidden' />
+      <input type='file' {...register('thumbnail')} className='hidden' />
       <div className='flex items-center border-[1px] border-placeholder p-3 text-white gap-2'>
         <FileCameraIcon />
         <p className='block sm:hidden'>

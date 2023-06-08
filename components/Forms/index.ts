@@ -6,3 +6,5 @@ export * from './FeedTextarea';
 export * from './FileInput';
 export * from './SelectMovie';
 export * from './UpdateInput';
+export * from './FeedBaseInput';
+export * from './FeedTextareaForMovie';
