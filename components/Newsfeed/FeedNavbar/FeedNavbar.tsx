@@ -30,7 +30,7 @@ const FeedNavbar = () => {
             onClick={handleisNotification}
           ></div>
         )}
-        {router.asPath === '/newsfeed' && (
+        {router.pathname === '/newsfeed' && (
           <button onClick={handleIsSearch} className='sm:block hidden'>
             <SearchbarIcon />
           </button>
