@@ -52,7 +52,7 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
             className='flex items-center gap-4 hover:underline'
             onClick={() => handleFormStatus('login')}
           >
-            <BackArrowIcon />
+            <BackArrowIcon isSearch={false} />
             Back to log in
           </button>
         </p>
