@@ -30,3 +30,38 @@ export type hookUserUpdateTypes = {
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
 };
+export type MovieCreateTypes = {
+  movie: {
+    en: string;
+    ka: string;
+  };
+  description: {
+    en: string;
+    ka: string;
+  };
+  director: {
+    en: string;
+    ka: string;
+  };
+  releaseDate: string;
+  thumbnail: {};
+};
+export type MovieStructureTypes = {
+  id: number;
+  releaseDate: string;
+  thumbnail: string;
+  created_at: string;
+  updated_at: string;
+  movie: {
+    en: string;
+    ka: string;
+  };
+  description: {
+    en: string;
+    ka: string;
+  };
+  director: {
+    en: string;
+    ka: string;
+  };
+};

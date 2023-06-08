@@ -1,5 +1,8 @@
 import z from 'zod';
 
+const georgianRegex = /^[\u10A0-\u10FF0-9\s]+$/;
+const englishRegex = /^[A-Za-z0-9\s]+$/;
+
 export const registerSchema = z
   .object({
     name: z
@@ -94,3 +97,59 @@ export const UpdateProfileSchema = z
     message: "Passwords don't match",
     path: ['c_password'],
   });
+
+export const AddMovieSchema = z.object({
+  movie: z.object({
+    en: z
+      .string()
+      .nonempty({ message: 'Movie name in English is required' })
+      .refine((value) => englishRegex.test(value), {
+        message: 'Please enter movie name in english.',
+      }),
+    ka: z
+      .string()
+      .nonempty({ message: 'Movie name in Georgian is required' })
+      .refine((value) => georgianRegex.test(value), {
+        message: 'Please enter movie name in english.',
+      }),
+  }),
+  description: z.object({
+    en: z
+      .string()
+      .nonempty({ message: 'description in English is required' })
+      .refine((value) => englishRegex.test(value), {
+        message: 'Please enter description in english.',
+      }),
+    ka: z
+      .string()
+      .nonempty({ message: 'description in Georgian is required' })
+      .refine((value) => georgianRegex.test(value), {
+        message: 'Please enter description in english.',
+      }),
+  }),
+  director: z.object({
+    en: z
+      .string()
+      .nonempty({ message: 'director name in English is required' })
+      .refine((value) => englishRegex.test(value), {
+        message: 'Please enter director name in english.',
+      }),
+    ka: z
+      .string()
+      .nonempty({ message: 'director name in Georgian is required' })
+      .refine((value) => georgianRegex.test(value), {
+        message: 'Please enter director name in english.',
+      }),
+  }),
+  genres: z
+    .array(
+      z.object({
+        id: z.number().optional(),
+      })
+    )
+    .min(1),
+  releaseDate: z
+    .string()
+    .nonempty({ message: 'Movie release date field is required' }),
+  thumbnail: z.any().refine((val) => val.length > 0, 'Movie image is required'),
+});

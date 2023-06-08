@@ -20,6 +20,7 @@ module.exports = {
       },
       borderRadius: {
         'form-radius': '10px',
+        'movie-radius': '12px',
       },
       padding: {
         'newsfeed-layout': '340px',
@@ -61,6 +62,7 @@ module.exports = {
         'quote-size': '45px',
         'form-title': '32px',
         'error-page-title': '47px',
+        'font-base': '18px',
       },
     },
   },

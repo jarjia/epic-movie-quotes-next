@@ -13,3 +13,17 @@ body {
 body.no-scroll {
   overflow-y: hidden !important;
 }
+body {
+  overflow-y: 'auto';
+  scrollbar-color: #808189 transparent;
+  scrollbar-width: 'thin';
+}
+body::-webkit-scrollbar {
+  height: 4px;
+  width: 10px;
+  background-color: transparent;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #808189;
+  border-radius: 50px;
+}
