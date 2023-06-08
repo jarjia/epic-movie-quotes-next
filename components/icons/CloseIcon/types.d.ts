@@ -1,1 +1,1 @@
-export type CloseIconTypes = { color: boolean };
+export type CloseIconTypes = { color: boolean; isSmall: boolean };

@@ -23,3 +23,4 @@ export * from './QuoteIcon';
 export * from './FiiledHeartIcon';
 export * from './FileCameraIcon';
 export * from './BurgerIcon';
+export * from './AddIcon';
