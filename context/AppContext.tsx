@@ -12,6 +12,8 @@ export const AppContext = createContext({
   handleIsNotBurger: () => {},
   isBurger: false,
   isSearch: false,
+  shouldRefetch: false,
+  handleRefetch: () => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -28,18 +30,23 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   });
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
+  const [shouldRefetch, setShouldRefetch] = useState(false);
   const router = useRouter();
+
+  const handleRefetch = () => {
+    setShouldRefetch(true);
+  };
 
   const handleIsSearch = () => {
     setIsSearch(!isSearch);
   };
 
   const handleIsBurger = () => {
-    setIsBurger(!isBurger);
+    setIsBurger(true);
   };
 
   const handleIsNotBurger = () => {
-    setIsBurger(!isBurger);
+    setIsBurger(false);
   };
 
   useEffect(() => {
@@ -58,9 +65,9 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
       }
     };
     if (
-      router.asPath === '/newsfeed' ||
-      router.asPath === '/profile' ||
-      router.asPath === '/movie-list'
+      router.pathname === '/newsfeed' ||
+      router.pathname === '/profile' ||
+      router.pathname === '/movie-list'
     ) {
       getUser();
     }
@@ -80,6 +87,8 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     isBurger,
     isSearch,
     handleIsNotBurger,
+    shouldRefetch,
+    handleRefetch,
   };
 
   return (
