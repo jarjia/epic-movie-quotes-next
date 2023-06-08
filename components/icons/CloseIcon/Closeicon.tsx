@@ -1,14 +1,17 @@
 import { CloseIconTypes } from './types';
 
 const Closeicon: React.FC<CloseIconTypes> = (props) => {
+  // 10
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 24 24'
-      width={props.isSmall ? '10px' : '24px'}
-      height={props.isSmall ? '10px' : '24px'}
-      className='rotate-45'
-      fill={props.color ? '#000000' : 'white'}
+      width='24'
+      height='24'
+      className={`${props.color ? 'fill-[#000000]' : 'fill-white'} ${
+        props.isSmall ? 'w-[10px] h-[10px]' : ''
+      } rotate-45`}
+      fill='white'
       fillRule='evenodd'
     >
       <path

@@ -1,7 +1,7 @@
-import { MovieList } from '@/components';
+import { MovieListPage as MoviePage } from '@/components';
 
 const MovieListPage = () => {
-  return <MovieList />;
+  return <MoviePage />;
 };
 
 export default MovieListPage;
