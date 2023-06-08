@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { AppContext } from '@/context';
-import { AddQuote, Searchbar } from './components';
+import { AddQuote, Searchbar } from '@/components';
 
 const NewsFeedControl = () => {
   const { isSearch } = useContext(AppContext);

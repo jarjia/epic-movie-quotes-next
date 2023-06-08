@@ -1,4 +1,4 @@
-import { Post } from './components';
+import { Post } from '@/components';
 
 const Posts = () => {
   return (

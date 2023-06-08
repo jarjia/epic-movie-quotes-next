@@ -1,5 +1,10 @@
-import { NewsFeedControl, Posts } from './components';
-import { AddQuoteModal, FeedFormLayout, FeedLayout } from '@/components';
+import {
+  AddQuoteModal,
+  FeedFormLayout,
+  FeedLayout,
+  NewsFeedControl,
+  Posts,
+} from '@/components';
 import useFeed from './useFeed';
 
 const Feed = () => {

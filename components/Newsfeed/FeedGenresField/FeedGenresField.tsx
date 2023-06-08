@@ -3,7 +3,7 @@ import { GenreObjectType } from './types';
 import { CloseIcon } from '@/components';
 import useFeedGenresField from './useFeedGenresField';
 
-const FeedGenresField: React.FC<{ error: { genres: string } }> = (props) => {
+const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
   const {
     handleAddGenre,
     handleDeleteGenre,
