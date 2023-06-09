@@ -9,8 +9,10 @@ const useListHeader = () => {
   const router = useRouter();
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
-    e.preventDefault();
-    router.push(`/movie-list?search=${search}`);
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      router.push(`/movie-list?search=${search}`);
+    }
   };
 
   const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
