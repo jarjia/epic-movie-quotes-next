@@ -21,7 +21,11 @@ const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
     );
   }
 
-  if (props.movies.length === 0 && (search === '' || search === undefined)) {
+  if (
+    !props.loading &&
+    props.movies.length === 0 &&
+    (search === '' || search === undefined)
+  ) {
     return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='text-white text-3xl'>{t('no_movies')}</h1>

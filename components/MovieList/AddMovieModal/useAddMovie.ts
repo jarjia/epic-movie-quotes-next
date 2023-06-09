@@ -22,10 +22,9 @@ const useAddMovie = () => {
     useContext(AppContext);
 
   const { mutate: createMovie } = useMutation(postMovie, {
-    onSuccess: async (res) => {
+    onSuccess: () => {
       handleFeedFormStatus('');
       handleRefetch();
-      console.log(res);
     },
     onError: (err: any) => {
       console.log(err);
