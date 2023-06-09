@@ -1,0 +1,23 @@
+{
+  "profile_title": "პროფილი",
+  "profile_save": "შენახვა",
+  "profile_cancel": "გაუქმება",
+  "changed": "ცვლილებები წარმატებულია",
+  "profile_sure": "დარწუმნებული ხარ რომ შეცვლა გინდა?",
+  "profile_confirm": "დადასტურება",
+  "profile_password_rules_title": "პაროლი უნდა შეიცავდეს:",
+  "profile_password_rule_one": "8 ან მეტ ასოს",
+  "profile_password_rule_two": "15 პატარა ასოს",
+  "new_pass": "ახალი პაროლი",
+  "repeat_pass": "გაიმეორე პაროლი",
+  "new_name_label": "სახელი",
+  "new_name_new_label": "ახალი სახელი",
+  "new_name_placeholder": "შეიყვანე ახალი სახელი",
+  "new_email_label": "ელ-ფოსტა",
+  "new_email_placeholder": "ელ-ფოსტა",
+  "new_password_label": "პაროლი",
+  "new_password_new_label": "ახალი პაროლი",
+  "new_password_placeholder": "შეიყვანე ახალი პაროლი",
+  "new_password_repeat_placeholder": "გაიმეორე ახალი პაროლი",
+  "upload_photo": "ატვირთე ახალი ფოტო"
+}

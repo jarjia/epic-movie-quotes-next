@@ -1,0 +1,23 @@
+{
+  "profile_title": "My profile",
+  "profile_save": "Save changes",
+  "profile_cancel": "Cancel",
+  "changed": "Changes updated succsessfully",
+  "profile_sure": "Are you sure to make changes?",
+  "profile_confirm": "Confirm",
+  "profile_password_rules_title": "Password should contain:",
+  "profile_password_rule_one": "8 or more characters",
+  "profile_password_rule_two": "15 lowercase character",
+  "new_pass": "Enter new password",
+  "repeat_pass": "Repeat new password",
+  "new_name_label": "Username",
+  "new_name_new_label": "New Username",
+  "new_name_placeholder": "Enter new username",
+  "new_email_label": "Email",
+  "new_email_placeholder": "Enter new email",
+  "new_password_label": "Password",
+  "new_password_new_label": "New password",
+  "new_password_placeholder": "Enter new passoword",
+  "new_password_repeat_placeholder": "Confirm new password",
+  "upload_photo": "Upload new photo"
+}

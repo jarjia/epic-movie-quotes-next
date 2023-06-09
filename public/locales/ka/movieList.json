@@ -1,0 +1,14 @@
+{
+  "title": "ჩემი ფილმების სია",
+  "total": "სულ",
+  "search": "ძებნა",
+  "search_placeholder": "მოძებნე ფილმი სახელით",
+  "add_movie": "დაამატე",
+  "add_one_movie": "დაამატე!",
+  "no_movies": "ფილმები ჯერ არ დაგიმატებია...",
+  "search_no_movie_one": "ფილმი სახელი",
+  "search_no_movie_two": "-ით ვერ მოიძებნა.",
+  "relelase_date_error": "ფილმის გამოშვების წელი სავალდებულოა",
+  "genres_placeholder": "აირჩიე ჟანრები...",
+  "genres_error": "გთხოვთ, მიუთითოთ ერთი ჟანრი მაინც"
+}

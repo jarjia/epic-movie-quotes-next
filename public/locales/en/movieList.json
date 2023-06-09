@@ -1,0 +1,14 @@
+{
+  "title": "My list of movies",
+  "total": "Total",
+  "search": "Search",
+  "search_placeholder": "Search movies by their name",
+  "add_movie": "Add movie",
+  "add_one_movie": "Add one!",
+  "no_movies": "You have not added movie yet...",
+  "search_no_movie_one": "Movie by name of",
+  "search_no_movie_two": "does not exist.",
+  "relelase_date_error": "Movie release date field is required",
+  "genres_placeholder": "Select genres...",
+  "genres_error": "Please, select at least one genre"
+}
