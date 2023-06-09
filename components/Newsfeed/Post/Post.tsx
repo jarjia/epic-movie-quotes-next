@@ -1,6 +1,16 @@
 import { CommentIcon, HeartIcon } from '@/components';
+import axios from 'axios';
 
 const Post = () => {
+  const r = async () => {
+    try {
+      const res = await axios.get('http://localhost:8000/api/language');
+      console.log(res);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className='text-white text-xl bg-post-bg rounded-xl sm:p-8 p-4 my-8'>
       <div>
@@ -28,7 +38,7 @@ const Post = () => {
           }}
         ></div>
         <div className='flex py-4 gap-6'>
-          <button className='flex gap-2'>
+          <button onClick={r} className='flex gap-2'>
             7
             <CommentIcon />
           </button>

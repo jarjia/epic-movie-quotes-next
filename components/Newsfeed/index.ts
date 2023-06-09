@@ -5,4 +5,3 @@ export * from './Searchbar';
 export * from './NewsFeedControl';
 export * from './AddQuote';
 export * from './AddQuoteModal';
-export * from './FeedGenresField';
