@@ -1,6 +1,9 @@
 import { FilledHeartIcon, QuoteIcon } from '@/components';
+import { useTranslation } from 'next-i18next';
 
 const NotificationCard = () => {
+  const { t } = useTranslation('newsFeed');
+
   return (
     <>
       <div className='flex p-4 my-3 items-center border-[1px] gap-2 border-placeholder'>
@@ -10,7 +13,7 @@ const NotificationCard = () => {
             style={{ backgroundImage: 'url(/assets/images/user.png)' }}
           ></div>
           <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
-            New
+            {t('new')}
           </p>
         </div>
         <div className='w-full'>
@@ -23,9 +26,11 @@ const NotificationCard = () => {
           <div className='my-2 flex sm:block items-center justify-between'>
             <h4 className='flex sm:text-lg items-center text-xl gap-2 text-date-of-notification'>
               <FilledHeartIcon />
-              Reacted to your quote
+              {t('reacted')}
             </h4>
-            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>New</p>
+            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>
+              {t('new')}
+            </p>
             <p className='text-xl sm:block hidden text-date-of-notification sm:text-lg'>
               5 min ago
             </p>
@@ -39,7 +44,7 @@ const NotificationCard = () => {
             style={{ backgroundImage: 'url(/assets/images/user.png)' }}
           ></div>
           <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
-            New
+            {t('new')}
           </p>
         </div>
         <div className='w-full'>
@@ -52,9 +57,11 @@ const NotificationCard = () => {
           <div className='my-2 flex sm:block items-center justify-between'>
             <h4 className='flex sm:text-lg items-center text-xl gap-2 text-date-of-notification'>
               <QuoteIcon />
-              Commented to your quote
+              {t('commented')}
             </h4>
-            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>New</p>
+            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>
+              {t('new')}
+            </p>
             <p className='text-xl sm:block hidden text-date-of-notification sm:text-lg'>
               5 min ago
             </p>

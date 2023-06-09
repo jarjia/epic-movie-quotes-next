@@ -20,7 +20,7 @@ const useFeedNavbar = () => {
       if (res.status === 200) {
         router.push('/');
         query.removeQueries('user-data');
-        localStorage.clear();
+        localStorage.removeItem('auth');
       }
     } catch (error) {
       console.log(error);

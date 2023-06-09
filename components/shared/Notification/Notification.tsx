@@ -1,6 +1,9 @@
 import { NotificationCard, TriangleIcon } from '@/components';
+import { useTranslation } from 'next-i18next';
 
 const Notification = () => {
+  const { t } = useTranslation('newsFeed');
+
   return (
     <div className='bg-red-500'>
       <div className='relative right-[6px] top-1'>
@@ -12,9 +15,11 @@ const Notification = () => {
           style={{ boxShadow: '0 0 30px black' }}
         >
           <div className='flex mt-4 items-center justify-between'>
-            <h2 className='text-white text-3xl sm:text-2xl'>Notifications</h2>
+            <h2 className='text-white text-3xl sm:text-2xl'>
+              {t('notifications')}
+            </h2>
             <button className='underline sm:text-lg text-xl text-white'>
-              Mark all as read
+              {t('mark_as_read')}
             </button>
           </div>
           <div className='mt-8 text-white'>

@@ -1,8 +1,10 @@
 import { DropDownIcon } from '@/components';
 import Link from 'next/link';
 import useDropdown from './useDropdown';
+import { useRouter } from 'next/router';
 
 const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
+  const router = useRouter();
   const { handleDropDown, shouldDropDown } = useDropdown();
 
   return (
@@ -19,7 +21,7 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
           type='button'
           onClick={handleDropDown}
         >
-          Eng
+          {router.locale === 'en' ? 'Eng' : 'ქარ'}
           <div className='mt-1'>
             <DropDownIcon />
           </div>
@@ -29,8 +31,12 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
             <ul className='py-2 text-sm text-gray-700 dark:text-gray-200'>
               <li>
                 <Link
-                  href='#'
-                  onClick={handleDropDown}
+                  href=''
+                  locale='en'
+                  onClick={() => {
+                    localStorage.removeItem('locale');
+                    handleDropDown();
+                  }}
                   className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
                 >
                   English
@@ -38,8 +44,12 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
               </li>
               <li>
                 <Link
-                  href='#'
-                  onClick={handleDropDown}
+                  href=''
+                  locale='ka'
+                  onClick={() => {
+                    localStorage.setItem('locale', 'ka');
+                    handleDropDown();
+                  }}
                   className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
                 >
                   ქართული
