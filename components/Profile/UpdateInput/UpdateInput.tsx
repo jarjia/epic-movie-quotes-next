@@ -1,3 +1,4 @@
+import { useTranslation } from 'next-i18next';
 import { UpdateInputTypes } from './types';
 import useUpdateInput from './useUpdateInput';
 import { UserDataTypes } from '@/types';
@@ -5,6 +6,7 @@ import { UserDataTypes } from '@/types';
 const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
   const { register, isEdit, handleIsEdit, userData, index } =
     useUpdateInput(props);
+  const { t } = useTranslation('profile');
 
   return (
     <div className='flex flex-col items-center my-2'>
@@ -54,11 +56,15 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
           {props.name === 'password' ? (
             <>
               <div className='p-4 my-2 w-full border-[1px] border-search-bar-border'>
-                <h3 className='text-white'>Password should contain:</h3>
+                <h3 className='text-white'>
+                  {t('profile_password_rules_title')}
+                </h3>
                 <ul className='pl-5 pt-2'>
-                  <li className='list-disc text-input'>8 or more characters</li>
+                  <li className='list-disc text-input'>
+                    {t('profile_password_rule_one')}
+                  </li>
                   <li className='list-disc text-white'>
-                    15 lowercase character
+                    {t('profile_password_rule_two')}
                   </li>
                 </ul>
               </div>

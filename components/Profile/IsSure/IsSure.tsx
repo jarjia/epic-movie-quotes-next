@@ -1,14 +1,17 @@
 import classes from '@/styles/Landing.module.css';
 import { IsSureTypes } from './types';
+import { useTranslation } from 'next-i18next';
 
 const IsSure = ({ handleIsSure }: IsSureTypes) => {
+  const { t } = useTranslation('profile');
+
   return (
     <div className='w-full flex items-center justify-center'>
       <div
         className={`${classes['is-sure']} flex flex-col pt-12 w-5/6 items-center justify-center mt-16 rounded-xl`}
       >
         <div className='w-full text-center pb-12 border-b-[1px] border-search-bar-border'>
-          <p className='text-white'>Are you sure to make changes ?</p>
+          <p className='text-white'>{t('profile_sure')}</p>
         </div>
         <div className='flex justify-between w-full px-8 py-6'>
           <button
@@ -16,13 +19,13 @@ const IsSure = ({ handleIsSure }: IsSureTypes) => {
             type='button'
             className='text-input'
           >
-            Cancel
+            {t('profile_cancel')}
           </button>
           <button
             type='submit'
             className='text-white rounded px-4 py-1.5 text-primary-font bg-default-btn hover:bg-hover active:bg-active'
           >
-            Confirm
+            {t('profile_confirm')}
           </button>
         </div>
       </div>

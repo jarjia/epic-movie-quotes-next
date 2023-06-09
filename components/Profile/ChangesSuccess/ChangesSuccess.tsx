@@ -1,7 +1,10 @@
 import { CloseIcon, ValidIcon } from '@/components';
 import { ChangeSuccessTypes } from './types';
+import { useTranslation } from 'next-i18next';
 
 const ChangesSuccess: React.FC<ChangeSuccessTypes> = ({ handleIsSuccess }) => {
+  const { t } = useTranslation('profile');
+
   return (
     <div className='hidden sm:flex justify-center w-full'>
       <div className='flex justify-between p-4 absolute w-[90%] z-[999] bg-success-message-bg rounded'>
@@ -9,7 +12,7 @@ const ChangesSuccess: React.FC<ChangeSuccessTypes> = ({ handleIsSuccess }) => {
           <div className='relative top-[2px]'>
             <ValidIcon />
           </div>
-          <span className='pl-6'>Changes updated succsessfully</span>
+          <span className='pl-6'>{t('changed')}</span>
         </div>
         <button onClick={() => handleIsSuccess(false)}>
           <CloseIcon color={true} isSmall={false} />
