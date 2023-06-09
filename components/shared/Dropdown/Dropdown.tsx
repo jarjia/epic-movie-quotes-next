@@ -1,11 +1,9 @@
 import { DropDownIcon } from '@/components';
 import Link from 'next/link';
 import useDropdown from './useDropdown';
-import { useRouter } from 'next/router';
 
 const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
-  const router = useRouter();
-  const { handleDropDown, shouldDropDown } = useDropdown();
+  const { handleDropDown, shouldDropDown, router } = useDropdown();
 
   return (
     <>

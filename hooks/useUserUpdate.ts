@@ -14,12 +14,14 @@ import {
 import { hookUserUpdateTypes } from '@/types';
 import { useMutation } from 'react-query';
 import { useZod } from '@/schema';
+import { useTranslation } from 'next-i18next';
 
 const useUserUpdate = ({
   handleEditProfileClear,
   handleIsSuccess,
   editProfile,
 }: hookUserUpdateTypes) => {
+  const { t } = useTranslation('profile');
   const { UpdateProfileSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
@@ -113,6 +115,7 @@ const useUserUpdate = ({
     form,
     input,
     thumbnail,
+    t,
   };
 };
 

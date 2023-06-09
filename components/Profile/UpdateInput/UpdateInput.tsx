@@ -1,12 +1,10 @@
-import { useTranslation } from 'next-i18next';
 import { UpdateInputTypes } from './types';
 import useUpdateInput from './useUpdateInput';
 import { UserDataTypes } from '@/types';
 
 const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
-  const { register, isEdit, handleIsEdit, userData, index } =
+  const { register, isEdit, handleIsEdit, t, userData, index } =
     useUpdateInput(props);
-  const { t } = useTranslation('profile');
 
   return (
     <div className='flex flex-col items-center my-2'>

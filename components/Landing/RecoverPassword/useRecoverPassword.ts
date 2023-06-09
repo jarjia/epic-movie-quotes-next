@@ -12,9 +12,11 @@ import { useMutation } from 'react-query';
 import { PostRecoverPasswordTypes } from './types';
 import { useState } from 'react';
 import { useZod } from '@/schema';
+import { useTranslation } from 'next-i18next';
 
 const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   const { RecoverPasswordSchema } = useZod();
+  const { t } = useTranslation('landingForms');
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(RecoverPasswordSchema),
@@ -58,6 +60,7 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
     errors,
     FormProvider,
     apiError,
+    t,
     handleClearApiError,
   };
 };

@@ -2,7 +2,6 @@ import { UserProfile, UpdateInput } from '@/components';
 import { UserUpdateTypes } from './types';
 import { hookUserUpdateTypes } from '@/types';
 import { useUserUpdate } from '@/hooks';
-import { useTranslation } from 'next-i18next';
 
 const UserUpdate: React.FC<UserUpdateTypes> = ({
   handleEditProfile,
@@ -28,9 +27,9 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     FormProvider,
     apiError,
     handleClearApiError,
+    t,
     errors,
   } = useUserUpdate(userUpdateProps);
-  const { t } = useTranslation('profile');
 
   return (
     <FormProvider {...form}>

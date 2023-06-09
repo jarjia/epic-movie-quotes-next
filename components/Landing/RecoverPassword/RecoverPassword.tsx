@@ -1,7 +1,6 @@
 import { HandleFormStatusTypes } from '@/types';
 import useRecoverPassword from './useRecoverPassword';
 import { BackArrowIcon, PasswordInput } from '@/components';
-import { useTranslation } from 'next-i18next';
 
 const RecoverPassword: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
@@ -14,8 +13,8 @@ const RecoverPassword: React.FC<HandleFormStatusTypes> = ({
     handleClearApiError,
     onSubmit,
     FormProvider,
+    t,
   } = useRecoverPassword(handleFormStatus);
-  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>
