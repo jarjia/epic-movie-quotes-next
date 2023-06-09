@@ -1,4 +1,3 @@
-import { LoginSchema } from '@/schema';
 import {
   FieldValues,
   FormProvider,
@@ -19,8 +18,10 @@ import { useMutation } from 'react-query';
 import { useEffect, useState } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
+import { useZod } from '@/schema';
 
 const useLoginForm = () => {
+  const { LoginSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(LoginSchema),

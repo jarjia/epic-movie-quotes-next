@@ -37,6 +37,7 @@ const useMain = () => {
     ) {
       const expires = router.query.expires as string;
       const targetDate = new Date(expires);
+      let savedLocale = localStorage.getItem('locale') as string;
 
       const interval = setInterval(() => {
         const currentTime = new Date();
@@ -56,8 +57,16 @@ const useMain = () => {
               token,
             };
             registerUser(data);
+            if (savedLocale === 'ka') {
+              const { pathname, asPath, query } = router;
+              router.push({ pathname, query }, asPath, { locale: savedLocale });
+            }
           } else if (router.query.recover_token !== undefined) {
             handleFormStatus('recover-password');
+            if (savedLocale === 'ka') {
+              const { pathname, asPath, query } = router;
+              router.push({ pathname, query }, asPath, { locale: savedLocale });
+            }
           }
         }
       }, 1000);

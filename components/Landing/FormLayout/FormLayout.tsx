@@ -17,7 +17,7 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
             onClick={() => handleFormStatus('null')}
             className='absolute cursor-pointer'
           >
-            <CloseIcon color={false} />
+            <CloseIcon color={false} isSmall={false} />
           </div>
         </div>
         {children}

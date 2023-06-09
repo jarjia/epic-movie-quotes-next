@@ -15,3 +15,4 @@ export * from './PasswordRecovered';
 export * from './LinkExpired';
 export * from './PasswordInput';
 export * from './Input';
+export * from './Checkbox';

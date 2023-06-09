@@ -2,21 +2,25 @@ import { LinkExpiredIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import { HandleFormStatusTypes } from '@/types';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 const LinkExpired: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
   const router = useRouter();
+  const { t } = useTranslation('landingForms');
 
   return (
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <LinkExpiredIcon />
-      <h2 className='my-6 text-error-page-title text-white text-3xl'>
-        Link expired!
+      <h2
+        className={`my-6 ${
+          router.locale === 'ka' ? 'text-3xl' : 'text-error-page-title'
+        } text-center text-white text-3xl`}
+      >
+        {t('expired_title')}
       </h2>
-      <p className='my-2 text-center text-white'>
-        Login link has expired, because you haven’t used it
-      </p>
+      <p className='my-2 text-center text-white'>{t('expired_desc')}</p>
       <button
         onClick={() => {
           if (router.query.recover_token !== undefined) {
@@ -27,7 +31,7 @@ const LinkExpired: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
         }}
         className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
       >
-        Request another link
+        {t('expired_submit')}
       </button>
     </div>
   );
