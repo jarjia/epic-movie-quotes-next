@@ -1,1 +1,1 @@
-export * from './schema';
+export { default as useZod } from './schema';
