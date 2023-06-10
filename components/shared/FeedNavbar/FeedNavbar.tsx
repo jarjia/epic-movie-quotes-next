@@ -11,7 +11,7 @@ import { useTranslation } from 'next-i18next';
 
 const FeedNavbar = () => {
   const {
-    handleLogout,
+    handleShouldLogout,
     isNotification,
     isSearch,
     handleIsBurger,
@@ -59,7 +59,7 @@ const FeedNavbar = () => {
         <div className='flex gap-8 sm:gap-3 sm:hidden'>
           <div>
             <button
-              onClick={handleLogout}
+              onClick={handleShouldLogout}
               className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] border-2 border-white'
             >
               {t('log_out')}

@@ -1,32 +1,25 @@
-import { getLogoutUser } from '@/services';
+import { AppContext } from '@/context';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useContext, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const useFeedSidebar = () => {
   const router = useRouter();
-  const query = useQueryClient();
   const [dropDown, setDropdown] = useState(false);
-
-  const handleLogout = async () => {
-    try {
-      const res = await getLogoutUser();
-      if (res.status === 200) {
-        router.push('/');
-        query.removeQueries('user-data');
-        localStorage.removeItem('auth');
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const { userData, handleIsNotBurger, handleShouldLogout, isBurger } =
+    useContext(AppContext);
+  const { t } = useTranslation('common');
 
   const handleDropDown = () => {
     setDropdown(!dropDown);
   };
 
   return {
-    handleLogout,
+    userData,
+    handleShouldLogout,
+    handleIsNotBurger,
+    isBurger,
+    t,
     dropDown,
     router,
     handleDropDown,

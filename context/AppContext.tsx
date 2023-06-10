@@ -1,7 +1,8 @@
-import { getUserData } from '@/services';
+import { getLogoutUser, getUserData } from '@/services';
 import { createContext, useEffect, useState } from 'react';
 import { UserDataTypes } from '@/types';
 import { useRouter } from 'next/router';
+import { useQuery, useQueryClient } from 'react-query';
 
 export const AppContext = createContext({
   feedFormStatus: '' as string | null,
@@ -14,6 +15,7 @@ export const AppContext = createContext({
   isSearch: false,
   shouldRefetch: false,
   handleRefetch: () => {},
+  handleShouldLogout: () => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -31,7 +33,21 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [shouldRefetch, setShouldRefetch] = useState(false);
+  const [shouldLogout, setShouldLogout] = useState(false);
+  const query = useQueryClient();
   const router = useRouter();
+  useQuery('log-out', getLogoutUser, {
+    onSuccess: () => {
+      router.push('/');
+      query.removeQueries('log-out');
+      localStorage.removeItem('auth');
+    },
+    enabled: shouldLogout,
+  });
+
+  const handleShouldLogout = () => {
+    setShouldLogout(true);
+  };
 
   const handleRefetch = () => {
     setShouldRefetch(true);
@@ -60,7 +76,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
         const res = await getUserData();
         setUserData(res.data);
       } catch (error) {
-        localStorage.clear();
+        localStorage.removeItem('auth');
         router.push('/403');
       }
     };
@@ -89,6 +105,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     handleIsNotBurger,
     shouldRefetch,
     handleRefetch,
+    handleShouldLogout,
   };
 
   return (

@@ -1,14 +1,18 @@
 import { CameraIcon, DropDownIcon, HouseIcon, UserProfile } from '@/components';
-import { AppContext } from '@/context';
 import Link from 'next/link';
-import { useContext } from 'react';
-import { useTranslation } from 'next-i18next';
 import useFeedSidebar from './useFeedSidebar';
 
 const FeedSidebar = () => {
-  const { userData, handleIsNotBurger, isBurger } = useContext(AppContext);
-  const { handleLogout, router, handleDropDown, dropDown } = useFeedSidebar();
-  const { t } = useTranslation('common');
+  const {
+    handleShouldLogout,
+    t,
+    handleIsNotBurger,
+    userData,
+    isBurger,
+    router,
+    handleDropDown,
+    dropDown,
+  } = useFeedSidebar();
 
   return (
     <aside
@@ -136,7 +140,7 @@ const FeedSidebar = () => {
                 </div>
               )}
               <button
-                onClick={handleLogout}
+                onClick={handleShouldLogout}
                 className='mx-4 my-4 text-xl  text-white'
               >
                 {t('log_out')}

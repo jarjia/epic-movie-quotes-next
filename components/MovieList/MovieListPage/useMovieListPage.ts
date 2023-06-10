@@ -14,7 +14,6 @@ const useMovieListPage = () => {
   const { isLoading, data, status, refetch } = useQuery('my-movies', () =>
     getMovies(search)
   );
-  console.log(data);
 
   useEffect(() => {
     if (status === 'success') {
