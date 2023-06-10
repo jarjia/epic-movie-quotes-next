@@ -3,6 +3,7 @@ import { MovieStructureTypes } from '@/types';
 import { AppContext } from '@/context';
 import { AddIcon, Movie } from '@/components';
 import { useRouter } from 'next/router';
+import { useTranslation } from 'next-i18next';
 
 const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
   props
@@ -10,29 +11,42 @@ const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
   const { handleFeedFormStatus } = useContext(AppContext);
   const router = useRouter();
   const search = router.query.search;
+  const { t } = useTranslation('movieList');
 
-  if (props.movies.length === 0) {
-    return props.loading || search === undefined || search === '' ? (
+  if (props.loading) {
+    return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='text-white text-3xl'>Loading...</h1>
       </div>
-    ) : search === undefined || search === '' ? (
+    );
+  }
+
+  if (
+    !props.loading &&
+    props.movies.length === 0 &&
+    (search === '' || search === undefined)
+  ) {
+    return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
-        <h1 className='text-white text-3xl'>You have not added movie yet...</h1>
+        <h1 className='text-white text-3xl'>{t('no_movies')}</h1>
         <button
           onClick={() => handleFeedFormStatus('add-movie')}
           className='flex items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
         >
           <AddIcon />
-          Add one!
+          {t('add_one_movie')}
         </button>
       </div>
-    ) : (
+    );
+  }
+
+  if (props.movies.length === 0 && search !== '' && search !== undefined) {
+    return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='flex w-full text-white text-3xl'>
-          Movie by name of
-          <p className='max-w-1/2 truncate pl-2'>&quot;{search}</p>&quot; does
-          not exist.
+          {t('search_no_movie_one')}
+          <p className='max-w-[44%] truncate pl-2'>&quot;{search}</p>&quot;{' '}
+          {t('search_no_movie_two')}
         </h1>
       </div>
     );

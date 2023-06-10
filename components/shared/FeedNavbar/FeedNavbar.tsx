@@ -7,10 +7,11 @@ import {
   SearchbarIcon,
 } from '@/components';
 import useFeedNavbar from './useFeedNavbar';
+import { useTranslation } from 'next-i18next';
 
 const FeedNavbar = () => {
   const {
-    handleLogout,
+    handleShouldLogout,
     isNotification,
     isSearch,
     handleIsBurger,
@@ -18,12 +19,13 @@ const FeedNavbar = () => {
     router,
     handleisNotification,
   } = useFeedNavbar();
+  const { t } = useTranslation('common');
 
   return (
     <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
       <div>
         <h3 className='text-title uppercase sm:text-base sm:hidden'>
-          Movie quotes
+          movie quotes
         </h3>
         <button onClick={handleIsBurger} className='hidden sm:block'>
           <BurgerIcon />
@@ -57,10 +59,10 @@ const FeedNavbar = () => {
         <div className='flex gap-8 sm:gap-3 sm:hidden'>
           <div>
             <button
-              onClick={handleLogout}
+              onClick={handleShouldLogout}
               className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] border-2 border-white'
             >
-              Log out
+              {t('log_out')}
             </button>
           </div>
         </div>

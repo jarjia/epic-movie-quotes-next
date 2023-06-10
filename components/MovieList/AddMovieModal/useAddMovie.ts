@@ -1,5 +1,5 @@
 import { AppContext } from '@/context';
-import { AddMovieSchema } from '@/schema';
+import { useZod } from '@/schema';
 import { postMovie } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
@@ -7,6 +7,7 @@ import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 const useAddMovie = () => {
+  const { AddMovieSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(AddMovieSchema),
@@ -21,7 +22,7 @@ const useAddMovie = () => {
     useContext(AppContext);
 
   const { mutate: createMovie } = useMutation(postMovie, {
-    onSuccess: async () => {
+    onSuccess: () => {
       handleFeedFormStatus('');
       handleRefetch();
     },

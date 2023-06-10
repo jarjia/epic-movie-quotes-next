@@ -1,6 +1,7 @@
-import { GoogleIcon, Input, Checkbox, PasswordInput } from '@/components';
+import { GoogleIcon, Checkbox, Input, PasswordInput } from '@/components';
 import useLoginForm from './useLoginForm';
 import { HandleFormStatusTypes } from '@/types';
+import { useTranslation } from 'next-i18next';
 
 const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
   const {
@@ -13,41 +14,40 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
     FormProvider,
     apiError,
   } = useLoginForm();
+  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>
       <div className='text-center mb-8 sm:py-8 sm:pt-16 sm:mb-0'>
         <h2 className='text-form-title sm:text-2xl text-white font-medium'>
-          Log in to your account
+          {t('login_title')}
         </h2>
-        <h4 className='text-form-small-title sm:py-2'>
-          Welcome back! Please enter your details.
-        </h4>
+        <h4 className='text-form-small-title sm:py-2'>{t('login_desc')}</h4>
       </div>
       <FormProvider {...form}>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <Input
             name='user'
             type='text'
-            placeholder='Enter your username or email'
-            label='Username or Email'
+            placeholder={t('username_placeholder')}
+            label={t('name_or_email')}
             errors={errors}
           />
           <PasswordInput
             name='password'
-            placeholder='At least 8 & max.15 lower case characters'
-            label='Password'
+            placeholder={t('password_placeholder')}
+            label={t('password_label')}
             errors={errors}
           />
           <div className='flex justify-between py-2'>
             <div className='flex items-center gap-2 mb-2'>
-              <Checkbox name='remember_me' label='Remember me' />
+              <Checkbox name='remember_me' label={t('rememeber_me')} />
             </div>
             <button
               className='text-link underline'
               onClick={() => handleFormStatus('recover-email')}
             >
-              Forgot password
+              {t('forgot_password')}
             </button>
           </div>
           <div className='pb-7 pt-1 flex justify-center'>
@@ -63,7 +63,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
               onClick={handleResetApiError}
               className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
             >
-              Sign in
+              {t('sign_in')}
             </button>
             <button
               type='button'
@@ -71,19 +71,19 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >
               <GoogleIcon />
-              <span className='pl-1'>Sign in with Google</span>
+              <span className='pl-1'>{t('google_register')}</span>
             </button>
           </div>
         </form>
       </FormProvider>
       <div className='flex justify-center py-3'>
         <p className='absolute text-form-small-title'>
-          Don&apos;t have an account?
+          {t('have_not_acc')}
           <button
             className='underline text-link'
             onClick={() => handleFormStatus('register')}
           >
-            Sign up
+            {t('sign_up')}
           </button>
         </p>
       </div>

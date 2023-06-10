@@ -2,6 +2,8 @@ import { Controller } from 'react-hook-form';
 import { GenreObjectType } from './types';
 import { CloseIcon } from '@/components';
 import useFeedGenresField from './useFeedGenresField';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
   const {
@@ -13,6 +15,9 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
     genres,
     select,
   } = useFeedGenresField();
+  const { t } = useTranslation('movieList');
+  const router = useRouter();
+  const locale = router.locale;
 
   return (
     <>
@@ -32,7 +37,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
           onClick={handleSelect}
         >
           {genres.length === 0 ? (
-            <p className='text-white select-none'>Select genres...</p>
+            <p className='text-white select-none'>{t('genres_placeholder')}</p>
           ) : (
             genres.map((genre) => {
               return (
@@ -43,7 +48,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
                   }}
                   className='flex rounded-sm items-center gap-1 bg-placeholder text-white mx-0.5 px-2 py-[2px]'
                 >
-                  <p onClick={handleSelect}>{genre.genre.en}</p>
+                  <p onClick={handleSelect}>{genre.genre[locale as never]}</p>
                   <button
                     type='button'
                     onClick={() => handleDeleteGenre(genre.id)}
@@ -58,7 +63,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
         <p className='text-default-btn text-sm'>
           {genres.length < 1 &&
             props.error['genres'] !== undefined &&
-            'Please, select at least one genre'}
+            t('genres_error')}
         </p>
         {select && (
           <div
@@ -75,7 +80,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
                       onClick={() => handleAddGenre(item)}
                       className='cursor-pointer select-none p-1 px-2 hover:bg-blue-700'
                     >
-                      {item.genre.en}
+                      {item.genre[locale as never]}
                     </div>
                   );
                 })}

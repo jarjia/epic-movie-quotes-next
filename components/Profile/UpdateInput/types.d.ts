@@ -3,7 +3,7 @@ export type UpdateInputTypes = {
   placeholder: string;
   name: string;
   label: string;
-  newLabel?: string;
+  newLabel: string;
   defaultValue: string;
   cancel?: boolean;
   handleCancel: (bool) => void;

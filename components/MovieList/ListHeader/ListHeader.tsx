@@ -1,6 +1,7 @@
 import { AddIcon, SearchbarIcon } from '@/components';
 import useListHeader from './useListHeader';
 import { MovieStructureTypes } from '@/types';
+import { useTranslation } from 'next-i18next';
 
 const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
   const {
@@ -11,14 +12,15 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
     handleOnChange,
     handleOnEnter,
   } = useListHeader();
+  const { t } = useTranslation('movieList');
 
   return (
     <div className='flex justify-between items-center'>
       <div>
         <h3 className='flex sm:flex-col text-2xl text-white'>
-          <span className='pr-2'>My list of movies</span>
+          <span className='pr-2'>{t('title')}</span>
           <span className='sm:mt-2 sm:text-base'>
-            (Total {props.movies?.length})
+            ({t('total')} {props.movies?.length})
           </span>
         </h3>
       </div>
@@ -30,20 +32,21 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
               className='flex items-center gap-2'
             >
               <SearchbarIcon />
-              <p className='text-input text-lg'>Search</p>
+              <p className='text-input text-lg'>{t('search')}</p>
             </button>
           ) : (
             <div className='flex items-center gap-4 w-[300px]'>
               <button onClick={handleIsSearch} className='absolute'>
                 <SearchbarIcon />
               </button>
-              <form className='w-full' onSubmit={handleOnEnter}>
+              <form className='w-full'>
                 <input
                   type='text'
                   value={search}
                   onChange={handleOnChange}
+                  onKeyDown={handleOnEnter}
                   className='w-full pl-8 caret-white text-white bg-transparent border-0 border-b-2 border-search-bar-border focus:ring-0 focus:border-search-bar-border'
-                  placeholder='Search movies by their name'
+                  placeholder={`${t('search_placeholder')}`}
                 />
               </form>
             </div>
@@ -54,7 +57,7 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
           className='flex items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
         >
           <AddIcon />
-          Add movie
+          {t('add_movie')}
         </button>
       </div>
     </div>

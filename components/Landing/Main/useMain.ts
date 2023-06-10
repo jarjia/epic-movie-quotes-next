@@ -24,6 +24,14 @@ const useMain = () => {
     [router]
   );
 
+  const handleLocale = useCallback(() => {
+    let savedLocale = localStorage.getItem('locale') as string;
+    if (savedLocale === 'ka') {
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, { locale: savedLocale });
+    }
+  }, [router]);
+
   const { mutate: registerUser } = useMutation(postVerify, {
     onSuccess: () => {
       handleFormStatus('verified');
@@ -40,6 +48,7 @@ const useMain = () => {
 
       const interval = setInterval(() => {
         const currentTime = new Date();
+
         const elapsedMinutes = Math.floor(
           (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
         );
@@ -56,8 +65,10 @@ const useMain = () => {
               token,
             };
             registerUser(data);
+            handleLocale();
           } else if (router.query.recover_token !== undefined) {
             handleFormStatus('recover-password');
+            handleLocale();
           }
         }
       }, 1000);
@@ -66,7 +77,7 @@ const useMain = () => {
         clearInterval(interval);
       };
     }
-  }, [registerUser, router, handleFormStatus]);
+  }, [registerUser, router, handleFormStatus, handleLocale]);
 
   useEffect(() => {
     if (

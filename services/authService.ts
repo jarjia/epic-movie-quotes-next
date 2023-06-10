@@ -1,5 +1,4 @@
 import { LoginWithGoogleQueryTypes } from '@/types';
-import axios from './axios';
 import {
   LoginCredentialsTypes,
   PostRecoverEmailTypes,
@@ -7,6 +6,7 @@ import {
   PostRegisterTypes,
   PostVerifyTypes,
 } from './types';
+import axios from './axios';
 
 export const postRegister = (data: PostRegisterTypes) => {
   return axios.post('/api/register', data);

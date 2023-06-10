@@ -1,9 +1,11 @@
 import { BackArrowIcon } from '@/components/icons';
 import { AppContext } from '@/context';
 import { useContext } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const MobileSearchbar = () => {
   const { handleIsSearch } = useContext(AppContext);
+  const { t } = useTranslation('newsFeed');
 
   return (
     <div className='absolute z-[99] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 h-[calc(100vh-15vh)]'>
@@ -24,8 +26,8 @@ const MobileSearchbar = () => {
       </div>
       <div className='w-full bg-search-bar-border h-[1px]'></div>
       <div className='py-6 px-16 flex gap-3 flex-col text-white'>
-        <p className='text-input'>Enter @ to search movies</p>
-        <p className='text-input'>Enter # to search quotes </p>
+        <p className='text-input'>{t('search_movies')}</p>
+        <p className='text-input'>{t('search_quotes')}</p>
       </div>
     </div>
   );

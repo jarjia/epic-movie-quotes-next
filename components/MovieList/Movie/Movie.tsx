@@ -3,7 +3,7 @@ import useMovie from './useMovie';
 import { MovieTypes } from './types';
 
 const Movie: React.FC<MovieTypes> = (props) => {
-  const { containerRef, containerWidth } = useMovie();
+  const { containerRef, containerWidth, locale } = useMovie();
 
   return (
     <div className='text-white'>
@@ -19,7 +19,7 @@ const Movie: React.FC<MovieTypes> = (props) => {
       </div>
       <div className='mt-2'>
         <p className='text-xl'>
-          {props.movie.en} ({props.releaseDate})
+          {props.movie[locale as never]} ({props.releaseDate})
         </p>
       </div>
       <div className='flex mt-2 gap-3 items-center'>

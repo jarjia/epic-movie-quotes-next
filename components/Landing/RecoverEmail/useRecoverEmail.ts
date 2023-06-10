@@ -1,4 +1,3 @@
-import { RecoverEmailSchema } from '@/schema';
 import { getCrsfToken, postRecoverEmail } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -11,8 +10,10 @@ import {
 import { useMutation } from 'react-query';
 import { PostRecoverEmailTypes } from './types';
 import { useState } from 'react';
+import { useZod } from '@/schema';
 
 const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
+  const { RecoverEmailSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(RecoverEmailSchema),

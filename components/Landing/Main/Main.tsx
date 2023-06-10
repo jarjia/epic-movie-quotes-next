@@ -17,9 +17,11 @@ import {
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
 import { ToastContainer } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
 
 const Main: React.FC = () => {
   const { handleFormStatus, formStatus } = useMain();
+  const { t } = useTranslation('landing');
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
@@ -53,20 +55,20 @@ const Main: React.FC = () => {
       <Title handleFormStatus={handleFormStatus} />
       <QuoteArticle
         image='/assets/images/interstellar.png'
-        quote='You have to leave something behind to go forward'
-        date='Interstellar, 2014'
+        quote={t('interstellar_quote')}
+        date={`${t('interstellar')}, 2014`}
         movieId={1}
       />
       <QuoteArticle
         image='/assets/images/movie-two.png'
-        quote='I think we’re just gonna have to be secretly in love with each other and leave it that'
-        date='The Royal Tenenbaums,2001'
+        quote={t('the_royal_tenenbaums_quote')}
+        date={`${t('the_royal_tenenbaums')}, 2001`}
         movieId={2}
       />
       <QuoteArticle
         image='/assets/images/lotr.png'
-        quote='I think we’re just gonna have to be secretly in love with each other and leave it that'
-        date='The Royal Tenenbaums,2001'
+        quote={t('lotr_quote')}
+        date={`${t('lotr')}, 2001`}
         movieId={3}
       />
       <Footer />

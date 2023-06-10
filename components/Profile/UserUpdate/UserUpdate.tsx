@@ -27,6 +27,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     FormProvider,
     apiError,
     handleClearApiError,
+    t,
     errors,
   } = useUserUpdate(userUpdateProps);
 
@@ -53,17 +54,17 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
                       }}
                     ></div>
                   )}
-                  <p>Upload new photo</p>
+                  <p className='text-center'>{t('upload_photo')}</p>
                 </div>
               </label>
             </div>
           </div>
           <UpdateInput
             type='text'
-            placeholder='Enter new username'
+            placeholder={t('new_name_placeholder')}
             name='name'
-            label='Username'
-            newLabel='New username'
+            label={t('new_name_label')}
+            newLabel={t('new_name_new_label')}
             cancel={cancel}
             handleCancel={handleCancel}
             handleEditing={handleEditing}
@@ -74,9 +75,10 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
           />
           <UpdateInput
             type='email'
-            placeholder='Enter new email'
+            placeholder={t('new_email_placeholder')}
             name='email'
-            label='Email'
+            label={t('new_email_label')}
+            newLabel=''
             defaultValue={userData?.email}
             handleCancel={handleCancel}
             handleEditing={handleEditing}
@@ -86,12 +88,12 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
           {userData.google_id === null && (
             <UpdateInput
               type='password'
-              placeholder='Enter new passoword'
+              placeholder={t('new_password_placeholder')}
               name='password'
               repeatName='c_password'
-              label='Password'
-              newLabel='New password'
-              repeatLabel='Confirm new password'
+              label={t('new_password_label')}
+              newLabel={t('new_password_new_label')}
+              repeatLabel={t('new_password_repeat_placeholder') as string}
               cancel={cancel}
               handleCancel={handleCancel}
               handleEditing={handleEditing}
@@ -115,14 +117,14 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
                   handleCancel(true);
                 }}
               >
-                Cancel
+                {t('profile_cancel')}
               </button>
               <button
                 className='text-white rounded py-2 px-3 bg-default-btn hover:bg-hover active:bg-active'
                 type='submit'
                 onClick={handleClearApiError}
               >
-                Save changes
+                {t('profile_save')}
               </button>
             </>
           )}

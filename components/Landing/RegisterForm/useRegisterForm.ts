@@ -1,4 +1,3 @@
-import { registerSchema } from '@/schema';
 import {
   FieldValues,
   FormProvider,
@@ -19,8 +18,10 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
+import { useZod } from '@/schema';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
+  const { registerSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(registerSchema),

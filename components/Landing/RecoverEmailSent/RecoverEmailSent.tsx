@@ -1,32 +1,32 @@
 import { EmailSentIcon } from '@/components';
 import { HandleFormStatusTypes } from '@/types';
 import classes from '@/styles/Landing.module.css';
+import { useTranslation } from 'next-i18next';
 
 const RecoverEmailSent: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
+  const { t } = useTranslation('landingForms');
   return (
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <EmailSentIcon />
       <h2 className='my-6 text-center leading-[1.15] text-error-page-title text-white text-3xl'>
-        Check your email
+        {t('check_mail')}
       </h2>
-      <p className='my-2 text-center text-white'>
-        We have sent a password recover instructions to your email
-      </p>
+      <p className='my-2 text-center text-white'>{t('check_desc')}</p>
       <button
         onClick={() => handleFormStatus('login')}
         className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
       >
-        Log in
+        {t('log_in')}
       </button>
       <button
         onClick={() => handleFormStatus('null')}
         className='mt-8 hover:underline text-form-small-title'
       >
-        Skip, I’ll confirm later
+        {t('skip')}
       </button>
     </div>
   );

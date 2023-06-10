@@ -2,22 +2,23 @@ import React from 'react';
 import useRecoverEmail from './useRecoverEmail';
 import { HandleFormStatusTypes } from '@/types';
 import { BackArrowIcon, Input } from '@/components';
+import { useTranslation } from 'next-i18next';
 
 const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
   const { handleSubmit, errors, form, apiError, onSubmit, FormProvider } =
     useRecoverEmail(handleFormStatus);
+  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>
       <div className='text-center sm:py-8'>
         <h2 className='my-2 text-form-title sm:text-2xl text-white font-medium'>
-          Forgot password?
+          {t('email_recover_title')}
         </h2>
         <h4 className='my-2 text-form-small-title sm:py-2'>
-          Enter the email and we’ll send an email with instructions to reset
-          your password
+          {t('email_recover_desc')}
         </h4>
       </div>
       <FormProvider {...form}>
@@ -25,8 +26,8 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
           <Input
             name='email'
             type='email'
-            placeholder='Enter your email'
-            label='Email'
+            placeholder={t('email_placeholder')}
+            label={t('email_label')}
             errors={errors}
           />
           <div className='pb-6 flex justify-center'>
@@ -41,7 +42,7 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
               type='submit'
               className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
             >
-              Send instructions
+              {t('email_recover_submit')}
             </button>
           </div>
         </form>
@@ -53,7 +54,7 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
             onClick={() => handleFormStatus('login')}
           >
             <BackArrowIcon isSearch={false} />
-            Back to log in
+            {t('back_to_login')}
           </button>
         </p>
       </div>

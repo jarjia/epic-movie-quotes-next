@@ -2,6 +2,7 @@ import { useUserUpdate } from '@/hooks';
 import { MobileInputUpdateTypes } from './types';
 import { hookUserUpdateTypes } from '@/types';
 import { IsSure } from '@/components';
+import { useTranslation } from 'next-i18next';
 
 const MobileUserUpdate = ({
   editProfile,
@@ -10,6 +11,7 @@ const MobileUserUpdate = ({
   handleIsSuccess,
   isSure,
 }: MobileInputUpdateTypes) => {
+  const { t } = useTranslation('profile');
   const userUpdateProps: hookUserUpdateTypes = {
     handleIsSuccess,
     handleEditProfileClear,
@@ -60,13 +62,15 @@ const MobileUserUpdate = ({
                 ) : (
                   <>
                     <div className='p-4 my-2 w-full border-[1px] border-search-bar-border'>
-                      <h3 className='text-white'>Password should contain:</h3>
+                      <h3 className='text-white'>
+                        {t('profile_password_rules_title')}
+                      </h3>
                       <ul className='pl-5 pt-2'>
                         <li className='list-disc text-input'>
-                          8 or more characters
+                          {t('profile_password_rule_one')}
                         </li>
                         <li className='list-disc text-white'>
-                          15 lowercase character
+                          {t('profile_password_rule_two')}
                         </li>
                       </ul>
                     </div>
@@ -75,13 +79,13 @@ const MobileUserUpdate = ({
                         className='text-white mb-1'
                         htmlFor={editProfile.name}
                       >
-                        Enter new password
+                        {t('new_pass')}
                       </label>
                       <input
                         type='password'
                         {...form.register(editProfile.name)}
                         className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                        placeholder='Enter new password'
+                        placeholder={`${t('new_pass')}`}
                         autoComplete='off'
                       />
                       <div className='mt-[2px]'>
@@ -92,13 +96,13 @@ const MobileUserUpdate = ({
                     </div>
                     <div className='flex flex-col mt-4'>
                       <label className='text-white mb-1' htmlFor='c_password'>
-                        Repeat new password
+                        {t('repeat_pass')}
                       </label>
                       <input
                         type='password'
                         {...form.register('c_password')}
                         className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                        placeholder='Repeat new password'
+                        placeholder={`${t('repeat_pass')}`}
                         autoComplete='off'
                       />
                       <div className='mt-[2px]'>
@@ -117,7 +121,7 @@ const MobileUserUpdate = ({
                 type='button'
                 className='text-input text-primary-font'
               >
-                Cancel
+                {t('profile_cancel')}
               </button>
               <button
                 onClick={() =>
@@ -125,7 +129,7 @@ const MobileUserUpdate = ({
                 }
                 className='text-white rounded px-5 py-1.5 text-primary-font bg-default-btn hover:bg-hover active:bg-active'
               >
-                Edit
+                {t('profile_confirm')}
               </button>
             </div>
           </>
