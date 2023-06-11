@@ -1,10 +1,12 @@
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 import z from 'zod';
 
 const useZod = () => {
+  const router = useRouter();
   const { t } = useTranslation('formErrors');
-  const georgianRegex = /^[\u10A0-\u10FF0-9\s]+$/;
-  const englishRegex = /^[A-Za-z0-9\s]+$/;
+  const georgianRegex = /^[\u10A0-\u10FF0-9\s\p{P}\p{S}]+$/u;
+  const englishRegex = /^[A-Za-z0-9\s\p{P}\p{S}]+$/u;
 
   const registerSchema = z
     .object({
@@ -148,9 +150,38 @@ const useZod = () => {
     releaseDate: z
       .string()
       .nonempty({ message: t('movie_release_date') as string }),
-    thumbnail: z
-      .any()
-      .refine((val) => val.length > 0, t('movie_image') as string),
+    thumbnail: z.any().refine((val) => {
+      if (router.pathname.includes('movieId')) {
+        return true;
+      } else {
+        return val.length > 0;
+      }
+    }, t('movie_image') as string),
+  });
+
+  const addQuoteSchema = z.object({
+    quote: z.object({
+      en: z
+        .string()
+        .nonempty({ message: t('movie_name_en_req') as string })
+        .refine((value) => englishRegex.test(value), {
+          message: t('movie_name_en_ref') as string,
+        }),
+      ka: z
+        .string()
+        .nonempty({ message: t('movie_name_ka_req') as string })
+        .refine((value) => georgianRegex.test(value), {
+          message: t('movie_name_ka_ref') as string,
+        }),
+    }),
+    thumbnail: z.any().refine((val) => {
+      if (router.pathname.includes('movieId')) {
+        return true;
+      } else {
+        return val.length > 0;
+      }
+    }, t('movie_image') as string),
+    movieId: z.number().min(1),
   });
 
   return {
@@ -160,6 +191,7 @@ const useZod = () => {
     UpdateProfileSchema,
     RecoverEmailSchema,
     RecoverPasswordSchema,
+    addQuoteSchema,
   };
 };
 
