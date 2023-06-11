@@ -2,14 +2,9 @@
   "write_quote": "შექმენი პოსტი",
   "search_by": "ძებნა",
   "search_by_placeholder": "ჩაწერე @ ფილმის მოსაძებნად, # ციტატის მოძაძებნად",
-  "mark_as_read": "მონიშნე როგორც წაკითხული",
-  "notifications": "შეტყობინებები",
-  "reacted": "ჰქონდა რეაქცია თქვენს ციტატაზე",
-  "commented": "დატოვა კომენტარი თქვენს ციტატაზე",
-  "search_movies": "ჩაწერე @ ფილმის მოსაძებნად,",
-  "search_quotes": " ჩაწერე # ციტატის მოძაძებნად",
   "post_quote_submit": "პოსტი",
   "post_choose_movie": "აირჩიე ფილმი",
   "form_quote_title": "ახალი ციტატა",
-  "new": "ახალი"
+  "select_movie_err": "ფილმი ციტატისთვი აუცილებელია",
+  "new_post_title": "ახალი ციტატა"
 }

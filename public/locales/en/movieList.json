@@ -10,5 +10,15 @@
   "search_no_movie_two": "does not exist.",
   "relelase_date_error": "Movie release date field is required",
   "genres_placeholder": "Select genres...",
-  "genres_error": "Please, select at least one genre"
+  "genres_error": "Please, select at least one genre",
+  "movie_show_title": "Movie description",
+  "movie_show_director": "Director:",
+  "total_quotes": "Quotes",
+  "add_quote": "Add quote",
+  "view_quote": "View quote",
+  "edit_quote": "Edit",
+  "delete_quote": "Delete",
+  "post_quote_submit": "Add quote",
+  "post_quote_title": "Add quote",
+  "update_movie_title": "Update movie"
 }
