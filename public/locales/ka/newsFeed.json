@@ -6,5 +6,6 @@
   "post_choose_movie": "აირჩიე ფილმი",
   "form_quote_title": "ახალი ციტატა",
   "select_movie_err": "ფილმი ციტატისთვი აუცილებელია",
-  "new_post_title": "ახალი ციტატა"
+  "new_post_title": "ახალი ციტატა",
+  "no_movies": "ფილმები ვერ მოიძებნა..."
 }

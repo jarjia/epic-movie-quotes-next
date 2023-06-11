@@ -6,5 +6,6 @@
   "post_choose_movie": "Choose movie",
   "form_quote_title": "Write new quote",
   "select_movie_err": "Movie for quote is required",
-  "new_post_title": "Write new quote"
+  "new_post_title": "Write new quote",
+  "no_movies": "No movies for now..."
 }
