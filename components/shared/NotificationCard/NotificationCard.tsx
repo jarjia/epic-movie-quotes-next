@@ -2,7 +2,7 @@ import { FilledHeartIcon, QuoteIcon } from '@/components';
 import { useTranslation } from 'next-i18next';
 
 const NotificationCard = () => {
-  const { t } = useTranslation('newsFeed');
+  const { t } = useTranslation('common');
 
   return (
     <>

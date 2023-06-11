@@ -30,12 +30,12 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({ children, title }) => {
             </button>
           </div>
         </div>
-        <div className='p-6 py-4 h-[440px] sm:h-[460px] overflow-y-scroll scrollbar'>
+        <div className='p-6 my-4 sm:h-screen h-[410px] large:h-full overflow-y-scroll scrollbar'>
           <div className='flex items-center gap-4 text-white text-xl'>
             <UserProfile />
             <h4>{userData?.name}</h4>
           </div>
-          <div>{children}</div>
+          <div className='mb-0 sm:mb-24'>{children}</div>
         </div>
       </div>
     </div>

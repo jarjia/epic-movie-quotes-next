@@ -7,6 +7,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
     props.lang === 'Eng'
       ? props.errors[props.errorName]?.en
       : props.errors[props.errorName]?.ka;
+  const isEdit = props.defaultVal === undefined ? false : true;
 
   return (
     <div className='my-2'>
@@ -14,15 +15,29 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
         <p className='absolute text-placeholder'>{props.lang}</p>
       </div>
       <div className='flex'>
+        {isEdit && (
+          <span
+            className={`${
+              error !== undefined ? 'border-default-btn' : 'border-placeholder'
+            } text-placeholder border-[1px] border-r-0 inline-flex items-center px-2 text-sm bg-transparent rounded-l-md`}
+          >
+            {props.label}:
+          </span>
+        )}
         <input
           type={props.type}
-          placeholder={props.label}
+          placeholder={isEdit ? '' : props.label}
           {...register(props.name)}
+          defaultValue={isEdit ? props.defaultVal : ''}
           className={`${
             error !== undefined
               ? 'border-default-btn focus:border-default-btn'
               : 'border-placeholder focus:border-placeholder'
-          } w-full placeholder-white caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 focus:border-placeholder block flex-1 min-w-0`}
+          } ${
+            isEdit
+              ? 'border-l-0 pl-0 rounded-r'
+              : 'placeholder-white pl-2 rounded'
+          } w-full caret-white text-white border-[1px] bg-transparent pr-10 focus:ring-0 block flex-1 min-w-0`}
         />
       </div>
       <div>

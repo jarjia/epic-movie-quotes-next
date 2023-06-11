@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 
 const MobileSearchbar = () => {
   const { handleIsSearch } = useContext(AppContext);
-  const { t } = useTranslation('newsFeed');
+  const { t } = useTranslation('common');
 
   return (
     <div className='absolute z-[99] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 h-[calc(100vh-15vh)]'>
