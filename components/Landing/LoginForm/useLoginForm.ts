@@ -8,19 +8,20 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import {
-  getCrsfToken,
-  getUserGoogleCallback,
-  getUserGoogleRedirect,
-  postLoginUser,
-} from '@/services';
 import { useMutation } from 'react-query';
 import { useEffect, useState } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
+import { useAuthService } from '@/services';
 
 const useLoginForm = () => {
+  const {
+    getCrsfToken,
+    getUserGoogleCallback,
+    getUserGoogleRedirect,
+    postLoginUser,
+  } = useAuthService();
   const { LoginSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',

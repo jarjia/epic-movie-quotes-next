@@ -1,4 +1,4 @@
-import { postRecoverPassword } from '@/services';
+import { useAuthService } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import {
@@ -15,6 +15,7 @@ import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 
 const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
+  const { postRecoverPassword } = useAuthService();
   const { RecoverPasswordSchema } = useZod();
   const { t } = useTranslation('landingForms');
   const form: UseFormReturn = useForm({

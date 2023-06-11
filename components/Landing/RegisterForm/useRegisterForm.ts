@@ -7,12 +7,7 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation } from 'react-query';
-import {
-  getCrsfToken,
-  getUserGoogleCallback,
-  getUserGoogleRedirect,
-  postRegister,
-} from '@/services';
+import { useAuthService } from '@/services';
 import { PostRegisterTypes } from './types';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
@@ -21,6 +16,12 @@ import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
+  const {
+    getCrsfToken,
+    getUserGoogleCallback,
+    getUserGoogleRedirect,
+    postRegister,
+  } = useAuthService();
   const { registerSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
