@@ -1,5 +1,5 @@
 import { AppContext } from '@/context';
-import { postUserUpdateProfile } from '@/services';
+import { useAuthService } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
@@ -21,6 +21,7 @@ const useUserUpdate = ({
   handleIsSuccess,
   editProfile,
 }: hookUserUpdateTypes) => {
+  const { postUserUpdateProfile } = useAuthService();
   const { t } = useTranslation('profile');
   const { UpdateProfileSchema } = useZod();
   const form: UseFormReturn = useForm({

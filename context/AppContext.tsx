@@ -1,4 +1,4 @@
-import { getLogoutUser, getUserData } from '@/services';
+import { useAuthService } from '@/services';
 import { createContext, useEffect, useState } from 'react';
 import { UserDataTypes } from '@/types';
 import { useRouter } from 'next/router';
@@ -36,11 +36,13 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [shouldLogout, setShouldLogout] = useState(false);
   const query = useQueryClient();
   const router = useRouter();
+  const { getLogoutUser, getUserData } = useAuthService();
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
       router.push('/');
       query.removeQueries('log-out');
       localStorage.removeItem('auth');
+      setShouldLogout(false);
     },
     enabled: shouldLogout,
   });
@@ -50,7 +52,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   };
 
   const handleRefetch = () => {
-    setShouldRefetch(true);
+    setShouldRefetch((prev) => !prev);
   };
 
   const handleIsSearch = () => {
@@ -83,7 +85,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     if (
       router.pathname === '/newsfeed' ||
       router.pathname === '/profile' ||
-      router.pathname === '/movie-list'
+      router.pathname.includes('movie-list')
     ) {
       getUser();
     }
@@ -92,6 +94,11 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);
     setFeedFormStatus(status);
+    if (status !== '') {
+      window.scrollTo({
+        top: 0,
+      });
+    }
   };
 
   const contextValue = {
