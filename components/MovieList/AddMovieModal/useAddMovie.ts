@@ -1,12 +1,13 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
-import { postMovie } from '@/services';
+import { useMovieService } from '@/services';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 const useAddMovie = () => {
+  const { postMovie } = useMovieService();
   const { AddMovieSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',

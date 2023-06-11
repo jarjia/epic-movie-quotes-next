@@ -1,11 +1,11 @@
 import { Controller } from 'react-hook-form';
-import { GenreObjectType } from './types';
+import { GenreFieldTypes, GenreObjectType } from './types';
 import { CloseIcon } from '@/components';
 import useFeedGenresField from './useFeedGenresField';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
+const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
   const {
     handleAddGenre,
     handleDeleteGenre,
@@ -14,7 +14,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
     control,
     genres,
     select,
-  } = useFeedGenresField();
+  } = useFeedGenresField(props.defaultVal);
   const { t } = useTranslation('movieList');
   const router = useRouter();
   const locale = router.locale;

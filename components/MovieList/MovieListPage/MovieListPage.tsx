@@ -6,15 +6,17 @@ import {
   Movies,
 } from '@/components';
 import useMovieListPage from './useMovieListPage';
+import { useTranslation } from 'next-i18next';
 
 const MovieListPage = () => {
   const { feedFormStatus, movies, loading } = useMovieListPage();
+  const { t } = useTranslation('movieList');
 
   return (
     <FeedLayout>
       <>
         {feedFormStatus === 'add-movie' ? (
-          <FeedFormLayout title='add movie'>
+          <FeedFormLayout title={`${t('add_movie')}`}>
             <AddMovieModal />
           </FeedFormLayout>
         ) : null}

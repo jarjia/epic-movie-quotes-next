@@ -25,6 +25,7 @@ const useMovie = () => {
     containerRef,
     containerWidth,
     locale,
+    router,
   };
 };
 

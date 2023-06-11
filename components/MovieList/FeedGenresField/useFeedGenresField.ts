@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { GenreObjectType } from './types';
 import { useFormContext } from 'react-hook-form';
-import { getGenres } from '@/services';
+import { useMovieService } from '@/services';
 import { useQuery } from 'react-query';
 
-const useFeedGenresField = () => {
+const useFeedGenresField = (defaultVal: any) => {
+  const { getGenres } = useMovieService();
+  const genresDef = defaultVal === undefined ? [] : defaultVal;
   const { setValue, control } = useFormContext();
   const { data } = useQuery('genres', getGenres);
   const genresData = data?.data;
-  const [genres, setGenres] = useState<GenreObjectType[]>([]);
+  const [genres, setGenres] = useState<GenreObjectType[]>(genresDef);
   const [select, setSelect] = useState(false);
 
   const handleSelect = () => {

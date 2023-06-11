@@ -6,10 +6,12 @@ import {
 } from '@/components';
 import useAddMovie from './useAddMovie';
 import { Controller } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 
 const AddMovieModal = () => {
   const { FormProvider, onSubmit, handleSubmit, control, form, errors } =
     useAddMovie();
+  const { t } = useTranslation('formErrors');
 
   return (
     <FormProvider {...form}>
@@ -35,7 +37,7 @@ const AddMovieModal = () => {
           name='releaseDate'
           control={control}
           render={({ field, fieldState: { error } }) => {
-            let errorMessage = 'Movie release date field is required';
+            let errorMessage = t('movie_release_date');
 
             return (
               <div className='flex flex-col'>

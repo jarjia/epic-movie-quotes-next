@@ -1,5 +1,5 @@
 import { AppContext } from '@/context';
-import { getMovies } from '@/services';
+import { useMovieService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useQuery } from 'react-query';
@@ -7,6 +7,7 @@ import { useQuery } from 'react-query';
 const useMovieListPage = () => {
   const { feedFormStatus, shouldRefetch, handleRefetch } =
     useContext(AppContext);
+  const { getMovies } = useMovieService();
   const [movies, setMovies] = useState([]);
   const router = useRouter();
   let search =
@@ -18,10 +19,12 @@ const useMovieListPage = () => {
   useEffect(() => {
     if (status === 'success') {
       setMovies(data.data.movies);
-      handleRefetch();
+    }
+
+    if (shouldRefetch || !shouldRefetch) {
       refetch();
     }
-  }, [shouldRefetch, status, data?.data, handleRefetch]);
+  }, [shouldRefetch, status, data?.data, refetch, movies, handleRefetch]);
 
   return {
     loading: isLoading,
