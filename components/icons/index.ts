@@ -24,3 +24,6 @@ export * from './FiiledHeartIcon';
 export * from './FileCameraIcon';
 export * from './BurgerIcon';
 export * from './AddIcon';
+export * from './TrashBinIcon';
+export * from './PenIcon';
+export * from './EyeIcon';
