@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
 
 const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
-  const { register, control } = useFormContext();
+  const { register, control, setValue } = useFormContext();
   const [img, setImg] = useState<string | null>(null);
   const image = useWatch({ control, name: 'thumbnail' });
 
@@ -13,10 +13,24 @@ const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
     }
   }, [image]);
 
+  const handleDragOver = (e: any) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: any) => {
+    e.preventDefault();
+    setImg(e.dataTransfer.files);
+    setValue('thumbnail', e.dataTransfer.files);
+  };
+
   return (
     <label>
       <input type='file' {...register('thumbnail')} className='hidden' />
-      <div className='grid grid-cols-2 min-h-[130px] border-[1px] mt-4 border-placeholder'>
+      <div
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
+        className='grid grid-cols-2 min-h-[130px] border-[1px] mt-4 border-placeholder'
+      >
         <div
           className='w-full bg-cover h-full'
           style={{
