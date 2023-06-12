@@ -7,6 +7,7 @@ import { useQuery, useQueryClient } from 'react-query';
 export const AppContext = createContext({
   feedFormStatus: '' as string | null,
   handleFeedFormStatus: (status: string) => {},
+  handleUserData: (data: UserDataTypes) => {},
   userData: {} as UserDataTypes,
   handleIsBurger: () => {},
   handleIsSearch: () => {},
@@ -20,13 +21,10 @@ export const AppContext = createContext({
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [feedFormStatus, setFeedFormStatus] = useState<string | null>('');
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<UserDataTypes>({
     name: '',
     id: 0,
     email: '',
-    email_verified_at: '',
-    created_at: '',
-    updated_at: '',
     google_id: '',
     thumbnail: '',
   });
@@ -36,7 +34,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [shouldLogout, setShouldLogout] = useState(false);
   const query = useQueryClient();
   const router = useRouter();
-  const { getLogoutUser, getUserData } = useAuthService();
+  const { getLogoutUser } = useAuthService();
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
       router.push('/');
@@ -67,27 +65,15 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     setIsBurger(false);
   };
 
+  const handleUserData = (data: UserDataTypes) => {
+    setUserData(data);
+  };
+
   useEffect(() => {
     if (sessionStorage.getItem('feed-form-status') === ('' || null)) {
       setFeedFormStatus('');
     } else {
       setFeedFormStatus(sessionStorage.getItem('feed-form-status'));
-    }
-    const getUser = async () => {
-      try {
-        const res = await getUserData();
-        setUserData(res.data);
-      } catch (error) {
-        localStorage.removeItem('auth');
-        router.push('/403');
-      }
-    };
-    if (
-      router.pathname === '/newsfeed' ||
-      router.pathname === '/profile' ||
-      router.pathname.includes('movie-list')
-    ) {
-      getUser();
     }
   }, [router]);
 
@@ -113,6 +99,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     shouldRefetch,
     handleRefetch,
     handleShouldLogout,
+    handleUserData,
   };
 
   return (
