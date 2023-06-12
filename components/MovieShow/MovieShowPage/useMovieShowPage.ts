@@ -10,7 +10,7 @@ const useMovieShowPage = () => {
   const router = useRouter();
   let { movieId } = router.query;
   const [shouldFetch, setShouldFetch] = useState(false);
-  const { data, refetch, isLoading } = useQuery(
+  const { data, refetch, isLoading, isError } = useQuery(
     'single-movie',
     () => getMovie(movieId as any),
     {
@@ -21,16 +21,26 @@ const useMovieShowPage = () => {
   const { feedFormStatus, shouldRefetch } = useContext(AppContext);
 
   useEffect(() => {
+    if (isError) {
+      router.push('/404');
+    }
+  }, [isError, router]);
+
+  useEffect(() => {
     if (shouldRefetch || !shouldRefetch) {
       refetch();
     }
   }, [shouldRefetch, refetch]);
 
   useEffect(() => {
-    if (movieId !== undefined) {
+    if (movieId !== undefined && data === undefined) {
       setShouldFetch(true);
+    } else {
+      setShouldFetch(false);
     }
-  }, [movieId, shouldRefetch]);
+  }, [movieId, shouldRefetch, data]);
+
+  console.log(data);
 
   return {
     movie: data?.data,
