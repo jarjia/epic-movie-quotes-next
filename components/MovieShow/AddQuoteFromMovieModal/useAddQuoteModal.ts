@@ -11,6 +11,7 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 import { useMutation } from 'react-query';
 
 const useAddQuoteModal = (movieId: number) => {
@@ -27,7 +28,8 @@ const useAddQuoteModal = (movieId: number) => {
   } = form;
   const { handleFeedFormStatus } = useContext(AppContext);
   const router = useRouter();
-  let locale = router.locale;
+  const { t } = useTranslation('movieList');
+  let locale = router.locale as string;
 
   useEffect(() => {
     setValue('movieId', movieId);
@@ -55,6 +57,7 @@ const useAddQuoteModal = (movieId: number) => {
     form,
     onSubmit,
     errors,
+    t,
     locale,
   };
 };

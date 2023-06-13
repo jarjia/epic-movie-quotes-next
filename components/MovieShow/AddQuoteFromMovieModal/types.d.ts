@@ -1,13 +1,15 @@
+import { Keys } from '@/types';
+
 export type MovieShowTypes = {
   created_at: string;
-  description: { en: string; ka: string };
-  director: { en: string; ka: string };
-  movie: { en: string; ka: string };
+  description: Keys;
+  director: Keys;
+  movie: Keys;
   id: number;
   genres: [
     {
       id: number;
-      genre: { en: string; ka: string };
+      genre: Keys;
     }
   ];
   releaseDate: string;

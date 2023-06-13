@@ -5,7 +5,7 @@ const useMovie = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [containerWidth, setContainerWidth] = useState(0);
   const router = useRouter();
-  let locale = router.locale;
+  let locale = router.locale as string;
 
   useEffect(() => {
     const handleWidth = () => {

@@ -1,11 +1,14 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useMovieService } from '@/services';
+import { GenreObjectType, MovieCreateTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import {
   Controller,
+  FieldValues,
   FormProvider,
+  SubmitHandler,
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
@@ -32,22 +35,19 @@ const useEditMovieModal = (movieId: number) => {
     },
   });
 
-  const onSubmit = async (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.thumbnail.length === 0) {
       delete data.thumbnail;
     } else {
       data.thumbnail = data.thumbnail[0];
     }
     let genresIds: number[] = [];
-    data.genres.map((item: any) => genresIds.push(item.id));
+    data.genres.map((item: GenreObjectType) => genresIds.push(item.id));
     data.movieId = movieId;
-    const newData = {
-      ...data,
-      genres: genresIds,
-      movieId: movieId,
-    };
+    data.genres = genresIds;
+    movieId = movieId;
 
-    updateMovieFunc(newData);
+    updateMovieFunc(data as MovieCreateTypes & { movieId: number });
   };
 
   return {

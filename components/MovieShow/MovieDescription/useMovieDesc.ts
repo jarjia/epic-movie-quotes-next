@@ -1,25 +1,26 @@
 import { useMovieService } from '@/services';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from '@/context';
+import { useQuery } from 'react-query';
 
 const useMovieDesc = () => {
   const { deleteMovie } = useMovieService();
+  const [id, setId] = useState<number | null>(null);
   const { t } = useTranslation('movieList');
   const router = useRouter();
-  let locale = router.locale;
   const { handleFeedFormStatus } = useContext(AppContext);
+  useQuery('delete-movie', () => deleteMovie(id), {
+    onSuccess: () => {
+      router.push('/movie-list');
+    },
+    enabled: id !== null && true,
+  });
+  let locale = router.locale as string;
 
   const handleDelete = async (id: number) => {
-    try {
-      const res = await deleteMovie(id);
-      if (res.status === 200) {
-        router.push('/movie-list');
-      }
-    } catch (error) {
-      console.log(error);
-    }
+    setId(id);
   };
 
   return {

@@ -4,7 +4,7 @@ import { MovieTypes } from './types';
 import Link from 'next/link';
 
 const Movie: React.FC<MovieTypes> = (props) => {
-  const { containerRef, containerWidth, locale, router } = useMovie();
+  const { containerRef, containerWidth, locale } = useMovie();
 
   return (
     <Link
@@ -24,7 +24,7 @@ const Movie: React.FC<MovieTypes> = (props) => {
         </div>
         <div className='mt-2'>
           <p className='text-xl'>
-            {props.movie[locale as never]} ({props.releaseDate})
+            {props.movie[locale]} ({props.releaseDate})
           </p>
         </div>
         <div className='flex mt-2 gap-3 items-center'>

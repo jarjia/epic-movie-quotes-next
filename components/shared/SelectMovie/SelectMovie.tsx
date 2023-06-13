@@ -1,5 +1,6 @@
 import { CameraIcon, DropDownIcon } from '@/components';
 import useSelectMovie from './useSelectMovie';
+import { Keys } from '@/types';
 
 const SelectMovie = () => {
   const {
@@ -13,7 +14,6 @@ const SelectMovie = () => {
     isSelect,
     t,
   } = useSelectMovie();
-  console.log(movies);
 
   return (
     <div className='mt-4'>
@@ -32,9 +32,7 @@ const SelectMovie = () => {
         >
           <div className='flex items-center gap-2'>
             <CameraIcon />
-            {movieId === null
-              ? t('post_choose_movie')
-              : movieId.movie[locale as never]}
+            {movieId === null ? t('post_choose_movie') : movieId.movie[locale]}
           </div>
           <div>
             <DropDownIcon />
@@ -45,19 +43,17 @@ const SelectMovie = () => {
             <div className='absolute w-full h-[1px] bg-placeholder my-2'></div>
             <div className='absolute px-3 py-1 w-full flex flex-col bg-black'>
               {movies && movies.length !== 0 ? (
-                movies.map(
-                  (item: { id: number; movie: { en: string; ka: string } }) => {
-                    return (
-                      <div
-                        key={item.id}
-                        onClick={() => handleMovieId(item)}
-                        className='truncate py-1 cursor-pointer hover:bg-blue-700 px-1 select-none'
-                      >
-                        {item.movie[locale as never]}
-                      </div>
-                    );
-                  }
-                )
+                movies.map((item: { id: number; movie: Keys }) => {
+                  return (
+                    <div
+                      key={item.id}
+                      onClick={() => handleMovieId(item)}
+                      className='truncate py-1 cursor-pointer hover:bg-blue-700 px-1 select-none'
+                    >
+                      {item.movie[locale]}
+                    </div>
+                  );
+                })
               ) : (
                 <div className='truncate py-1 px-1 select-none'>
                   {t('no_movies')}

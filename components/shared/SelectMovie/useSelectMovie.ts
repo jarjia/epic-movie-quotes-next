@@ -1,9 +1,10 @@
 import { useMovieService } from '@/services';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
+import { Keys } from '@/types';
 
 const useSelectMovie = () => {
   const { getMoviesForQuote } = useMovieService();
@@ -12,28 +13,18 @@ const useSelectMovie = () => {
   const [movies, setMovies] = useState([]);
   const [movieId, setMovieId] = useState<{
     id: number;
-    movie: { en: string; ka: string };
+    movie: Keys;
   } | null>(null);
   const [isSelect, setIsSelect] = useState(false);
   const router = useRouter();
-  const res = useQuery('movies-for-quote', getMoviesForQuote, {
+  useQuery('movies-for-quote', getMoviesForQuote, {
     onSuccess(data) {
       setMovies(data.data);
     },
   });
-  let locale = router.locale;
-  console.log(res);
+  let locale = router.locale as string;
 
-  // useEffect(() => {
-  //   if (data?.status === 200) {
-  //     setMovies(data.data);
-  //   }
-  // }, [data]);
-
-  const handleMovieId = (movieId: {
-    id: number;
-    movie: { en: string; ka: string };
-  }) => {
+  const handleMovieId = (movieId: { id: number; movie: Keys }) => {
     setMovieId(movieId);
     setValue('movieId', movieId.id);
   };

@@ -1,10 +1,12 @@
 import { useState } from 'react';
-import { GenreObjectType } from './types';
 import { useFormContext } from 'react-hook-form';
 import { useMovieService } from '@/services';
 import { useQuery } from 'react-query';
+import { GenreObjectType } from '@/types';
+import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
-const useFeedGenresField = (defaultVal: any) => {
+const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
   const { getGenres } = useMovieService();
   const genresDef = defaultVal === undefined ? [] : defaultVal;
   const { setValue, control } = useFormContext();
@@ -12,6 +14,9 @@ const useFeedGenresField = (defaultVal: any) => {
   const genresData = data?.data;
   const [genres, setGenres] = useState<GenreObjectType[]>(genresDef);
   const [select, setSelect] = useState(false);
+  const { t } = useTranslation('movieList');
+  const router = useRouter();
+  const locale = router.locale as string;
 
   const handleSelect = () => {
     setSelect(!select);
@@ -45,6 +50,8 @@ const useFeedGenresField = (defaultVal: any) => {
     control,
     select,
     genres,
+    t,
+    locale,
   };
 };
 

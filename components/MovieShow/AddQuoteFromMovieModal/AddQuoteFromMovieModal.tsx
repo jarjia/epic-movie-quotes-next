@@ -1,12 +1,10 @@
 import { FeedTextareaForFeed, FileInput } from '@/components';
-import { useTranslation } from 'next-i18next';
 import { FormProvider } from 'react-hook-form';
 import useAddQuoteModal from './useAddQuoteModal';
 import { MovieShowTypes } from './types';
 
 const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
-  const { t } = useTranslation('movieList');
-  const { handleSubmit, onSubmit, errors, form, locale } = useAddQuoteModal(
+  const { handleSubmit, onSubmit, errors, form, locale, t } = useAddQuoteModal(
     props.movie.id
   );
 
@@ -21,7 +19,7 @@ const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
         ></div>
         <div className='pl-4'>
           <h2 className='text-title text-xl'>
-            {props.movie.movie[locale as never]} ({props.movie.releaseDate})
+            {props.movie.movie[locale]} ({props.movie.releaseDate})
           </h2>
           <div className='sm:flex sm:flex-col-reverse'>
             <div className='flex w-full flex-wrap py-4 gap-1 large:gap-2 sm:gap-2 sm:max-h-full max-h-[100px] sm:overflow-y-auto overflow-y-scroll scrollbar'>
@@ -32,7 +30,7 @@ const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
                       key={genre.id}
                       className='flex sm:text-sm sm:px-2 rounded-sm items-center bg-placeholder text-white px-3 py-[2px]'
                     >
-                      <p>{genre.genre[locale as never]}</p>
+                      <p>{genre.genre[locale]}</p>
                     </div>
                   );
                 })}
@@ -40,7 +38,7 @@ const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
             <h3 className='text-placeholder sm:text-white mt-2'>
               {t('movie_show_director')}
               <span className='pl-2 text-white'>
-                {props.movie.director[locale as never]}
+                {props.movie.director[locale]}
               </span>
             </h3>
           </div>

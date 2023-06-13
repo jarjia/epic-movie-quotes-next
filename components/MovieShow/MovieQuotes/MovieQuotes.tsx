@@ -1,12 +1,9 @@
 import { AddIcon, QuoteCard } from '@/components';
-import { useTranslation } from 'next-i18next';
 import { MovieQuotesTypes } from './types';
-import { useContext } from 'react';
-import { AppContext } from '@/context';
+import useMovieQuotes from './useMovieQuotes';
 
 const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
-  const { t } = useTranslation('movieList');
-  const { handleFeedFormStatus } = useContext(AppContext);
+  const { t, handleFeedFormStatus } = useMovieQuotes();
 
   return (
     <div className='flex flex-col'>

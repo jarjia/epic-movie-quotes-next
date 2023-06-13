@@ -6,11 +6,9 @@ import {
   Movies,
 } from '@/components';
 import useMovieListPage from './useMovieListPage';
-import { useTranslation } from 'next-i18next';
 
 const MovieListPage = () => {
-  const { feedFormStatus, movies, loading } = useMovieListPage();
-  const { t } = useTranslation('movieList');
+  const { feedFormStatus, movies, loading, t } = useMovieListPage();
 
   return (
     <FeedLayout>

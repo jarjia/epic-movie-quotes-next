@@ -8,11 +8,11 @@ import { AppContext } from '@/context';
 const useMovieShowPage = () => {
   const { getMovie } = useMovieService();
   const router = useRouter();
-  let { movieId } = router.query;
+  let movieId = router.query.movieId as string;
   const [shouldFetch, setShouldFetch] = useState(false);
   const { data, refetch, isLoading, isError } = useQuery(
     'single-movie',
-    () => getMovie(movieId as any),
+    () => getMovie(movieId),
     {
       enabled: shouldFetch,
     }
@@ -39,8 +39,6 @@ const useMovieShowPage = () => {
       setShouldFetch(false);
     }
   }, [movieId, shouldRefetch, data]);
-
-  console.log(data);
 
   return {
     movie: data?.data,

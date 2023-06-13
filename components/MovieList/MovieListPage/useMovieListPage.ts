@@ -2,6 +2,7 @@ import { AppContext } from '@/context';
 import { useMovieService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
 
 const useMovieListPage = () => {
@@ -15,6 +16,7 @@ const useMovieListPage = () => {
   const { isLoading, data, status, refetch } = useQuery('my-movies', () =>
     getMovies(search)
   );
+  const { t } = useTranslation('movieList');
 
   useEffect(() => {
     if (status === 'success') {
@@ -30,6 +32,7 @@ const useMovieListPage = () => {
     loading: isLoading,
     feedFormStatus,
     movies,
+    t,
   };
 };
 
