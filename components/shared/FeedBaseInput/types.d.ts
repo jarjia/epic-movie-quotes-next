@@ -5,4 +5,5 @@ export type FeedBaseInputTypes = {
   label: string;
   lang: string;
   errors: Record<string | {}>;
+  defaultVal?: string;
 };

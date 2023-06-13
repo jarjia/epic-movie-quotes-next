@@ -7,49 +7,87 @@ import {
   PostVerifyTypes,
 } from './types';
 import axios from './axios';
+import { useRouter } from 'next/router';
 
-export const postRegister = (data: PostRegisterTypes) => {
-  return axios.post('/api/register', data);
+const useAuthService = () => {
+  const router = useRouter();
+  let locale = router.locale;
+
+  const postRegister = (data: PostRegisterTypes) => {
+    return axios.post('/api/register', data, {
+      params: { locale },
+    });
+  };
+
+  const postVerify = (data: PostVerifyTypes) => {
+    return axios.post('/api/verify-email', data, {
+      params: { locale },
+    });
+  };
+
+  const postRecoverEmail = (data: PostRecoverEmailTypes) => {
+    return axios.post('/api/recover/email', data, {
+      params: { locale },
+    });
+  };
+
+  const postRecoverPassword = (data: PostRecoverPasswordTypes) => {
+    return axios.post('/api/recover/password', data, {
+      params: { locale },
+    });
+  };
+
+  const getCrsfToken = () => {
+    return axios.get('/sanctum/csrf-cookie');
+  };
+
+  const postLoginUser = (loginCredentials: LoginCredentialsTypes) => {
+    return axios.post('/api/login', loginCredentials, {
+      params: { locale },
+    });
+  };
+
+  const getUserData = () => {
+    return axios.get('/api/user');
+  };
+
+  const getLogoutUser = () => {
+    return axios.get('/api/logout', {
+      params: { locale },
+    });
+  };
+
+  const getUserGoogleRedirect = () => {
+    return axios.get('/api/auth/google/redirect', {
+      params: { locale },
+    });
+  };
+
+  const getUserGoogleCallback = (query: LoginWithGoogleQueryTypes) => {
+    return axios.get('/api/auth/google/callback', {
+      params: query,
+    });
+  };
+
+  const postUserUpdateProfile = (data: FormData) => {
+    return axios.post('/api/profile/update', data, {
+      params: { locale },
+    });
+  };
+
+  return {
+    postLoginUser,
+    postRecoverEmail,
+    postRecoverPassword,
+    postRegister,
+    postUserUpdateProfile,
+    postVerify,
+    getCrsfToken,
+    getLogoutUser,
+    getUserData,
+    getUserGoogleCallback,
+    getUserGoogleRedirect,
+  };
 };
 
-export const postVerify = (data: PostVerifyTypes) => {
-  return axios.post('/api/verify-email', data);
-};
-
-export const postRecoverEmail = (data: PostRecoverEmailTypes) => {
-  return axios.post('/api/recover/email', data);
-};
-
-export const postRecoverPassword = (data: PostRecoverPasswordTypes) => {
-  return axios.post('/api/recover/password', data);
-};
-
-export const getCrsfToken = () => {
-  return axios.get('/sanctum/csrf-cookie');
-};
-
-export const postLoginUser = (loginCredentials: LoginCredentialsTypes) => {
-  return axios.post('/api/login', loginCredentials);
-};
-
-export const getUserData = () => {
-  return axios.get('/api/user');
-};
-
-export const getLogoutUser = () => {
-  return axios.get('/api/logout');
-};
-
-export const getUserGoogleRedirect = () => {
-  return axios.get('/api/auth/google/redirect');
-};
-
-export const getUserGoogleCallback = (query: LoginWithGoogleQueryTypes) => {
-  return axios.get('/api/auth/google/callback', {
-    params: query,
-  });
-};
-
-export const postUserUpdateProfile = (data: FormData) => {
-  return axios.post('/api/profile/update', data);
-};
+export default useAuthService;

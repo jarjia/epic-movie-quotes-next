@@ -103,7 +103,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             />
           )}
           {apiError !== '' && (
-            <p className='text-center text-default-btn'>{apiError}</p>
+            <p className='text-center text-default-btn'>{apiError || ''}</p>
           )}
         </div>
         <div className='flex justify-end gap-4 py-3'>

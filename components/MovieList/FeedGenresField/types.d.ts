@@ -1,4 +1,11 @@
-export type GenreObjectType = {
-  id: number;
-  genre: { en: string; ka: string };
+import { Keys } from '@/types';
+
+export type GenreFieldTypes = {
+  error: { genres: {} };
+  defaultVal?: [
+    {
+      id: number;
+      genre: Keys;
+    }
+  ];
 };

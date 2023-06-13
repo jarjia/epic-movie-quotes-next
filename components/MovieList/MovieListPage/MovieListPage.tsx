@@ -8,13 +8,13 @@ import {
 import useMovieListPage from './useMovieListPage';
 
 const MovieListPage = () => {
-  const { feedFormStatus, movies, loading } = useMovieListPage();
+  const { feedFormStatus, movies, loading, t } = useMovieListPage();
 
   return (
     <FeedLayout>
       <>
         {feedFormStatus === 'add-movie' ? (
-          <FeedFormLayout title='add movie'>
+          <FeedFormLayout title={`${t('add_movie')}`}>
             <AddMovieModal />
           </FeedFormLayout>
         ) : null}

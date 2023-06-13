@@ -2,5 +2,12 @@
   "log_out": "Log out",
   "news_feed": "News feed",
   "list_of_movies": "List of movies",
-  "edit_profile": "Edit your profile"
+  "edit_profile": "Edit your profile",
+  "new": "New",
+  "mark_as_read": "Mark all as read",
+  "notifications": "Notifications",
+  "reacted": "Reacted to your quote",
+  "commented": "Commented to your movie quote",
+  "search_movies": "Enter @ to search movies",
+  "search_quotes": "Enter # to search quotes"
 }

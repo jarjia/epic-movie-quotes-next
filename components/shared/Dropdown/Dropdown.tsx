@@ -29,10 +29,13 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
             <ul className='py-2 text-sm text-gray-700 dark:text-gray-200'>
               <li>
                 <Link
-                  href=''
+                  href={{
+                    pathname: router.pathname,
+                    query: { movieId: router.query.movieId },
+                  }}
                   locale='en'
                   onClick={() => {
-                    localStorage.removeItem('locale');
+                    localStorage.setItem('locale', 'en');
                     handleDropDown();
                   }}
                   className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
@@ -42,7 +45,10 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
               </li>
               <li>
                 <Link
-                  href=''
+                  href={{
+                    pathname: router.pathname,
+                    query: { movieId: router.query.movieId },
+                  }}
                   locale='ka'
                   onClick={() => {
                     localStorage.setItem('locale', 'ka');

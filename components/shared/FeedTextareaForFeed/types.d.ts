@@ -4,4 +4,5 @@ export type FeedBaseTextareaTypes = {
   lang: string;
   errorName: string;
   errors: Record<string | {}>;
+  defaultVal?: string;
 };

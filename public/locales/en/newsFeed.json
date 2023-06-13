@@ -2,14 +2,10 @@
   "write_quote": "Write new quote",
   "search_by": "Search by",
   "search_by_placeholder": "Enter @ to search movies, Enter # to search quotes",
-  "mark_as_read": "Mark all as read",
-  "notifications": "Notifications",
-  "reacted": "Reacted to your quote",
-  "commented": "Commented to your movie quote",
-  "search_movies": "Enter @ to search movies",
-  "search_quotes": "Enter # to search quotes",
   "post_quote_submit": "Post",
   "post_choose_movie": "Choose movie",
   "form_quote_title": "Write new quote",
-  "new": "New"
+  "select_movie_err": "Movie for quote is required",
+  "new_post_title": "Write new quote",
+  "no_movies": "No movies for now..."
 }

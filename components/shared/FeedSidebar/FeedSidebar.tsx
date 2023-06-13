@@ -63,12 +63,7 @@ const FeedSidebar = () => {
               href='/profile'
               className='cursor-pointer flex items-center gap-6'
             >
-              <div>
-                <div
-                  className='w-profile h-profile rounded-full bg-center bg-cover'
-                  style={{ backgroundImage: 'url(/assets/images/user.png)' }}
-                ></div>
-              </div>
+              <UserProfile />
               <div>
                 <h3 className='text-2xl sm:text-xl text-white break-words capitalize'>
                   {userData?.name}

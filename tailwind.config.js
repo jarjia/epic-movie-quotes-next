@@ -28,6 +28,8 @@ module.exports = {
       },
       gridTemplateColumns: {
         'mobile-search-cols': '15% 85%',
+        'movie-cols': '55% 45%',
+        'quote-card': '32% 68%',
       },
       colors: {
         'default-btn': '#E31221',

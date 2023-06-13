@@ -59,6 +59,7 @@ const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
           return (
             <Movie
               key={movie.id}
+              id={movie.id}
               thumbnail={movie.thumbnail}
               movie={movie.movie}
               releaseDate={movie.releaseDate}

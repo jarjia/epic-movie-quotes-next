@@ -2,12 +2,25 @@ import { FileCameraIcon } from '@/components';
 import { useFormContext } from 'react-hook-form';
 
 const FileInput = () => {
-  const { register } = useFormContext();
+  const { register, setValue } = useFormContext();
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setValue('thumbnail', e.dataTransfer.files);
+  };
 
   return (
     <label>
       <input type='file' {...register('thumbnail')} className='hidden' />
-      <div className='flex items-center border-[1px] border-placeholder p-3 text-white gap-2'>
+      <div
+        onDrop={(e) => handleDrop(e)}
+        onDragOver={handleDragOver}
+        className='flex items-center border-[1px] border-placeholder p-3 text-white gap-2'
+      >
         <FileCameraIcon />
         <p className='block sm:hidden'>
           Drag & drop your image here or

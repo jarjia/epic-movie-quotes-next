@@ -1,11 +1,10 @@
 import { Controller } from 'react-hook-form';
-import { GenreObjectType } from './types';
+import { GenreFieldTypes } from './types';
 import { CloseIcon } from '@/components';
 import useFeedGenresField from './useFeedGenresField';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+import { GenreObjectType } from '@/types';
 
-const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
+const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
   const {
     handleAddGenre,
     handleDeleteGenre,
@@ -13,11 +12,10 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
     filteredGenres,
     control,
     genres,
+    t,
+    locale,
     select,
-  } = useFeedGenresField();
-  const { t } = useTranslation('movieList');
-  const router = useRouter();
-  const locale = router.locale;
+  } = useFeedGenresField(props.defaultVal as GenreObjectType[]);
 
   return (
     <>
@@ -48,7 +46,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
                   }}
                   className='flex rounded-sm items-center gap-1 bg-placeholder text-white mx-0.5 px-2 py-[2px]'
                 >
-                  <p onClick={handleSelect}>{genre.genre[locale as never]}</p>
+                  <p onClick={handleSelect}>{genre.genre[locale]}</p>
                   <button
                     type='button'
                     onClick={() => handleDeleteGenre(genre.id)}
@@ -80,7 +78,7 @@ const FeedGenresField: React.FC<{ error: { genres: {} } }> = (props) => {
                       onClick={() => handleAddGenre(item)}
                       className='cursor-pointer select-none p-1 px-2 hover:bg-blue-700'
                     >
-                      {item.genre[locale as never]}
+                      {item.genre[locale]}
                     </div>
                   );
                 })}

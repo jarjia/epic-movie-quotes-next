@@ -1,10 +1,28 @@
 import { AppContext } from '@/context';
+import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
+import { useQuery } from 'react-query';
 
 const useFeedLayout = () => {
-  const { feedFormStatus } = useContext(AppContext);
+  const { getUserData } = useAuthService();
+  const { feedFormStatus, handleUserData, shouldRefetch } =
+    useContext(AppContext);
   const router = useRouter();
+  const { isLoading, isError, refetch } = useQuery('user', getUserData, {
+    onSuccess(data) {
+      handleUserData(data.data);
+    },
+    onError: () => {
+      router.push('/403');
+    },
+  });
+
+  useEffect(() => {
+    if (shouldRefetch || !shouldRefetch) {
+      refetch();
+    }
+  }, [shouldRefetch, refetch]);
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -17,6 +35,8 @@ const useFeedLayout = () => {
   return {
     feedFormStatus,
     router,
+    isLoading,
+    isError,
   };
 };
 

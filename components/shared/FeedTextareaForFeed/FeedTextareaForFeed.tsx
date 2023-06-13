@@ -16,6 +16,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
       <textarea
         placeholder={props.label}
         {...register(props.name)}
+        defaultValue={props.defaultVal !== undefined ? props.defaultVal : ''}
         className={`${
           error !== undefined
             ? 'border-default-btn focus:border-default-btn'

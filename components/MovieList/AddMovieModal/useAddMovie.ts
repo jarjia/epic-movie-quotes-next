@@ -1,12 +1,20 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
-import { postMovie } from '@/services';
+import { useMovieService } from '@/services';
+import { GenreObjectType, MovieCreateTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
-import { FormProvider, UseFormReturn, useForm } from 'react-hook-form';
+import {
+  FieldValues,
+  FormProvider,
+  SubmitHandler,
+  UseFormReturn,
+  useForm,
+} from 'react-hook-form';
 import { useMutation } from 'react-query';
 
 const useAddMovie = () => {
+  const { postMovie } = useMovieService();
   const { AddMovieSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
@@ -31,17 +39,14 @@ const useAddMovie = () => {
     },
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
     let genresIds: number[] = [];
-    data.genres.map((item: any) => genresIds.push(item.id));
-    const newData = {
-      ...data,
-      genres: genresIds,
-      thumbnail: data.thumbnail[0],
-      user_id: userData.id,
-    };
+    data.genres.map((item: GenreObjectType) => genresIds.push(item.id));
+    data.genres = genresIds;
+    data.thumbnail = data.thumbnail[0];
+    data.user_id = userData.id;
 
-    createMovie(newData);
+    createMovie(data as MovieCreateTypes);
   };
 
   return {

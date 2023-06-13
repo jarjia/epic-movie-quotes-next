@@ -9,7 +9,7 @@ export * from './NotificationCard';
 export * from './MobileSearchbar';
 export * from './FeedBaseInput';
 export * from './FeedFormLayout';
-export * from './FeedTextarea';
 export * from './SelectMovie';
 export * from './FileInput';
 export * from './FeedTextareaForFeed';
+export * from './ReplacePhoto';

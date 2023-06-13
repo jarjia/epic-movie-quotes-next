@@ -1,3 +1,7 @@
+export type Keys = {
+  [key: string]: string;
+};
+
 export type HandleFormStatusTypes = {
   handleFormStatus: (status: string) => void;
 };
@@ -19,9 +23,6 @@ export type UserDataTypes = {
   name: string;
   id: number;
   email: string;
-  email_verified_at: string;
-  created_at: string;
-  updated_at: string;
   google_id: string;
   thumbnail?: string;
 };
@@ -31,18 +32,9 @@ export type hookUserUpdateTypes = {
   editProfile: MobileInputTypes;
 };
 export type MovieCreateTypes = {
-  movie: {
-    en: string;
-    ka: string;
-  };
-  description: {
-    en: string;
-    ka: string;
-  };
-  director: {
-    en: string;
-    ka: string;
-  };
+  movie: Keys;
+  description: Keys;
+  director: Keys;
   releaseDate: string;
   thumbnail: {};
 };
@@ -50,18 +42,33 @@ export type MovieStructureTypes = {
   id: number;
   releaseDate: string;
   thumbnail: string;
-  created_at: string;
-  updated_at: string;
+  movie: Keys;
+};
+export type MovieDescTypes = {
   movie: {
-    en: string;
-    ka: string;
+    created_at: string;
+    description: Keys;
+    director: Keys;
+    movie: Keys;
+    id: number;
+    genres: [
+      {
+        id: number;
+        genre: Keys;
+      }
+    ];
+    releaseDate: string;
+    thumbnail: string;
+    updated_at: string;
+    user_id: number;
   };
-  description: {
-    en: string;
-    ka: string;
-  };
-  director: {
-    en: string;
-    ka: string;
-  };
+};
+export type PostQuoteTypes = {
+  quote: Keys;
+  movieId: number;
+  thumbnail: {};
+};
+export type GenreObjectType = {
+  id: number;
+  genre: Keys;
 };

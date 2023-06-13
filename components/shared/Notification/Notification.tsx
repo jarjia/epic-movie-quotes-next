@@ -2,7 +2,7 @@ import { NotificationCard, TriangleIcon } from '@/components';
 import { useTranslation } from 'next-i18next';
 
 const Notification = () => {
-  const { t } = useTranslation('newsFeed');
+  const { t } = useTranslation('common');
 
   return (
     <div className='bg-red-500'>
@@ -18,7 +18,7 @@ const Notification = () => {
             <h2 className='text-white text-3xl sm:text-2xl'>
               {t('notifications')}
             </h2>
-            <button className='underline sm:text-lg text-xl text-white'>
+            <button className='underline sm:text-lg text-md text-white'>
               {t('mark_as_read')}
             </button>
           </div>

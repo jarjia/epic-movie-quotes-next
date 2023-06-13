@@ -1,5 +1,8 @@
+import { Keys } from '@/types';
+
 export type MovieTypes = {
   thumbnail: string;
-  movie: { en: string; ka: string };
+  movie: Keys;
   releaseDate: string;
+  id: number;
 };

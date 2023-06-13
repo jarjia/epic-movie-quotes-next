@@ -1,4 +1,4 @@
-import { postVerify } from '@/services';
+import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
@@ -7,6 +7,7 @@ import { PostVerifyTypes } from './types';
 const useMain = () => {
   const [formStatus, setFormStatus] = useState<string | null>(null);
   const router = useRouter();
+  const { postVerify } = useAuthService();
 
   useEffect(() => {
     setFormStatus(JSON.parse(sessionStorage.getItem('form-status') || 'null'));
