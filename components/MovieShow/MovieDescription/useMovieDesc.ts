@@ -10,7 +10,7 @@ const useMovieDesc = () => {
   const { t } = useTranslation('movieList');
   const router = useRouter();
   const { handleFeedFormStatus } = useContext(AppContext);
-  const { mutate: MovieDelete } = useMutation(deleteMovie, {
+  const { mutate: movieDeletionMutation } = useMutation(deleteMovie, {
     onSuccess: () => {
       router.push('/movie-list');
     },
@@ -18,7 +18,7 @@ const useMovieDesc = () => {
   let locale = router.locale as string;
 
   const handleDelete = async (id: number) => {
-    MovieDelete(id);
+    movieDeletionMutation(id);
   };
 
   return {
