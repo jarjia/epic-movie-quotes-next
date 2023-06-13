@@ -33,7 +33,7 @@ const useUserUpdate = ({
     formState: { errors },
     control,
   } = form;
-  const { userData } = useContext(AppContext);
+  const { userData, handleRefetch } = useContext(AppContext);
   const [cancel, setCancel] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
@@ -76,6 +76,7 @@ const useUserUpdate = ({
       setIsEditing(false);
       handleEditProfileClear();
       router.push('/profile');
+      handleRefetch();
       handleIsSuccess(true);
     },
     onError: (error: any) => {
