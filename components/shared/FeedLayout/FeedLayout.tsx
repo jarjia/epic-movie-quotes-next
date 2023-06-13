@@ -4,7 +4,11 @@ import { FeedLayoutTypes } from './types';
 import useFeedLayout from './useFeedLayout';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
-  const { feedFormStatus, router } = useFeedLayout();
+  const { feedFormStatus, router, isLoading, isError } = useFeedLayout();
+
+  if (isLoading || isError) {
+    return <div className={`${classes.newsfeed} w-screen h-screen`}></div>;
+  }
 
   return (
     <section className={`${classes.newsfeed} w-screen h-full min-h-screen`}>

@@ -1,27 +1,8 @@
 import { FileCameraIcon } from '@/components/icons';
-import React, { useEffect, useState } from 'react';
-import { useFormContext, useWatch } from 'react-hook-form';
+import useReplacePhoto from './useReplacePhoto';
 
 const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
-  const { register, control, setValue } = useFormContext();
-  const [img, setImg] = useState<string | null>(null);
-  const image = useWatch({ control, name: 'thumbnail' });
-
-  useEffect(() => {
-    if (image !== undefined) {
-      setImg(URL.createObjectURL(image[0]));
-    }
-  }, [image]);
-
-  const handleDragOver = (e: any) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: any) => {
-    e.preventDefault();
-    setImg(e.dataTransfer.files);
-    setValue('thumbnail', e.dataTransfer.files);
-  };
+  const { handleDragOver, handleDrop, img, register } = useReplacePhoto();
 
   return (
     <label>

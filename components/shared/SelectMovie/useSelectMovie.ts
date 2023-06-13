@@ -9,7 +9,6 @@ const useSelectMovie = () => {
   const { getMoviesForQuote } = useMovieService();
   const { control, setValue } = useFormContext();
   const { t } = useTranslation('newsFeed');
-  const { data } = useQuery('movies-for-quote', getMoviesForQuote);
   const [movies, setMovies] = useState([]);
   const [movieId, setMovieId] = useState<{
     id: number;
@@ -17,13 +16,19 @@ const useSelectMovie = () => {
   } | null>(null);
   const [isSelect, setIsSelect] = useState(false);
   const router = useRouter();
-  let locale = router.locale;
-
-  useEffect(() => {
-    if (data?.status === 200) {
+  const res = useQuery('movies-for-quote', getMoviesForQuote, {
+    onSuccess(data) {
       setMovies(data.data);
-    }
-  }, [data]);
+    },
+  });
+  let locale = router.locale;
+  console.log(res);
+
+  // useEffect(() => {
+  //   if (data?.status === 200) {
+  //     setMovies(data.data);
+  //   }
+  // }, [data]);
 
   const handleMovieId = (movieId: {
     id: number;

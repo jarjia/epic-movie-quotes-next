@@ -4,11 +4,11 @@ import { useFormContext } from 'react-hook-form';
 const FileInput = () => {
   const { register, setValue } = useFormContext();
 
-  const handleDragOver = (e: any) => {
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
   };
 
-  const handleDrop = (e: any) => {
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setValue('thumbnail', e.dataTransfer.files);
   };

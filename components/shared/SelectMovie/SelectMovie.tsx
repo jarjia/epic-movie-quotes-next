@@ -13,10 +13,15 @@ const SelectMovie = () => {
     isSelect,
     t,
   } = useSelectMovie();
+  console.log(movies);
 
   return (
     <div className='mt-4'>
-      <Controller name='movieId' control={control} render={(): any => null} />
+      <Controller
+        name='movieId'
+        control={control}
+        render={() => <input type='hidden' />}
+      />
       <div
         onClick={handleSelect}
         className='text-white bg-black border-0 py-3 my-2'
