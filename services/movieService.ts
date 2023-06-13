@@ -25,13 +25,13 @@ const useMovieService = () => {
     });
   };
 
-  const getMovie = (id: number) => {
+  const getMovie = (id: string) => {
     return axios.get(`/api/movie`, {
       params: { id, locale },
     });
   };
 
-  const deleteMovie = (movie: number) => {
+  const deleteMovie = (movie: number | null) => {
     return axios.delete(`/api/movie/delete/${movie}`);
   };
 
