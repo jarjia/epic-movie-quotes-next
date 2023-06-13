@@ -9,7 +9,7 @@ const useFeedLayout = () => {
   const { feedFormStatus, handleUserData, shouldRefetch } =
     useContext(AppContext);
   const router = useRouter();
-  const { isLoading, data, isError, refetch } = useQuery('user', getUserData, {
+  const { isLoading, isError, refetch } = useQuery('user', getUserData, {
     onSuccess(data) {
       handleUserData(data.data);
     },
