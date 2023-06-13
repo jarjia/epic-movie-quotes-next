@@ -74,5 +74,9 @@ export type MovieDescTypes = {
 export type PostQuoteTypes = {
   quote: { en: string; ka: string };
   movieId: number;
-  thumbnail: any;
+  thumbnail: {};
+};
+export type GenreObjectType = {
+  id: number;
+  genre: { en: string; ka: string };
 };
