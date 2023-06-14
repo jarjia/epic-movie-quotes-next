@@ -1,9 +1,35 @@
 import { Post } from '@/components';
+import usePosts from './usePosts';
+import { PostsPropsTypes } from './types';
 
-const Posts = () => {
+const Posts: React.FC<PostsPropsTypes> = (props) => {
+  const { posts, isLoading } = usePosts(
+    props.refetchPosts,
+    props.handleRefetchPosts
+  );
+
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <div className='my-4 pb-2'>
-      <Post />
+      {posts.map((post) => {
+        return (
+          <Post
+            key={post.id}
+            id={post.id}
+            thumbnail={post.thumbnail}
+            quote={post.quote}
+            releaseDate={post.movies.releaseDate}
+            author={post.movies.user.name}
+            authorProfile={post.movies.user.thumbnail}
+            movie={post.movies.movie}
+            comments={post.comments}
+            likes={post.likes}
+          />
+        );
+      })}
     </div>
   );
 };
