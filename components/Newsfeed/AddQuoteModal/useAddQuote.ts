@@ -23,11 +23,12 @@ const useAddQuote = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { handleFeedFormStatus } = useContext(AppContext);
+  const { handleFeedFormStatus, handleRefetch } = useContext(AppContext);
 
   const { mutate: addQuote } = useMutation(postQuote, {
     onSuccess: () => {
       handleFeedFormStatus('');
+      handleRefetch();
     },
     onError: (err) => {
       console.log(err);
