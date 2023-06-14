@@ -2,7 +2,9 @@ import { useContext } from 'react';
 import { AppContext } from '@/context';
 import { AddQuote, Searchbar } from '@/components';
 
-const NewsFeedControl = () => {
+const NewsFeedControl: React.FC<{
+  handleRefetchPosts: (bool: boolean) => void;
+}> = (props) => {
   const { isSearch } = useContext(AppContext);
 
   return (
@@ -13,7 +15,7 @@ const NewsFeedControl = () => {
       }}
     >
       <AddQuote />
-      <Searchbar />
+      <Searchbar handleRefetchPosts={props.handleRefetchPosts} />
     </div>
   );
 };

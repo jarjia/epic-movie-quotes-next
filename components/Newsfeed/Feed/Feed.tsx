@@ -9,7 +9,7 @@ import useFeed from './useFeed';
 import { useTranslation } from 'next-i18next';
 
 const Feed = () => {
-  const { feedFormStatus } = useFeed();
+  const { feedFormStatus, refetchPosts, handleRefetchPosts } = useFeed();
   const { t } = useTranslation('newsFeed');
 
   return (
@@ -21,8 +21,11 @@ const Feed = () => {
           </FeedFormLayout>
         ) : null}
         <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
-        <NewsFeedControl />
-        <Posts />
+        <NewsFeedControl handleRefetchPosts={handleRefetchPosts} />
+        <Posts
+          handleRefetchPosts={handleRefetchPosts}
+          refetchPosts={refetchPosts}
+        />
       </>
     </FeedLayout>
   );
