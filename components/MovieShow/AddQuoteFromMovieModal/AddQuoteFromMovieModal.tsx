@@ -1,12 +1,14 @@
 import { FeedTextareaForFeed, FileInput } from '@/components';
 import { FormProvider } from 'react-hook-form';
-import useAddQuoteModal from './useAddQuoteModal';
 import { MovieShowTypes } from './types';
+import useAddQuoteFromMovieModal from './useAddQuoteFromMovieModal';
 
-const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
-  const { handleSubmit, onSubmit, errors, form, locale, t } = useAddQuoteModal(
-    props.movie.id
-  );
+const AddQuoteFromMovieModal: React.FC<{
+  movie: MovieShowTypes;
+  handleRefecthQuotes: () => void;
+}> = (props) => {
+  const { handleSubmit, onSubmit, errors, form, locale, t } =
+    useAddQuoteFromMovieModal(props.movie.id, props.handleRefecthQuotes);
 
   return (
     <FormProvider {...form}>
@@ -45,25 +47,26 @@ const AddQuoteFromMovieModal: React.FC<{ movie: MovieShowTypes }> = (props) => {
         </div>
       </div>
       <form className='mt-8' onSubmit={handleSubmit(onSubmit)}>
-        <div className='sm:block hidden sm:my-4'>
-          <FileInput />
-        </div>
-        <FeedTextareaForFeed
-          label='create new quote'
-          name='quote[en]'
-          lang='Eng'
-          errorName='quote'
-          errors={errors}
-        />
-        <FeedTextareaForFeed
-          label='ახალი ციტატა'
-          name='quote[ka]'
-          lang='ქარ'
-          errorName='quote'
-          errors={errors}
-        />
-        <div className='sm:hidden block'>
-          <FileInput />
+        <div className='sm:flex sm:flex-col-reverse'>
+          <div>
+            <FeedTextareaForFeed
+              label='create new quote'
+              name='quote[en]'
+              lang='Eng'
+              errorName='quote'
+              errors={errors}
+            />
+            <FeedTextareaForFeed
+              label='ახალი ციტატა'
+              name='quote[ka]'
+              lang='ქარ'
+              errorName='quote'
+              errors={errors}
+            />
+          </div>
+          <div className='my-2'>
+            <FileInput />
+          </div>
         </div>
         <div>
           <p className='text-default-btn text-sm'>
