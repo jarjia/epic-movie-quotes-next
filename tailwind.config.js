@@ -52,6 +52,7 @@ module.exports = {
         'choose-file': '#9747FF',
         'mobile-search': '#12101A',
         'success-message-bg': '#D1E7DD',
+        liked: '#F3426C',
       },
       width: {
         profile: '60px',

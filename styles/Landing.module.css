@@ -39,6 +39,14 @@
     rgba(239, 239, 239, 0.05) 102.52%
   );
 }
+.change-photo {
+  background: linear-gradient(
+    187.16deg,
+    #181623 0.07%,
+    #191725 51.65%,
+    #0d0b14 98.75%
+  );
+}
 @media (max-width: 625px) {
   .mobile-linear {
     background: linear-gradient(
