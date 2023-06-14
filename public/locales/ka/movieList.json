@@ -20,5 +20,11 @@
   "delete_quote": "წაშლა",
   "post_quote_submit": "დაამატე ციტატა",
   "post_quote_title": "დაამატე ციტატა",
-  "update_movie_title": "განაახლე ფილმი"
+  "update_movie_title": "განაახლე ფილმი",
+  "edit_quote_title": "განაახლე ციტატა",
+  "edit_quote_submit": "განაახლე",
+  "comment_placeholder": "დაწერე კომენტარი",
+  "show_more": "მეტი",
+  "hide": "დამალე",
+  "no_comments": "კომენტარი არ არის"
 }
