@@ -21,3 +21,7 @@ export type LoginCredentialsTypes = {
   password: string;
   remember_me: boolean;
 };
+export type PostCommentTypes = {
+  quote_id: number;
+  comment: string;
+};
