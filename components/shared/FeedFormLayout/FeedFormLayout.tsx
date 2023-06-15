@@ -11,7 +11,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
   handleRefecthQuotes,
 }) => {
   const { deleteQuoteMutate, userData, router, t, handleFeedFormStatus } =
-    useFeedForm(handleRefecthQuotes || (() => {}));
+    useFeedForm(handleRefecthQuotes);
 
   return (
     <div className='relative sm:absolute sm:left-0 sm:top-0 w-full z-[999]'>

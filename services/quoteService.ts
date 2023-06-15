@@ -42,6 +42,8 @@ const useQuoteService = () => {
   };
 
   const getAllQuotes = (paginate: number, search: string) => {
+    console.log(paginate, search);
+
     return axios.get('/api/quotes/all', {
       params: { paginate, search },
     });

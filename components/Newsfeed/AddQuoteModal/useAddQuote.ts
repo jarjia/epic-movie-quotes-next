@@ -30,9 +30,6 @@ const useAddQuote = () => {
       handleFeedFormStatus('');
       handleRefetch();
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

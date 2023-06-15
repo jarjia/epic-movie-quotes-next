@@ -43,9 +43,6 @@ const useAddQuoteFromMovieModal = (
       handleFeedFormStatus('');
       handleRefecthQuotes();
     },
-    onError: (err) => {
-      console.log(err);
-    },
   });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {

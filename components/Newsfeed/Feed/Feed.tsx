@@ -17,7 +17,7 @@ const Feed = () => {
       <>
         {feedFormStatus === 'add-quote' ? (
           <FeedFormLayout title={`${t('new_post_title')}`}>
-            <AddQuoteModal />
+            <AddQuoteModal handleRefetchPosts={handleRefetchPosts} />
           </FeedFormLayout>
         ) : null}
         <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>

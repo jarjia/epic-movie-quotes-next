@@ -4,11 +4,12 @@ import { useRouter } from 'next/router';
 import { useContext, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useMutation } from 'react-query';
+import { likeTypes } from '@/types';
 
 const usePost = (
   quoteId: number,
   commentsLength: number,
-  likes: { id: number; user: { id: number } }[]
+  likes: likeTypes[]
 ) => {
   const likesIds = likes.map((item) => item.user.id);
   const router = useRouter();
