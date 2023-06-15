@@ -1,8 +1,9 @@
 import { FileCameraIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import useQuotePhoto from './useQuotePhoto';
+import { QuotePhotoTypes } from './types';
 
-const QuotePhoto: React.FC<{ thumbnail: string }> = (props) => {
+const QuotePhoto: React.FC<QuotePhotoTypes> = (props) => {
   const { register, handleDragOver, handleDrop, img } = useQuotePhoto();
 
   return (

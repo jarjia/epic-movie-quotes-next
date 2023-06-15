@@ -12,8 +12,20 @@ const useMovieShowPage = () => {
   const router = useRouter();
   let movieId = router.query.movieId as string;
   const [fetchQuotes, setFetchQuotes] = useState(false);
-  const [movie, setMovie] = useState<MovieShowTypes>({} as MovieShowTypes);
-  const [quotes, setQuotes] = useState([] as QuotesTypes[]);
+  const [movie, setMovie] = useState<MovieShowTypes>({
+    created_at: '',
+    description: { en: '', ka: '' },
+    director: { en: '', ka: '' },
+    movie: { en: '', ka: '' },
+    id: 0,
+    genres: [{ id: 0, genre: { en: '', ka: '' } }],
+    releaseDate: '',
+    thumbnail: '',
+    updated_at: '',
+    user_id: 0,
+  });
+
+  const [quotes, setQuotes] = useState<QuotesTypes[]>([]);
   const [refetchQuotes, setRefetchQuotes] = useState(false);
 
   const [shouldFetch, setShouldFetch] = useState(false);
@@ -21,7 +33,7 @@ const useMovieShowPage = () => {
     refetch: movieRefetch,
     isLoading,
     isError,
-  } = useQuery('single-movie', () => getMovie(movieId), {
+  } = useQuery(['movies', movieId], () => getMovie(movieId), {
     onSuccess: (res) => {
       setMovie(res.data);
       setFetchQuotes(true);
@@ -66,7 +78,7 @@ const useMovieShowPage = () => {
   }, [shouldRefetch, movieRefetch]);
 
   useEffect(() => {
-    if (movieId !== undefined && movie.id === undefined) {
+    if (movieId !== undefined && movie.id === 0) {
       setShouldFetch(true);
     } else {
       setShouldFetch(false);

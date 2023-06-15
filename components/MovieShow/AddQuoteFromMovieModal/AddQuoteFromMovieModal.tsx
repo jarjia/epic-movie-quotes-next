@@ -1,12 +1,11 @@
 import { FeedTextareaForFeed, FileInput } from '@/components';
 import { FormProvider } from 'react-hook-form';
-import { MovieShowTypes } from './types';
 import useAddQuoteFromMovieModal from './useAddQuoteFromMovieModal';
+import { AddQuoteFromMovieModalTypes } from './types';
 
-const AddQuoteFromMovieModal: React.FC<{
-  movie: MovieShowTypes;
-  handleRefecthQuotes: () => void;
-}> = (props) => {
+const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
+  props
+) => {
   const { handleSubmit, onSubmit, errors, form, locale, t } =
     useAddQuoteFromMovieModal(props.movie.id, props.handleRefecthQuotes);
 

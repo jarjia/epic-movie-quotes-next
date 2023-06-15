@@ -1,7 +1,6 @@
 import { CommentIcon, HeartIcon } from '@/components';
 import { ViewQuoteModalTypes } from './types';
 import useViewQuoteModal from './useViewQuoteModal';
-import { useTranslation } from 'next-i18next';
 
 const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
   const {
@@ -14,11 +13,12 @@ const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
     searchRef,
     likeMutate,
     hasLiked,
+    t,
+    isSuccess,
     handleSubmit,
   } = useViewQuoteModal(quoteId);
-  const { t } = useTranslation('movieList');
 
-  if (isLoading) {
+  if (isLoading || !isSuccess) {
     return null;
   }
 
@@ -43,11 +43,11 @@ const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
         ></div>
         <div className='flex py-4 gap-6'>
           <button onClick={handleOpenComments} className='flex gap-2'>
-            {quote.comments.length}
+            {quote.comments?.length}
             <CommentIcon />
           </button>
           <button onClick={() => likeMutate(quote.id)} className='flex gap-2'>
-            {quote.likes.length}
+            {quote.likes?.length}
             <HeartIcon hasLiked={hasLiked} />
           </button>
         </div>

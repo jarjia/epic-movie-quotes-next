@@ -18,7 +18,7 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
     props.handleRefecthQuotes
   );
 
-  if (isLoading || !quote.quote) {
+  if (isLoading || !quote.quote || quote.id === 0) {
     return null;
   }
 
@@ -34,7 +34,6 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
           errorName='quote'
           label={`"${'Quote in English.'}"`}
           lang='Eng'
-          defaultVal={quote.quote.en}
           errors={errors}
         />
         <FeedTextareaForFeed
@@ -42,7 +41,6 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
           errorName='quote'
           label={`“${'ციტატა ქართულ ენაზე'}“`}
           lang='ქარ'
-          defaultVal={quote.quote.ka}
           errors={errors}
         />
         <QuotePhoto thumbnail={quote.thumbnail} />

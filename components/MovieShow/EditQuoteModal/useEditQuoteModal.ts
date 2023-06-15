@@ -1,18 +1,18 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useQuoteService } from '@/services';
-import { QuotesTypes, UpdateQuotesTypes } from '@/types';
+import { UpdateQuotesTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext, useEffect, useState } from 'react';
 import {
   FieldValues,
   FormProvider,
   SubmitHandler,
-  UseFormReturn,
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from 'react-query';
+import { EditQuoteStateTypes } from './types';
 
 const useEditQuoteModal = (
   quoteId: string | null,
@@ -21,37 +21,48 @@ const useEditQuoteModal = (
 ) => {
   const { getQuote, updateQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
-  const form: UseFormReturn = useForm({
-    mode: 'onChange',
-    resolver: zodResolver(addQuoteSchema),
+  const [quote, setQuote] = useState<EditQuoteStateTypes>({
+    id: 0,
+    quote: { en: '', ka: '' },
+    thumbnail: '',
+    movie_id: 0,
   });
-  const { handleFeedFormStatus } = useContext(AppContext);
-  const {
-    handleSubmit,
-    setValue,
-    formState: { errors },
-  } = form;
-  const { t } = useTranslation('movieList');
-  const [quote, setQuote] = useState<QuotesTypes>({} as QuotesTypes);
   const { isLoading } = useQuery('quote', () => getQuote(quoteId), {
     onSuccess(data) {
       setQuote(data.data);
     },
-    enabled:
-      quoteId !== null || quoteId !== undefined || quoteId === 'null'
-        ? true
-        : false,
+    enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
   });
+  const { handleFeedFormStatus } = useContext(AppContext);
+  const { t } = useTranslation('movieList');
   const { mutate: updateQuoteMutate } = useMutation(updateQuote, {
     onSuccess: () => {
       handleRefecthQuotes();
       handleFeedFormStatus('');
     },
   });
+  const form = useForm({
+    mode: 'onChange',
+    resolver: zodResolver(addQuoteSchema),
+  });
+  const {
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = form;
 
   useEffect(() => {
-    setValue('movieId', movieId);
-  }, [setValue, movieId]);
+    const defaultValues = {
+      quote: {
+        en: quote.quote !== undefined ? quote.quote.en : '',
+        ka: quote.quote !== undefined ? quote.quote.ka : '',
+      },
+      movieId: movieId,
+    };
+    if (quote.quote !== undefined) {
+      reset(defaultValues);
+    }
+  }, [reset, quote.quote, movieId]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.thumbnail.length === 0) {

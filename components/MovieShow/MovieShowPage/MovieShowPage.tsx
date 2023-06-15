@@ -24,7 +24,7 @@ const MovieShowPage = () => {
   return (
     <FeedLayout>
       <>
-        {!isLoading && movie.id !== undefined && (
+        {!isLoading && movie.id !== 0 && (
           <>
             {feedFormStatus === 'edit-movie' ? (
               <FeedFormLayout title={`${t('update_movie_title')}`}>

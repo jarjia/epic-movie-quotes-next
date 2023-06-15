@@ -2,6 +2,7 @@ import { AppContext } from '@/context';
 import { useNotificationService, useQuoteService } from '@/services';
 import { QuotesTypes } from '@/types';
 import { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from 'react-query';
 
 const useViewQuoteModal = (quoteId: string | null) => {
@@ -11,14 +12,12 @@ const useViewQuoteModal = (quoteId: string | null) => {
     onSuccess(data) {
       setQuote(data.data);
     },
-    enabled:
-      quoteId !== null || quoteId !== undefined || quoteId === 'null'
-        ? true
-        : false,
+    enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
   });
+  const { t } = useTranslation('movieList');
   let likesIds: number[] = [];
 
-  if (isSuccess) {
+  if (isSuccess && quote.likes) {
     likesIds = quote.likes.map((item) => item.user.id);
   }
 
@@ -43,20 +42,13 @@ const useViewQuoteModal = (quoteId: string | null) => {
     setOpenComments(0);
   };
 
-  const { mutate: likeMutate } = useMutation(postLike, {
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { mutate: likeMutate } = useMutation(postLike);
 
   const { mutate: createCommentMutate } = useMutation(postComment, {
     onSuccess() {
       if (searchRef.current) {
         searchRef.current.value = '';
       }
-    },
-    onError: (err) => {
-      console.log(err);
     },
   });
 
@@ -66,7 +58,6 @@ const useViewQuoteModal = (quoteId: string | null) => {
       comment: searchRef.current?.value as string,
       quote_id: parseFloat(quoteId as string),
     };
-    console.log(commentData);
 
     createCommentMutate(commentData);
   };
@@ -80,8 +71,10 @@ const useViewQuoteModal = (quoteId: string | null) => {
     handleShowMore,
     hasLiked: likesIds.includes(userData.id),
     likeMutate,
+    t,
     searchRef,
     openComments,
+    isSuccess,
   };
 };
 
