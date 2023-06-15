@@ -1,46 +1,29 @@
 import { useQuoteService } from '@/services';
-import { PostsTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 
-const usePosts = (
-  refetchPosts: boolean,
-  handleRefetchPosts: (bool: boolean) => void
-) => {
+const usePosts = () => {
   const { getAllQuotes } = useQuoteService();
-  const [posts, setPosts] = useState([] as PostsTypes[]);
   const [paginate, setPaginate] = useState(2);
   const router = useRouter();
   let search = router.query.search === undefined ? '' : router.query.search;
-  const { refetch, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
+  const { isLoading, fetchNextPage, hasNextPage, data } = useInfiniteQuery(
     ['quotes', paginate, search],
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       getNextPageParam: (info) => {
-        return info.data.last_page > info.data.current_page
+        return info.data.last_page > parseFloat(info.data.current_page)
           ? ++info.data.current_page
           : undefined;
       },
-      onSuccess: (data) => {
-        setPosts(data.pages[0].data.quotes);
-        handleRefetchPosts(false);
-      },
       keepPreviousData: true,
-      enabled: posts?.length === 0 || refetchPosts ? true : false,
     }
   );
+  const posts = data?.pages[0]?.data?.quotes;
 
   useEffect(() => {
-    if (refetchPosts) {
-      setTimeout(() => {
-        refetch();
-      }, 500);
-    }
-  }, [refetch, refetchPosts]);
-
-  useEffect(() => {
-    if (!hasNextPage) {
+    if (hasNextPage) {
       fetchNextPage();
     }
   }, [paginate, fetchNextPage, hasNextPage]);
@@ -57,8 +40,8 @@ const usePosts = (
         let postsLimit = Math.floor(position / window.innerHeight) + 1;
 
         setPaginate(() => {
-          if (postsLimit < posts.length - 1) {
-            return posts.length;
+          if (postsLimit < posts?.length - 1) {
+            return posts?.length;
           } else {
             return Math.floor(position / window.innerHeight) === -1
               ? 2
@@ -79,7 +62,7 @@ const usePosts = (
         clearTimeout(timeoutRef);
       }
     };
-  }, [posts.length]);
+  }, [posts?.length]);
 
   return {
     posts,

@@ -19,7 +19,7 @@ const usePost = (
   const { userData } = useContext(AppContext);
   const [openComments, setOpenComments] = useState(0);
   const [hasLiked] = useState(likesIds.includes(userData.id) ? true : false);
-  const { t } = useTranslation('newsfeed');
+  const { t } = useTranslation('newsFeed');
 
   const handleOpenComments = () => {
     if (openComments === 0) {

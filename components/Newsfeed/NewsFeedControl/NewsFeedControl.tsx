@@ -1,9 +1,8 @@
 import { useContext } from 'react';
 import { AppContext } from '@/context';
 import { AddQuote, Searchbar } from '@/components';
-import { NewsFeedControlPropTypes } from './types';
 
-const NewsFeedControl: React.FC<NewsFeedControlPropTypes> = (props) => {
+const NewsFeedControl = () => {
   const { isSearch } = useContext(AppContext);
 
   return (
@@ -14,7 +13,7 @@ const NewsFeedControl: React.FC<NewsFeedControlPropTypes> = (props) => {
       }}
     >
       <AddQuote />
-      <Searchbar handleRefetchPosts={props.handleRefetchPosts} />
+      <Searchbar />
     </div>
   );
 };

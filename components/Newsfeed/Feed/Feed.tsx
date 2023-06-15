@@ -9,7 +9,7 @@ import useFeed from './useFeed';
 import { useTranslation } from 'next-i18next';
 
 const Feed = () => {
-  const { feedFormStatus, refetchPosts, handleRefetchPosts } = useFeed();
+  const { feedFormStatus } = useFeed();
   const { t } = useTranslation('newsFeed');
 
   return (
@@ -17,15 +17,12 @@ const Feed = () => {
       <>
         {feedFormStatus === 'add-quote' ? (
           <FeedFormLayout title={`${t('new_post_title')}`}>
-            <AddQuoteModal handleRefetchPosts={handleRefetchPosts} />
+            <AddQuoteModal />
           </FeedFormLayout>
         ) : null}
         <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
-        <NewsFeedControl handleRefetchPosts={handleRefetchPosts} />
-        <Posts
-          handleRefetchPosts={handleRefetchPosts}
-          refetchPosts={refetchPosts}
-        />
+        <NewsFeedControl />
+        <Posts />
       </>
     </FeedLayout>
   );

@@ -2,11 +2,8 @@ import { FeedTextareaForFeed, FileInput, SelectMovie } from '@/components';
 import { FormProvider } from 'react-hook-form';
 import useAddQuote from './useAddQuote';
 import { useTranslation } from 'next-i18next';
-import { AddQuoteModalTypes } from './types';
 
-const AddQuoteModal: React.FC<AddQuoteModalTypes> = ({
-  handleRefetchPosts,
-}) => {
+const AddQuoteModal = () => {
   const { handleSubmit, form, onSubmit, errors } = useAddQuote();
   const { t } = useTranslation('newsFeed');
 
@@ -41,7 +38,6 @@ const AddQuoteModal: React.FC<AddQuoteModalTypes> = ({
         </div>
         <button
           type='submit'
-          onClick={() => handleRefetchPosts(true)}
           className='bg-default-btn hover:bg-hover mt-2 sm:py-2 text-white w-full rounded py-2 active:bg-active'
         >
           {t('post_quote_submit')}

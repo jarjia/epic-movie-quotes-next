@@ -1,12 +1,9 @@
 import { Post } from '@/components';
 import usePosts from './usePosts';
-import { PostsPropsTypes } from './types';
+import { PostsTypes } from '@/types';
 
-const Posts: React.FC<PostsPropsTypes> = (props) => {
-  const { posts, isLoading } = usePosts(
-    props.refetchPosts,
-    props.handleRefetchPosts
-  );
+const Posts = () => {
+  const { posts, isLoading } = usePosts();
 
   if (isLoading) {
     return null;
@@ -14,7 +11,7 @@ const Posts: React.FC<PostsPropsTypes> = (props) => {
 
   return (
     <div className='my-4 pb-2'>
-      {posts.map((post) => {
+      {posts.map((post: PostsTypes) => {
         return (
           <Post
             key={post.id}

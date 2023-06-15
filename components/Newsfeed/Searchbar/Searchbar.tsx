@@ -3,9 +3,8 @@ import { AppContext } from '@/context';
 import { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
-import { SearchbarTypes } from './types';
 
-const Searchbar: React.FC<SearchbarTypes> = (props) => {
+const Searchbar = () => {
   const { isSearch, handleIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
   const [search, setSearch] = useState('');
@@ -18,7 +17,6 @@ const Searchbar: React.FC<SearchbarTypes> = (props) => {
       router.push(`/newsfeed?search=${searchValue}`);
 
       const onComplete = () => {
-        props.handleRefetchPosts(true);
         router.events.off('routeChangeComplete', onComplete);
       };
 
