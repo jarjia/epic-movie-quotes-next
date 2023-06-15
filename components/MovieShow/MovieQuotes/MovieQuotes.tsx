@@ -15,8 +15,10 @@ const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
       ></div>
       <div>
         <div className='flex items-center mt-6 gap-2'>
-          <p className='text-2xl text-white'>
-            {t('total_quotes')} ({t('total')} 7)
+          <p className='flex text-2xl text-white'>
+            <span className='pr-1'>{t('total_quotes')}</span>(
+            <span className='pl-1 block sm:hidden'>{t('total')}</span>
+            <span className='pl-2 pr-1 sm:pl-1'>{props.quotes.length}</span>)
           </p>
           <span className='bg-placeholder h-[25px] w-[1px] mx-2'></span>
           <button
@@ -28,8 +30,19 @@ const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
           </button>
         </div>
         <div className='flex flex-col gap-8 mt-8'>
-          <QuoteCard />
-          <QuoteCard />
+          {props.quotes.map((quote) => {
+            return (
+              <QuoteCard
+                handleRefecthQuotes={props.handleRefecthQuotes}
+                key={quote.id}
+                id={quote.id}
+                thumbnail={quote.thumbnail}
+                quote={quote.quote}
+                commentsNumber={quote.comments.length}
+                likesNumber={quote.likes.length}
+              />
+            );
+          })}
         </div>
       </div>
     </div>

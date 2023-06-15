@@ -1,24 +1,69 @@
-import { useMovieService } from '@/services';
+import { useMovieService, useQuoteService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
 import { AppContext } from '@/context';
+import { MovieShowTypes, QuotesTypes } from '@/types';
 
 const useMovieShowPage = () => {
   const { getMovie } = useMovieService();
+  const { getQuotes } = useQuoteService();
   const router = useRouter();
   let movieId = router.query.movieId as string;
+  const [fetchQuotes, setFetchQuotes] = useState(false);
+  const [movie, setMovie] = useState<MovieShowTypes>({
+    created_at: '',
+    description: { en: '', ka: '' },
+    director: { en: '', ka: '' },
+    movie: { en: '', ka: '' },
+    id: 0,
+    genres: [{ id: 0, genre: { en: '', ka: '' } }],
+    releaseDate: '',
+    thumbnail: '',
+    updated_at: '',
+    user_id: 0,
+  });
+
+  const [quotes, setQuotes] = useState<QuotesTypes[]>([]);
+  const [refetchQuotes, setRefetchQuotes] = useState(false);
+
   const [shouldFetch, setShouldFetch] = useState(false);
-  const { data, refetch, isLoading, isError } = useQuery(
-    'single-movie',
-    () => getMovie(movieId),
+  const {
+    refetch: movieRefetch,
+    isLoading,
+    isError,
+  } = useQuery(['movies', movieId], () => getMovie(movieId), {
+    onSuccess: (res) => {
+      setMovie(res.data);
+      setFetchQuotes(true);
+    },
+    enabled: shouldFetch,
+  });
+  const { refetch: quotesRefetch } = useQuery(
+    'quotes',
+    () => getQuotes(movie!.id),
     {
-      enabled: shouldFetch,
+      enabled: fetchQuotes && shouldFetch,
+      onSuccess(res) {
+        setQuotes(res.data);
+      },
     }
   );
   const { t } = useTranslation('movieList');
-  const { feedFormStatus, shouldRefetch } = useContext(AppContext);
+  const { feedFormStatus, shouldRefetch, currentQuoteId } =
+    useContext(AppContext);
+
+  const handleRefecthQuotes = () => {
+    setRefetchQuotes(true);
+  };
+
+  useEffect(() => {
+    if (refetchQuotes) {
+      quotesRefetch();
+      setRefetchQuotes(false);
+    }
+  }, [refetchQuotes, quotesRefetch]);
 
   useEffect(() => {
     if (isError) {
@@ -28,23 +73,26 @@ const useMovieShowPage = () => {
 
   useEffect(() => {
     if (shouldRefetch || !shouldRefetch) {
-      refetch();
+      movieRefetch();
     }
-  }, [shouldRefetch, refetch]);
+  }, [shouldRefetch, movieRefetch]);
 
   useEffect(() => {
-    if (movieId !== undefined && data === undefined) {
+    if (movieId !== undefined && movie.id === 0) {
       setShouldFetch(true);
     } else {
       setShouldFetch(false);
     }
-  }, [movieId, shouldRefetch, data]);
+  }, [movieId, shouldRefetch, movie]);
 
   return {
-    movie: data?.data,
+    movie,
     t,
     isLoading,
+    handleRefecthQuotes,
+    quotes,
     feedFormStatus,
+    currentQuoteId,
   };
 };
 

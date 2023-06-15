@@ -1,79 +1,119 @@
 import { CommentIcon, HeartIcon } from '@/components';
+import { PostTypes } from './types';
+import usePost from './usePost';
 
-const Post = () => {
+const Post: React.FC<PostTypes> = (props) => {
+  const {
+    locale,
+    openComments,
+    handleOpenComments,
+    handleSubmit,
+    likeMutate,
+    searchRef,
+    setOpenComments,
+    hasLiked,
+    t,
+  } = usePost(props.id, props.comments.length, props.likes);
+
   return (
     <div className='text-white text-xl bg-post-bg rounded-xl sm:p-8 p-4 my-8'>
       <div>
         <div className='flex items-center'>
           <div
-            className='w-profile h-profile rounded-full bg-center bg-cover'
-            style={{ backgroundImage: 'url(/assets/images/user.png)' }}
+            className='w-profile h-profile rounded-full bg-cover bg-center'
+            style={{ backgroundImage: `url(${props.authorProfile})` }}
           ></div>
-          <p className='pl-4'>jarji abuashvili</p>
+          <p className='pl-4'>{props.author}</p>
         </div>
         <div className='my-4'>
           <p className='break-words sm:text-base'>
-            “Follow your dream.”movie-
-            <span className='text-title'>Billy Elliot.</span>
-            (2000)
+            “<span>{props.quote[locale]}</span>”
+            <span className='pl-1'>movie-</span>
+            <span className='text-title px-2'>{props.movie[locale]}</span>(
+            {props.releaseDate})
           </p>
         </div>
       </div>
       <div>
         <div
-          className='w-full h-[400px] sm:h-[250px] bg-center bg-cover bg-white rounded-form-radius'
+          className='w-full h-[400px] sm:h-[250px] bg-cover bg-white rounded-form-radius'
           style={{
-            backgroundImage:
-              'url(https://i2-prod.chroniclelive.co.uk/incoming/article20915599.ece/ALTERNATES/s615b/0_BILLY-ELLIOT.jpg)',
+            backgroundImage: `url(${props.thumbnail})`,
           }}
         ></div>
         <div className='flex py-4 gap-6'>
-          <button className='flex gap-2'>
-            7
+          <button onClick={handleOpenComments} className='flex gap-2'>
+            {props.comments.length}
             <CommentIcon />
           </button>
-          <button className='flex gap-2'>
-            10
-            <HeartIcon />
+          <button onClick={() => likeMutate(props.id)} className='flex gap-2'>
+            {props.likes.length}
+            <HeartIcon hasLiked={hasLiked} />
           </button>
         </div>
         <div className='w-full h-[1px] bg-search-bar-border'></div>
       </div>
-      <div className='py-4'>
+      {openComments > 0 && (
+        <div className='py-4'>
+          {props.comments.length === 0 ? (
+            <p className='text-center'>No Comments...</p>
+          ) : (
+            props.comments.slice(0, openComments).map((comment) => {
+              return (
+                <div key={comment.id}>
+                  <div className='flex items-center'>
+                    <div
+                      className='w-profile h-profile rounded-full bg-center bg-cover'
+                      style={{
+                        backgroundImage: `url(${comment.user.thumbnail})`,
+                      }}
+                    ></div>
+                    <p className='pl-4 break-words'>{comment.user.name}</p>
+                  </div>
+                  <div className='pl-[74px] sm:pl-0 sm:pt-2'>
+                    <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
+                      {comment.comment}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
+          )}
+          {props.comments.length !== 0 && (
+            <div className='flex justify-between items-center'>
+              {openComments >= props.comments.length ? null : (
+                <button
+                  onClick={() => setOpenComments((prev) => prev + 2)}
+                  className='pl-[74px] mt-2 text-white underline text-md'
+                >
+                  Show more
+                </button>
+              )}
+              <button
+                onClick={() => setOpenComments(0)}
+                className='pl-[74px] mt-2 text-placeholder underline text-md'
+              >
+                Hide
+              </button>
+            </div>
+          )}
+        </div>
+      )}
+      <div className='flex items-center mt-2'>
         <div>
-          <div className='flex items-center'>
-            <div
-              className='w-profile h-profile rounded-full bg-center bg-cover'
-              style={{ backgroundImage: 'url(/assets/images/user.png)' }}
-            ></div>
-            <p className='pl-4 break-words'>jarji abuashvili</p>
-          </div>
-          <div className='pl-[74px] sm:pl-0 sm:pt-2'>
-            <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Pellentesque nunc vel massa facilisis consequat elit morbi
-              convallis convallis. Volutpat vitae et nisl et. Adipiscing enim
-              integer mi leo nisl. Arcu vitae mauris odio eget.
-            </p>
-          </div>
+          <div
+            className='w-profile h-profile rounded-full bg-center bg-cover'
+            style={{ backgroundImage: 'url(/assets/images/user.png)' }}
+          ></div>
         </div>
-      </div>
-      <div>
-        <div className='flex items-center'>
-          <div>
-            <div
-              className='w-profile h-profile rounded-full bg-center bg-cover'
-              style={{ backgroundImage: 'url(/assets/images/user.png)' }}
-            ></div>
-          </div>
-          <div className='w-full ml-3'>
-            <input
-              type='text'
-              className='w-full rounded-form-radius pl-4 placeholder-input pb-2 caret-white text-white border-0 bg-add-quote-bg focus:ring-0 focus:border-transparent'
-              placeholder='Write a comment'
-            />
-          </div>
-        </div>
+        <form className='w-full ml-3' onSubmit={handleSubmit}>
+          <input
+            ref={searchRef}
+            type='text'
+            className='w-full rounded-form-radius pl-4 placeholder-input pb-2 caret-white text-white border-0 bg-add-quote-bg focus:ring-0 focus:border-transparent'
+            placeholder={`${t('comment_placeholder')}`}
+          />
+        </form>
       </div>
     </div>
   );

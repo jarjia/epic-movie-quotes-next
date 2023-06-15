@@ -41,7 +41,7 @@ const SelectMovie = () => {
         {isSelect && (
           <div className='relative top-2'>
             <div className='absolute w-full h-[1px] bg-placeholder my-2'></div>
-            <div className='absolute px-3 py-1 w-full flex flex-col bg-black'>
+            <div className='relative px-3 py-1 w-full flex flex-col bg-black'>
               {movies && movies.length !== 0 ? (
                 movies.map((item: { id: number; movie: Keys }) => {
                   return (

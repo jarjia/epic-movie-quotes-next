@@ -14,7 +14,10 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useMutation } from 'react-query';
 
-const useAddQuoteModal = (movieId: number) => {
+const useAddQuoteFromMovieModal = (
+  movieId: number,
+  handleRefecthQuotes: () => void
+) => {
   const { postQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
   const form: UseFormReturn = useForm({
@@ -36,13 +39,9 @@ const useAddQuoteModal = (movieId: number) => {
   }, [movieId, setValue]);
 
   const { mutate: addQuote } = useMutation(postQuote, {
-    onSuccess: (res) => {
-      console.log(res);
-
+    onSuccess: () => {
       handleFeedFormStatus('');
-    },
-    onError: (err) => {
-      console.log(err);
+      handleRefecthQuotes();
     },
   });
 
@@ -62,4 +61,4 @@ const useAddQuoteModal = (movieId: number) => {
   };
 };
 
-export default useAddQuoteModal;
+export default useAddQuoteFromMovieModal;

@@ -8,6 +8,7 @@ export const AppContext = createContext({
   feedFormStatus: '' as string | null,
   handleFeedFormStatus: (status: string) => {},
   handleUserData: (data: UserDataTypes) => {},
+  handleCurrentQuoteId: (quoteId: string | null) => {},
   userData: {} as UserDataTypes,
   handleIsBurger: () => {},
   handleIsSearch: () => {},
@@ -17,6 +18,7 @@ export const AppContext = createContext({
   shouldRefetch: false,
   handleRefetch: () => {},
   handleShouldLogout: () => {},
+  currentQuoteId: null as string | null,
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -32,6 +34,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [isSearch, setIsSearch] = useState(false);
   const [shouldRefetch, setShouldRefetch] = useState(false);
   const [shouldLogout, setShouldLogout] = useState(false);
+  const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
   const query = useQueryClient();
   const router = useRouter();
   const { getLogoutUser } = useAuthService();
@@ -47,6 +50,11 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
 
   const handleShouldLogout = () => {
     setShouldLogout(true);
+  };
+
+  const handleCurrentQuoteId = (quoteId: string | null) => {
+    setCurrentQuoteId(quoteId);
+    sessionStorage.setItem('quoteId', JSON.stringify(quoteId));
   };
 
   const handleRefetch = () => {
@@ -68,6 +76,10 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const handleUserData = (data: UserDataTypes) => {
     setUserData(data);
   };
+
+  useEffect(() => {
+    setCurrentQuoteId(JSON.parse(sessionStorage.getItem('quoteId') || 'null'));
+  }, []);
 
   useEffect(() => {
     if (sessionStorage.getItem('feed-form-status') === ('' || null)) {
@@ -100,6 +112,8 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     handleRefetch,
     handleShouldLogout,
     handleUserData,
+    currentQuoteId,
+    handleCurrentQuoteId,
   };
 
   return (

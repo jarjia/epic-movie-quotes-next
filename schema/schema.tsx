@@ -175,7 +175,7 @@ const useZod = () => {
         }),
     }),
     thumbnail: z.any().refine((val) => {
-      if (router.pathname.includes('movieId')) {
+      if (sessionStorage.getItem('feed-form-status') === 'edit-quote') {
         return true;
       } else {
         return val.length > 0;

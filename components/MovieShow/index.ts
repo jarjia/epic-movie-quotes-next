@@ -4,3 +4,6 @@ export * from './MovieQuotes';
 export * from './QuoteCard';
 export * from './EditMovieModal';
 export * from './AddQuoteFromMovieModal';
+export * from './ViewQuoteModal';
+export * from './EditQuoteModal';
+export * from './QuotePhoto';

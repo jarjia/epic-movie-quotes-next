@@ -10,7 +10,7 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 const useAddQuote = () => {
   const { postQuote } = useQuoteService();
@@ -23,14 +23,14 @@ const useAddQuote = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { handleFeedFormStatus } = useContext(AppContext);
+  const { handleFeedFormStatus, handleRefetch } = useContext(AppContext);
+  const queryClient = useQueryClient();
 
   const { mutate: addQuote } = useMutation(postQuote, {
     onSuccess: () => {
       handleFeedFormStatus('');
-    },
-    onError: (err) => {
-      console.log(err);
+      handleRefetch();
+      queryClient.invalidateQueries({ queryKey: ['quotes'] });
     },
   });
 

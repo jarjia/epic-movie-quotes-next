@@ -20,5 +20,11 @@
   "delete_quote": "Delete",
   "post_quote_submit": "Add quote",
   "post_quote_title": "Add quote",
-  "update_movie_title": "Update movie"
+  "update_movie_title": "Update movie",
+  "edit_quote_title": "Edit quote",
+  "edit_quote_submit": "Edit quote",
+  "comment_placeholder": "Write comment",
+  "show_more": "Show more",
+  "hide": "Hide",
+  "no_comments": "No comments..."
 }
