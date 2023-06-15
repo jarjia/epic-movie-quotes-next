@@ -18,8 +18,9 @@ const usePosts = (
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       onSuccess: (res) => {
-        const newData = res.pages.flatMap((page) => page.data);
-        setPosts(newData);
+        const { data } = res.pages[0];
+
+        setPosts(data);
         handleRefetchPosts(false);
       },
       keepPreviousData: true,
