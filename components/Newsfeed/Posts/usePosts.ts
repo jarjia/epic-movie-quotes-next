@@ -71,8 +71,6 @@ const usePosts = (
     };
   }, [posts.length]);
 
-  console.log(posts);
-
   return {
     posts,
     isLoading,
