@@ -2,7 +2,7 @@ import { useQuoteService } from '@/services';
 import { PostsTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 
 const usePosts = (
   refetchPosts: boolean,
@@ -13,27 +13,31 @@ const usePosts = (
   const [paginate, setPaginate] = useState(2);
   const router = useRouter();
   let search = router.query.search === undefined ? '' : router.query.search;
-  const { refetch, isLoading } = useQuery(
-    ['quotes', search],
-    () => getAllQuotes(paginate, search as string),
+  const { refetch, isLoading, fetchNextPage } = useInfiniteQuery(
+    ['quotes', paginate, search],
+    ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       onSuccess: (res) => {
-        setPosts(res.data);
+        const newData = res.pages.flatMap((page) => page.data);
+        setPosts(newData);
+        handleRefetchPosts(false);
       },
+      keepPreviousData: true,
       enabled: posts.length === 0 || refetchPosts ? true : false,
     }
   );
 
   useEffect(() => {
     if (refetchPosts) {
-      refetch();
-      handleRefetchPosts(false);
+      setTimeout(() => {
+        refetch();
+      }, 500);
     }
-  }, [refetchPosts, refetch, router.query.search, handleRefetchPosts]);
+  }, [refetch, refetchPosts]);
 
   useEffect(() => {
-    refetch();
-  }, [paginate, refetch]);
+    fetchNextPage();
+  }, [paginate, fetchNextPage]);
 
   useEffect(() => {
     let timeoutRef: NodeJS.Timeout | null = null;
