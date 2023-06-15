@@ -2,6 +2,7 @@ import { AppContext } from '@/context';
 import { useNotificationService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useRef, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import { useMutation } from 'react-query';
 
 const usePost = (
@@ -17,6 +18,7 @@ const usePost = (
   const { userData } = useContext(AppContext);
   const [openComments, setOpenComments] = useState(0);
   const [hasLiked] = useState(likesIds.includes(userData.id) ? true : false);
+  const { t } = useTranslation('newsfeed');
 
   const handleOpenComments = () => {
     if (openComments === 0) {
@@ -26,28 +28,13 @@ const usePost = (
     }
   };
 
-  const handleShowMore = () => {
-    setOpenComments((prev) => prev + 2);
-  };
-
-  const handleHideComments = () => {
-    setOpenComments(0);
-  };
-
-  const { mutate: likeMutate } = useMutation(postLike, {
-    onSuccess(data) {
-      console.log(data);
-    },
-  });
+  const { mutate: likeMutate } = useMutation(postLike);
 
   const { mutate: createCommentMutate } = useMutation(postComment, {
     onSuccess() {
       if (searchRef.current) {
         searchRef.current.value = '';
       }
-    },
-    onError: (err) => {
-      console.log(err);
     },
   });
 
@@ -63,15 +50,15 @@ const usePost = (
 
   return {
     locale,
-    handleHideComments,
     handleOpenComments,
-    handleShowMore,
     handleSubmit,
     userData,
     searchRef,
+    t,
     openComments,
     likeMutate,
     hasLiked,
+    setOpenComments,
   };
 };
 

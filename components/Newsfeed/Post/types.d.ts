@@ -1,4 +1,4 @@
-import { Keys } from '@/types';
+import { CommentTypes, Keys, likeTypes } from '@/types';
 
 export type PostTypes = {
   thumbnail: string;
@@ -8,18 +8,6 @@ export type PostTypes = {
   authorProfile: string;
   movie: Keys;
   id: number;
-  comments: {
-    id: number;
-    comment: string;
-    user: {
-      name: string;
-      thumbnail: string;
-    };
-  }[];
-  likes: {
-    id: number;
-    user: {
-      id: number;
-    };
-  }[];
+  comments: CommentTypes[];
+  likes: likeTypes[];
 };

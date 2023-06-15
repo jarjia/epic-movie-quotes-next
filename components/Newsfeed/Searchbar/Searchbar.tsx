@@ -3,10 +3,9 @@ import { AppContext } from '@/context';
 import { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { SearchbarTypes } from './types';
 
-const Searchbar: React.FC<{
-  handleRefetchPosts: (bool: boolean) => void;
-}> = (props) => {
+const Searchbar: React.FC<SearchbarTypes> = (props) => {
   const { isSearch, handleIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
   const [search, setSearch] = useState('');

@@ -1,21 +1,19 @@
 import { CommentIcon, HeartIcon } from '@/components';
 import { PostTypes } from './types';
 import usePost from './usePost';
-import { useTranslation } from 'next-i18next';
 
 const Post: React.FC<PostTypes> = (props) => {
   const {
     locale,
     openComments,
-    handleHideComments,
-    handleShowMore,
     handleOpenComments,
     handleSubmit,
     likeMutate,
     searchRef,
+    setOpenComments,
     hasLiked,
+    t,
   } = usePost(props.id, props.comments.length, props.likes);
-  const { t } = useTranslation('newsfeed');
 
   return (
     <div className='text-white text-xl bg-post-bg rounded-xl sm:p-8 p-4 my-8'>
@@ -85,14 +83,14 @@ const Post: React.FC<PostTypes> = (props) => {
             <div className='flex justify-between items-center'>
               {openComments >= props.comments.length ? null : (
                 <button
-                  onClick={handleShowMore}
+                  onClick={() => setOpenComments((prev) => prev + 2)}
                   className='pl-[74px] mt-2 text-white underline text-md'
                 >
                   Show more
                 </button>
               )}
               <button
-                onClick={handleHideComments}
+                onClick={() => setOpenComments(0)}
                 className='pl-[74px] mt-2 text-placeholder underline text-md'
               >
                 Hide

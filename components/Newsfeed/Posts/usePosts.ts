@@ -14,7 +14,7 @@ const usePosts = (
   const router = useRouter();
   let search = router.query.search === undefined ? '' : router.query.search;
   const { refetch, isLoading } = useQuery(
-    'quote-posts',
+    ['quotes', search],
     () => getAllQuotes(paginate, search as string),
     {
       onSuccess: (res) => {

@@ -1,10 +1,9 @@
 import { useContext } from 'react';
 import { AppContext } from '@/context';
 import { AddQuote, Searchbar } from '@/components';
+import { NewsFeedControlPropTypes } from './types';
 
-const NewsFeedControl: React.FC<{
-  handleRefetchPosts: (bool: boolean) => void;
-}> = (props) => {
+const NewsFeedControl: React.FC<NewsFeedControlPropTypes> = (props) => {
   const { isSearch } = useContext(AppContext);
 
   return (
