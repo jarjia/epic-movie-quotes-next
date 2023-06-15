@@ -1,4 +1,6 @@
-const HeartIcon: React.FC<{ hasLiked: boolean }> = (props) => {
+import { HeartIconTypes } from './types';
+
+const HeartIcon: React.FC<HeartIconTypes> = (props) => {
   return (
     <svg
       width='32'

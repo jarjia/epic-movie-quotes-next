@@ -72,6 +72,21 @@ export type GenreObjectType = {
   id: number;
   genre: Keys;
 };
+export type likeTypes = {
+  id: number;
+  user: {
+    id: number;
+  };
+};
+export type CommentTypes = {
+  id: number;
+  comment: string;
+  user: {
+    id: number;
+    name: string;
+    thumbnail: string;
+  };
+};
 export type MovieShowTypes = {
   created_at: string;
   description: Keys;
@@ -94,21 +109,8 @@ export type QuotesTypes = {
   quote: Keys;
   thumbnail: string;
   movie_id: number;
-  comments: {
-    id: number;
-    comment: string;
-    user: {
-      id: number;
-      name: string;
-      thumbnail: string;
-    };
-  }[];
-  likes: {
-    id: number;
-    user: {
-      id: number;
-    };
-  }[];
+  comments: CommentTypes[];
+  likes: likeTypes[];
 };
 export type UpdateQuotesTypes = {
   quote: Keys;
@@ -129,18 +131,6 @@ export type PostsTypes = {
       thumbnail: string;
     };
   };
-  comments: {
-    id: number;
-    comment: string;
-    user: {
-      name: string;
-      thumbnail: string;
-    };
-  }[];
-  likes: {
-    id: number;
-    user: {
-      id: number;
-    };
-  }[];
+  comments: CommentTypes[];
+  likes: likeTypes[];
 };
