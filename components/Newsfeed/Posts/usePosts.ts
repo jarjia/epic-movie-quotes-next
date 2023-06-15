@@ -13,18 +13,21 @@ const usePosts = (
   const [paginate, setPaginate] = useState(2);
   const router = useRouter();
   let search = router.query.search === undefined ? '' : router.query.search;
-  const { refetch, isLoading, fetchNextPage } = useInfiniteQuery(
+  const { refetch, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ['quotes', paginate, search],
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
-      onSuccess: (res) => {
-        const { data } = res.pages[0];
-
-        setPosts(data);
+      getNextPageParam: (info) => {
+        return info.data.last_page > info.data.current_page
+          ? ++info.data.current_page
+          : undefined;
+      },
+      onSuccess: (data) => {
+        setPosts(data.pages[0].data.quotes);
         handleRefetchPosts(false);
       },
       keepPreviousData: true,
-      enabled: posts.length === 0 || refetchPosts ? true : false,
+      enabled: posts?.length === 0 || refetchPosts ? true : false,
     }
   );
 
@@ -37,8 +40,10 @@ const usePosts = (
   }, [refetch, refetchPosts]);
 
   useEffect(() => {
-    fetchNextPage();
-  }, [paginate, fetchNextPage]);
+    if (!hasNextPage) {
+      fetchNextPage();
+    }
+  }, [paginate, fetchNextPage, hasNextPage]);
 
   useEffect(() => {
     let timeoutRef: NodeJS.Timeout | null = null;
