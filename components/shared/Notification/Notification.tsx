@@ -34,6 +34,7 @@ const Notification = () => {
                 markAllAsReadMutation();
                 setTimeout(() => {
                   queryClient.invalidateQueries('notifications-count');
+                  queryClient.invalidateQueries('notifications');
                 }, 200);
               }}
               className='underline sm:text-lg text-md text-white'

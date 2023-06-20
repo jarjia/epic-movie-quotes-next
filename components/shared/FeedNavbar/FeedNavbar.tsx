@@ -7,20 +7,20 @@ import {
   SearchbarIcon,
 } from '@/components';
 import useFeedNavbar from './useFeedNavbar';
-import { useTranslation } from 'next-i18next';
 
 const FeedNavbar = () => {
   const {
     handleShouldLogout,
+    shouldNotify,
     isNotification,
     isSearch,
+    t,
     handleIsBurger,
     notSeenNotifications,
     handleIsSearch,
     router,
     handleisNotification,
   } = useFeedNavbar();
-  const { t } = useTranslation('common');
 
   return (
     <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
@@ -47,7 +47,7 @@ const FeedNavbar = () => {
         {isSearch && <MobileSearchbar />}
         <div className='z-[98]'>
           <div onClick={handleisNotification} className='cursor-pointer'>
-            {notSeenNotifications !== 0 && (
+            {shouldNotify && notSeenNotifications !== 0 && (
               <div className='relative left-3 bottom-2'>
                 <div className='absolute bg-notify-color flex justify-center items-center text-center w-[26px] h-[26px] text-white rounded-full px-2'>
                   <span className='text-sm'>
