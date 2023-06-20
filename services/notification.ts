@@ -28,7 +28,15 @@ const useNotificationService = () => {
     return axios.patch(`/api/read/notification/${notifyId}`);
   };
 
+  const postBroadcasting = (data: any) => {
+    return axios.post('/broadcasting/auth', {
+      socket_id: data.socketId,
+      channel_name: data.channelName,
+    });
+  };
+
   return {
+    postBroadcasting,
     postComment,
     getNotifications,
     getNotificationsCount,
