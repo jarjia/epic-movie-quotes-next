@@ -4,10 +4,18 @@
   "list_of_movies": "ჩემი ფილმები",
   "edit_profile": "პროფილის რედაქტირება",
   "new": "ახალი",
-  "mark_as_read": "მონიშნე როგორც წაკითხული",
+  "mark_as_read": "მონიშნე წაკითხულად",
   "notifications": "შეტყობინებები",
   "reacted": "მოიწონა თქვენი ციტატა",
   "commented": "კომენტარი დატოვა",
   "search_movies": "ჩაწერე @ ფილმის მოსაძებნად,",
-  "search_quotes": " ჩაწერე # ციტატის მოძაძებნად"
+  "search_quotes": " ჩაწერე # ციტატის მოძაძებნად",
+  "comment_placeholder": "დაწერე კომენტარი",
+  "show_more": "მეტი",
+  "hide": "დამალე",
+  "choose_file": "აირჩიე ფოტო",
+  "drag_drop": "ჩააგდე ან",
+  "mobile_choose_file": "ატვირთე ფოტო",
+  "search_by": "მოძებნე",
+  "no_comments": "უკომენტარო"
 }

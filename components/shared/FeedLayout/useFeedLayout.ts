@@ -2,14 +2,27 @@ import { AppContext } from '@/context';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
-import { useQuery } from 'react-query';
+import { useQuery, useQueryClient } from 'react-query';
+import {
+  CommentEventTypes,
+  LikeEventTypes,
+  NotificationEventTypes,
+} from './types';
+import { PusherChannel } from 'laravel-echo/dist/channel';
+import { useInstantiatePusher } from '@/helpers';
 
 const useFeedLayout = () => {
   const { getUserData } = useAuthService();
-  const { feedFormStatus, handleUserData, shouldRefetch } =
-    useContext(AppContext);
+  useInstantiatePusher();
+  const {
+    feedFormStatus,
+    handleUserData,
+    handleNewLikes,
+    userData,
+    handleNewComment,
+  } = useContext(AppContext);
   const router = useRouter();
-  const { isLoading, isError, refetch } = useQuery('user', getUserData, {
+  const { isLoading, isError } = useQuery('user', getUserData, {
     onSuccess(data) {
       handleUserData(data.data);
     },
@@ -17,12 +30,7 @@ const useFeedLayout = () => {
       router.push('/403');
     },
   });
-
-  useEffect(() => {
-    if (shouldRefetch || !shouldRefetch) {
-      refetch();
-    }
-  }, [shouldRefetch, refetch]);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -31,6 +39,68 @@ const useFeedLayout = () => {
       document.body.classList.remove('no-scroll');
     }
   }, [feedFormStatus]);
+
+  const handleNotify = (data: NotificationEventTypes) => {
+    if (data.notification.notify) {
+      queryClient.invalidateQueries('notifications');
+      queryClient.invalidateQueries('notifications-count');
+    }
+  };
+
+  useEffect(() => {
+    let channel: PusherChannel | null = null;
+
+    if (window.Echo) {
+      channel = window.Echo.private(
+        `notification.${userData.id}`
+      ) as PusherChannel;
+      channel!.listen('NotificationEvent', handleNotify);
+    }
+
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
+  }, [userData.id]);
+
+  const handleQuoteLiked = (data: LikeEventTypes) => {
+    handleNewLikes(data.message.likes);
+  };
+
+  useEffect(() => {
+    let channel: PusherChannel | null = null;
+
+    if (window.Echo) {
+      channel = window.Echo.channel('liked') as PusherChannel;
+      channel!.listen('QuoteLiked', handleQuoteLiked);
+    }
+
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
+  }, []);
+
+  const handleCommented = (data: CommentEventTypes) => {
+    handleNewComment(data.message.new_comment);
+  };
+
+  useEffect(() => {
+    let channel: PusherChannel | null = null;
+
+    if (window.Echo) {
+      channel = window.Echo.channel('commented') as PusherChannel;
+      channel!.listen('QuoteComment', handleCommented);
+    }
+
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
+  }, []);
 
   return {
     feedFormStatus,

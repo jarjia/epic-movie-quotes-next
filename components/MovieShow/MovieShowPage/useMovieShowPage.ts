@@ -12,19 +12,6 @@ const useMovieShowPage = () => {
   const router = useRouter();
   let movieId = router.query.movieId as string;
   const [fetchQuotes, setFetchQuotes] = useState(false);
-  const [movie, setMovie] = useState<MovieShowTypes>({
-    created_at: '',
-    description: { en: '', ka: '' },
-    director: { en: '', ka: '' },
-    movie: { en: '', ka: '' },
-    id: 0,
-    genres: [{ id: 0, genre: { en: '', ka: '' } }],
-    releaseDate: '',
-    thumbnail: '',
-    updated_at: '',
-    user_id: 0,
-  });
-
   const [quotes, setQuotes] = useState<QuotesTypes[]>([]);
   const [refetchQuotes, setRefetchQuotes] = useState(false);
 
@@ -33,13 +20,14 @@ const useMovieShowPage = () => {
     refetch: movieRefetch,
     isLoading,
     isError,
+    data,
   } = useQuery(['movies', movieId], () => getMovie(movieId), {
-    onSuccess: (res) => {
-      setMovie(res.data);
+    onSuccess: () => {
       setFetchQuotes(true);
     },
-    enabled: shouldFetch,
   });
+  const movie: MovieShowTypes = data?.data;
+
   const { refetch: quotesRefetch } = useQuery(
     'quotes',
     () => getQuotes(movie!.id),
@@ -51,8 +39,7 @@ const useMovieShowPage = () => {
     }
   );
   const { t } = useTranslation('movieList');
-  const { feedFormStatus, shouldRefetch, currentQuoteId } =
-    useContext(AppContext);
+  const { feedFormStatus, currentQuoteId } = useContext(AppContext);
 
   const handleRefecthQuotes = () => {
     setRefetchQuotes(true);
@@ -72,18 +59,16 @@ const useMovieShowPage = () => {
   }, [isError, router]);
 
   useEffect(() => {
-    if (shouldRefetch || !shouldRefetch) {
-      movieRefetch();
-    }
-  }, [shouldRefetch, movieRefetch]);
+    movieRefetch();
+  }, [movieRefetch]);
 
   useEffect(() => {
-    if (movieId !== undefined && movie.id === 0) {
+    if (movieId !== undefined && movie !== undefined) {
       setShouldFetch(true);
     } else {
       setShouldFetch(false);
     }
-  }, [movieId, shouldRefetch, movie]);
+  }, [movieId, movie]);
 
   return {
     movie,

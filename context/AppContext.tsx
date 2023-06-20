@@ -1,6 +1,6 @@
 import { useAuthService } from '@/services';
 import { createContext, useEffect, useState } from 'react';
-import { UserDataTypes } from '@/types';
+import { CommentTypes, UserDataTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -15,10 +15,12 @@ export const AppContext = createContext({
   handleIsNotBurger: () => {},
   isBurger: false,
   isSearch: false,
-  shouldRefetch: false,
-  handleRefetch: () => {},
   handleShouldLogout: () => {},
   currentQuoteId: null as string | null,
+  newLikes: null as number[] | null,
+  comment: null as null | CommentTypes,
+  handleNewLikes: (likes: number[] | null) => {},
+  handleNewComment: (comment: CommentTypes | null) => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -32,8 +34,9 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   });
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
-  const [shouldRefetch, setShouldRefetch] = useState(false);
   const [shouldLogout, setShouldLogout] = useState(false);
+  const [newLikes, setNewLikes] = useState<number[] | null>(null);
+  const [comment, setComment] = useState<CommentTypes | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
   const query = useQueryClient();
   const router = useRouter();
@@ -48,6 +51,15 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     enabled: shouldLogout,
   });
 
+  const handleNewLikes = (likes: number[] | null) => {
+    setNewLikes(likes);
+  };
+
+  const handleNewComment = (comment: CommentTypes | null) => {
+    setComment(null);
+    setComment(comment);
+  };
+
   const handleShouldLogout = () => {
     setShouldLogout(true);
   };
@@ -55,10 +67,6 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const handleCurrentQuoteId = (quoteId: string | null) => {
     setCurrentQuoteId(quoteId);
     sessionStorage.setItem('quoteId', JSON.stringify(quoteId));
-  };
-
-  const handleRefetch = () => {
-    setShouldRefetch((prev) => !prev);
   };
 
   const handleIsSearch = () => {
@@ -108,12 +116,14 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     isBurger,
     isSearch,
     handleIsNotBurger,
-    shouldRefetch,
-    handleRefetch,
     handleShouldLogout,
     handleUserData,
     currentQuoteId,
     handleCurrentQuoteId,
+    newLikes,
+    comment,
+    handleNewLikes,
+    handleNewComment,
   };
 
   return (

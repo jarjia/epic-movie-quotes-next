@@ -23,12 +23,12 @@ const ProfilePage = () => {
 
   return (
     <FeedLayout>
-      <div className='pb-8 large:px-16'>
+      <div className='pb-1 large:px-16'>
         {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
         <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>
           {t('profile_title')}
         </h1>
-        <div className='hidden sm:flex p-5'>
+        <div className='hidden sm:flex p-5 py-2'>
           <button onClick={handleBackButton}>
             <BackArrowIcon isSearch={true} />
           </button>

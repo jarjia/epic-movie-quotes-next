@@ -2,10 +2,11 @@ import { AppContext } from '@/context';
 import { useContext } from 'react';
 
 const useFeed = () => {
-  const { feedFormStatus } = useContext(AppContext);
+  const { feedFormStatus, currentQuoteId } = useContext(AppContext);
 
   return {
     feedFormStatus,
+    currentQuoteId,
   };
 };
 

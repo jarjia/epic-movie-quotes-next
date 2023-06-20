@@ -6,12 +6,18 @@ import {
 } from '@/components';
 import useAddMovie from './useAddMovie';
 import { Controller } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
 
 const AddMovieModal = () => {
-  const { FormProvider, onSubmit, handleSubmit, control, form, errors } =
-    useAddMovie();
-  const { t } = useTranslation('formErrors');
+  const {
+    FormProvider,
+    onSubmit,
+    handleSubmit,
+    t: addMovie,
+    control,
+    form,
+    formErrors,
+    errors,
+  } = useAddMovie();
 
   return (
     <FormProvider {...form}>
@@ -37,7 +43,7 @@ const AddMovieModal = () => {
           name='releaseDate'
           control={control}
           render={({ field, fieldState: { error } }) => {
-            let errorMessage = t('movie_release_date');
+            let errorMessage = formErrors('movie_release_date');
 
             return (
               <div className='flex flex-col'>
@@ -108,7 +114,7 @@ const AddMovieModal = () => {
           type='submit'
           className='bg-default-btn hover:bg-hover mt-4 sm:py-2 text-white w-full rounded py-2 active:bg-active'
         >
-          Add movie
+          {addMovie('add_movie')}
         </button>
       </form>
     </FormProvider>

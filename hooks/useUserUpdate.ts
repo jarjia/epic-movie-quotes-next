@@ -12,7 +12,7 @@ import {
   useWatch,
 } from 'react-hook-form';
 import { hookUserUpdateTypes } from '@/types';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 
@@ -24,6 +24,7 @@ const useUserUpdate = ({
   const { postUserUpdateProfile } = useAuthService();
   const { t } = useTranslation('profile');
   const { UpdateProfileSchema } = useZod();
+  const queryClient = useQueryClient();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
     resolver: zodResolver(UpdateProfileSchema),
@@ -33,7 +34,7 @@ const useUserUpdate = ({
     formState: { errors },
     control,
   } = form;
-  const { userData, handleRefetch } = useContext(AppContext);
+  const { userData } = useContext(AppContext);
   const [cancel, setCancel] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
@@ -76,7 +77,7 @@ const useUserUpdate = ({
       setIsEditing(false);
       handleEditProfileClear();
       router.push('/profile');
-      handleRefetch();
+      queryClient.invalidateQueries('user');
       handleIsSuccess(true);
     },
     onError: (error: any) => {

@@ -12,7 +12,8 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useTranslation } from 'next-i18next';
+import { useMutation, useQueryClient } from 'react-query';
 
 const useEditMovieModal = (movieId: number) => {
   const { updateMovie } = useMovieService();
@@ -26,12 +27,14 @@ const useEditMovieModal = (movieId: number) => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { handleFeedFormStatus, handleRefetch } = useContext(AppContext);
+  const { handleFeedFormStatus } = useContext(AppContext);
+  const queryClient = useQueryClient();
+  const { t } = useTranslation(['formErrors', 'movieList']);
 
   const { mutate: updateMovieFunc } = useMutation(updateMovie, {
     onSuccess: () => {
       handleFeedFormStatus('');
-      handleRefetch();
+      queryClient.invalidateQueries('movies');
     },
   });
 
@@ -53,6 +56,7 @@ const useEditMovieModal = (movieId: number) => {
   return {
     Controller,
     errors,
+    t,
     control,
     onSubmit,
     handleSubmit,

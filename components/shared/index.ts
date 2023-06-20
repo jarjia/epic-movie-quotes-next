@@ -13,3 +13,4 @@ export * from './SelectMovie';
 export * from './FileInput';
 export * from './FeedTextareaForFeed';
 export * from './ReplacePhoto';
+export * from './PostController';

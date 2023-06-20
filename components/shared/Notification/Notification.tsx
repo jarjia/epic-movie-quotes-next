@@ -1,8 +1,16 @@
 import { NotificationCard, TriangleIcon } from '@/components';
-import { useTranslation } from 'next-i18next';
+import useNotification from './useNotification';
 
 const Notification = () => {
-  const { t } = useTranslation('common');
+  const {
+    isLoading,
+    divRef,
+    t,
+    queryClient,
+    notifications,
+    setNotifications,
+    markAllAsReadMutation,
+  } = useNotification();
 
   return (
     <div className='bg-red-500'>
@@ -18,12 +26,47 @@ const Notification = () => {
             <h2 className='text-white text-3xl sm:text-2xl'>
               {t('notifications')}
             </h2>
-            <button className='underline sm:text-lg text-md text-white'>
+            <button
+              onClick={() => {
+                setNotifications((prev) =>
+                  prev.map((item) => ({ ...item, seen: 1 }))
+                );
+                markAllAsReadMutation();
+                setTimeout(() => {
+                  queryClient.invalidateQueries('notifications-count');
+                  queryClient.invalidateQueries('notifications');
+                }, 200);
+              }}
+              className='underline sm:text-lg text-md text-white'
+            >
               {t('mark_as_read')}
             </button>
           </div>
-          <div className='mt-8 text-white'>
-            <NotificationCard />
+          <div
+            ref={divRef}
+            className='mt-8 max-h-[400px] pr-1 overflow-y-scroll scrollbar text-white'
+          >
+            {notifications !== undefined && notifications.length !== 0 ? (
+              notifications.map((item) => {
+                return (
+                  <NotificationCard
+                    key={item.id}
+                    id={item.id}
+                    type={item.notification}
+                    name={item.from.name}
+                    thumbnail={item.from.thumbnail}
+                    ago={item.created_at}
+                    seen={item.seen}
+                    created_at={item.created_at}
+                    quoteId={item.quote_id}
+                  />
+                );
+              })
+            ) : isLoading ? (
+              <p className='text-2xl'>Loading...</p>
+            ) : (
+              <p className='text-2xl'>No notifications...</p>
+            )}
           </div>
         </div>
       </div>

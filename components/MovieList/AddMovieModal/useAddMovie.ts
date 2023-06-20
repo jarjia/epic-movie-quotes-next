@@ -4,6 +4,7 @@ import { useMovieService } from '@/services';
 import { GenreObjectType, MovieCreateTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
+import { useTranslation } from 'next-i18next';
 import {
   FieldValues,
   FormProvider,
@@ -11,7 +12,7 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 const useAddMovie = () => {
   const { postMovie } = useMovieService();
@@ -26,16 +27,15 @@ const useAddMovie = () => {
     control,
     formState: { errors },
   } = form;
-  const { handleFeedFormStatus, handleRefetch, userData } =
-    useContext(AppContext);
+  const { handleFeedFormStatus, userData } = useContext(AppContext);
+  const queryClient = useQueryClient();
+  const { t } = useTranslation('movieList');
+  const { t: formErrors } = useTranslation('formErrors');
 
   const { mutate: createMovie } = useMutation(postMovie, {
     onSuccess: () => {
       handleFeedFormStatus('');
-      handleRefetch();
-    },
-    onError: (err: any) => {
-      console.log(err);
+      queryClient.invalidateQueries('my-movies');
     },
   });
 
@@ -57,6 +57,8 @@ const useAddMovie = () => {
     setValue,
     errors,
     control,
+    t,
+    formErrors,
   };
 };
 

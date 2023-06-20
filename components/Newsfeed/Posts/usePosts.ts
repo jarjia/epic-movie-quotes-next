@@ -7,6 +7,7 @@ const usePosts = () => {
   const { getAllQuotes } = useQuoteService();
   const [paginate, setPaginate] = useState(2);
   const router = useRouter();
+  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
   let search = router.query.search === undefined ? '' : router.query.search;
   const { isLoading, fetchNextPage, hasNextPage, data } = useInfiniteQuery(
     ['quotes', paginate, search],
@@ -20,49 +21,38 @@ const usePosts = () => {
       keepPreviousData: true,
     }
   );
+
+  const handleScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+    setIsScrolledToBottom(isAtBottom);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
   const posts = data?.pages[0]?.data?.quotes;
+
+  useEffect(() => {
+    if (isScrolledToBottom) {
+      setPaginate((prev) => prev + 2);
+    }
+  }, [isScrolledToBottom]);
 
   useEffect(() => {
     if (hasNextPage) {
       fetchNextPage();
     }
   }, [paginate, fetchNextPage, hasNextPage]);
-
-  useEffect(() => {
-    let timeoutRef: NodeJS.Timeout | null = null;
-    const handleScroll = () => {
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
-      }
-
-      timeoutRef = setTimeout(() => {
-        const position = window.pageYOffset - window.innerHeight;
-        let postsLimit = Math.floor(position / window.innerHeight) + 1;
-
-        setPaginate(() => {
-          if (postsLimit < posts?.length - 1) {
-            return posts?.length;
-          } else {
-            return Math.floor(position / window.innerHeight) === -1
-              ? 2
-              : 2 + postsLimit;
-          }
-        });
-
-        timeoutRef = null;
-      }, 300);
-    };
-
-    handleScroll();
-
-    window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      if (timeoutRef) {
-        clearTimeout(timeoutRef);
-      }
-    };
-  }, [posts?.length]);
 
   return {
     posts,

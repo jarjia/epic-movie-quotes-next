@@ -1,8 +1,8 @@
 import { PenIcon, TrashBinIcon } from '@/components';
 import useMovieDesc from './useMovieDesc';
-import { MovieDescTypes } from '@/types';
+import { MovieDescPropTypes } from './types';
 
-const MovieDescription: React.FC<MovieDescTypes> = (props) => {
+const MovieDescription: React.FC<MovieDescPropTypes> = (props) => {
   const { t, handleDelete, handleFeedFormStatus, locale } = useMovieDesc();
 
   return (

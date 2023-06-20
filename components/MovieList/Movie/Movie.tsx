@@ -28,7 +28,8 @@ const Movie: React.FC<MovieTypes> = (props) => {
           </p>
         </div>
         <div className='flex mt-2 gap-3 items-center'>
-          <span className='text-font-base'>10</span> <QuoteIcon />
+          <span className='text-font-base'>{props.quotes.length}</span>{' '}
+          <QuoteIcon />
         </div>
       </div>
     </Link>

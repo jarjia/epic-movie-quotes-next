@@ -1,8 +1,10 @@
 import { FileCameraIcon } from '@/components';
 import { useFormContext } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 
 const FileInput = () => {
   const { register, setValue } = useFormContext();
+  const { t } = useTranslation('common');
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault();
@@ -23,15 +25,15 @@ const FileInput = () => {
       >
         <FileCameraIcon />
         <p className='block sm:hidden'>
-          Drag & drop your image here or
+          {t('drag_drop')}
           <span className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded'>
-            Choose file
+            {t('choose_file')}
           </span>
         </p>
         <div className='sm:flex w-full justify-between items-center hidden'>
-          <p>Upload image</p>
+          <p>{t('mobile_choose_file')}</p>
           <p className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded sm:rounded-none'>
-            Choose file
+            {t('choose_file')}
           </p>
         </div>
       </div>
