@@ -15,6 +15,7 @@ const FeedNavbar = () => {
     isNotification,
     isSearch,
     handleIsBurger,
+    notSeenNotifications,
     handleIsSearch,
     router,
     handleisNotification,
@@ -46,11 +47,19 @@ const FeedNavbar = () => {
         {isSearch && <MobileSearchbar />}
         <div className='z-[98]'>
           <div onClick={handleisNotification} className='cursor-pointer'>
-            <div className='relative left-3 bottom-2'>
-              <div className='absolute text-white rounded-full px-2 bg-notify-color'>
-                3
+            {notSeenNotifications !== 0 && (
+              <div className='relative left-3 bottom-2'>
+                <div className='absolute bg-notify-color flex justify-center items-center text-center w-[26px] h-[26px] text-white rounded-full px-2'>
+                  <span className='text-sm'>
+                    {notSeenNotifications > 99
+                      ? '99+'
+                      : notSeenNotifications === 0
+                      ? ''
+                      : notSeenNotifications}
+                  </span>
+                </div>
               </div>
-            </div>
+            )}
             <BellIcon />
           </div>
           {isNotification && <Notification />}
