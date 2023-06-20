@@ -1,74 +1,66 @@
 import { FilledHeartIcon, QuoteIcon } from '@/components';
-import { useTranslation } from 'next-i18next';
+import { NotificationCardTypes } from './types';
+import useNotificationCard from './useNotificationCard';
 
-const NotificationCard = () => {
-  const { t } = useTranslation('common');
+const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
+  const {
+    readNotificationMutate,
+    timePassed,
+    handleCurrentQuoteId,
+    t,
+    handleFeedFormStatus,
+  } = useNotificationCard(props.created_at);
 
   return (
-    <>
-      <div className='flex p-4 my-3 items-center border-[1px] gap-2 border-placeholder'>
-        <div className='flex flex-col items-center'>
-          <div
-            className='w-profile h-profile rounded-full bg-center bg-cover border-2 border-valid-form'
-            style={{ backgroundImage: 'url(/assets/images/user.png)' }}
-          ></div>
-          <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
-            {t('new')}
+    <div
+      onClick={() => {
+        handleCurrentQuoteId(String(props.quoteId));
+        readNotificationMutate(props.id);
+        handleFeedFormStatus('view-quote');
+      }}
+      className='flex cursor-pointer p-4 my-3 items-center border-[1px] gap-2 border-placeholder'
+    >
+      <div className='flex flex-col items-center'>
+        <div
+          className={`w-profile h-profile rounded-full bg-center bg-cover ${
+            props.seen === 0 ? 'border-2 border-valid-form' : ''
+          }`}
+          style={{ backgroundImage: `url(${props.thumbnail})` }}
+        ></div>
+        <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
+          {props.seen === 0 ? t('new') : ''}
+        </p>
+      </div>
+      <div className='w-full'>
+        <div className='flex items-center justify-between'>
+          <h4 className='text-xl '>{props.name}</h4>
+          <p className='text-lg capitalize sm:hidden text-date-of-notification sm:text-lg'>
+            {timePassed} ago
           </p>
         </div>
-        <div className='w-full'>
-          <div className='flex items-center justify-between'>
-            <h4 className='text-xl'>jarji abuashvili</h4>
-            <p className='text-xl sm:hidden text-date-of-notification sm:text-lg'>
-              5 min ago
-            </p>
-          </div>
-          <div className='my-2 flex sm:block items-center justify-between'>
-            <h4 className='flex sm:text-lg items-center text-xl gap-2 text-date-of-notification'>
-              <FilledHeartIcon />
-              {t('reacted')}
-            </h4>
-            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>
-              {t('new')}
-            </p>
-            <p className='text-xl sm:block hidden text-date-of-notification sm:text-lg'>
-              5 min ago
-            </p>
-          </div>
-        </div>
-      </div>
-      <div className='flex p-4 my-3 items-center border-[1px] gap-2 border-placeholder'>
-        <div className='flex flex-col items-center'>
-          <div
-            className='w-profile h-profile rounded-full bg-center bg-cover border-2 border-valid-form'
-            style={{ backgroundImage: 'url(/assets/images/user.png)' }}
-          ></div>
-          <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
-            {t('new')}
+        <div className='my-2 flex sm:block items-center justify-between'>
+          <h4 className='flex sm:text-lg items-center text-xl gap-2 text-date-of-notification'>
+            {props.type === 'like' ? (
+              <>
+                <FilledHeartIcon />
+                {t('reacted')}
+              </>
+            ) : (
+              <>
+                <QuoteIcon />
+                {t('commented')}
+              </>
+            )}
+          </h4>
+          <p className='text-valid-form text-xl sm:text-lg sm:hidden'>
+            {props.seen === 0 ? t('new') : ''}
+          </p>
+          <p className='text-xl capitalize sm:block hidden text-date-of-notification sm:text-lg'>
+            {timePassed} ago
           </p>
         </div>
-        <div className='w-full'>
-          <div className='flex items-center justify-between'>
-            <h4 className='text-xl'>jarji abuashvili</h4>
-            <p className='text-xl sm:hidden text-date-of-notification sm:text-lg'>
-              5 min ago
-            </p>
-          </div>
-          <div className='my-2 flex sm:block items-center justify-between'>
-            <h4 className='flex sm:text-lg items-center text-xl gap-2 text-date-of-notification'>
-              <QuoteIcon />
-              {t('commented')}
-            </h4>
-            <p className='text-valid-form text-xl sm:text-lg sm:hidden'>
-              {t('new')}
-            </p>
-            <p className='text-xl sm:block hidden text-date-of-notification sm:text-lg'>
-              5 min ago
-            </p>
-          </div>
-        </div>
       </div>
-    </>
+    </div>
   );
 };
 
