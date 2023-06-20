@@ -9,8 +9,15 @@ import { Controller } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 
 const AddMovieModal = () => {
-  const { FormProvider, onSubmit, handleSubmit, control, form, errors } =
-    useAddMovie();
+  const {
+    FormProvider,
+    onSubmit,
+    handleSubmit,
+    t: addMovie,
+    control,
+    form,
+    errors,
+  } = useAddMovie();
   const { t } = useTranslation('formErrors');
 
   return (
@@ -108,7 +115,7 @@ const AddMovieModal = () => {
           type='submit'
           className='bg-default-btn hover:bg-hover mt-4 sm:py-2 text-white w-full rounded py-2 active:bg-active'
         >
-          Add movie
+          {addMovie('add_movie')}
         </button>
       </form>
     </FormProvider>

@@ -1,4 +1,3 @@
-import { MovieDescTypes } from '@/types';
 import useEditMovieModal from './useEditMovieModal';
 import {
   FeedGenresField,
@@ -6,19 +5,19 @@ import {
   ReplacePhoto,
   FeedTextareaForFeed,
 } from '@/components';
-import { useTranslation } from 'next-i18next';
+import { EditMovieTypes } from './types';
 
-const EditMovieModal: React.FC<MovieDescTypes> = ({ movie }) => {
+const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
   const {
     FormProvider,
     form,
     control,
     handleSubmit,
     onSubmit,
+    t,
     Controller,
     errors,
   } = useEditMovieModal(movie && movie.id);
-  const { t } = useTranslation('formErrors');
 
   return (
     <FormProvider {...form}>
@@ -55,7 +54,7 @@ const EditMovieModal: React.FC<MovieDescTypes> = ({ movie }) => {
             control={control}
             defaultValue={movie.releaseDate}
             render={({ field, fieldState: { error } }) => {
-              let errorMessage = t('movie_release_date');
+              let errorMessage = t('formErrors:movie_release_date');
 
               return (
                 <>
@@ -135,7 +134,7 @@ const EditMovieModal: React.FC<MovieDescTypes> = ({ movie }) => {
             type='submit'
             className='bg-default-btn hover:bg-hover mt-4 text-white w-full py-2 rounded active:bg-active'
           >
-            Edit movie
+            {t('movieList:edit_movie')}
           </button>
         </form>
       )}

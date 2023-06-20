@@ -4,16 +4,15 @@ import { AppContext } from '@/context';
 import { AddIcon, Movie } from '@/components';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { MoviesPropTypes } from './types';
 
-const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
-  props
-) => {
+const Movies: React.FC<MoviesPropTypes> = (props) => {
   const { handleFeedFormStatus } = useContext(AppContext);
   const router = useRouter();
   const search = router.query.search;
   const { t } = useTranslation('movieList');
 
-  if (props.loading) {
+  if (props.loading && !props.isFetched) {
     return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='text-white text-3xl'>Loading...</h1>
@@ -63,6 +62,7 @@ const Movies: React.FC<{ movies: MovieStructureTypes[]; loading: boolean }> = (
               thumbnail={movie.thumbnail}
               movie={movie.movie}
               releaseDate={movie.releaseDate}
+              quotes={movie.quotes}
             />
           );
         })}

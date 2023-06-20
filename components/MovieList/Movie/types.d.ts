@@ -5,4 +5,5 @@ export type MovieTypes = {
   movie: Keys;
   releaseDate: string;
   id: number;
+  quotes: {}[];
 };

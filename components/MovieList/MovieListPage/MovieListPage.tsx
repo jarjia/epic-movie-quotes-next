@@ -8,7 +8,7 @@ import {
 import useMovieListPage from './useMovieListPage';
 
 const MovieListPage = () => {
-  const { feedFormStatus, movies, loading, t } = useMovieListPage();
+  const { feedFormStatus, movies, loading, isFetched, t } = useMovieListPage();
 
   return (
     <FeedLayout>
@@ -22,7 +22,7 @@ const MovieListPage = () => {
           className={`py-4 sm:py-2 ${feedFormStatus !== '' && 'opacity-[0.2]'}`}
         >
           <ListHeader movies={movies} />
-          <Movies loading={loading} movies={movies} />
+          <Movies loading={loading} movies={movies} isFetched={isFetched} />
         </div>
       </>
     </FeedLayout>
