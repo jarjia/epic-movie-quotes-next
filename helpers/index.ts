@@ -1,1 +1,1 @@
-export { default as instantiatePusher } from './instantiatePusher';
+export { default as useInstantiatePusher } from './instantiatePusher';

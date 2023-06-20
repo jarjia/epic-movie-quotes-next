@@ -1,12 +1,19 @@
 import { AppContext } from '@/context';
-import { instantiatePusher } from '@/helpers';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
+import {
+  CommentEventTypes,
+  LikeEventTypes,
+  NotificationEventTypes,
+} from './types';
+import { PusherChannel } from 'laravel-echo/dist/channel';
+import { useInstantiatePusher } from '@/helpers';
 
 const useFeedLayout = () => {
   const { getUserData } = useAuthService();
+  useInstantiatePusher();
   const {
     feedFormStatus,
     handleUserData,
@@ -33,7 +40,7 @@ const useFeedLayout = () => {
     }
   }, [feedFormStatus]);
 
-  const handleNotify = (data: any) => {
+  const handleNotify = (data: NotificationEventTypes) => {
     if (data.notification.notify) {
       queryClient.invalidateQueries('notifications');
       queryClient.invalidateQueries('notifications-count');
@@ -41,12 +48,13 @@ const useFeedLayout = () => {
   };
 
   useEffect(() => {
-    const pusherInitialized = instantiatePusher();
-    let channel: any = null;
+    let channel: PusherChannel | null = null;
 
-    if (pusherInitialized) {
-      channel = window.Echo.private(`notification.${userData.id}`);
-      channel.listen('NotificationEvent', handleNotify);
+    if (window.Echo) {
+      channel = window.Echo.private(
+        `notification.${userData.id}`
+      ) as PusherChannel;
+      channel!.listen('NotificationEvent', handleNotify);
     }
 
     return () => {
@@ -56,17 +64,16 @@ const useFeedLayout = () => {
     };
   }, [userData.id]);
 
-  const handleQuoteLiked = (data: any) => {
+  const handleQuoteLiked = (data: LikeEventTypes) => {
     handleNewLikes(data.message.likes);
   };
 
   useEffect(() => {
-    const pusherInitialized = instantiatePusher();
-    let channel: any = null;
+    let channel: PusherChannel | null = null;
 
-    if (pusherInitialized) {
-      channel = window.Echo.channel('liked');
-      channel.listen('QuoteLiked', handleQuoteLiked);
+    if (window.Echo) {
+      channel = window.Echo.channel('liked') as PusherChannel;
+      channel!.listen('QuoteLiked', handleQuoteLiked);
     }
 
     return () => {
@@ -76,17 +83,16 @@ const useFeedLayout = () => {
     };
   }, []);
 
-  const handleCommented = (data: any) => {
+  const handleCommented = (data: CommentEventTypes) => {
     handleNewComment(data.message.new_comment);
   };
 
   useEffect(() => {
-    const pusherInitialized = instantiatePusher();
-    let channel: any = null;
+    let channel: PusherChannel | null = null;
 
-    if (pusherInitialized) {
-      channel = window.Echo.channel('commented');
-      channel.listen('QuoteComment', handleCommented);
+    if (window.Echo) {
+      channel = window.Echo.channel('commented') as PusherChannel;
+      channel!.listen('QuoteComment', handleCommented);
     }
 
     return () => {
