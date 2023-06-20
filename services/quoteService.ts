@@ -43,7 +43,7 @@ const useQuoteService = () => {
 
   const getAllQuotes = (paginate: number, search: string) => {
     return axios.get('/api/quotes/all', {
-      params: { paginate, search },
+      params: { paginate, search, locale },
     });
   };
 

@@ -23,5 +23,6 @@ export type LoginCredentialsTypes = {
 };
 export type PostCommentTypes = {
   quote_id: number;
+  to_user: number;
   comment: string;
 };
