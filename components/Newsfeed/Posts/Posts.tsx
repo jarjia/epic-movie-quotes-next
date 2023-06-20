@@ -24,6 +24,7 @@ const Posts = () => {
             movie={post.movies.movie}
             comments={post.comments}
             likes={post.likes}
+            user_id={post.movies.user_id}
           />
         );
       })}

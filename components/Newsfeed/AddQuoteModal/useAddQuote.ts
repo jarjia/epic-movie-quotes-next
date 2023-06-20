@@ -23,14 +23,15 @@ const useAddQuote = () => {
     handleSubmit,
     formState: { errors },
   } = form;
-  const { handleFeedFormStatus, handleRefetch } = useContext(AppContext);
+  const { handleFeedFormStatus } = useContext(AppContext);
   const queryClient = useQueryClient();
 
   const { mutate: addQuote } = useMutation(postQuote, {
     onSuccess: () => {
       handleFeedFormStatus('');
-      handleRefetch();
-      queryClient.invalidateQueries({ queryKey: ['quotes'] });
+      setTimeout(() => {
+        queryClient.invalidateQueries({ queryKey: ['quotes'] });
+      }, 1000);
     },
   });
 
