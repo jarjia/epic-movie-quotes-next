@@ -8,5 +8,10 @@
   "select_movie_err": "Movie for quote is required",
   "new_post_title": "Write new quote",
   "no_movies": "No movies for now...",
-  "comment_placeholder": "Write comment"
+  "view_quote": "View quote",
+  "comment_placeholder": "Write comment",
+  "show_more": "Show more",
+  "hide": "Hide",
+  "movie": "Movie",
+  "no_comments": "No comments..."
 }

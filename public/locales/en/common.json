@@ -9,5 +9,13 @@
   "reacted": "Reacted to your quote",
   "commented": "Commented to your movie quote",
   "search_movies": "Enter @ to search movies",
-  "search_quotes": "Enter # to search quotes"
+  "search_quotes": "Enter # to search quotes",
+  "comment_placeholder": "Write comment",
+  "show_more": "Show more",
+  "hide": "Hide",
+  "choose_file": "Choose file",
+  "drag_drop": "Drag & drop your image here or",
+  "mobile_choose_file": "Upload image",
+  "search_by": "Search by",
+  "no_comments": "No comments..."
 }

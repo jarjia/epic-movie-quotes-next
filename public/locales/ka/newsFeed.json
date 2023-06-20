@@ -8,5 +8,10 @@
   "select_movie_err": "ფილმი ციტატისთვი აუცილებელია",
   "new_post_title": "ახალი ციტატა",
   "no_movies": "ფილმები ვერ მოიძებნა...",
-  "comment_placeholder": "დაწერე კომენტარი"
+  "comment_placeholder": "დაწერე კომენტარი",
+  "view_quote": "ნახე ციტატა",
+  "show_more": "მეტი",
+  "hide": "დამალვა",
+  "movie": "ფილმი",
+  "no_comments": "უკომენტარო"
 }
