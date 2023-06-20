@@ -4,6 +4,7 @@ import { useMovieService } from '@/services';
 import { GenreObjectType, MovieCreateTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
+import { useTranslation } from 'next-i18next';
 import {
   FieldValues,
   FormProvider,
@@ -11,7 +12,6 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 
 const useAddMovie = () => {
@@ -30,6 +30,7 @@ const useAddMovie = () => {
   const { handleFeedFormStatus, userData } = useContext(AppContext);
   const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
+  const { t: formErrors } = useTranslation('formErrors');
 
   const { mutate: createMovie } = useMutation(postMovie, {
     onSuccess: () => {
@@ -57,6 +58,7 @@ const useAddMovie = () => {
     errors,
     control,
     t,
+    formErrors,
   };
 };
 

@@ -12,7 +12,7 @@ const Movies: React.FC<MoviesPropTypes> = (props) => {
   const search = router.query.search;
   const { t } = useTranslation('movieList');
 
-  if (props.loading && !props.isFetched) {
+  if ((props.loading && !props.isFetched) || props.movies === undefined) {
     return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='text-white text-3xl'>Loading...</h1>

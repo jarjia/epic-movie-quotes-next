@@ -6,7 +6,6 @@ import {
 } from '@/components';
 import useAddMovie from './useAddMovie';
 import { Controller } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
 
 const AddMovieModal = () => {
   const {
@@ -16,9 +15,9 @@ const AddMovieModal = () => {
     t: addMovie,
     control,
     form,
+    formErrors,
     errors,
   } = useAddMovie();
-  const { t } = useTranslation('formErrors');
 
   return (
     <FormProvider {...form}>
@@ -44,7 +43,7 @@ const AddMovieModal = () => {
           name='releaseDate'
           control={control}
           render={({ field, fieldState: { error } }) => {
-            let errorMessage = t('movie_release_date');
+            let errorMessage = formErrors('movie_release_date');
 
             return (
               <div className='flex flex-col'>

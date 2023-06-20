@@ -12,18 +12,6 @@ const useMovieShowPage = () => {
   const router = useRouter();
   let movieId = router.query.movieId as string;
   const [fetchQuotes, setFetchQuotes] = useState(false);
-  // const [movie, setMovie] = useState<MovieShowTypes>({
-  //   created_at: '',
-  //   description: { en: '', ka: '' },
-  //   director: { en: '', ka: '' },
-  //   movie: { en: '', ka: '' },
-  //   id: 0,
-  //   genres: [{ id: 0, genre: { en: '', ka: '' } }],
-  //   releaseDate: '',
-  //   thumbnail: '',
-  //   updated_at: '',
-  //   user_id: 0,
-  // });
   const [quotes, setQuotes] = useState<QuotesTypes[]>([]);
   const [refetchQuotes, setRefetchQuotes] = useState(false);
 
@@ -35,7 +23,6 @@ const useMovieShowPage = () => {
     data,
   } = useQuery(['movies', movieId], () => getMovie(movieId), {
     onSuccess: () => {
-      // setMovie(res.data);
       setFetchQuotes(true);
     },
   });
