@@ -2,7 +2,7 @@ import { FileCameraIcon } from '@/components/icons';
 import useReplacePhoto from './useReplacePhoto';
 
 const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
-  const { handleDragOver, handleDrop, img, register } = useReplacePhoto();
+  const { handleDragOver, handleDrop, img, t, register } = useReplacePhoto();
 
   return (
     <label>
@@ -21,10 +21,10 @@ const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
         <div className='flex items-center sm:items-start justify-center flex-col p-3 text-white gap-2'>
           <h2 className='text-title uppercase'>replace photo</h2>
           <p className='flex items-center gap-2 sm:hidden'>
-            <FileCameraIcon /> Drag & drop your image here or
+            <FileCameraIcon /> {t('drag_drop')}
           </p>
           <span className='cursor-pointer bg-choose-file mx-2 sm:mx-0 p-2 rounded-sm'>
-            Choose file
+            {t('choose_file')}
           </span>
         </div>
       </div>
