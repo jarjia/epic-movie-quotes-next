@@ -1,0 +1,17 @@
+{
+  "google_auth_failed": "Google authorization could not be established",
+  "auth_failed": "Authorization failed",
+  "recover_email_failed": "Password recover email could not be sent",
+  "password_recover_failed": "Password recover failed",
+  "registration_failed": "Registration could not be performed",
+  "profile_update_failed": "Profile Update was not successful",
+  "email_update_failed": "Email Update was not successful",
+  "add_quote_failed": "Adding quote failed",
+  "fetch_genres_failed": "Fetching genres for movie failed",
+  "create_movie_failed": "Creating movie failed for some reason",
+  "delete_quote_failed": "Deleting quote failed for some reason",
+  "delete_movie_failed": "Deleting movie failed for some reason",
+  "update_quote_failed": "Updating quote failed",
+  "update_movie_failed": "Updating movie failed",
+  "code": "code"
+}
