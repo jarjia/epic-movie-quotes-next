@@ -85,7 +85,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
             <UserProfile />
             <h4>{userData?.name}</h4>
           </div>
-          <div className='mb-0 sm:mb-24'>{children}</div>
+          <div className='mb-0 sm:mb-36'>{children}</div>
         </div>
       </div>
     </div>

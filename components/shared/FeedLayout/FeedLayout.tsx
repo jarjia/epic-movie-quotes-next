@@ -23,7 +23,7 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
         className={`pt-24 h-full ${
           router.pathname.includes('movie-list')
             ? 'pl-newsfeed-layout large:pl-large-newsfeed-layout sm:pl-8 pr-8 large:pr-16'
-            : 'px-newsfeed-layout sm:px-0 large:px-large-newsfeed-layout'
+            : 'px-newsfeed-layout sm:px-0 large:px-large-newsfeed-layout huge:px-huge-newsfeed-layout'
         }`}
       >
         <div>{props.children}</div>

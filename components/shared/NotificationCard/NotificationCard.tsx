@@ -8,6 +8,7 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
     timePassed,
     handleCurrentQuoteId,
     t,
+    curLocale,
     handleFeedFormStatus,
   } = useNotificationCard(props.created_at);
 
@@ -35,7 +36,8 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
         <div className='flex items-center justify-between'>
           <h4 className='text-xl '>{props.name}</h4>
           <p className='text-lg capitalize sm:hidden text-date-of-notification sm:text-lg'>
-            {timePassed} ago
+            {timePassed}
+            {curLocale === 'ka' && 'ს'} {t('ago')}
           </p>
         </div>
         <div className='my-2 flex sm:block items-center justify-between'>
