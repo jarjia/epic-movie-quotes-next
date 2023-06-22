@@ -76,7 +76,7 @@ const useAuthService = () => {
   };
 
   const postUpdateUserEmail = (data: PostEmailUpdateTypes) => {
-    return axios.post('/api/update/email', data, {
+    return axios.post('/api/email', data, {
       params: { locale },
     });
   };
