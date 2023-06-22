@@ -3,7 +3,7 @@ import { useZod } from '@/schema';
 import { useQuoteService } from '@/services';
 import { UpdateQuotesTypes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
 import {
   FieldValues,
   FormProvider,
@@ -22,19 +22,11 @@ const useEditQuoteModal = (
 ) => {
   const { getQuote, updateQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
-  const [quote, setQuote] = useState<EditQuoteStateTypes>({
-    id: 0,
-    quote: { en: '', ka: '' },
-    thumbnail: '',
-    movie_id: 0,
-  });
   const { t: apiErr } = useTranslation('apiErrors');
-  const { isLoading } = useQuery('quote', () => getQuote(quoteId), {
-    onSuccess(data) {
-      setQuote(data.data);
-    },
+  const { isLoading, data } = useQuery('quote', () => getQuote(quoteId), {
     enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
   });
+  const quote: EditQuoteStateTypes = data?.data;
   const { handleFeedFormStatus } = useContext(AppContext);
   const { t } = useTranslation('movieList');
   const { mutate: updateQuoteMutate } = useMutation(updateQuote, {
@@ -70,17 +62,19 @@ const useEditQuoteModal = (
   } = form;
 
   useEffect(() => {
-    const defaultValues = {
-      quote: {
-        en: quote.quote !== undefined ? quote.quote.en : '',
-        ka: quote.quote !== undefined ? quote.quote.ka : '',
-      },
-      movieId: movieId,
-    };
-    if (quote.quote !== undefined) {
-      reset(defaultValues);
+    if (quote !== undefined) {
+      const defaultValues = {
+        quote: {
+          en: quote.quote !== undefined ? quote.quote.en : '',
+          ka: quote.quote !== undefined ? quote.quote.ka : '',
+        },
+        movieId: movieId,
+      };
+      if (quote.quote !== undefined) {
+        reset(defaultValues);
+      }
     }
-  }, [reset, quote.quote, movieId]);
+  }, [reset, quote, movieId]);
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.thumbnail.length === 0) {

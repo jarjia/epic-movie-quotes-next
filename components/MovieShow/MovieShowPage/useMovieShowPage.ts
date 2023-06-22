@@ -39,7 +39,20 @@ const useMovieShowPage = () => {
     }
   );
   const { t } = useTranslation('movieList');
-  const { feedFormStatus, currentQuoteId } = useContext(AppContext);
+  const { feedFormStatus, currentQuoteId, handleFeedFormStatus } =
+    useContext(AppContext);
+
+  useEffect(() => {
+    let allowedModalsArr = [
+      'view-quote',
+      'add-quote-movie',
+      'edit-movie',
+      'edit-quote',
+    ];
+    if (!allowedModalsArr.includes(feedFormStatus as string)) {
+      handleFeedFormStatus('');
+    }
+  }, [feedFormStatus, handleFeedFormStatus]);
 
   const handleRefecthQuotes = () => {
     setRefetchQuotes(true);

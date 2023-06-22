@@ -19,7 +19,7 @@ const useProfile = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('profile');
-  const { feedFormStatus } = useContext(AppContext);
+  const { feedFormStatus, handleFeedFormStatus } = useContext(AppContext);
 
   useEffect(() => {
     if (!editProfile.isEdit && isSure) {
@@ -34,6 +34,13 @@ const useProfile = () => {
       }, 3000);
     }
   }, [isSuccess]);
+
+  useEffect(() => {
+    let allowedModalsArr: string[] = [];
+    if (!allowedModalsArr.includes(feedFormStatus as string)) {
+      handleFeedFormStatus('');
+    }
+  }, [feedFormStatus, handleFeedFormStatus]);
 
   const handleClearForms = () => {
     sessionStorage.removeItem('form-status');

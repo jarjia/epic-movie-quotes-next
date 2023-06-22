@@ -17,9 +17,8 @@ const usePosts = () => {
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       getNextPageParam: (info) => {
-        return info.data.last_page > parseFloat(info.data.current_page)
-          ? ++info.data.current_page
-          : undefined;
+        let cur_page = parseFloat(info.data.current_page);
+        return info.data.last_page > cur_page ? ++cur_page : undefined;
       },
       keepPreviousData: true,
     }
