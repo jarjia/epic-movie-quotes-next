@@ -10,9 +10,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
     onSubmit,
     handleUserRedirectGoogle,
     form,
-    handleResetApiError,
     FormProvider,
-    apiError,
   } = useLoginForm();
   const { t } = useTranslation('landingForms');
 
@@ -44,23 +42,16 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
               <Checkbox name='remember_me' label={t('rememeber_me')} />
             </div>
             <button
+              type='button'
               className='text-link underline'
               onClick={() => handleFormStatus('recover-email')}
             >
               {t('forgot_password')}
             </button>
           </div>
-          <div className='pb-7 pt-1 flex justify-center'>
-            {apiError !== '' && (
-              <p className='absolute text-center text-default-btn font-normal text-md'>
-                {apiError}
-              </p>
-            )}
-          </div>
           <div className='pt-1'>
             <button
               type='submit'
-              onClick={handleResetApiError}
               className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
             >
               {t('sign_in')}

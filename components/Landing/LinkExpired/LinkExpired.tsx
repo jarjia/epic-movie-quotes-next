@@ -4,7 +4,10 @@ import { HandleFormStatusTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 
-const LinkExpired: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const LinkExpired: React.FC<HandleFormStatusTypes & { isProfile: boolean }> = ({
+  handleFormStatus,
+  isProfile,
+}) => {
   const router = useRouter();
   const { t } = useTranslation('landingForms');
 
@@ -21,18 +24,20 @@ const LinkExpired: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
         {t('expired_title')}
       </h2>
       <p className='my-2 text-center text-white'>{t('expired_desc')}</p>
-      <button
-        onClick={() => {
-          if (router.query.recover_token !== undefined) {
-            handleFormStatus('login');
-          } else if (router.query.token !== undefined) {
-            handleFormStatus('register');
-          }
-        }}
-        className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
-      >
-        {t('expired_submit')}
-      </button>
+      {!isProfile && (
+        <button
+          onClick={() => {
+            if (router.query.recover_token !== undefined) {
+              handleFormStatus('login');
+            } else if (router.query.token !== undefined) {
+              handleFormStatus('register');
+            }
+          }}
+          className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
+        >
+          {t('expired_submit')}
+        </button>
+      )}
     </div>
   );
 };

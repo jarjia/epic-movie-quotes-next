@@ -13,6 +13,7 @@ import { PostRecoverPasswordTypes } from './types';
 import { useState } from 'react';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
+import { toast } from 'react-toastify';
 
 const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   const { postRecoverPassword } = useAuthService();
@@ -28,6 +29,7 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   } = form;
   const router = useRouter();
   const [apiError, setApiError] = useState('');
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const handleClearApiError = () => {
     setApiError('');
@@ -39,7 +41,24 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
       handleFormStatus('recovered-password');
     },
     onError: (err: any) => {
-      setApiError(err?.response?.data?.message);
+      if (typeof err?.response?.data?.message === 'string') {
+        setApiError(err?.response?.data?.message);
+      } else {
+        toast.error(
+          `${apiErr('password_recover_failed')} (${apiErr('code')}: ${
+            err?.response?.status
+          })`,
+          {
+            position: 'top-center',
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: 'light',
+          }
+        );
+      }
     },
   });
 

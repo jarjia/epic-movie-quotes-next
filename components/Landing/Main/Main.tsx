@@ -18,6 +18,7 @@ import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
 import { ToastContainer } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Main: React.FC = () => {
   const { handleFormStatus, formStatus } = useMain();
@@ -25,7 +26,7 @@ const Main: React.FC = () => {
 
   return (
     <section className={`${classes.linear} max-w-screen`}>
-      <ToastContainer className='w-80 bg-white h-16 rounded-xl text-red-500 text-center flex justify-center items-center absolute left-[39%] top-4 z-[100]' />
+      <ToastContainer autoClose={3000} className='select-none' />
       {formStatus !== ('null' || null || undefined) ? (
         <FormLayout handleFormStatus={handleFormStatus}>
           {formStatus === 'register' ? (
@@ -33,9 +34,9 @@ const Main: React.FC = () => {
           ) : formStatus === 'login' ? (
             <LoginForm handleFormStatus={handleFormStatus} />
           ) : formStatus === 'email-sent' ? (
-            <EmailSent handleFormStatus={handleFormStatus} />
+            <EmailSent isProfile={false} handleFormStatus={handleFormStatus} />
           ) : formStatus === 'verified' ? (
-            <Verified handleFormStatus={handleFormStatus} />
+            <Verified isLanding={true} handleFormStatus={handleFormStatus} />
           ) : formStatus === 'recover-email' ? (
             <RecoverEmail handleFormStatus={handleFormStatus} />
           ) : formStatus === 'recover-email-sent' ? (
@@ -45,7 +46,10 @@ const Main: React.FC = () => {
           ) : formStatus === 'recovered-password' ? (
             <PasswordRecovered handleFormStatus={handleFormStatus} />
           ) : formStatus === 'link-expired' ? (
-            <LinkExpired handleFormStatus={handleFormStatus} />
+            <LinkExpired
+              isProfile={false}
+              handleFormStatus={handleFormStatus}
+            />
           ) : (
             <section></section>
           )}

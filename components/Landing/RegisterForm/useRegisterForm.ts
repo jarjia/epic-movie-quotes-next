@@ -14,6 +14,7 @@ import { useEffect } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
+import { useTranslation } from 'next-i18next';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const {
@@ -32,10 +33,29 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
     handleSubmit,
   } = form;
   const router = useRouter();
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const { mutate: registerUser } = useMutation(postRegister, {
     onSuccess: () => {
       handleFormStatus('email-sent');
+    },
+    onError(err: any) {
+      toast.error(
+        `${
+          typeof err?.response?.data?.message === 'string'
+            ? err?.response?.data?.message
+            : apiErr('registration_failed')
+        } (${apiErr('code')}: ${err?.response?.status})`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     },
   });
 
@@ -45,10 +65,21 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
       localStorage.setItem('auth', 'true');
       router.push('/newsfeed');
     },
-    onError: () => {
-      toast('An error occured while trying to register', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    onError: (err: any) => {
+      toast.error(
+        `${apiErr('google_auth_failed')} (${apiErr('code')}: ${
+          err?.response?.status
+        })`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     },
   });
 
@@ -85,10 +116,21 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
       if (res.status === 200) {
         router.push(res.data);
       }
-    } catch (error) {
-      toast('An error occured while trying to register', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    } catch (err: any) {
+      toast.error(
+        `${apiErr('google_auth_failed')} (${apiErr('code')}: ${
+          err?.response?.status
+        })`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     }
   };
 

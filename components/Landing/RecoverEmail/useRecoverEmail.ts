@@ -9,8 +9,9 @@ import {
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { PostRecoverEmailTypes } from './types';
-import { useState } from 'react';
 import { useZod } from '@/schema';
+import { toast } from 'react-toastify';
+import { useTranslation } from 'next-i18next';
 
 const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
   const { getCrsfToken, postRecoverEmail } = useAuthService();
@@ -23,14 +24,29 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     formState: { errors },
     handleSubmit,
   } = form;
-  const [apiError, setApiError] = useState('');
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const { mutate: recoverUserEmail } = useMutation(postRecoverEmail, {
     onSuccess: () => {
       handleFormStatus('recover-email-sent');
     },
     onError: (err: any) => {
-      setApiError(err.response.data);
+      toast.error(
+        typeof err.response.data === 'string'
+          ? err.response.data
+          : `${apiErr('recover_email_failed')} (${apiErr('code')}: ${
+              err?.response?.status
+            })`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     },
   });
 
@@ -48,7 +64,6 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     form,
     errors,
     FormProvider,
-    apiError,
   };
 };
 

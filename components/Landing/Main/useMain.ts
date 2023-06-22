@@ -13,6 +13,10 @@ const useMain = () => {
     setFormStatus(JSON.parse(sessionStorage.getItem('form-status') || 'null'));
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem('locale', router.locale as string);
+  }, [router.locale]);
+
   const handleFormStatus = useCallback(
     (status: string) => {
       sessionStorage.setItem('form-status', JSON.stringify(status));
@@ -53,7 +57,10 @@ const useMain = () => {
         const elapsedMinutes = Math.floor(
           (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
         );
-
+        const { pathname, asPath, query } = router;
+        router.push({ pathname, query }, asPath, {
+          locale: router.query.locale as string,
+        });
         if (elapsedMinutes >= 30) {
           clearInterval(interval);
           handleFormStatus('link-expired');
@@ -66,10 +73,8 @@ const useMain = () => {
               token,
             };
             registerUser(data);
-            handleLocale();
           } else if (router.query.recover_token !== undefined) {
             handleFormStatus('recover-password');
-            handleLocale();
           }
         }
       }, 1000);
@@ -91,6 +96,16 @@ const useMain = () => {
       document.body.classList.add('no-scroll');
     }
   }, [formStatus]);
+
+  useEffect(() => {
+    if (router.locale === 'en') {
+      document.body.classList.remove('geo');
+      document.body.classList.add('eng');
+    } else if (router.locale === 'ka') {
+      document.body.classList.remove('eng');
+      document.body.classList.add('geo');
+    }
+  }, [router.locale]);
 
   return {
     handleFormStatus,
