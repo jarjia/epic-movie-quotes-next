@@ -2,6 +2,7 @@ import classes from '@/styles/Landing.module.css';
 import { FeedNavbar, FeedSidebar } from '@/components';
 import { FeedLayoutTypes } from './types';
 import useFeedLayout from './useFeedLayout';
+import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
   const { feedFormStatus, router, isLoading, isError } = useFeedLayout();
@@ -12,6 +13,7 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
 
   return (
     <section className={`${classes.newsfeed} w-screen h-full min-h-screen`}>
+      <ToastContainer autoClose={3000} className='select-none' />
       <FeedNavbar />
       <FeedSidebar />
       {feedFormStatus !== '' && (

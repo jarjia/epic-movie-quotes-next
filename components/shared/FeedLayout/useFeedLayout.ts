@@ -65,7 +65,7 @@ const useFeedLayout = () => {
   }, [userData.id]);
 
   const handleQuoteLiked = (data: LikeEventTypes) => {
-    handleNewLikes(data.message.likes);
+    handleNewLikes(data.message);
   };
 
   useEffect(() => {
@@ -101,6 +101,16 @@ const useFeedLayout = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (router.locale === 'en') {
+      document.body.classList.remove('geo');
+      document.body.classList.add('eng');
+    } else if (router.locale === 'ka') {
+      document.body.classList.remove('eng');
+      document.body.classList.add('geo');
+    }
+  }, [router.locale]);
 
   return {
     feedFormStatus,

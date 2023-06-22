@@ -80,7 +80,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
               )}
               <button
                 onClick={() => setOpenComments(0)}
-                className='pl-[74px] mt-2 text-placeholder underline text-md'
+                className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}
               </button>
