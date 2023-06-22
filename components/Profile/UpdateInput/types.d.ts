@@ -12,4 +12,5 @@ export type UpdateInputTypes = {
   repeatName: string;
   repeatLabel?: string;
   errors?: any;
+  isGoogle?: boolean;
 };

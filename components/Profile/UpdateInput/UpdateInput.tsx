@@ -10,9 +10,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
     <div className='flex flex-col items-center my-2'>
       <div className='grid grid-cols-[90%_10%] w-1/2 sm:w-full sm:px-8 mb-5'>
         <div className='flex flex-col'>
-          <label className='text-white mb-1' htmlFor={props.name}>
-            {props.label}
-          </label>
+          <label className='text-white mb-1'>{props.label}</label>
           <input
             type={props.type}
             className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
@@ -21,7 +19,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
             disabled
           />
         </div>
-        {props.name !== 'email' && (
+        {!props.isGoogle ? (
           <div className='flex items-end'>
             <button
               onClick={handleIsEdit}
@@ -46,7 +44,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               Edit
             </button>
           </div>
-        )}
+        ) : null}
       </div>
 
       {isEdit && (
@@ -68,7 +66,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               </div>
               <div className='flex flex-col'>
                 <label className='text-white mb-1' htmlFor={props.name}>
-                  {props.label}
+                  {props.newLabel}
                 </label>
                 <input
                   type={props.type}
@@ -104,11 +102,12 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
           ) : (
             <div className='flex flex-col'>
               <label className='text-white mb-1' htmlFor={props.name}>
-                {props.label}
+                {props.newLabel}
               </label>
               <input
                 type={props.type}
                 {...register(props.name)}
+                defaultValue={userData[index as keyof UserDataTypes]}
                 className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
                 placeholder={props.placeholder}
                 autoComplete='off'
