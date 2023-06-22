@@ -13,6 +13,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from 'react-query';
 import { EditQuoteStateTypes } from './types';
+import { toast } from 'react-toastify';
 
 const useEditQuoteModal = (
   quoteId: string | null,
@@ -27,6 +28,7 @@ const useEditQuoteModal = (
     thumbnail: '',
     movie_id: 0,
   });
+  const { t: apiErr } = useTranslation('apiErrors');
   const { isLoading } = useQuery('quote', () => getQuote(quoteId), {
     onSuccess(data) {
       setQuote(data.data);
@@ -39,6 +41,22 @@ const useEditQuoteModal = (
     onSuccess: () => {
       handleRefecthQuotes();
       handleFeedFormStatus('');
+    },
+    onError(err: any) {
+      toast.error(
+        `${apiErr('update_quote_failed')} (${apiErr('code')}: ${
+          err?.response?.status
+        })`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     },
   });
   const form = useForm({

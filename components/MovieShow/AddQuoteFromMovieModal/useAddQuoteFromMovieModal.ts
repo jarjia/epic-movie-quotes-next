@@ -13,6 +13,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useMutation } from 'react-query';
+import { toast } from 'react-toastify';
 
 const useAddQuoteFromMovieModal = (
   movieId: number,
@@ -32,6 +33,7 @@ const useAddQuoteFromMovieModal = (
   const { handleFeedFormStatus } = useContext(AppContext);
   const router = useRouter();
   const { t } = useTranslation('movieList');
+  const { t: apiErr } = useTranslation('apiErrors');
   let locale = router.locale as string;
 
   useEffect(() => {
@@ -42,6 +44,22 @@ const useAddQuoteFromMovieModal = (
     onSuccess: () => {
       handleFeedFormStatus('');
       handleRefecthQuotes();
+    },
+    onError(err: any) {
+      toast.error(
+        `${apiErr('add_quote_failed')} (${apiErr('code')}: ${
+          err?.response?.status
+        })`,
+        {
+          position: 'top-center',
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'light',
+        }
+      );
     },
   });
 
