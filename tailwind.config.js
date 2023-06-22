@@ -11,6 +11,7 @@ module.exports = {
       screens: {
         sm: { max: '720px' },
         large: { min: '1680px' },
+        huge: { min: '1920px' },
       },
       backdropBlur: {
         'landing-blur': '3px',
@@ -25,6 +26,7 @@ module.exports = {
       padding: {
         'newsfeed-layout': '340px',
         'large-newsfeed-layout': '480px',
+        'huge-newsfeed-layout': '580px',
       },
       gridTemplateColumns: {
         'mobile-search-cols': '15% 85%',
