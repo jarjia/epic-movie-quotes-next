@@ -19,7 +19,7 @@ const Post: React.FC<PostTypes> = (props) => {
           <p className='break-words sm:text-base'>
             “<span>{props.quote[locale]}</span>”
             <span className='pl-1'>{t('movie')}-</span>
-            <span className='text-title px-2'>{props.movie[locale]}</span>(
+            <span className='text-title pr-2'>{props.movie[locale]}</span>(
             {props.releaseDate})
           </p>
         </div>

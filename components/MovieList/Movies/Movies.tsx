@@ -27,10 +27,10 @@ const Movies: React.FC<MoviesPropTypes> = (props) => {
   ) {
     return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
-        <h1 className='text-white text-3xl'>{t('no_movies')}</h1>
+        <h1 className='text-center text-white text-3xl'>{t('no_movies')}</h1>
         <button
           onClick={() => handleFeedFormStatus('add-movie')}
-          className='flex items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
+          className='flex mt-2 items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
         >
           <AddIcon />
           {t('add_one_movie')}
