@@ -14,6 +14,7 @@ export async function getStaticProps({ locale }: GetServerSidePropsContext) {
         'common',
         'landingForms',
         'formErrors',
+        'apiErrors',
       ])),
     },
   };
