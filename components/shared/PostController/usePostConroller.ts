@@ -16,22 +16,30 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const [isLiked, setIsliked] = useState(false);
   const [howMuchScrolled, setHowMuchScrolled] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
-  const { userData, newLikes, handleNewLikes, handleNewComment, comment } =
-    useContext(AppContext);
+  const {
+    userData,
+    newLikes,
+    handleNewLikes,
+    handleNewComment,
+    feedFormStatus,
+    comment,
+  } = useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
 
   const handleCommentScroll = (bool: boolean) => {
-    const currentScrollHeight = window.scrollY;
-    setHowMuchScrolled((prev) => prev + 200);
-    let newScrollHeight = howMuchScrolled;
-    if (bool) {
-      newScrollHeight = currentScrollHeight + 200;
-    } else {
-      setHowMuchScrolled(0);
-      newScrollHeight = currentScrollHeight - howMuchScrolled;
+    if (feedFormStatus === '') {
+      const currentScrollHeight = window.scrollY;
+      setHowMuchScrolled((prev) => prev + 200);
+      let newScrollHeight = howMuchScrolled;
+      if (bool) {
+        newScrollHeight = currentScrollHeight + 200;
+      } else {
+        setHowMuchScrolled(0);
+        newScrollHeight = currentScrollHeight - howMuchScrolled;
+      }
+      window.scrollTo(0, newScrollHeight as number);
     }
-    window.scrollTo(0, newScrollHeight as number);
   };
 
   const handleOpenComments = () => {
