@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
 import { useAuthService } from '@/services';
 import { useTranslation } from 'next-i18next';
+import { errorToast } from '@/helpers';
 
 const useLoginForm = () => {
   const {
@@ -44,21 +45,12 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      toast.error(
+      errorToast(
+        apiErr,
         typeof err.response.data === 'string'
           ? err.response.data
-          : `${apiErr('auth_failed')} (${apiErr('code')}: ${
-              err?.response?.status
-            })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
+          : apiErr('auth_failed'),
+        err
       );
     },
   });
@@ -70,20 +62,7 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      toast.error(
-        `${apiErr('google_auth_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('google_auth_failed'), err);
     },
   });
 
@@ -117,20 +96,7 @@ const useLoginForm = () => {
         loginUser(finalData);
       }
     } catch (err: any) {
-      toast.error(
-        `${apiErr('auth_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('auth_failed'), err);
     }
   };
 
@@ -142,20 +108,7 @@ const useLoginForm = () => {
         router.push(res.data);
       }
     } catch (err: any) {
-      toast.error(
-        `${apiErr('google_auth_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('google_auth_failed'), err);
     }
   };
 

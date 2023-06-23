@@ -14,7 +14,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useEditMovieModal = (movieId: number) => {
   const { updateMovie } = useMovieService();
@@ -39,20 +39,7 @@ const useEditMovieModal = (movieId: number) => {
       queryClient.invalidateQueries('movies');
     },
     onError(err: any) {
-      toast.error(
-        `${apiErr('update_movie_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('update_movie_failed'), err);
     },
   });
 

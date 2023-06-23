@@ -13,7 +13,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useAddMovie = () => {
   const { postMovie } = useMovieService();
@@ -40,20 +40,7 @@ const useAddMovie = () => {
       queryClient.invalidateQueries('my-movies');
     },
     onError(err: any) {
-      toast.error(
-        `${apiErr('create_movie_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('create_movie_failed'), err);
     },
   });
 

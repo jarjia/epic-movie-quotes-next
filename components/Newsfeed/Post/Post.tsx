@@ -25,7 +25,7 @@ const Post: React.FC<PostTypes> = (props) => {
         </div>
       </div>
       <div
-        className='w-full h-[400px] sm:h-[250px] bg-cover bg-white rounded-form-radius'
+        className='w-full h-[400px] sm:h-[250px] bg-center bg-cover bg-white rounded-form-radius'
         style={{
           backgroundImage: `url(${props.thumbnail})`,
         }}

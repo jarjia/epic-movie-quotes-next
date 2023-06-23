@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { AppContext } from '@/context';
 import { useQuoteService } from '@/services';
 import { useMutation } from 'react-query';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useQuoteCard = (handleRefecthQuotes: () => void) => {
   const { deleteQuote } = useQuoteService();
@@ -20,20 +20,7 @@ const useQuoteCard = (handleRefecthQuotes: () => void) => {
       handleFeedFormStatus('');
     },
     onError(err: any) {
-      toast.error(
-        `${apiErr('delete_quote_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('delete_quote_failed'), err);
     },
   });
 

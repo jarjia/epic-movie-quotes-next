@@ -36,7 +36,7 @@ const useProfile = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    let allowedModalsArr: string[] = ['link-expired', 'email-sent'];
+    let allowedModalsArr = ['link-expired', 'email-sent'];
     if (!allowedModalsArr.includes(feedFormStatus as string)) {
       handleFeedFormStatus('');
     }

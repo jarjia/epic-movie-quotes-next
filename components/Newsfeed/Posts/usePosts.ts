@@ -24,24 +24,22 @@ const usePosts = () => {
     }
   );
 
-  const handleScroll = () => {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
-    const clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
-
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
-    setIsScrolledToBottom(isAtBottom);
-  };
-
   useEffect(() => {
+    const handleScroll = () => {
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement || document.body;
+
+      if (scrollTop + clientHeight >= scrollHeight - 10) {
+        setIsScrolledToBottom(true);
+      }
+    };
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
   const posts: PostsTypes[] = data?.pages[0]?.data?.quotes;
 
   useEffect(() => {

@@ -10,8 +10,8 @@ import {
 import { useMutation } from 'react-query';
 import { PostRecoverEmailTypes } from './types';
 import { useZod } from '@/schema';
-import { toast } from 'react-toastify';
 import { useTranslation } from 'next-i18next';
+import { errorToast } from '@/helpers';
 
 const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
   const { getCrsfToken, postRecoverEmail } = useAuthService();
@@ -31,21 +31,12 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
       handleFormStatus('recover-email-sent');
     },
     onError: (err: any) => {
-      toast.error(
+      errorToast(
+        apiErr,
         typeof err.response.data === 'string'
           ? err.response.data
-          : `${apiErr('recover_email_failed')} (${apiErr('code')}: ${
-              err?.response?.status
-            })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
+          : apiErr('recover_email_failed'),
+        err
       );
     },
   });

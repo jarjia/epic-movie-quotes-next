@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 const useViewQuoteModal = (quoteId: string | null) => {
   const { getQuote } = useQuoteService();
   const { isLoading, data, isSuccess } = useQuery(
-    ['quote', quoteId],
+    ['quotes', quoteId],
     () => getQuote(quoteId),
     {
       enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',

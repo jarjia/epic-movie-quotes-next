@@ -36,7 +36,7 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
       )}
       <div className='grid grid-cols-quote-card pb-4 border-b-[1px] border-placeholder gap-4'>
         <div
-          className='w-full mt-3 h-[100px] large:h-[130px] bg-cover rounded-[2px]'
+          className='w-full mt-3 h-[100px] bg-center large:h-[130px] bg-cover rounded-[2px]'
           style={{
             backgroundImage: `url(${thumbnail})`,
           }}

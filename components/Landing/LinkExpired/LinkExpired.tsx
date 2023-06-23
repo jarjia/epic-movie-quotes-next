@@ -1,10 +1,10 @@
 import { LinkExpiredIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
-import { HandleFormStatusTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { LinkExpiretTypes } from './types';
 
-const LinkExpired: React.FC<HandleFormStatusTypes & { isProfile: boolean }> = ({
+const LinkExpired: React.FC<LinkExpiretTypes> = ({
   handleFormStatus,
   isProfile,
 }) => {

@@ -59,7 +59,7 @@ const useMain = () => {
         );
         const { pathname, asPath, query } = router;
         router.push({ pathname, query }, asPath, {
-          locale: router.query.locale as string,
+          locale: query.locale as string,
         });
         if (elapsedMinutes >= 30) {
           clearInterval(interval);
@@ -96,16 +96,6 @@ const useMain = () => {
       document.body.classList.add('no-scroll');
     }
   }, [formStatus]);
-
-  useEffect(() => {
-    if (router.locale === 'en') {
-      document.body.classList.remove('geo');
-      document.body.classList.add('eng');
-    } else if (router.locale === 'ka') {
-      document.body.classList.remove('eng');
-      document.body.classList.add('geo');
-    }
-  }, [router.locale]);
 
   return {
     handleFormStatus,

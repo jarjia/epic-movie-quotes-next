@@ -13,7 +13,7 @@ import { PostRecoverPasswordTypes } from './types';
 import { useState } from 'react';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   const { postRecoverPassword } = useAuthService();
@@ -44,20 +44,7 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
       if (typeof err?.response?.data?.message === 'string') {
         setApiError(err?.response?.data?.message);
       } else {
-        toast.error(
-          `${apiErr('password_recover_failed')} (${apiErr('code')}: ${
-            err?.response?.status
-          })`,
-          {
-            position: 'top-center',
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          }
-        );
+        errorToast(apiErr, apiErr('password_recover_failed'), err);
       }
     },
   });

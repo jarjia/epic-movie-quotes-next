@@ -13,7 +13,7 @@ import {
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery } from 'react-query';
 import { EditQuoteStateTypes } from './types';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useEditQuoteModal = (
   quoteId: string | null,
@@ -35,20 +35,7 @@ const useEditQuoteModal = (
       handleFeedFormStatus('');
     },
     onError(err: any) {
-      toast.error(
-        `${apiErr('update_quote_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('update_quote_failed'), err);
     },
   });
   const form = useForm({

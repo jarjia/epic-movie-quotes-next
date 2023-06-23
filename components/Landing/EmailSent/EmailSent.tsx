@@ -1,9 +1,9 @@
 import { EmailSentIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
-import { HandleFormStatusTypes } from '@/types';
 import { useTranslation } from 'next-i18next';
+import { EmailSentTypes } from './types';
 
-const EmailSent: React.FC<HandleFormStatusTypes & { isProfile: boolean }> = ({
+const EmailSent: React.FC<EmailSentTypes> = ({
   handleFormStatus,
   isProfile,
 }) => {
