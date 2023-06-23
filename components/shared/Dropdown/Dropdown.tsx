@@ -35,7 +35,6 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
                   }}
                   locale='en'
                   onClick={() => {
-                    localStorage.setItem('locale', 'en');
                     handleDropDown();
                   }}
                   className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'
@@ -51,7 +50,6 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
                   }}
                   locale='ka'
                   onClick={() => {
-                    localStorage.setItem('locale', 'ka');
                     handleDropDown();
                   }}
                   className='block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white'

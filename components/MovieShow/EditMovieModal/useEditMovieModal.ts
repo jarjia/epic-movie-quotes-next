@@ -14,6 +14,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQueryClient } from 'react-query';
+import { errorToast } from '@/helpers';
 
 const useEditMovieModal = (movieId: number) => {
   const { updateMovie } = useMovieService();
@@ -30,11 +31,15 @@ const useEditMovieModal = (movieId: number) => {
   const { handleFeedFormStatus } = useContext(AppContext);
   const queryClient = useQueryClient();
   const { t } = useTranslation(['formErrors', 'movieList']);
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const { mutate: updateMovieFunc } = useMutation(updateMovie, {
     onSuccess: () => {
       handleFeedFormStatus('');
       queryClient.invalidateQueries('movies');
+    },
+    onError(err: any) {
+      errorToast(apiErr, apiErr('update_movie_failed'), err);
     },
   });
 

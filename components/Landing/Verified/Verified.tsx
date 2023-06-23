@@ -3,7 +3,9 @@ import classes from '@/styles/Landing.module.css';
 import { HandleFormStatusTypes } from '@/types';
 import { useTranslation } from 'next-i18next';
 
-const Verified: React.FC<HandleFormStatusTypes> = (props) => {
+const Verified: React.FC<HandleFormStatusTypes & { isLanding: boolean }> = (
+  props
+) => {
   const { t } = useTranslation('landingForms');
 
   return (
@@ -15,12 +17,14 @@ const Verified: React.FC<HandleFormStatusTypes> = (props) => {
         {t('thank_you')}
       </h2>
       <p className='my-2 text-center text-white'>{t('verified')}</p>
-      <button
-        onClick={() => props.handleFormStatus('login')}
-        className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
-      >
-        {t('go_to_login')}
-      </button>
+      {props.isLanding && (
+        <button
+          onClick={() => props.handleFormStatus('login')}
+          className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
+        >
+          {t('go_to_login')}
+        </button>
+      )}
     </div>
   );
 };

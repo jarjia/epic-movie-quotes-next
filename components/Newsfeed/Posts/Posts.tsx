@@ -3,10 +3,22 @@ import usePosts from './usePosts';
 import { PostsTypes } from '@/types';
 
 const Posts = () => {
-  const { posts, isLoading } = usePosts();
+  const { posts, isLoading, t } = usePosts();
 
   if (isLoading) {
-    return null;
+    return (
+      <div className='flex flex-col items-center gap-2 my-16 justify-center'>
+        <h1 className='text-white text-3xl'>Loading...</h1>
+      </div>
+    );
+  }
+
+  if (posts.length === 0) {
+    return (
+      <div className='flex flex-col items-center gap-2 my-16 justify-center'>
+        <h1 className='text-white text-3xl'>{t('no_posts')}</h1>
+      </div>
+    );
   }
 
   return (

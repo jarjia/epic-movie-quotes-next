@@ -27,7 +27,7 @@ const useFeedLayout = () => {
       handleUserData(data.data);
     },
     onError: () => {
-      router.push('/403');
+      // router.push('/403');
     },
   });
   const queryClient = useQueryClient();
@@ -65,7 +65,7 @@ const useFeedLayout = () => {
   }, [userData.id]);
 
   const handleQuoteLiked = (data: LikeEventTypes) => {
-    handleNewLikes(data.message.likes);
+    handleNewLikes(data.message);
   };
 
   useEffect(() => {

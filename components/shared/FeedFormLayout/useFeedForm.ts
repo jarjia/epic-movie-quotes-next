@@ -7,7 +7,8 @@ import { useMutation } from 'react-query';
 
 const useFeedForm = (handleRefecthQuotes?: () => void) => {
   const { deleteQuote } = useQuoteService();
-  const { handleFeedFormStatus, userData } = useContext(AppContext);
+  const { handleFeedFormStatus, userData, feedFormStatus } =
+    useContext(AppContext);
   const router = useRouter();
   const { t } = useTranslation('movieList');
   const { mutate: deleteQuoteMutate } = useMutation(deleteQuote, {
@@ -21,6 +22,7 @@ const useFeedForm = (handleRefecthQuotes?: () => void) => {
 
   return {
     deleteQuoteMutate,
+    feedFormStatus,
     router,
     handleFeedFormStatus,
     userData,

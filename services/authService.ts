@@ -1,4 +1,4 @@
-import { LoginWithGoogleQueryTypes } from '@/types';
+import { LoginWithGoogleQueryTypes, PostEmailUpdateTypes } from '@/types';
 import {
   LoginCredentialsTypes,
   PostRecoverEmailTypes,
@@ -75,9 +75,16 @@ const useAuthService = () => {
     });
   };
 
+  const postUpdateUserEmail = (data: PostEmailUpdateTypes) => {
+    return axios.post('/api/email', data, {
+      params: { locale },
+    });
+  };
+
   return {
     postLoginUser,
     postRecoverEmail,
+    postUpdateUserEmail,
     postRecoverPassword,
     postRegister,
     postUserUpdateProfile,

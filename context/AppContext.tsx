@@ -1,6 +1,6 @@
 import { useAuthService } from '@/services';
 import { createContext, useEffect, useState } from 'react';
-import { CommentTypes, UserDataTypes } from '@/types';
+import { CommentTypes, NewLikeTypes, UserDataTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useQuery, useQueryClient } from 'react-query';
 
@@ -17,9 +17,9 @@ export const AppContext = createContext({
   isSearch: false,
   handleShouldLogout: () => {},
   currentQuoteId: null as string | null,
-  newLikes: null as number[] | null,
+  newLikes: null as NewLikeTypes | null,
   comment: null as null | CommentTypes,
-  handleNewLikes: (likes: number[] | null) => {},
+  handleNewLikes: (likes: NewLikeTypes | null) => {},
   handleNewComment: (comment: CommentTypes | null) => {},
 });
 
@@ -35,7 +35,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [shouldLogout, setShouldLogout] = useState(false);
-  const [newLikes, setNewLikes] = useState<number[] | null>(null);
+  const [newLikes, setNewLikes] = useState<NewLikeTypes | null>(null);
   const [comment, setComment] = useState<CommentTypes | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
   const query = useQueryClient();
@@ -45,13 +45,13 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     onSuccess: () => {
       router.push('/');
       query.removeQueries('log-out');
-      localStorage.removeItem('auth');
       setShouldLogout(false);
+      query.invalidateQueries('user');
     },
     enabled: shouldLogout,
   });
 
-  const handleNewLikes = (likes: number[] | null) => {
+  const handleNewLikes = (likes: NewLikeTypes | null) => {
     setNewLikes(likes);
   };
 
@@ -96,6 +96,16 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
       setFeedFormStatus(sessionStorage.getItem('feed-form-status'));
     }
   }, [router]);
+
+  useEffect(() => {
+    if (router.locale === 'en') {
+      document.body.classList.remove('geo');
+      document.body.classList.add('eng');
+    } else if (router.locale === 'ka') {
+      document.body.classList.remove('eng');
+      document.body.classList.add('geo');
+    }
+  }, [router.locale]);
 
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);

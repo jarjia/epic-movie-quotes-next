@@ -1,12 +1,15 @@
 import { useQuoteService } from '@/services';
+import { PostsTypes } from '@/types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 import { useInfiniteQuery } from 'react-query';
 
 const usePosts = () => {
   const { getAllQuotes } = useQuoteService();
   const [paginate, setPaginate] = useState(2);
   const router = useRouter();
+  const { t } = useTranslation('newsFeed');
   const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
   let search = router.query.search === undefined ? '' : router.query.search;
   const { isLoading, fetchNextPage, hasNextPage, data } = useInfiniteQuery(
@@ -22,7 +25,7 @@ const usePosts = () => {
     }
   );
 
-  const handleScroll = () => {
+  const handleDesktopScroll = () => {
     const scrollTop =
       document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight =
@@ -30,17 +33,32 @@ const usePosts = () => {
     const clientHeight =
       document.documentElement.clientHeight || window.innerHeight;
 
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 1;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    setIsScrolledToBottom(isAtBottom);
+  };
+
+  const handleMobileScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
     setIsScrolledToBottom(isAtBottom);
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleDesktopScroll);
+    window.addEventListener('touchmove', handleMobileScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleDesktopScroll);
+      window.removeEventListener('touchmove', handleMobileScroll);
     };
   }, []);
-  const posts = data?.pages[0]?.data?.quotes;
+
+  const posts: PostsTypes[] = data?.pages[data?.pages.length - 1]?.data?.quotes;
 
   useEffect(() => {
     if (isScrolledToBottom) {
@@ -57,6 +75,7 @@ const usePosts = () => {
   return {
     posts,
     isLoading,
+    t,
   };
 };
 

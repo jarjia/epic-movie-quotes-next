@@ -10,6 +10,7 @@ export type NotificationEventTypes = {
 };
 export type LikeEventTypes = {
   message: {
+    quoteId: number;
     likes: number[];
   };
 };

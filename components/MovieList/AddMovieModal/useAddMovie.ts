@@ -13,6 +13,7 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useMutation, useQueryClient } from 'react-query';
+import { errorToast } from '@/helpers';
 
 const useAddMovie = () => {
   const { postMovie } = useMovieService();
@@ -31,11 +32,15 @@ const useAddMovie = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
   const { t: formErrors } = useTranslation('formErrors');
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const { mutate: createMovie } = useMutation(postMovie, {
     onSuccess: () => {
       handleFeedFormStatus('');
       queryClient.invalidateQueries('my-movies');
+    },
+    onError(err: any) {
+      errorToast(apiErr, apiErr('create_movie_failed'), err);
     },
   });
 

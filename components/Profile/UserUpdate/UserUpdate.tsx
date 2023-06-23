@@ -78,12 +78,15 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             placeholder={t('new_email_placeholder')}
             name='email'
             label={t('new_email_label')}
-            newLabel=''
+            newLabel={t('new_email_new_label')}
             defaultValue={userData?.email}
+            cancel={cancel}
             handleCancel={handleCancel}
             handleEditing={handleEditing}
             handleEditProfile={handleEditProfile}
             repeatName=''
+            errors={errors}
+            isGoogle={userData.google_id === null ? false : true}
           />
           {userData.google_id === null && (
             <UpdateInput
@@ -111,7 +114,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             <>
               <button
                 className='text-input'
-                type='button'
+                type='reset'
                 onClick={() => {
                   handleClearApiError();
                   handleCancel(true);
@@ -122,7 +125,9 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
               <button
                 className='text-white rounded py-2 px-3 bg-default-btn hover:bg-hover active:bg-active'
                 type='submit'
-                onClick={handleClearApiError}
+                onClick={() => {
+                  handleClearApiError();
+                }}
               >
                 {t('profile_save')}
               </button>

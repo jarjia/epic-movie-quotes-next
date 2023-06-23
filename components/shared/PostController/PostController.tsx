@@ -10,6 +10,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     disabled,
     openComments,
     likedIds,
+    handleCommentScroll,
     handleOpenComments,
     handleSubmit,
     handleLiked,
@@ -72,15 +73,21 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             <div className='flex justify-between items-center'>
               {openComments >= comments.length ? null : (
                 <button
-                  onClick={() => setOpenComments((prev) => prev + 2)}
+                  onClick={() => {
+                    setOpenComments((prev) => prev + 2);
+                    handleCommentScroll(true);
+                  }}
                   className='pl-[74px] sm:pl-0 mt-2 text-white underline text-md'
                 >
                   {t('show_more')}
                 </button>
               )}
               <button
-                onClick={() => setOpenComments(0)}
-                className='pl-[74px] mt-2 text-placeholder underline text-md'
+                onClick={() => {
+                  handleCommentScroll(false);
+                  setOpenComments(0);
+                }}
+                className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}
               </button>

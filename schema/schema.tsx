@@ -1,12 +1,16 @@
+import { AppContext } from '@/context';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
 import z from 'zod';
 
 const useZod = () => {
   const router = useRouter();
+  const { userData } = useContext(AppContext);
   const { t } = useTranslation('formErrors');
   const georgianRegex = /^[\u10A0-\u10FF0-9\s\p{P}\p{S}]+$/u;
   const englishRegex = /^[A-Za-z0-9\s\p{P}\p{S}]+$/u;
+  const usernameRegex = /^[a-z0-9ა-ჰ\s\p{P}\p{S}]+$/u;
 
   const registerSchema = z
     .object({
@@ -15,7 +19,7 @@ const useZod = () => {
         .nonempty({ message: t('register_name_req') as string })
         .min(3, t('register_name_min') as string)
         .max(15, t('register_name_max') as string)
-        .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        .refine((schema) => usernameRegex.test(schema), {
           message: t('register_name_ref') as string,
         }),
       email: z
@@ -27,7 +31,7 @@ const useZod = () => {
         .nonempty({ message: t('register_password_req') as string })
         .min(8, t('register_password_min') as string)
         .max(15, t('register_password_max') as string)
-        .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        .refine((schema) => usernameRegex.test(schema), {
           message: t('register_password_ref') as string,
         }),
       confirm_password: z.string(),
@@ -59,7 +63,7 @@ const useZod = () => {
         .nonempty({ message: t('register_password_req') as string })
         .min(8, t('register_password_min') as string)
         .max(15, t('register_password_max') as string)
-        .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        .refine((schema) => usernameRegex.test(schema), {
           message: t('register_password_ref') as string,
         }),
       confirm_password: z.string(),
@@ -74,7 +78,7 @@ const useZod = () => {
         .string()
         .min(3, t('register_name_min') as string)
         .max(15, t('register_name_max') as string)
-        .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        .refine((schema) => usernameRegex.test(schema), {
           message: t('register_name_ref') as string,
         })
         .optional(),
@@ -86,7 +90,7 @@ const useZod = () => {
         .string()
         .min(8, t('register_password_min') as string)
         .max(15, t('register_password_max') as string)
-        .refine((schema) => /^[a-z0-9ა-ჰ]*$/.test(schema), {
+        .refine((schema) => usernameRegex.test(schema), {
           message: t('register_password_ref') as string,
         })
         .optional(),
@@ -95,6 +99,10 @@ const useZod = () => {
     .refine((schema) => schema.c_password === schema.password, {
       message: t('register_c_password') as string,
       path: ['c_password'],
+    })
+    .refine((schema) => schema.email !== userData.email, {
+      message: 'New email should not be same as the old one',
+      path: ['email'],
     });
 
   const AddMovieSchema = z.object({
@@ -170,7 +178,7 @@ const useZod = () => {
       ka: z
         .string()
         .nonempty({ message: t('movie_name_ka_req') as string })
-        .refine((value) => georgianRegex.test(value), {
+        .refine((value) => georgianRegex.test(value.trim()), {
           message: t('movie_name_ka_ref') as string,
         }),
     }),

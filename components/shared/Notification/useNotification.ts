@@ -32,6 +32,8 @@ const useNotification = () => {
   const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications);
 
   useEffect(() => {
+    console.log(scrollTop, divRef.current?.scrollHeight);
+
     if (scrollTop! + 400 === divRef.current?.scrollHeight && hasNextPage) {
       fetchNextPage();
     }
@@ -43,8 +45,10 @@ const useNotification = () => {
 
   useEffect(() => {
     let divElement = divRef.current!;
+    divElement.addEventListener('touchmove', handleScroll);
     divElement.addEventListener('scroll', handleScroll);
     return () => {
+      divElement.addEventListener('touchmove', handleScroll);
       divElement.removeEventListener('scroll', handleScroll);
     };
   }, []);

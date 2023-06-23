@@ -10,7 +10,9 @@ import {
   UseFormReturn,
   useForm,
 } from 'react-hook-form';
+import { useTranslation } from 'next-i18next';
 import { useMutation, useQueryClient } from 'react-query';
+import { errorToast } from '@/helpers';
 
 const useAddQuote = () => {
   const { postQuote } = useQuoteService();
@@ -25,6 +27,7 @@ const useAddQuote = () => {
   } = form;
   const { handleFeedFormStatus } = useContext(AppContext);
   const queryClient = useQueryClient();
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const { mutate: addQuote } = useMutation(postQuote, {
     onSuccess: () => {
@@ -32,6 +35,9 @@ const useAddQuote = () => {
       setTimeout(() => {
         queryClient.invalidateQueries({ queryKey: ['quotes'] });
       }, 1000);
+    },
+    onError(err: any) {
+      errorToast(apiErr, apiErr('add_quote_failed'), err);
     },
   });
 

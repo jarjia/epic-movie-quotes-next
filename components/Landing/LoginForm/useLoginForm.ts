@@ -9,11 +9,13 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useMutation } from 'react-query';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
 import { useAuthService } from '@/services';
+import { useTranslation } from 'next-i18next';
+import { errorToast } from '@/helpers';
 
 const useLoginForm = () => {
   const {
@@ -33,7 +35,7 @@ const useLoginForm = () => {
     control,
   } = form;
   const router = useRouter();
-  const [apiError, setApiError] = useState('');
+  const { t: apiErr } = useTranslation('apiErrors');
 
   const remember_me = useWatch({ control, name: 'remember_me' });
 
@@ -43,7 +45,13 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      setApiError(err.response.data);
+      errorToast(
+        apiErr,
+        typeof err.response.data === 'string'
+          ? err.response.data
+          : apiErr('auth_failed'),
+        err
+      );
     },
   });
 
@@ -54,7 +62,7 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      setApiError(err.response.data);
+      errorToast(apiErr, apiErr('google_auth_failed'), err);
     },
   });
 
@@ -76,6 +84,7 @@ const useLoginForm = () => {
   }, [router, loginViaGoogle]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    toast.dismiss();
     let finalData = {
       user: data.user,
       password: data.password,
@@ -86,38 +95,29 @@ const useLoginForm = () => {
       if (csrfRes.status === 204) {
         loginUser(finalData);
       }
-    } catch (err) {
-      toast('An error occured while trying to login', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    } catch (err: any) {
+      errorToast(apiErr, apiErr('auth_failed'), err);
     }
   };
 
   const handleUserRedirectGoogle = async () => {
+    toast.dismiss();
     try {
       const res = await getUserGoogleRedirect();
       if (res.status === 200) {
         router.push(res.data);
       }
-    } catch (error) {
-      toast('An error occured while trying to register', {
-        position: toast.POSITION.TOP_CENTER,
-      });
+    } catch (err: any) {
+      errorToast(apiErr, apiErr('google_auth_failed'), err);
     }
-  };
-
-  const handleResetApiError = () => {
-    setApiError('');
   };
 
   return {
     handleUserRedirectGoogle,
-    handleResetApiError,
     handleSubmit,
     onSubmit,
     router,
     errors,
-    apiError,
     form,
     FormProvider,
   };

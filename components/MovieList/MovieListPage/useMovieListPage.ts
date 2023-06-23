@@ -1,12 +1,12 @@
 import { AppContext } from '@/context';
 import { useMovieService } from '@/services';
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
 const useMovieListPage = () => {
-  const { feedFormStatus } = useContext(AppContext);
+  const { feedFormStatus, handleFeedFormStatus } = useContext(AppContext);
   const { getMovies } = useMovieService();
   const [isFetched, setIsFetched] = useState(false);
   const router = useRouter();
@@ -23,6 +23,13 @@ const useMovieListPage = () => {
   );
   const movies = data?.data.movies;
   const { t } = useTranslation('movieList');
+
+  useEffect(() => {
+    let allowedModalsArr = ['add-movie'];
+    if (!allowedModalsArr.includes(feedFormStatus as string)) {
+      handleFeedFormStatus('');
+    }
+  }, [feedFormStatus, handleFeedFormStatus]);
 
   return {
     loading: isLoading,

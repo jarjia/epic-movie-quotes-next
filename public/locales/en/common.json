@@ -17,5 +17,6 @@
   "drag_drop": "Drag & drop your image here or",
   "mobile_choose_file": "Upload image",
   "search_by": "Search by",
-  "no_comments": "No comments..."
+  "no_comments": "No comments...",
+  "ago": "Ago"
 }

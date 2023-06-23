@@ -14,11 +14,7 @@ const UserProfile: React.FC<UserProfileTypes> = (props) => {
             : 'w-profile h-profile'
         } rounded-full bg-center bg-cover`}
         style={{
-          backgroundImage: `url(${
-            userData.thumbnail === null
-              ? '/assets/images/user.png'
-              : userData.thumbnail
-          })`,
+          backgroundImage: `url(${userData.thumbnail})`,
         }}
       ></div>
     </div>

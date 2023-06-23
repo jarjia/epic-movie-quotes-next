@@ -7,7 +7,7 @@ import { useTranslation } from 'next-i18next';
 const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
-  const { handleSubmit, errors, form, apiError, onSubmit, FormProvider } =
+  const { handleSubmit, errors, form, onSubmit, FormProvider } =
     useRecoverEmail(handleFormStatus);
   const { t } = useTranslation('landingForms');
 
@@ -30,13 +30,6 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
             label={t('email_label')}
             errors={errors}
           />
-          <div className='pb-6 flex justify-center'>
-            {apiError !== '' && (
-              <p className='absolute text-center text-default-btn font-normal text-md'>
-                {apiError}
-              </p>
-            )}
-          </div>
           <div className='pt-2'>
             <button
               type='submit'

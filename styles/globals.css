@@ -7,17 +7,30 @@ html {
   min-height: 100vh;
 }
 
+@font-face {
+  font-family: font;
+  src: url(/assets/fonts/font.ttf);
+}
+
 body {
   overflow-x: hidden;
-}
-body.no-scroll {
-  overflow-y: hidden !important;
-}
-body {
   overflow-y: 'auto';
   scrollbar-color: #808189 transparent;
   scrollbar-width: 'thin';
 }
+
+body.geo {
+  font-family: font;
+}
+
+body.eng {
+  font-family: sans-serif;
+}
+
+body.no-scroll {
+  overflow-y: hidden !important;
+}
+
 body::-webkit-scrollbar {
   height: 4px;
   width: 10px;

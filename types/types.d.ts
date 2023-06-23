@@ -79,6 +79,7 @@ export type likeTypes = {
 };
 export type CommentTypes = {
   id: number;
+  quote_id: number;
   comment: string;
   user: {
     id: number;
@@ -159,4 +160,13 @@ export type PostTypes = {
   comments: CommentTypes[];
   likes: likeTypes[];
   user_id: number;
+};
+export type PostEmailUpdateTypes = {
+  email: string;
+  update_token: string;
+  user_id: string;
+};
+export type NewLikeTypes = {
+  quoteId: number;
+  likes: number[];
 };

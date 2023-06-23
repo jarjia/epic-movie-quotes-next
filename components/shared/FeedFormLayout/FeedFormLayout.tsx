@@ -10,8 +10,14 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
   isDelete,
   handleRefecthQuotes,
 }) => {
-  const { deleteQuoteMutate, userData, router, t, handleFeedFormStatus } =
-    useFeedForm(handleRefecthQuotes);
+  const {
+    deleteQuoteMutate,
+    userData,
+    feedFormStatus,
+    router,
+    t,
+    handleFeedFormStatus,
+  } = useFeedForm(handleRefecthQuotes);
 
   return (
     <div className='relative sm:absolute sm:left-0 sm:top-0 w-full z-[999]'>
@@ -67,12 +73,19 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
             </button>
           </div>
         </div>
-        <div className='px-6 py-4 my-4 sm:h-screen h-[410px] large:min-h-[700px] large:max-h-full overflow-y-scroll scrollbar'>
+        <div
+          className={`px-6 py-4 my-4 sm:h-screen h-[410px] ${
+            feedFormStatus === 'add-quote' ||
+            feedFormStatus === 'add-quote-movie'
+              ? 'large:min-h-[500px]'
+              : 'large:min-h-[700px]'
+          } large:max-h-full overflow-y-scroll scrollbar`}
+        >
           <div className='flex items-center gap-4 text-white text-xl'>
             <UserProfile />
             <h4>{userData?.name}</h4>
           </div>
-          <div className='mb-0 sm:mb-24'>{children}</div>
+          <div className='mb-0 sm:mb-36'>{children}</div>
         </div>
       </div>
     </div>
