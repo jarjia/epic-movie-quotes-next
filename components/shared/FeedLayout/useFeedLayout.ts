@@ -27,7 +27,7 @@ const useFeedLayout = () => {
       handleUserData(data.data);
     },
     onError: () => {
-      router.push('/403');
+      // router.push('/403');
     },
   });
   const queryClient = useQueryClient();

@@ -7,8 +7,8 @@ import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
 const useNotification = () => {
   const { t } = useTranslation('common');
   const divRef = useRef<HTMLDivElement | null>(null);
+  const [scrollTop, setScrollTop] = useState<number | undefined>(0);
   const [notifications, setNotifications] = useState<NotificationTypes[]>([]);
-  const [isBottom, setIsBottom] = useState(false);
   const { getNotifications, readAllNotifications } = useNotificationService();
   const { data, fetchNextPage, isLoading, hasNextPage } = useInfiniteQuery(
     'notifications',
@@ -32,33 +32,26 @@ const useNotification = () => {
   const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications);
 
   useEffect(() => {
-    const handleScroll = () => {
-      const div = divRef.current;
+    console.log(scrollTop, divRef.current?.scrollHeight);
 
-      if (div) {
-        const { scrollTop, scrollHeight, clientHeight } = div;
-
-        if (scrollTop + clientHeight >= scrollHeight - 10) {
-          setIsBottom(true);
-        }
-      }
-    };
-    const div = divRef.current;
-    if (div) {
-      div.addEventListener('scroll', handleScroll);
-    }
-    return () => {
-      if (div) {
-        div.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    if (isBottom && hasNextPage) {
+    if (scrollTop! + 400 === divRef.current?.scrollHeight && hasNextPage) {
       fetchNextPage();
     }
-  }, [isBottom, fetchNextPage, hasNextPage]);
+  }, [scrollTop, fetchNextPage, hasNextPage]);
+
+  const handleScroll = () => {
+    setScrollTop(divRef.current?.scrollTop);
+  };
+
+  useEffect(() => {
+    let divElement = divRef.current!;
+    divElement.addEventListener('touchmove', handleScroll);
+    divElement.addEventListener('scroll', handleScroll);
+    return () => {
+      divElement.addEventListener('touchmove', handleScroll);
+      divElement.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return {
     divRef,

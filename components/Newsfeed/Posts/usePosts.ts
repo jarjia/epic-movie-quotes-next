@@ -17,30 +17,48 @@ const usePosts = () => {
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       getNextPageParam: (info) => {
-        let cur_page = parseFloat(info.data.current_page);
-        return info.data.last_page > cur_page ? ++cur_page : undefined;
+        return info.data.last_page > parseFloat(info.data.current_page)
+          ? ++info.data.current_page
+          : undefined;
       },
       keepPreviousData: true,
     }
   );
 
+  const handleDesktopScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    setIsScrolledToBottom(isAtBottom);
+  };
+
+  const handleMobileScroll = () => {
+    const scrollTop =
+      document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight =
+      document.documentElement.scrollHeight || document.body.scrollHeight;
+    const clientHeight =
+      document.documentElement.clientHeight || window.innerHeight;
+
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    setIsScrolledToBottom(isAtBottom);
+  };
+
   useEffect(() => {
-    const handleScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } =
-        document.documentElement || document.body;
-
-      if (scrollTop + clientHeight >= scrollHeight - 10) {
-        setIsScrolledToBottom(true);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-
+    window.addEventListener('scroll', handleDesktopScroll);
+    window.addEventListener('touchmove', handleMobileScroll);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('scroll', handleDesktopScroll);
+      window.removeEventListener('touchmove', handleMobileScroll);
     };
   }, []);
 
-  const posts: PostsTypes[] = data?.pages[0]?.data?.quotes;
+  const posts: PostsTypes[] = data?.pages[data?.pages.length - 1]?.data?.quotes;
 
   useEffect(() => {
     if (isScrolledToBottom) {
