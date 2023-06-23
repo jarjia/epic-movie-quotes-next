@@ -5,7 +5,7 @@ import Link from 'next/link';
 const Forbidden = () => {
   return (
     <ErrorLayout>
-      <div className='flex flex-col justify-center items-center'>
+      <div className='flex p-2 flex-col justify-center items-center'>
         <div>
           <div className='relative top-[65px]'>
             <Image
@@ -18,10 +18,10 @@ const Forbidden = () => {
           </div>
           <ForbiddenIcon />
         </div>
-        <h2 className='text-white text-error-page-title'>
+        <h2 className='text-white text-center text-error-page-title'>
           You shall not pass!
         </h2>
-        <p className='text-white text-2xl my-2'>
+        <p className='text-white text-center text-2xl my-2'>
           Sorry, but you don’t have permission to access this page
         </p>
         <Link
