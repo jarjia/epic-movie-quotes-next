@@ -97,6 +97,16 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     }
   }, [router]);
 
+  useEffect(() => {
+    if (router.locale === 'en') {
+      document.body.classList.remove('geo');
+      document.body.classList.add('eng');
+    } else if (router.locale === 'ka') {
+      document.body.classList.remove('eng');
+      document.body.classList.add('geo');
+    }
+  }, [router.locale]);
+
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);
     setFeedFormStatus(status);
