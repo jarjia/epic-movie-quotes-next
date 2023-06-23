@@ -15,7 +15,7 @@ import { PostEmailUpdateTypes, hookUserUpdateTypes } from '@/types';
 import { useMutation, useQueryClient } from 'react-query';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
-import { toast } from 'react-toastify';
+import { errorToast } from '@/helpers';
 
 const useUserUpdate = ({
   handleEditProfileClear,
@@ -53,20 +53,7 @@ const useUserUpdate = ({
       handleIsSuccess(true);
     },
     onError(err: any) {
-      toast.error(
-        `${apiErr('email_update_failed')} (${apiErr('code')}: ${
-          err?.response?.status
-        })`,
-        {
-          position: 'top-center',
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: 'light',
-        }
-      );
+      errorToast(apiErr, apiErr('email_update_failed'), err);
     },
   });
 
@@ -176,20 +163,7 @@ const useUserUpdate = ({
       if (typeof error?.response?.data?.message === 'string') {
         setApiError(error?.response?.data?.message);
       } else {
-        toast.error(
-          `${apiErr('profile_update_failed')} (${apiErr('code')}: ${
-            error?.response?.status
-          })`,
-          {
-            position: 'top-center',
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: 'light',
-          }
-        );
+        errorToast(apiErr, apiErr('profile_update_failed'), error);
       }
     },
   });
