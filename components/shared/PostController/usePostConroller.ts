@@ -22,7 +22,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     handleNewLikes,
     handleNewComment,
     feedFormStatus,
-    comment,
+    commentsArr,
   } = useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
@@ -30,10 +30,10 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const handleCommentScroll = (bool: boolean) => {
     if (feedFormStatus === '') {
       const currentScrollHeight = window.scrollY;
-      setHowMuchScrolled((prev) => prev + 200);
+      setHowMuchScrolled((prev) => prev + 180);
       let newScrollHeight = howMuchScrolled;
       if (bool) {
-        newScrollHeight = currentScrollHeight + 200;
+        newScrollHeight = currentScrollHeight + 180;
       } else {
         setHowMuchScrolled(0);
         newScrollHeight = currentScrollHeight - howMuchScrolled;
@@ -53,13 +53,16 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   };
 
   useEffect(() => {
-    if (newLikes !== null && newLikes.quoteId === data.id) {
-      setLikedIds([]);
-      setLikedIds(newLikes.likes);
-      if (newLikes.likes.includes(userData.id)) {
-        setHasLiked(true);
-      } else {
-        setHasLiked(false);
+    if (newLikes !== null) {
+      let likesForQuoete = newLikes.find((item) => item.quoteId === data.id);
+      if (likesForQuoete?.quoteId === data.id) {
+        setLikedIds([]);
+        setLikedIds(likesForQuoete.likes);
+        if (likesForQuoete.likes.includes(userData.id)) {
+          setHasLiked(true);
+        } else {
+          setHasLiked(false);
+        }
       }
     }
   }, [
@@ -94,16 +97,23 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   }, [likedIds, userData.id]);
 
   useEffect(() => {
-    if (comment !== null && comment.quote_id === data.id) {
-      setComments((prev) => {
-        if (prev.some((item) => item.id === comment!.id)) {
-          return prev;
-        } else {
-          return [comment, ...prev];
+    if (commentsArr !== null) {
+      let commentsForQuote = commentsArr.filter(
+        (item) => item.quote_id === data.id
+      );
+      commentsForQuote.map((commentItem) => {
+        if (commentItem !== undefined) {
+          setComments((prev) => {
+            if (prev.some((item) => item.id === commentItem!.id)) {
+              return prev;
+            } else {
+              return [commentItem!, ...prev];
+            }
+          });
         }
       });
     }
-  }, [comment, handleNewComment, data.id]);
+  }, [commentsArr, handleNewComment, data.id]);
 
   const { mutate: likeMutate } = useMutation(postLike, {
     onSuccess() {
@@ -115,7 +125,9 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     onSuccess() {
       if (searchRef.current) {
         searchRef.current.value = '';
-        setOpenComments(2);
+        if (openComments === 0) {
+          setOpenComments(2);
+        }
       }
     },
   });
