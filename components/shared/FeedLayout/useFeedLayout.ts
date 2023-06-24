@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import {
   CommentEventTypes,
@@ -31,6 +31,22 @@ const useFeedLayout = () => {
     },
   });
   const queryClient = useQueryClient();
+  const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
+
+  const handleBackScroll = () => {
+    if (window.scrollY > window.innerHeight * 2) {
+      setIsScrollUpNeeded(true);
+    } else {
+      setIsScrollUpNeeded(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleBackScroll);
+    return () => {
+      window.removeEventListener('scroll', handleBackScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -108,6 +124,7 @@ const useFeedLayout = () => {
     feedFormStatus,
     router,
     isLoading,
+    isScrollUpNeeded,
     isError,
   };
 };
