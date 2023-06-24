@@ -10,8 +10,9 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     disabled,
     openComments,
     likedIds,
-    handleCommentScroll,
     handleOpenComments,
+    lastComment,
+    followComments,
     handleSubmit,
     handleLiked,
     searchRef,
@@ -55,9 +56,16 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                 return itemB.getTime() - itemA.getTime();
               })
               .slice(0, openComments)
-              .map((comment) => {
+              .map((comment, index) => {
+                const isLastComment =
+                  index === comments.slice(0, openComments).length - 1;
+
                 return (
-                  <div key={comment.id} className='sm:pt-2'>
+                  <div
+                    ref={isLastComment ? lastComment : null}
+                    key={comment.id}
+                    className='sm:pt-2'
+                  >
                     <div className='flex items-center'>
                       <div
                         className='w-profile h-profile rounded-full bg-center bg-cover'
@@ -82,7 +90,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                 <button
                   onClick={() => {
                     setOpenComments((prev) => prev + 2);
-                    handleCommentScroll(true);
+                    followComments();
                   }}
                   className='pl-[74px] sm:pl-0 mt-2 text-white underline text-md'
                 >
@@ -90,10 +98,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                 </button>
               )}
               <button
-                onClick={() => {
-                  handleCommentScroll(false);
-                  setOpenComments(0);
-                }}
+                onClick={() => setOpenComments(0)}
                 className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}
