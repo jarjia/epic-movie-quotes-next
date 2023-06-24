@@ -2,13 +2,13 @@
   "register_name_req": "Name field is required",
   "register_name_min": "Name field should be at least 3 characters long",
   "register_name_max": "Name field shouldn't be more than 15 characters long",
-  "register_name_ref": "Name field should only contain lowercase characters and numbers",
+  "register_name_ref": "Should only contain lowercase characters and numbers",
   "register_email_req": "Email field is required",
   "register_email_mail": "Email field should be valid email address",
   "register_password_req": "Password field is required",
   "register_password_min": "Password field should be at least 3 characters long",
-  "register_password_max": "Password field shouldn't be more than 15 characters long",
-  "register_password_ref": "Password field should only contain lowercase characters and numbers",
+  "register_password_max": "Shouldn't be more than 15 characters long",
+  "register_password_ref": "Should only contain lowercase characters and numbers",
   "register_c_password": "Passwords don't match",
   "login_user_req": "User field is required",
   "login_user_min": "User field should be at least 3 characters long",
@@ -26,5 +26,6 @@
   "movie_director_en_ref": "Please enter movie director in english.",
   "movie_director_ka_ref": "Please enter movie director in georgian.",
   "movie_release_date": "Movie release date field is required",
-  "movie_image": "Movie image is required"
+  "movie_image": "Movie image is required",
+  "same_email_err": "New email should not be same as the old one"
 }
