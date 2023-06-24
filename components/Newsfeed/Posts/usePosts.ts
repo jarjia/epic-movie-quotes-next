@@ -17,15 +17,14 @@ const usePosts = () => {
     ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
     {
       getNextPageParam: (info) => {
-        return info.data.last_page > parseFloat(info.data.current_page)
-          ? ++info.data.current_page
-          : undefined;
+        let cur = parseFloat(info.data.current_page);
+        return info.data.last_page > cur ? ++cur : undefined;
       },
       keepPreviousData: true,
     }
   );
 
-  const handleDesktopScroll = () => {
+  const handleScroll = () => {
     const scrollTop =
       document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight =
@@ -33,28 +32,18 @@ const usePosts = () => {
     const clientHeight =
       document.documentElement.clientHeight || window.innerHeight;
 
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
-    setIsScrolledToBottom(isAtBottom);
-  };
-
-  const handleMobileScroll = () => {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
-    const clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
-
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    const isAtBottom =
+      scrollTop + clientHeight >= scrollHeight ||
+      scrollTop + clientHeight >= scrollHeight - scrollTop * 2;
     setIsScrolledToBottom(isAtBottom);
   };
 
   useEffect(() => {
-    window.addEventListener('scroll', handleDesktopScroll);
-    window.addEventListener('touchmove', handleMobileScroll);
+    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('touchmove', handleScroll);
     return () => {
-      window.removeEventListener('scroll', handleDesktopScroll);
-      window.removeEventListener('touchmove', handleMobileScroll);
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('touchmove', handleScroll);
     };
   }, []);
 
@@ -67,10 +56,10 @@ const usePosts = () => {
   }, [isScrolledToBottom]);
 
   useEffect(() => {
-    if (hasNextPage) {
+    if (isScrolledToBottom && hasNextPage) {
       fetchNextPage();
     }
-  }, [paginate, fetchNextPage, hasNextPage]);
+  }, [paginate, fetchNextPage, isScrolledToBottom, hasNextPage]);
 
   return {
     posts,

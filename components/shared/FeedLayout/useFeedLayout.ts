@@ -27,7 +27,7 @@ const useFeedLayout = () => {
       handleUserData(data.data);
     },
     onError: () => {
-      // router.push('/403');
+      router.push('/403');
     },
   });
   const queryClient = useQueryClient();
@@ -42,8 +42,10 @@ const useFeedLayout = () => {
 
   const handleNotify = (data: NotificationEventTypes) => {
     if (data.notification.notify) {
-      queryClient.invalidateQueries('notifications');
-      queryClient.invalidateQueries('notifications-count');
+      setTimeout(() => {
+        queryClient.invalidateQueries('notifications');
+        queryClient.invalidateQueries('notifications-count');
+      }, 500);
     }
   };
 
