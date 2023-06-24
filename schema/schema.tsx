@@ -101,7 +101,7 @@ const useZod = () => {
       path: ['c_password'],
     })
     .refine((schema) => schema.email !== userData.email, {
-      message: 'New email should not be same as the old one',
+      message: t('same_email_err') as string,
       path: ['email'],
     });
 
