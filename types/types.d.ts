@@ -81,6 +81,7 @@ export type CommentTypes = {
   id: number;
   quote_id: number;
   comment: string;
+  created_at: string;
   user: {
     id: number;
     name: string;
