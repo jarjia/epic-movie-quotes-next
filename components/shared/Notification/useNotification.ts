@@ -1,27 +1,30 @@
 import { useNotificationService } from '@/services';
 import { NotificationTypes } from '@/types';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
 
 const useNotification = () => {
   const { t } = useTranslation('common');
   const divRef = useRef<HTMLDivElement | null>(null);
+  const [filter, setFilter] = useState<string | null>(null);
   const [scrollTop, setScrollTop] = useState<number | undefined>(0);
   const [notifications, setNotifications] = useState<NotificationTypes[]>([]);
   const { getNotifications, readAllNotifications } = useNotificationService();
-  const { data, fetchNextPage, isLoading, hasNextPage } = useInfiniteQuery(
-    'notifications',
-    ({ pageParam = 4 }) => getNotifications(pageParam),
-    {
-      getNextPageParam: (params) => {
-        return params.data.last_page > parseFloat(params.data.cur_page)
-          ? parseFloat(params.data.cur_page) + 4
-          : undefined;
-      },
-      keepPreviousData: true,
-    }
-  );
+  const { data, fetchNextPage, refetch, isLoading, hasNextPage } =
+    useInfiniteQuery(
+      ['notifications', filter],
+      ({ pageParam = 8 }) => getNotifications(pageParam, filter as string),
+      {
+        getNextPageParam: (params) => {
+          return params.data.last_page > parseFloat(params.data.cur_page)
+            ? parseFloat(params.data.cur_page) + 8
+            : undefined;
+        },
+        keepPreviousData: true,
+      }
+    );
+  let scrollTime = useRef<ReturnType<typeof setTimeout>>();
 
   const queryClient = useQueryClient();
 
@@ -32,16 +35,23 @@ const useNotification = () => {
   const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications);
 
   useEffect(() => {
-    console.log(scrollTop, divRef.current?.scrollHeight);
-
-    if (scrollTop! + 400 === divRef.current?.scrollHeight && hasNextPage) {
+    if (
+      divRef.current &&
+      scrollTop! + divRef.current?.clientHeight >
+        divRef.current?.scrollHeight / 1.5 &&
+      hasNextPage &&
+      scrollTop! > 0
+    ) {
       fetchNextPage();
     }
-  }, [scrollTop, fetchNextPage, hasNextPage]);
+  }, [scrollTop, fetchNextPage, filter, hasNextPage]);
 
-  const handleScroll = () => {
-    setScrollTop(divRef.current?.scrollTop);
-  };
+  const handleScroll = useCallback(() => {
+    clearTimeout(scrollTime.current);
+    scrollTime.current = setTimeout(() => {
+      setScrollTop(divRef.current?.scrollTop);
+    }, 200);
+  }, []);
 
   useEffect(() => {
     let divElement = divRef.current!;
@@ -51,15 +61,23 @@ const useNotification = () => {
       divElement.addEventListener('touchmove', handleScroll);
       divElement.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
+
+  useEffect(() => {
+    if (filter !== null && filter !== '') {
+      refetch();
+    }
+  }, [refetch, filter]);
 
   return {
     divRef,
     queryClient,
     t,
+    filter,
     notifications,
     setNotifications,
     markAllAsReadMutation,
+    setFilter,
     isLoading,
   };
 };

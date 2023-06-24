@@ -8,6 +8,8 @@ const Notification = () => {
     t,
     queryClient,
     notifications,
+    filter,
+    setFilter,
     setNotifications,
     markAllAsReadMutation,
   } = useNotification();
@@ -25,6 +27,56 @@ const Notification = () => {
           <div className='flex mt-4 items-center justify-between'>
             <h2 className='text-white text-3xl sm:text-2xl'>
               {t('notifications')}
+              <div className='flex gap-4 absolute text-font-base'>
+                <p>{t('filter_by')}: </p>
+                <div className='flex items-center gap-2'>
+                  <button
+                    className={`${
+                      filter === 'like' ? 'underline text-placeholder' : ''
+                    } font-[400]`}
+                    onClick={() => {
+                      if (filter === 'like') {
+                        setFilter(null);
+                      } else {
+                        setFilter('like');
+                      }
+                    }}
+                  >
+                    {t('filter_by_likes')}
+                  </button>
+                  <div className='h-[20px] w-[2px] bg-white'></div>
+                  <button
+                    className={`${
+                      filter === 'comment' ? 'underline text-placeholder' : ''
+                    } font-[400]`}
+                    onClick={() => {
+                      if (filter === 'comment') {
+                        setFilter(null);
+                      } else {
+                        setFilter('comment');
+                      }
+                    }}
+                  >
+                    {t('filter_by_comments')}
+                  </button>
+                  <div className='h-[20px] w-[2px] bg-white'></div>
+                  <button
+                    className={`${
+                      filter === 'new' ? 'underline text-placeholder' : ''
+                    } font-[400]`}
+                    onClick={() => {
+                      if (filter === 'new') {
+                        setFilter(null);
+                        queryClient.invalidateQueries(['notifications', 'new']);
+                      } else {
+                        setFilter('new');
+                      }
+                    }}
+                  >
+                    {t('filter_by_new')}
+                  </button>
+                </div>
+              </div>
             </h2>
             <button
               onClick={() => {
@@ -63,9 +115,9 @@ const Notification = () => {
                 );
               })
             ) : isLoading ? (
-              <p className='text-2xl'>Loading...</p>
+              <p className='text-2xl mt-4'>Loading...</p>
             ) : (
-              <p className='text-2xl'>No notifications...</p>
+              <p className='text-2xl mt-4'>No notifications...</p>
             )}
           </div>
         </div>

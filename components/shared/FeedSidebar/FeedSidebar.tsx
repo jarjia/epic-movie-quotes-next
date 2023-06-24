@@ -26,7 +26,9 @@ const FeedSidebar = () => {
           href='/profile'
           className='my-4 cursor-pointer flex items-center gap-6'
         >
-          <UserProfile />
+          <div className='border-2 rounded-full border-default-btn'>
+            <UserProfile />
+          </div>
           <div>
             <h3 className='text-2xl text-white break-words capitalize'>
               {userData?.name}
