@@ -18,20 +18,22 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
 }) => {
   const {
     isBox,
-    handleSetIsBox,
+    setIsBox,
     t,
     locale,
     handleFeedFormStatus,
     deleteQuoteMutate,
     handleCurrentQuoteId,
-  } = useQuoteCard(handleRefecthQuotes);
+    newCommentsForQuote,
+    newLikesForQuote,
+  } = useQuoteCard(handleRefecthQuotes, id);
 
   return (
     <div className='bg-post-bg pt-4 px-5 rounded-form-radius'>
       {isBox && (
         <div
           className='fixed z-[998] top-0 left-0 w-screen h-screen'
-          onClick={handleSetIsBox}
+          onClick={() => setIsBox((prev) => !prev)}
         ></div>
       )}
       <div className='grid grid-cols-quote-card pb-4 border-b-[1px] border-placeholder gap-4'>
@@ -48,7 +50,7 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
                 <div className='flex flex-col sm:right-[-50px] absolute bg-add-quote-bg rounded-form-radius gap-4 p-6 w-[200px]'>
                   <button
                     onClick={() => {
-                      handleSetIsBox();
+                      setIsBox((prev) => !prev);
                       handleCurrentQuoteId(String(id));
                       handleFeedFormStatus('view-quote');
                     }}
@@ -59,7 +61,7 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
                   </button>
                   <button
                     onClick={() => {
-                      handleSetIsBox();
+                      setIsBox((prev) => !prev);
                       handleCurrentQuoteId(String(id));
                       handleFeedFormStatus('edit-quote');
                     }}
@@ -71,7 +73,7 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
                   <button
                     onClick={() => {
                       deleteQuoteMutate(String(id));
-                      handleSetIsBox();
+                      setIsBox((prev) => !prev);
                     }}
                     className='flex w-full items-center text-white gap-2'
                   >
@@ -81,7 +83,10 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
                 </div>
               </div>
             )}
-            <button onClick={handleSetIsBox} className='flex py-1 absolute'>
+            <button
+              onClick={() => setIsBox((prev) => !prev)}
+              className='flex py-1 absolute'
+            >
               <span className='w-[5px] h-[5px] mx-0.5 bg-white rounded-full'></span>
               <span className='w-[5px] h-[5px] mx-0.5 bg-white rounded-full'></span>
               <span className='w-[5px] h-[5px] mx-0.5 bg-white rounded-full'></span>
@@ -96,11 +101,15 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
       </div>
       <div className='flex py-4 gap-6'>
         <div className='flex gap-2 text-white'>
-          {commentsNumber}
+          {newCommentsForQuote !== undefined
+            ? newCommentsForQuote.comment.length
+            : commentsNumber}
           <CommentIcon />
         </div>
         <div className='flex gap-2 text-white'>
-          {likesNumber}
+          {newLikesForQuote !== undefined
+            ? newLikesForQuote.likes.length
+            : likesNumber}
           <HeartIcon hasLiked={false} />
         </div>
       </div>

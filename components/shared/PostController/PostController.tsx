@@ -10,10 +10,12 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     disabled,
     openComments,
     likedIds,
-    handleCommentScroll,
     handleOpenComments,
+    lastComment,
+    followComments,
     handleSubmit,
     handleLiked,
+    filteredComments,
     searchRef,
     comments,
     setOpenComments,
@@ -29,14 +31,14 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
   return (
     <>
       <div className='flex py-4 gap-6'>
-        <button onClick={handleOpenComments} className='flex gap-2'>
+        <button onClick={handleOpenComments} className='select-none flex gap-2'>
           {comments.length}
           <CommentIcon />
         </button>
         <button
           onClick={handleLiked}
           disabled={disabled}
-          className='flex gap-2'
+          className='flex gap-2 select-none'
         >
           {likedIds.length}
           <HeartIcon hasLiked={hasLiked || isLiked} />
@@ -48,9 +50,16 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
           {comments.length === 0 ? (
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
-            comments.slice(0, openComments).map((comment) => {
+            filteredComments.map((comment, index) => {
+              const isLastComment =
+                index === comments.slice(0, openComments).length - 1;
+
               return (
-                <div key={comment.id} className='sm:pt-2'>
+                <div
+                  ref={isLastComment ? lastComment : null}
+                  key={comment.id}
+                  className='sm:pt-2'
+                >
                   <div className='flex items-center'>
                     <div
                       className='w-profile h-profile rounded-full bg-center bg-cover'
@@ -75,7 +84,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                 <button
                   onClick={() => {
                     setOpenComments((prev) => prev + 2);
-                    handleCommentScroll(true);
+                    followComments();
                   }}
                   className='pl-[74px] sm:pl-0 mt-2 text-white underline text-md'
                 >
@@ -83,10 +92,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                 </button>
               )}
               <button
-                onClick={() => {
-                  handleCommentScroll(false);
-                  setOpenComments(0);
-                }}
+                onClick={() => setOpenComments(0)}
                 className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}

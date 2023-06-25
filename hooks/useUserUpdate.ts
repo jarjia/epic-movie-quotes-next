@@ -44,6 +44,7 @@ const useUserUpdate = ({
   const router = useRouter();
   const [apiError, setApiError] = useState('');
   const [img, setImg] = useState<string | null>(null);
+  const [enableEmail, setEnableEmail] = useState(true);
 
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
@@ -54,6 +55,7 @@ const useUserUpdate = ({
     },
     onError(err: any) {
       errorToast(apiErr, apiErr('email_update_failed'), err);
+      setEnableEmail(false);
     },
   });
 
@@ -95,8 +97,9 @@ const useUserUpdate = ({
             router.push({ pathname, query }, asPath, {
               locale: router.query.locale as string,
             });
-
-            updateEmailMutation(data);
+            if (enableEmail) {
+              updateEmailMutation(data);
+            }
           }
         }
       }, 1000);
@@ -155,7 +158,7 @@ const useUserUpdate = ({
       handleEditProfileClear();
       router.push('/profile');
       queryClient.invalidateQueries('user');
-      if (router.query.update_token === undefined && isEmail) {
+      if (router.query.update_token === undefined && !isEmail) {
         handleIsSuccess(true);
       }
     },

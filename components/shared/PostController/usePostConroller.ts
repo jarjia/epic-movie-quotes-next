@@ -14,52 +14,39 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const [comments, setComments] = useState(data.comments);
   const [disabled, setDisabled] = useState(false);
   const [isLiked, setIsliked] = useState(false);
-  const [howMuchScrolled, setHowMuchScrolled] = useState(0);
   const searchRef = useRef<HTMLInputElement>(null);
-  const {
-    userData,
-    newLikes,
-    handleNewLikes,
-    handleNewComment,
-    feedFormStatus,
-    comment,
-  } = useContext(AppContext);
+  const { userData, newLikes, handleNewLikes, handleNewComment, commentsArr } =
+    useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
+  const lastComment = useRef<null | HTMLDivElement>(null);
 
-  const handleCommentScroll = (bool: boolean) => {
-    if (feedFormStatus === '') {
-      const currentScrollHeight = window.scrollY;
-      setHowMuchScrolled((prev) => prev + 200);
-      let newScrollHeight = howMuchScrolled;
-      if (bool) {
-        newScrollHeight = currentScrollHeight + 200;
-      } else {
-        setHowMuchScrolled(0);
-        newScrollHeight = currentScrollHeight - howMuchScrolled;
-      }
-      window.scrollTo(0, newScrollHeight as number);
+  const followComments = () => {
+    if (lastComment.current) {
+      lastComment.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   const handleOpenComments = () => {
     if (openComments === 0) {
       setOpenComments(2);
-      handleCommentScroll(true);
+      window.scrollTo(0, window.scrollY + 200);
     } else if (data.comments.length === 0) {
       setOpenComments(0);
-      handleCommentScroll(false);
     }
   };
 
   useEffect(() => {
-    if (newLikes !== null && newLikes.quoteId === data.id) {
-      setLikedIds([]);
-      setLikedIds(newLikes.likes);
-      if (newLikes.likes.includes(userData.id)) {
-        setHasLiked(true);
-      } else {
-        setHasLiked(false);
+    if (newLikes !== null) {
+      let likesForQuoete = newLikes.find((item) => item.quoteId === data.id);
+      if (likesForQuoete?.quoteId === data.id) {
+        setLikedIds([]);
+        setLikedIds(likesForQuoete.likes);
+        if (likesForQuoete.likes.includes(userData.id)) {
+          setHasLiked(true);
+        } else {
+          setHasLiked(false);
+        }
       }
     }
   }, [
@@ -94,16 +81,23 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   }, [likedIds, userData.id]);
 
   useEffect(() => {
-    if (comment !== null && comment.quote_id === data.id) {
-      setComments((prev) => {
-        if (prev.some((item) => item.id === comment!.id)) {
-          return prev;
-        } else {
-          return [comment, ...prev];
+    if (commentsArr !== null) {
+      let commentsForQuote = commentsArr.filter(
+        (item) => item.quote_id === data.id
+      );
+      commentsForQuote.map((commentItem) => {
+        if (commentItem !== undefined) {
+          setComments((prev) => {
+            if (prev.some((item) => item.id === commentItem!.id)) {
+              return prev;
+            } else {
+              return [commentItem!, ...prev];
+            }
+          });
         }
       });
     }
-  }, [comment, handleNewComment, data.id]);
+  }, [commentsArr, handleNewComment, data.id]);
 
   const { mutate: likeMutate } = useMutation(postLike, {
     onSuccess() {
@@ -115,7 +109,9 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     onSuccess() {
       if (searchRef.current) {
         searchRef.current.value = '';
-        setOpenComments(2);
+        if (openComments === 0) {
+          setOpenComments(2);
+        }
       }
     },
   });
@@ -131,6 +127,14 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     createCommentMutate(commentData);
   };
 
+  const filteredComments = comments
+    .sort((a, b) => {
+      let itemA: Date = new Date(a.created_at);
+      let itemB: Date = new Date(b.created_at);
+      return itemB.getTime() - itemA.getTime();
+    })
+    .slice(0, openComments);
+
   return {
     handleSubmit,
     setOpenComments,
@@ -138,12 +142,14 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     isLiked,
     hasLiked,
     t,
-    handleCommentScroll,
     searchRef,
     comments,
+    filteredComments,
     disabled,
     openComments,
     handleOpenComments,
+    followComments,
+    lastComment,
     handleLiked,
   };
 };

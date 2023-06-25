@@ -58,7 +58,8 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
             {props.seen === 0 ? t('new') : ''}
           </p>
           <p className='text-xl capitalize sm:block hidden text-date-of-notification sm:text-lg'>
-            {timePassed} ago
+            {timePassed}
+            {curLocale === 'ka' && 'ს'} {t('ago')}
           </p>
         </div>
       </div>

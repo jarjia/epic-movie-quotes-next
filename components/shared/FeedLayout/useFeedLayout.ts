@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import {
   CommentEventTypes,
@@ -27,10 +27,26 @@ const useFeedLayout = () => {
       handleUserData(data.data);
     },
     onError: () => {
-      // router.push('/403');
+      router.push('/403');
     },
   });
   const queryClient = useQueryClient();
+  const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
+
+  const handleBackScroll = () => {
+    if (window.scrollY > window.innerHeight * 2) {
+      setIsScrollUpNeeded(true);
+    } else {
+      setIsScrollUpNeeded(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleBackScroll);
+    return () => {
+      window.removeEventListener('scroll', handleBackScroll);
+    };
+  }, []);
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -42,8 +58,10 @@ const useFeedLayout = () => {
 
   const handleNotify = (data: NotificationEventTypes) => {
     if (data.notification.notify) {
-      queryClient.invalidateQueries('notifications');
-      queryClient.invalidateQueries('notifications-count');
+      setTimeout(() => {
+        queryClient.invalidateQueries('notifications');
+        queryClient.invalidateQueries('notifications-count');
+      }, 500);
     }
   };
 
@@ -106,6 +124,7 @@ const useFeedLayout = () => {
     feedFormStatus,
     router,
     isLoading,
+    isScrollUpNeeded,
     isError,
   };
 };

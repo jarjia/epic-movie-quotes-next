@@ -6,7 +6,7 @@ import { useQuoteService } from '@/services';
 import { useMutation } from 'react-query';
 import { errorToast } from '@/helpers';
 
-const useQuoteCard = (handleRefecthQuotes: () => void) => {
+const useQuoteCard = (handleRefecthQuotes: () => void, id: number) => {
   const { deleteQuote } = useQuoteService();
   const [isBox, setIsBox] = useState(false);
   const { t } = useTranslation('movieList');
@@ -23,19 +23,20 @@ const useQuoteCard = (handleRefecthQuotes: () => void) => {
       errorToast(apiErr, apiErr('delete_quote_failed'), err);
     },
   });
-
-  const handleSetIsBox = () => {
-    setIsBox(!isBox);
-  };
+  const { newLikes, commentsArr } = useContext(AppContext);
+  let newLikesForQuote = newLikes?.find((item) => item.quoteId === id);
+  let newCommentsForQuote = commentsArr?.find((item) => item.quote_id === id);
 
   return {
     isBox,
-    handleSetIsBox,
+    setIsBox,
     t,
     locale,
     handleFeedFormStatus,
     deleteQuoteMutate,
     handleCurrentQuoteId,
+    newCommentsForQuote,
+    newLikesForQuote,
   };
 };
 

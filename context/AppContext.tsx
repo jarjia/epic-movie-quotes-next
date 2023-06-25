@@ -17,8 +17,8 @@ export const AppContext = createContext({
   isSearch: false,
   handleShouldLogout: () => {},
   currentQuoteId: null as string | null,
-  newLikes: null as NewLikeTypes | null,
-  comment: null as null | CommentTypes,
+  newLikes: null as NewLikeTypes[] | null,
+  commentsArr: null as null | CommentTypes[],
   handleNewLikes: (likes: NewLikeTypes | null) => {},
   handleNewComment: (comment: CommentTypes | null) => {},
 });
@@ -35,8 +35,8 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [shouldLogout, setShouldLogout] = useState(false);
-  const [newLikes, setNewLikes] = useState<NewLikeTypes | null>(null);
-  const [comment, setComment] = useState<CommentTypes | null>(null);
+  const [newLikes, setNewLikes] = useState<NewLikeTypes[] | null>(null);
+  const [commentsArr, setCommentsArr] = useState<CommentTypes[] | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
   const query = useQueryClient();
   const router = useRouter();
@@ -52,12 +52,23 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   });
 
   const handleNewLikes = (likes: NewLikeTypes | null) => {
-    setNewLikes(likes);
+    setNewLikes((prev) => {
+      if (prev === null) {
+        return likes !== null ? [likes] : null;
+      } else {
+        return likes !== null ? [...prev, likes] : prev;
+      }
+    });
   };
 
   const handleNewComment = (comment: CommentTypes | null) => {
-    setComment(null);
-    setComment(comment);
+    setCommentsArr((prev) => {
+      if (prev === null) {
+        return comment !== null ? [comment] : null;
+      } else {
+        return comment !== null ? [...prev, comment] : prev;
+      }
+    });
   };
 
   const handleShouldLogout = () => {
@@ -131,7 +142,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     currentQuoteId,
     handleCurrentQuoteId,
     newLikes,
-    comment,
+    commentsArr,
     handleNewLikes,
     handleNewComment,
   };

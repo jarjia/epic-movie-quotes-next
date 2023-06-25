@@ -10,9 +10,9 @@ const useNotificationService = () => {
     return axios.post('/api/like/create', data);
   };
 
-  const getNotifications = (paginate: number) => {
+  const getNotifications = (paginate: number, filter: string) => {
     return axios.get('/api/notifications', {
-      params: { paginate },
+      params: { paginate, filter },
     });
   };
 

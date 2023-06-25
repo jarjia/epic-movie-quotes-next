@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 const MobileSearchbar = () => {
   const { handleIsSearch } = useContext(AppContext);
   const { t } = useTranslation('common');
-  const [search, setSearch] = useState('');
   const router = useRouter();
+  const [search, setSearch] = useState<string>(router.query.search as string);
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

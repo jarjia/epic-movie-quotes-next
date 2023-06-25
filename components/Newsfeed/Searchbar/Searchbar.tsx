@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 const Searchbar = () => {
   const { isSearch, handleIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
-  const [search, setSearch] = useState('');
   const router = useRouter();
+  const [search, setSearch] = useState('');
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
