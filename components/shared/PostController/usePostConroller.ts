@@ -127,6 +127,14 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     createCommentMutate(commentData);
   };
 
+  const filteredComments = comments
+    .sort((a, b) => {
+      let itemA: Date = new Date(a.created_at);
+      let itemB: Date = new Date(b.created_at);
+      return itemB.getTime() - itemA.getTime();
+    })
+    .slice(0, openComments);
+
   return {
     handleSubmit,
     setOpenComments,
@@ -136,6 +144,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     t,
     searchRef,
     comments,
+    filteredComments,
     disabled,
     openComments,
     handleOpenComments,

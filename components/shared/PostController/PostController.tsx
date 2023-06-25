@@ -15,6 +15,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     followComments,
     handleSubmit,
     handleLiked,
+    filteredComments,
     searchRef,
     comments,
     setOpenComments,
@@ -49,40 +50,33 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
           {comments.length === 0 ? (
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
-            comments
-              .sort((a, b) => {
-                let itemA: Date = new Date(a.created_at);
-                let itemB: Date = new Date(b.created_at);
-                return itemB.getTime() - itemA.getTime();
-              })
-              .slice(0, openComments)
-              .map((comment, index) => {
-                const isLastComment =
-                  index === comments.slice(0, openComments).length - 1;
+            filteredComments.map((comment, index) => {
+              const isLastComment =
+                index === comments.slice(0, openComments).length - 1;
 
-                return (
-                  <div
-                    ref={isLastComment ? lastComment : null}
-                    key={comment.id}
-                    className='sm:pt-2'
-                  >
-                    <div className='flex items-center'>
-                      <div
-                        className='w-profile h-profile rounded-full bg-center bg-cover'
-                        style={{
-                          backgroundImage: `url(${comment.user.thumbnail})`,
-                        }}
-                      ></div>
-                      <p className='pl-4 break-words'>{comment.user.name}</p>
-                    </div>
-                    <div className='pl-[74px] sm:pl-0 sm:pt-2'>
-                      <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
-                        {comment.comment}
-                      </p>
-                    </div>
+              return (
+                <div
+                  ref={isLastComment ? lastComment : null}
+                  key={comment.id}
+                  className='sm:pt-2'
+                >
+                  <div className='flex items-center'>
+                    <div
+                      className='w-profile h-profile rounded-full bg-center bg-cover'
+                      style={{
+                        backgroundImage: `url(${comment.user.thumbnail})`,
+                      }}
+                    ></div>
+                    <p className='pl-4 break-words'>{comment.user.name}</p>
                   </div>
-                );
-              })
+                  <div className='pl-[74px] sm:pl-0 sm:pt-2'>
+                    <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
+                      {comment.comment}
+                    </p>
+                  </div>
+                </div>
+              );
+            })
           )}
           {comments.length !== 0 && (
             <div className='flex justify-between items-center'>
