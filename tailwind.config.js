@@ -9,7 +9,9 @@ module.exports = {
   theme: {
     extend: {
       screens: {
-        sm: { max: '800px' },
+        sm: { max: '915px' },
+        mid: { min: '916px', max: '1250px' },
+        normal: { min: '1250px', max: '1680px' },
         large: { min: '1680px' },
         huge: { min: '1920px' },
       },
@@ -55,6 +57,7 @@ module.exports = {
         'mobile-search': '#12101A',
         'success-message-bg': '#D1E7DD',
         liked: '#F3426C',
+        disabled: 'rgba(236, 76, 87, 1)',
       },
       width: {
         profile: '60px',
