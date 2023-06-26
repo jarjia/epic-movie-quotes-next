@@ -45,7 +45,7 @@ const Searchbar = () => {
             value={search}
             onChange={handleOnChange}
             onKeyDown={handleOnEnter}
-            className='w-full pl-8 placeholder:text-sm pb-2 caret-white text-white bg-transparent border-0 border-b-2 border-search-bar-border focus:ring-0 focus:border-search-bar-border'
+            className='w-full pl-8 text-sm pb-2 caret-white text-white bg-transparent border-0 border-b-2 border-search-bar-border focus:ring-0 focus:border-search-bar-border'
             placeholder={`${t('search_by_placeholder')}`}
           />
         </div>

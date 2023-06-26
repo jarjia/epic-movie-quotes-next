@@ -25,9 +25,10 @@ const Feed = () => {
             <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
-        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
-        <NewsFeedControl />
-        <Posts />
+        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}>
+          <NewsFeedControl />
+          <Posts />
+        </div>
       </>
     </FeedLayout>
   );
