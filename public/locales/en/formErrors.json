@@ -5,6 +5,7 @@
   "register_name_ref": "Should only contain lowercase characters and numbers",
   "register_email_req": "Email field is required",
   "register_email_mail": "Email field should be valid email address",
+  "name_should_not_be_same": "New name should not be same as the old one",
   "register_password_req": "Password field is required",
   "register_password_min": "Password field should be at least 8 characters long",
   "register_password_max": "Shouldn't be more than 15 characters long",
