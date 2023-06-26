@@ -10,6 +10,7 @@ module.exports = {
     extend: {
       screens: {
         sm: { max: '915px' },
+        'sm-mid': { max: '650px' },
         mid: { min: '916px', max: '1250px' },
         normal: { min: '1250px', max: '1680px' },
         large: { min: '1680px' },
