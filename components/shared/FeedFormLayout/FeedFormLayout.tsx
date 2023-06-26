@@ -20,11 +20,15 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
   } = useFeedForm(handleRefecthQuotes);
 
   return (
-    <div className='relative sm:absolute sm:left-0 sm:top-0 w-full z-[999]'>
+    <div
+      className={`${
+        router.pathname === '/newsfeed' ? 'flex justify-center' : ''
+      } relative sm:fixed sm:left-0 sm:top-0 w-full z-[999]`}
+    >
       <div
-        className={`absolute ${
-          router.pathname === '/newsfeed' ? 'w-full' : 'w-4/6'
-        } sm:w-full large:max-h-screen  rounded-form-radius bg-form-back`}
+        className={`${
+          router.pathname === '/newsfeed' ? `w-1/2 large:w-2/6` : 'w-1/2'
+        } fixed sm:w-full large:max-h-screen rounded-form-radius bg-form-back`}
       >
         <div
           className={`grid grid-cols-[97%_3%] border-b-[1px] border-search-bar-border p-4 py-6`}
@@ -85,7 +89,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
             <UserProfile />
             <h4>{userData?.name}</h4>
           </div>
-          <div className='mb-0 sm:mb-36'>{children}</div>
+          <div className='mb-0 sm:mb-36 drop-shadow-none'>{children}</div>
         </div>
       </div>
     </div>

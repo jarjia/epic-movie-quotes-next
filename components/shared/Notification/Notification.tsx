@@ -29,7 +29,7 @@ const Notification = () => {
               {t('notifications')}
               <div className='flex gap-4 absolute text-font-base'>
                 <p>{t('filter_by')}: </p>
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-2 sm:text-base'>
                   <button
                     className={`${
                       filter === 'like' ? 'underline text-placeholder' : ''
@@ -44,7 +44,7 @@ const Notification = () => {
                   >
                     {t('filter_by_likes')}
                   </button>
-                  <div className='h-[20px] w-[2px] bg-white'></div>
+                  <div className='sm:h-[18px] h-[20px] w-[2px] bg-white'></div>
                   <button
                     className={`${
                       filter === 'comment' ? 'underline text-placeholder' : ''
@@ -59,7 +59,7 @@ const Notification = () => {
                   >
                     {t('filter_by_comments')}
                   </button>
-                  <div className='h-[20px] w-[2px] bg-white'></div>
+                  <div className='sm:h-[18px] h-[20px] w-[2px] bg-white'></div>
                   <button
                     className={`${
                       filter === 'new' ? 'underline text-placeholder' : ''
@@ -89,7 +89,7 @@ const Notification = () => {
                   queryClient.invalidateQueries('notifications');
                 }, 200);
               }}
-              className='underline sm:text-lg text-md text-white'
+              className='underline sm:text-sm text-md text-white'
             >
               {t('mark_as_read')}
             </button>
@@ -117,7 +117,7 @@ const Notification = () => {
             ) : isLoading ? (
               <p className='text-2xl mt-4'>Loading...</p>
             ) : (
-              <p className='text-2xl mt-4'>No notifications...</p>
+              <p className='text-2xl mt-4'>{t('no_notifications')}</p>
             )}
           </div>
         </div>
