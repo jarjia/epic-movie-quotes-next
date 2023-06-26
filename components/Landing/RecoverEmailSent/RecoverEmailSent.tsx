@@ -16,12 +16,13 @@ const RecoverEmailSent: React.FC<HandleFormStatusTypes> = ({
         {t('check_mail')}
       </h2>
       <p className='my-2 text-center text-white'>{t('check_desc')}</p>
-      <button
-        onClick={() => handleFormStatus('login')}
+      <a
+        href='https://mail.google.com'
+        target='_blank'
         className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
       >
         {t('go_to_mail')}
-      </button>
+      </a>
       <button
         onClick={() => handleFormStatus('null')}
         className='mt-8 hover:underline text-form-small-title'

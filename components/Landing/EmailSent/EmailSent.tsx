@@ -3,10 +3,7 @@ import classes from '@/styles/Landing.module.css';
 import { useTranslation } from 'next-i18next';
 import { EmailSentTypes } from './types';
 
-const EmailSent: React.FC<EmailSentTypes> = ({
-  handleFormStatus,
-  isProfile,
-}) => {
+const EmailSent: React.FC<EmailSentTypes> = ({ isProfile }) => {
   const { t } = useTranslation('landingForms');
 
   return (
@@ -23,12 +20,13 @@ const EmailSent: React.FC<EmailSentTypes> = ({
       </h2>
       <p className='my-2 text-center text-white'>{t('email_verify_sent')}</p>
       {!isProfile && (
-        <button
-          onClick={() => handleFormStatus('login')}
+        <a
+          href='https://mail.google.com'
+          target='_blank'
           className='text-center mt-4 text-white py-2 rounded bg-default-btn hover:bg-hover w-full active:bg-active'
         >
           {t('go_to_mail')}
-        </button>
+        </a>
       )}
     </div>
   );
