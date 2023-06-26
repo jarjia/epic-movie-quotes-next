@@ -10,12 +10,12 @@ import { Controller } from 'react-hook-form';
 const AddMovieModal = () => {
   const {
     FormProvider,
+    addMovieLoading,
     onSubmit,
     handleSubmit,
     t: addMovie,
     control,
     form,
-    formErrors,
     errors,
   } = useAddMovie();
 
@@ -43,8 +43,6 @@ const AddMovieModal = () => {
           name='releaseDate'
           control={control}
           render={({ field, fieldState: { error } }) => {
-            let errorMessage = formErrors('movie_release_date');
-
             return (
               <div className='flex flex-col'>
                 <input
@@ -65,10 +63,10 @@ const AddMovieModal = () => {
                     error !== undefined
                       ? 'border-default-btn'
                       : 'border-placeholder'
-                  } w-full placeholder-white focus:border-placeholder caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 block flex-1 min-w-0 w-full`}
+                  } w-full placeholder-white caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 block flex-1 min-w-0 w-full`}
                 />
                 <p className='text-default-btn text-sm'>
-                  {error !== undefined && errorMessage}
+                  {error !== undefined && error.message}
                 </p>
               </div>
             );
@@ -112,7 +110,12 @@ const AddMovieModal = () => {
         </div>
         <button
           type='submit'
-          className='bg-default-btn hover:bg-hover mt-4 sm:py-2 text-white w-full rounded py-2 active:bg-active'
+          disabled={addMovieLoading}
+          className={`${
+            addMovieLoading
+              ? 'bg-disabled'
+              : 'bg-default-btn hover:bg-hover active:bg-active'
+          } mt-4 sm:py-2 text-white w-full rounded py-2`}
         >
           {addMovie('add_movie')}
         </button>

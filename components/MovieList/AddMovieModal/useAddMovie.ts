@@ -31,18 +31,20 @@ const useAddMovie = () => {
   const { handleFeedFormStatus, userData } = useContext(AppContext);
   const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
-  const { t: formErrors } = useTranslation('formErrors');
   const { t: apiErr } = useTranslation('apiErrors');
 
-  const { mutate: createMovie } = useMutation(postMovie, {
-    onSuccess: () => {
-      handleFeedFormStatus('');
-      queryClient.invalidateQueries('my-movies');
-    },
-    onError(err: any) {
-      errorToast(apiErr, apiErr('create_movie_failed'), err);
-    },
-  });
+  const { mutate: createMovie, isLoading: addMovieLoading } = useMutation(
+    postMovie,
+    {
+      onSuccess: () => {
+        handleFeedFormStatus('');
+        queryClient.invalidateQueries('my-movies');
+      },
+      onError(err: any) {
+        errorToast(apiErr, apiErr('create_movie_failed'), err);
+      },
+    }
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     let genresIds: number[] = [];
@@ -61,9 +63,9 @@ const useAddMovie = () => {
     FormProvider,
     setValue,
     errors,
+    addMovieLoading,
     control,
     t,
-    formErrors,
   };
 };
 
