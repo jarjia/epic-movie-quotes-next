@@ -8,7 +8,9 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
     errors,
     handleSubmit,
     onSubmit,
-    handleUserRedirectGoogle,
+    setShouldGoogle,
+    isLoading,
+    googleRedirectLoading,
     form,
     FormProvider,
   } = useLoginForm();
@@ -52,13 +54,19 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
           <div className='pt-1'>
             <button
               type='submit'
-              className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
+              disabled={isLoading}
+              className={`${
+                isLoading
+                  ? 'bg-disabled cursor-default'
+                  : 'bg-default-btn hover:bg-hover active:bg-active'
+              } mb-[12px] w-full py-[6px] rounded text-white`}
             >
               {t('sign_in')}
             </button>
             <button
               type='button'
-              onClick={handleUserRedirectGoogle}
+              onClick={() => setShouldGoogle(true)}
+              disabled={googleRedirectLoading}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >
               <GoogleIcon />

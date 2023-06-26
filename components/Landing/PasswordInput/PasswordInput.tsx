@@ -1,5 +1,10 @@
 import { PasswordInputTypes } from './types';
-import { HidePasswordIcon } from '@/components';
+import {
+  EyeIcon,
+  HidePasswordIcon,
+  InvalidIcon,
+  ValidIcon,
+} from '@/components';
 import usePasswordInput from './usePasswordInput';
 
 const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
@@ -17,22 +22,36 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
         name={props.name}
         className={`px-2 py-[6px] placeholder-placeholder ${
           props.errors[props.name]
-            ? 'border-[1px] border-default-btn'
+            ? 'border-[1px] border-default-btn pr-14'
             : input?.length > 0
-            ? 'border-[1px] border-valid-form'
-            : null
+            ? 'border-[1px] border-valid-form pr-14'
+            : 'pr-7'
         } focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
         placeholder={props.placeholder}
         autoComplete='off'
       />
-      <div className='flex justify-end relative bottom-7 right-2 w-full'>
+      <div
+        className={`flex justify-end relative bottom-7 ${
+          props.errors[props.name] ||
+          (input?.length > 0 && !props.errors[props.name])
+            ? 'right-8'
+            : 'right-2'
+        } w-full`}
+      >
         <button
           type='button'
           onClick={handleTogglePasswordShow}
           className='absolute'
         >
-          <HidePasswordIcon />
+          {showPassword ? <EyeIcon isPassword={true} /> : <HidePasswordIcon />}
         </button>
+      </div>
+      <div className='flex justify-end relative bottom-7 right-2 w-full'>
+        {props.errors[props.name] ? (
+          <InvalidIcon />
+        ) : input?.length > 0 && !props.errors[props.name] ? (
+          <ValidIcon />
+        ) : null}
       </div>
       <div className='mt-[2px]'>
         <p className='absolute text-default-btn font-normal text-sm'>

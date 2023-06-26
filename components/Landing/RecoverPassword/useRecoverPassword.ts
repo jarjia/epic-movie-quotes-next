@@ -10,7 +10,6 @@ import {
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
 import { PostRecoverPasswordTypes } from './types';
-import { useState } from 'react';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
@@ -26,28 +25,31 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   const {
     formState: { errors },
     handleSubmit,
+    setError,
   } = form;
   const router = useRouter();
-  const [apiError, setApiError] = useState('');
   const { t: apiErr } = useTranslation('apiErrors');
 
-  const handleClearApiError = () => {
-    setApiError('');
-  };
-
-  const { mutate: recoverUserPassword } = useMutation(postRecoverPassword, {
-    onSuccess: () => {
-      router.push('/');
-      handleFormStatus('recovered-password');
-    },
-    onError: (err: any) => {
-      if (typeof err?.response?.data?.message === 'string') {
-        setApiError(err?.response?.data?.message);
-      } else {
-        errorToast(apiErr, apiErr('password_recover_failed'), err);
-      }
-    },
-  });
+  const { mutate: recoverUserPassword, isLoading: passwordRecoverLoading } =
+    useMutation(postRecoverPassword, {
+      onSuccess: () => {
+        router.push('/');
+        handleFormStatus('recovered-password');
+      },
+      onError: (err: any) => {
+        if (typeof err?.response?.data?.message === 'string') {
+          setError('password', {
+            message: err?.response?.data?.message,
+          });
+        } else if (typeof err?.response?.data === 'string') {
+          setError('password', {
+            message: err?.response?.data,
+          });
+        } else {
+          errorToast(apiErr, apiErr('password_recover_failed'), err);
+        }
+      },
+    });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     const { email, recover_token } = router.query as PostRecoverPasswordTypes;
@@ -66,9 +68,8 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
     form,
     errors,
     FormProvider,
-    apiError,
+    passwordRecoverLoading,
     t,
-    handleClearApiError,
   };
 };
 
