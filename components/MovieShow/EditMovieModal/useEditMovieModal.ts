@@ -33,15 +33,18 @@ const useEditMovieModal = (movieId: number) => {
   const { t } = useTranslation(['formErrors', 'movieList']);
   const { t: apiErr } = useTranslation('apiErrors');
 
-  const { mutate: updateMovieFunc } = useMutation(updateMovie, {
-    onSuccess: () => {
-      handleFeedFormStatus('');
-      queryClient.invalidateQueries('movies');
-    },
-    onError(err: any) {
-      errorToast(apiErr, apiErr('update_movie_failed'), err);
-    },
-  });
+  const { mutate: updateMovieFunc, isLoading: editMovieLoading } = useMutation(
+    updateMovie,
+    {
+      onSuccess: () => {
+        handleFeedFormStatus('');
+        queryClient.invalidateQueries('movies');
+      },
+      onError(err: any) {
+        errorToast(apiErr, apiErr('update_movie_failed'), err);
+      },
+    }
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     if (data.thumbnail.length === 0) {
@@ -65,6 +68,7 @@ const useEditMovieModal = (movieId: number) => {
     control,
     onSubmit,
     handleSubmit,
+    editMovieLoading,
     FormProvider,
     form,
   };
