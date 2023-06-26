@@ -1,9 +1,20 @@
 import classes from '@/styles/Landing.module.css';
 import { IsSureTypes } from './types';
 import { useTranslation } from 'next-i18next';
+import { useEffect } from 'react';
 
-const IsSure = ({ handleIsSure }: IsSureTypes) => {
+const IsSure = ({
+  handleIsSure,
+  updateProfileLoading,
+  apiError,
+}: IsSureTypes) => {
   const { t } = useTranslation('profile');
+
+  useEffect(() => {
+    if (apiError !== '') {
+      handleIsSure(false);
+    }
+  }, [apiError, handleIsSure]);
 
   return (
     <div className='w-full flex items-center justify-center'>
@@ -23,7 +34,12 @@ const IsSure = ({ handleIsSure }: IsSureTypes) => {
           </button>
           <button
             type='submit'
-            className='text-white rounded px-4 py-1.5 text-primary-font bg-default-btn hover:bg-hover active:bg-active'
+            disabled={updateProfileLoading}
+            className={`text-white rounded px-4 py-1.5 text-primary-font ${
+              updateProfileLoading
+                ? 'bg-disabled'
+                : 'bg-default-btn hover:bg-hover active:bg-active'
+            }`}
           >
             {t('profile_confirm')}
           </button>
