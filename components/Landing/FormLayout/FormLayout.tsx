@@ -27,7 +27,7 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className='w-[35%] mid:w-1/2 large:w-[25%] h-auto sm:w-full sm:h-full sm:rounded-none rounded-form-radius bg-form-back sm:px-10 px-14 py-8'
+        className='w-[35%] overflow-y-scroll scrollbar mid:w-1/2 large:w-[25%] h-auto sm:w-full sm:h-full sm:rounded-none rounded-form-radius bg-form-back sm:px-10 px-14 py-8'
       >
         <div className='float-right relative bottom-5 left-5 sm:left-2'>
           <div
@@ -40,7 +40,7 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
             <CloseIcon color={false} isSmall={false} />
           </div>
         </div>
-        <div className='h-full overflow-y-scroll scrollbar'>{children}</div>
+        {children}
       </div>
     </div>
   );

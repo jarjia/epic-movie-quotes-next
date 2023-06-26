@@ -81,7 +81,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
         </form>
       </FormProvider>
       <div className='flex justify-center py-3'>
-        <p className='absolute text-form-small-title'>
+        <p className='absolute sm:relative text-form-small-title'>
           {t('have_acc')}
           <button
             className='underline text-link'
