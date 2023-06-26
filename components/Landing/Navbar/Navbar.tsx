@@ -6,7 +6,7 @@ const Navbar: React.FC<HandleFormStatusTypes> = (props) => {
   const { t } = useTranslation('landing');
 
   return (
-    <nav className='flex justify-between items-center sm:px-4 px-16 py-5 fixed bg-transparent w-full'>
+    <nav className='flex justify-between items-center sm:px-4 z-[3] px-16 py-5 fixed bg-post-bg shadow w-full'>
       <div>
         <h3 className='text-title uppercase sm:text-base'>Movie quotes</h3>
       </div>
