@@ -16,6 +16,7 @@ const MobileUserUpdate = ({
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,
+    handleIsSure,
   };
   const {
     form,
@@ -40,7 +41,7 @@ const MobileUserUpdate = ({
       >
         {isSure ? (
           <IsSure
-            apiError={apiError}
+            name={editProfile.name}
             handleIsSure={handleIsSure}
             updateProfileLoading={updateProfileLoading}
           />

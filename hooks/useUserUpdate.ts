@@ -21,6 +21,7 @@ const useUserUpdate = ({
   handleEditProfileClear,
   handleIsSuccess,
   editProfile,
+  handleIsSure,
 }: hookUserUpdateTypes) => {
   const { postUserUpdateProfile, postUpdateUserEmail } = useAuthService();
   const { t } = useTranslation('profile');
@@ -35,6 +36,7 @@ const useUserUpdate = ({
     handleSubmit,
     formState: { errors },
     control,
+    setError,
     reset,
   } = form;
   const { userData, handleFeedFormStatus } = useContext(AppContext);
@@ -150,7 +152,7 @@ const useUserUpdate = ({
     useMutation(postUserUpdateProfile, {
       onSuccess: () => {
         let isEmail = false;
-        if (form.getValues('email') !== undefined) {
+        if (!!form.getValues('email')) {
           handleFeedFormStatus('email-sent');
           isEmail = true;
         }
@@ -159,14 +161,27 @@ const useUserUpdate = ({
         handleEditProfileClear();
         router.push('/profile');
         queryClient.invalidateQueries('user');
-        if (router.query.update_token === undefined && !isEmail) {
+        if (!router.query.update_token && !isEmail) {
           handleIsSuccess(true);
         }
       },
       onError: (error: any) => {
-        if (typeof error?.response?.data?.message === 'string') {
-          setApiError(error?.response?.data?.message);
-        } else {
+        let shouldNotify = true;
+        if (error?.response?.data?.errors?.email.length > 0) {
+          shouldNotify = false;
+          setError('email', {
+            message: error?.response?.data?.errors?.email[0],
+          });
+          handleIsSure(false);
+        }
+        if (error?.response?.data?.password) {
+          shouldNotify = false;
+          setError('password', {
+            message: error?.response?.data?.password,
+          });
+          handleIsSure(false);
+        }
+        if (shouldNotify) {
           errorToast(apiErr, apiErr('profile_update_failed'), error);
         }
       },

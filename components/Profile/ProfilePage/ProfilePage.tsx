@@ -63,6 +63,7 @@ const ProfilePage = () => {
                 handleEditProfileClear={handleEditProfileClear}
                 handleEditProfile={handleEditProfile}
                 handleIsSuccess={handleIsSuccess}
+                handleIsSure={handleIsSure}
               />
             ) : (
               <MobileUserUpdate

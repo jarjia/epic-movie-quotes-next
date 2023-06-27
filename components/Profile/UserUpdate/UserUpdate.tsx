@@ -8,11 +8,13 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
   handleEditProfileClear,
   handleIsSuccess,
   editProfile,
+  handleIsSure,
 }) => {
   const userUpdateProps: hookUserUpdateTypes = {
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,
+    handleIsSure,
   };
   const {
     userData,
@@ -110,7 +112,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             <p className='text-center text-default-btn'>{apiError || ''}</p>
           )}
         </div>
-        <div className='flex justify-end gap-4 py-3'>
+        <div className='flex justify-end gap-4 py-3 sm:px-8'>
           {isEditing && (
             <>
               <button

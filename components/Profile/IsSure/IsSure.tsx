@@ -1,20 +1,9 @@
 import classes from '@/styles/Landing.module.css';
 import { IsSureTypes } from './types';
-import { useTranslation } from 'next-i18next';
-import { useEffect } from 'react';
+import useIsSure from './useIsSure';
 
-const IsSure = ({
-  handleIsSure,
-  updateProfileLoading,
-  apiError,
-}: IsSureTypes) => {
-  const { t } = useTranslation('profile');
-
-  useEffect(() => {
-    if (apiError !== '') {
-      handleIsSure(false);
-    }
-  }, [apiError, handleIsSure]);
+const IsSure = ({ handleIsSure, updateProfileLoading, name }: IsSureTypes) => {
+  const { t } = useIsSure(handleIsSure, name);
 
   return (
     <div className='w-full flex items-center justify-center'>
