@@ -2,7 +2,6 @@ import React from 'react';
 import useRecoverEmail from './useRecoverEmail';
 import { HandleFormStatusTypes } from '@/types';
 import { BackArrowIcon, Input } from '@/components';
-import { useTranslation } from 'next-i18next';
 
 const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
@@ -14,8 +13,8 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
     onSubmit,
     recoverEmailLoading,
     FormProvider,
+    t,
   } = useRecoverEmail(handleFormStatus);
-  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>

@@ -27,9 +27,10 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const {
     formState: { errors },
     handleSubmit,
+    setError,
   } = form;
   const router = useRouter();
-  const [shouldGoogle, setShouldGoogle] = useState(false);
+  const [isAuthorizingWithGoogle, setIsAuthorizingWithGoogle] = useState(false);
   const { t: apiErr } = useTranslation('apiErrors');
   const { isLoading: googleRedirectLoading } = useQuery(
     'google-redirect',
@@ -37,12 +38,12 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
     {
       onSuccess(res) {
         router.push(res.data);
-        setShouldGoogle(false);
+        setIsAuthorizingWithGoogle(false);
       },
       onError(err) {
         errorToast(apiErr, apiErr('google_auth_failed'), err);
       },
-      enabled: shouldGoogle,
+      enabled: isAuthorizingWithGoogle,
     }
   );
 
@@ -53,13 +54,17 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('email-sent');
       },
       onError(err: any) {
-        errorToast(
-          apiErr,
-          typeof err?.response?.data?.message === 'string'
-            ? err?.response?.data?.message
-            : apiErr('registration_failed'),
-          err
-        );
+        if (err?.response?.data?.errors?.email.length > 0) {
+          setError('email', {
+            message: err?.response?.data?.errors?.email[0],
+          });
+        } else {
+          errorToast(
+            apiErr,
+            err?.response?.data?.message || apiErr('registration_failed'),
+            err
+          );
+        }
       },
     }
   );
@@ -107,7 +112,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
     registerLoading,
     errors,
     form,
-    setShouldGoogle,
+    setIsAuthorizingWithGoogle,
     FormProvider,
     googleRedirectLoading,
   };

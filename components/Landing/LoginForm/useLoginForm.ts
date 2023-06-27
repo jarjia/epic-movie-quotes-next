@@ -56,12 +56,9 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      if (typeof err.response.data === 'string') {
+      if (typeof err.response.data.user === 'string') {
         setError('user', {
-          message: err.response.data,
-        });
-        setError('password', {
-          message: err.response.data,
+          message: err.response.data.user,
         });
       } else {
         errorToast(apiErr, apiErr('auth_failed'), err);

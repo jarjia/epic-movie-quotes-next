@@ -26,6 +26,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     setError,
   } = form;
   const { t: apiErr } = useTranslation('apiErrors');
+  const { t } = useTranslation('landingForms');
 
   const { mutate: recoverUserEmail, isLoading: recoverEmailLoading } =
     useMutation(postRecoverEmail, {
@@ -33,9 +34,9 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('recover-email-sent');
       },
       onError: (err: any) => {
-        if (typeof err.response.data === 'string') {
+        if (typeof err.response.data.email === 'string') {
           setError('email', {
-            message: err.response.data,
+            message: err.response.data.email,
           });
         } else {
           errorToast(apiErr, apiErr('recover_email_failed'), err);
@@ -55,6 +56,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     onSubmit,
     recoverEmailLoading,
     handleSubmit,
+    t,
     form,
     errors,
     FormProvider,

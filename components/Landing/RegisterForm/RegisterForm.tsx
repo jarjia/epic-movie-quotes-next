@@ -11,7 +11,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
     handleSubmit,
     onSubmit,
     googleRedirectLoading,
-    setShouldGoogle,
+    setIsAuthorizingWithGoogle,
     registerLoading,
     form,
     FormProvider,
@@ -70,7 +70,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
             </button>
             <button
               type='button'
-              onClick={() => setShouldGoogle(true)}
+              onClick={() => setIsAuthorizingWithGoogle(true)}
               disabled={googleRedirectLoading}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >

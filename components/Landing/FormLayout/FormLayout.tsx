@@ -1,17 +1,12 @@
 import { CloseIcon } from '@/components';
 import { FormLayoutTypes } from './types';
-import { useContext } from 'react';
-import { AppContext } from '@/context';
-import { useAuthService } from '@/services';
-import { useQuery } from 'react-query';
+import useFormLayout from './useFormLayout';
 
 const FormLayout: React.FC<FormLayoutTypes> = ({
   handleFormStatus,
   children,
 }) => {
-  const { handleFeedFormStatus } = useContext(AppContext);
-  const { getCrsfToken } = useAuthService();
-  useQuery('csrf-token', getCrsfToken);
+  const { handleFeedFormStatus } = useFormLayout();
 
   return (
     <div
