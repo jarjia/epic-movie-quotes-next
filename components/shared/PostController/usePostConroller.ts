@@ -40,15 +40,14 @@ const usePostConroller = (data: PostTypes, userId: number) => {
 
   useEffect(() => {
     if (newLikes !== null) {
-      let likesForQuoete = newLikes.find((item) => item.quoteId === data.id);
+      let likesForQuoeteArr = newLikes.filter(
+        (item) => item.quoteId === data.id
+      );
+      let likesForQuoete = likesForQuoeteArr[likesForQuoeteArr.length - 1];
+
       if (likesForQuoete?.quoteId === data.id) {
         setLikedIds([]);
         setLikedIds(likesForQuoete.likes);
-        if (likesForQuoete.likes.includes(userData.id)) {
-          setHasLiked(true);
-        } else {
-          setHasLiked(false);
-        }
       }
     }
   }, [
