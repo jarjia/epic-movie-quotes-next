@@ -1,25 +1,25 @@
 import { AppContext } from '@/context';
-import { useContext, useEffect, useState } from 'react';
+import { useCallback, useContext, useEffect, useState } from 'react';
 
 const useFeed = () => {
   const { feedFormStatus, currentQuoteId, handleFeedFormStatus } =
     useContext(AppContext);
   const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
 
-  const handleBackScroll = () => {
+  const handleBackScroll = useCallback(() => {
     if (window.scrollY > window.innerHeight * 2) {
       setIsScrollUpNeeded(true);
     } else if (isScrollUpNeeded) {
       setIsScrollUpNeeded(false);
     }
-  };
+  }, [isScrollUpNeeded]);
 
   useEffect(() => {
     window.addEventListener('scroll', handleBackScroll);
     return () => {
       window.removeEventListener('scroll', handleBackScroll);
     };
-  }, []);
+  }, [handleBackScroll]);
 
   useEffect(() => {
     let allowedModalsArr = ['view-quote', 'add-quote'];
