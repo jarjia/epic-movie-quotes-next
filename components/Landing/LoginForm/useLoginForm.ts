@@ -32,7 +32,7 @@ const useLoginForm = () => {
     control,
   } = form;
   const router = useRouter();
-  const [shouldGoogle, setShouldGoogle] = useState(false);
+  const [isAuthorizingWithGoogle, setIsAuthorizingWithGoogle] = useState(false);
   const { t: apiErr } = useTranslation('apiErrors');
   const { isLoading: googleRedirectLoading } = useQuery(
     'google-redirect',
@@ -40,12 +40,12 @@ const useLoginForm = () => {
     {
       onSuccess(res) {
         router.push(res.data);
-        setShouldGoogle(false);
+        setIsAuthorizingWithGoogle(false);
       },
       onError(err) {
         errorToast(apiErr, apiErr('google_auth_failed'), err);
       },
-      enabled: shouldGoogle,
+      enabled: isAuthorizingWithGoogle,
     }
   );
 
@@ -56,7 +56,7 @@ const useLoginForm = () => {
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      if (typeof err.response.data.user === 'string') {
+      if (typeof err.response.data?.user) {
         setError('user', {
           message: err.response.data.user,
         });
@@ -111,7 +111,7 @@ const useLoginForm = () => {
     handleSubmit,
     onSubmit,
     router,
-    setShouldGoogle,
+    setIsAuthorizingWithGoogle,
     errors,
     form,
     FormProvider,

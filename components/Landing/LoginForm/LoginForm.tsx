@@ -8,7 +8,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
     errors,
     handleSubmit,
     onSubmit,
-    setShouldGoogle,
+    setIsAuthorizingWithGoogle,
     isLoading,
     googleRedirectLoading,
     form,
@@ -65,7 +65,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
             </button>
             <button
               type='button'
-              onClick={() => setShouldGoogle(true)}
+              onClick={() => setIsAuthorizingWithGoogle(true)}
               disabled={googleRedirectLoading}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >

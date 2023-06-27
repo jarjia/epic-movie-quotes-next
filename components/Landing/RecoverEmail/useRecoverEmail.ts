@@ -34,7 +34,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('recover-email-sent');
       },
       onError: (err: any) => {
-        if (typeof err.response.data.email === 'string') {
+        if (typeof err.response.data.email) {
           setError('email', {
             message: err.response.data.email,
           });

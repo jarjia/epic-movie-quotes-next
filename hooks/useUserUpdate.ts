@@ -167,17 +167,19 @@ const useUserUpdate = ({
       },
       onError: (error: any) => {
         let shouldNotify = true;
-        if (error?.response?.data?.errors?.email.length > 0) {
+        const emailErrors = error?.response?.data?.errors?.email;
+        const passwordError = error?.response?.data?.password;
+        if (emailErrors.length > 0) {
           shouldNotify = false;
           setError('email', {
-            message: error?.response?.data?.errors?.email[0],
+            message: emailErrors[0],
           });
           handleIsSure(false);
         }
-        if (error?.response?.data?.password) {
+        if (passwordError) {
           shouldNotify = false;
           setError('password', {
-            message: error?.response?.data?.password,
+            message: passwordError,
           });
           handleIsSure(false);
         }

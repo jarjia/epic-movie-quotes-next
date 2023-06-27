@@ -37,11 +37,11 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('recovered-password');
       },
       onError: (err: any) => {
-        if (typeof err?.response?.data?.password === 'string') {
+        if (typeof err?.response?.data?.password) {
           setError('password', {
             message: err?.response?.data?.password,
           });
-        } else if (typeof err?.response?.data === 'string') {
+        } else if (typeof err?.response?.data) {
           setError('password', {
             message: err?.response?.data,
           });
