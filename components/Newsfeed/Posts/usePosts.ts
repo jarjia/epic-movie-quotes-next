@@ -30,7 +30,7 @@ const usePosts = () => {
     const scrollHeight = document.body.scrollHeight;
 
     const isAtMiddle = scrollTop >= (scrollHeight - clientHeight) / 2;
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+    const isAtBottom = Math.abs(scrollHeight - clientHeight - scrollTop) < 1;
 
     setShouldFetchPage(isAtMiddle);
     setAtBottom(isAtBottom);
