@@ -1,12 +1,11 @@
 import classes from '@/styles/Landing.module.css';
-import { BackArrowIcon, FeedNavbar, FeedSidebar } from '@/components';
+import { FeedNavbar, FeedSidebar } from '@/components';
 import { FeedLayoutTypes } from './types';
 import useFeedLayout from './useFeedLayout';
 import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
-  const { feedFormStatus, router, isLoading, isError, isScrollUpNeeded } =
-    useFeedLayout();
+  const { feedFormStatus, router, isLoading, isError } = useFeedLayout();
 
   if (isLoading || isError) {
     return <div className={`${classes.newsfeed} w-screen h-screen`}></div>;
@@ -29,16 +28,6 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
       >
         <div>{props.children}</div>
       </section>
-      {isScrollUpNeeded && (
-        <div className='fixed sm:hidden mid:hidden top-[85%] left-[90%] z-[999]'>
-          <button
-            onClick={() => window.scrollTo(0, 0)}
-            className='rotate-90 bg-post-bg shadow-2xl rounded-full p-4 px-3.5'
-          >
-            <BackArrowIcon isSearch={true} />
-          </button>
-        </div>
-      )}
     </section>
   );
 };
