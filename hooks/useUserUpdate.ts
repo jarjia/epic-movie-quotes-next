@@ -169,7 +169,8 @@ const useUserUpdate = ({
         let shouldNotify = true;
         const emailErrors = error?.response?.data?.errors?.email;
         const passwordError = error?.response?.data?.password;
-        if (emailErrors.length > 0) {
+
+        if (emailErrors?.length > 0) {
           shouldNotify = false;
           setError('email', {
             message: emailErrors[0],
