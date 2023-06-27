@@ -19,7 +19,7 @@ const Notification = () => {
       <div className='relative right-[6px] top-1'>
         <TriangleIcon />
       </div>
-      <div className='absolute sm:left-0 right-20 sm:w-full w-[40%]'>
+      <div className='absolute sm:left-0 right-20 sm:w-full w-[40%] mid:w-[60%]'>
         <div
           className='relative top-8 p-4 sm:p-2 bg-black rounded-xl'
           style={{ boxShadow: '0 0 30px black' }}
