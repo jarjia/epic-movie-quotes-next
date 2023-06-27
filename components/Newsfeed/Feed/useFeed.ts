@@ -9,7 +9,7 @@ const useFeed = () => {
   const handleBackScroll = () => {
     if (window.scrollY > window.innerHeight * 2) {
       setIsScrollUpNeeded(true);
-    } else {
+    } else if (isScrollUpNeeded) {
       setIsScrollUpNeeded(false);
     }
   };

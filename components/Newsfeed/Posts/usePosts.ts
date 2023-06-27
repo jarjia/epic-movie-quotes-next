@@ -7,35 +7,33 @@ import { useInfiniteQuery } from 'react-query';
 
 const usePosts = () => {
   const { getAllQuotes } = useQuoteService();
-  const [paginate, setPaginate] = useState(2);
   const router = useRouter();
   const { t } = useTranslation('newsFeed');
-  const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
+  const [fetchPage, setShouldFetchPage] = useState(false);
+  const [atBottom, setAtBottom] = useState(false);
   let search = router.query.search === undefined ? '' : router.query.search;
-  const { isLoading, fetchNextPage, hasNextPage, data } = useInfiniteQuery(
-    ['quotes', paginate, search],
-    ({ pageParam = paginate }) => getAllQuotes(pageParam, search as string),
+  const { isLoading, fetchNextPage, data, hasNextPage } = useInfiniteQuery(
+    ['quotes', search],
+    ({ pageParam = 3 }) => getAllQuotes(pageParam, search as string),
     {
       getNextPageParam: (info) => {
         let cur = parseFloat(info.data.current_page);
-        return info.data.last_page > cur ? ++cur : undefined;
+        return info.data.last_page > cur ? cur + 3 : undefined;
       },
       keepPreviousData: true,
     }
   );
 
   const handleScroll = () => {
-    const scrollTop =
-      document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight =
-      document.documentElement.scrollHeight || document.body.scrollHeight;
-    const clientHeight =
-      document.documentElement.clientHeight || window.innerHeight;
+    const scrollTop = window.scrollY;
+    const clientHeight = window.innerHeight;
+    const scrollHeight = document.body.scrollHeight;
 
-    const isAtBottom =
-      scrollTop + clientHeight >= scrollHeight ||
-      scrollTop + clientHeight >= scrollHeight - scrollTop * 2;
-    setIsScrolledToBottom(isAtBottom);
+    const isAtMiddle = scrollTop >= (scrollHeight - clientHeight) / 2;
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight;
+
+    setShouldFetchPage(isAtMiddle);
+    setAtBottom(isAtBottom);
   };
 
   useEffect(() => {
@@ -50,16 +48,10 @@ const usePosts = () => {
   const posts: PostsTypes[] = data?.pages[data?.pages.length - 1]?.data?.quotes;
 
   useEffect(() => {
-    if (isScrolledToBottom) {
-      setPaginate((prev) => prev + 2);
-    }
-  }, [isScrolledToBottom]);
-
-  useEffect(() => {
-    if (isScrolledToBottom && hasNextPage) {
+    if ((fetchPage || atBottom) && hasNextPage) {
       fetchNextPage();
     }
-  }, [paginate, fetchNextPage, isScrolledToBottom, hasNextPage]);
+  }, [fetchNextPage, fetchPage, atBottom, hasNextPage]);
 
   return {
     posts,
