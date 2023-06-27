@@ -40,15 +40,18 @@ const useAddQuoteFromMovieModal = (
     setValue('movieId', movieId);
   }, [movieId, setValue]);
 
-  const { mutate: addQuote } = useMutation(postQuote, {
-    onSuccess: () => {
-      handleFeedFormStatus('');
-      handleRefecthQuotes();
-    },
-    onError(err: any) {
-      errorToast(apiErr, apiErr('add_quote_failed'), err);
-    },
-  });
+  const { mutate: addQuote, isLoading: addQuoteLoading } = useMutation(
+    postQuote,
+    {
+      onSuccess: () => {
+        handleFeedFormStatus('');
+        handleRefecthQuotes();
+      },
+      onError(err: any) {
+        errorToast(apiErr, apiErr('add_quote_failed'), err);
+      },
+    }
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     data.thumbnail = data.thumbnail[0];
@@ -58,6 +61,7 @@ const useAddQuoteFromMovieModal = (
 
   return {
     handleSubmit,
+    addQuoteLoading,
     form,
     onSubmit,
     errors,

@@ -24,7 +24,7 @@ const useMain = () => {
       (status === 'null' ||
         status === 'verified' ||
         status === 'recovered-password') &&
-        router.push('/');
+        router.push('/', undefined, { scroll: false });
     },
     [router]
   );

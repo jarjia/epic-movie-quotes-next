@@ -10,7 +10,9 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
     errors,
     handleSubmit,
     onSubmit,
-    handleUserRedirectGoogle,
+    googleRedirectLoading,
+    setIsAuthorizingWithGoogle,
+    registerLoading,
     form,
     FormProvider,
   } = useRegisterForm(handleFormStatus);
@@ -57,13 +59,19 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
           <div className='pt-1'>
             <button
               type='submit'
-              className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
+              disabled={registerLoading}
+              className={`${
+                registerLoading
+                  ? 'bg-disabled cursor-default'
+                  : 'bg-default-btn hover:bg-hover active:bg-active'
+              } mb-[12px] w-full py-[6px] rounded text-white`}
             >
               {t('get_started')}
             </button>
             <button
               type='button'
-              onClick={handleUserRedirectGoogle}
+              onClick={() => setIsAuthorizingWithGoogle(true)}
+              disabled={googleRedirectLoading}
               className='bg-transparent flex justify-center items-center border-[1px] border-white w-full py-[6px] rounded text-white'
             >
               <GoogleIcon />
@@ -73,7 +81,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
         </form>
       </FormProvider>
       <div className='flex justify-center py-3'>
-        <p className='absolute text-form-small-title'>
+        <p className='absolute sm:relative text-form-small-title'>
           {t('have_acc')}
           <button
             className='underline text-link'

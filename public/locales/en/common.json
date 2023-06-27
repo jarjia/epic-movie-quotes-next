@@ -22,5 +22,6 @@
   "filter_by": "Filter by",
   "filter_by_likes": "Likes",
   "filter_by_comments": "Comments",
-  "filter_by_new": "New"
+  "filter_by_new": "New",
+  "no_notifications": "No notifications..."
 }

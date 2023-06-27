@@ -1,7 +1,7 @@
 import { useUserUpdate } from '@/hooks';
 import { MobileInputUpdateTypes } from './types';
 import { hookUserUpdateTypes } from '@/types';
-import { IsSure } from '@/components';
+import { IsSure, PasswordInput } from '@/components';
 import { useTranslation } from 'next-i18next';
 
 const MobileUserUpdate = ({
@@ -16,6 +16,7 @@ const MobileUserUpdate = ({
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,
+    handleIsSure,
   };
   const {
     form,
@@ -25,6 +26,9 @@ const MobileUserUpdate = ({
     isObjEmpty,
     errors,
     onSubmit,
+    updateProfileLoading,
+    apiError,
+    handleClearApiError,
   } = useUserUpdate(userUpdateProps);
   const error: any = errors;
 
@@ -36,7 +40,11 @@ const MobileUserUpdate = ({
         noValidate
       >
         {isSure ? (
-          <IsSure handleIsSure={handleIsSure} />
+          <IsSure
+            name={editProfile.name}
+            handleIsSure={handleIsSure}
+            updateProfileLoading={updateProfileLoading}
+          />
         ) : (
           <>
             <div className='flex pt-12 pb-16 items-center justify-center w-full mt-4 bg-post-bg sm:bg-add-quote-bg rounded-xl'>
@@ -74,44 +82,24 @@ const MobileUserUpdate = ({
                         </li>
                       </ul>
                     </div>
-                    <div className='flex flex-col'>
-                      <label
-                        className='text-white mb-1'
-                        htmlFor={editProfile.name}
-                      >
-                        {t('new_pass')}
-                      </label>
-                      <input
-                        type='password'
-                        {...form.register(editProfile.name)}
-                        className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                        placeholder={`${t('new_pass')}`}
-                        autoComplete='off'
-                      />
-                      <div className='mt-[2px]'>
-                        <p className='absolute text-default-btn font-normal text-sm'>
-                          {error['password']?.message}
-                        </p>
-                      </div>
-                    </div>
-                    <div className='flex flex-col mt-4'>
-                      <label className='text-white mb-1' htmlFor='c_password'>
-                        {t('repeat_pass')}
-                      </label>
-                      <input
-                        type='password'
-                        {...form.register('c_password')}
-                        className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                        placeholder={`${t('repeat_pass')}`}
-                        autoComplete='off'
-                      />
-                      <div className='mt-[2px]'>
-                        <p className='absolute text-default-btn font-normal text-sm'>
-                          {error['c_password']?.message}
-                        </p>
-                      </div>
-                    </div>
+                    <PasswordInput
+                      name={editProfile.name}
+                      label={t('new_pass')}
+                      errors={error}
+                      placeholder={t('new_pass')}
+                    />
+                    <PasswordInput
+                      name='c_password'
+                      label={t('repeat_pass')}
+                      errors={errors}
+                      placeholder={t('repeat_pass')}
+                    />
                   </>
+                )}
+                {apiError !== '' && (
+                  <p className='text-center text-default-btn'>
+                    {apiError || ''}
+                  </p>
                 )}
               </div>
             </div>
@@ -124,9 +112,13 @@ const MobileUserUpdate = ({
                 {t('profile_cancel')}
               </button>
               <button
-                onClick={() =>
-                  isObjEmpty(error) && input !== undefined && handleIsSure(true)
-                }
+                type='button'
+                onClick={() => {
+                  handleClearApiError();
+                  isObjEmpty(error) &&
+                    input !== undefined &&
+                    handleIsSure(true);
+                }}
                 className='text-white rounded px-5 py-1.5 text-primary-font bg-default-btn hover:bg-hover active:bg-active'
               >
                 {t('profile_confirm')}

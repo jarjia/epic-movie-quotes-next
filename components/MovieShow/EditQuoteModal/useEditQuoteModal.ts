@@ -29,15 +29,16 @@ const useEditQuoteModal = (
   const quote: EditQuoteStateTypes = data?.data;
   const { handleFeedFormStatus } = useContext(AppContext);
   const { t } = useTranslation('movieList');
-  const { mutate: updateQuoteMutate } = useMutation(updateQuote, {
-    onSuccess: () => {
-      handleRefecthQuotes();
-      handleFeedFormStatus('');
-    },
-    onError(err: any) {
-      errorToast(apiErr, apiErr('update_quote_failed'), err);
-    },
-  });
+  const { mutate: updateQuoteMutate, isLoading: editQuoteLoading } =
+    useMutation(updateQuote, {
+      onSuccess: () => {
+        handleRefecthQuotes();
+        handleFeedFormStatus('');
+      },
+      onError(err: any) {
+        errorToast(apiErr, apiErr('update_quote_failed'), err);
+      },
+    });
   const form = useForm({
     mode: 'onChange',
     resolver: zodResolver(addQuoteSchema),
@@ -82,6 +83,7 @@ const useEditQuoteModal = (
     quote,
     errors,
     form,
+    editQuoteLoading,
     FormProvider,
   };
 };

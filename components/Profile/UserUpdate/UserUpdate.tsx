@@ -8,11 +8,13 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
   handleEditProfileClear,
   handleIsSuccess,
   editProfile,
+  handleIsSure,
 }) => {
   const userUpdateProps: hookUserUpdateTypes = {
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,
+    handleIsSure,
   };
   const {
     userData,
@@ -27,6 +29,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     FormProvider,
     apiError,
     handleClearApiError,
+    updateProfileLoading,
     t,
     errors,
   } = useUserUpdate(userUpdateProps);
@@ -109,7 +112,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             <p className='text-center text-default-btn'>{apiError || ''}</p>
           )}
         </div>
-        <div className='flex justify-end gap-4 py-3'>
+        <div className='flex justify-end gap-4 py-3 sm:px-8'>
           {isEditing && (
             <>
               <button
@@ -123,8 +126,13 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
                 {t('profile_cancel')}
               </button>
               <button
-                className='text-white rounded py-2 px-3 bg-default-btn hover:bg-hover active:bg-active'
                 type='submit'
+                disabled={updateProfileLoading}
+                className={`text-white rounded py-2 px-3 ${
+                  updateProfileLoading
+                    ? 'bg-disabled'
+                    : 'bg-default-btn hover:bg-hover active:bg-active'
+                }`}
                 onClick={() => {
                   handleClearApiError();
                 }}

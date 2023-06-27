@@ -1,5 +1,6 @@
 import {
   AddQuoteModal,
+  BackArrowIcon,
   FeedFormLayout,
   FeedLayout,
   NewsFeedControl,
@@ -10,7 +11,7 @@ import useFeed from './useFeed';
 import { useTranslation } from 'next-i18next';
 
 const Feed = () => {
-  const { feedFormStatus, currentQuoteId } = useFeed();
+  const { feedFormStatus, currentQuoteId, isScrollUpNeeded } = useFeed();
   const { t } = useTranslation('newsFeed');
 
   return (
@@ -25,9 +26,20 @@ const Feed = () => {
             <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
-        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}></div>
-        <NewsFeedControl />
-        <Posts />
+        <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}>
+          <NewsFeedControl />
+          <Posts />
+        </div>
+        {isScrollUpNeeded && (
+          <div className='fixed sm:hidden mid:hidden top-[85%] left-[90%] z-[999]'>
+            <button
+              onClick={() => window.scrollTo(0, 0)}
+              className='rotate-90 bg-post-bg shadow-2xl rounded-full p-4 px-3.5'
+            >
+              <BackArrowIcon isSearch={true} />
+            </button>
+          </div>
+        )}
       </>
     </FeedLayout>
   );

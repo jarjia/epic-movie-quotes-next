@@ -1,17 +1,19 @@
 import { MobileInputTypes } from '@/types';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { AppContext } from '@/context';
 
 const useProfile = () => {
-  const editProfileInitials = {
-    name: '',
-    label: '',
-    placeholder: '',
-    isEdit: false,
-    type: '',
-  };
+  const editProfileInitials = useMemo(() => {
+    return {
+      name: '',
+      label: '',
+      placeholder: '',
+      isEdit: false,
+      type: '',
+    };
+  }, []);
 
   const [editProfile, setEditProfile] =
     useState<MobileInputTypes>(editProfileInitials);
@@ -26,6 +28,20 @@ const useProfile = () => {
       setIsSure(false);
     }
   }, [isSure, editProfile]);
+
+  useEffect(() => {
+    const handleClearOnDesktop = () => {
+      if (window.innerWidth > 915) {
+        setEditProfile(editProfileInitials);
+      }
+    };
+
+    handleClearOnDesktop();
+    window.addEventListener('resize', handleClearOnDesktop);
+    return () => {
+      window.removeEventListener('resize', handleClearOnDesktop);
+    };
+  }, [editProfileInitials]);
 
   useEffect(() => {
     if (isSuccess) {

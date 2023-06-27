@@ -9,7 +9,7 @@ const MovieDescription: React.FC<MovieDescPropTypes> = (props) => {
     <div className='max-h-full'>
       <div>
         <div
-          className='w-full sm:block hidden mt-3 h-[100px] sm:h-[250px] sm:rounded-xl large:h-[130px] bg-cover rounded-[2px]'
+          className='w-full sm:block hidden mt-3 h-[100px] sm-mid:h-[300px] sm:h-[550px] sm:rounded-xl large:h-[130px] bg-cover rounded-[2px]'
           style={{
             backgroundImage: `url(${props.movie.thumbnail})`,
           }}

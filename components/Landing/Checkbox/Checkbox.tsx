@@ -11,6 +11,7 @@ const Checkbox: React.FC<CheckboxTypes> = (props) => {
         type='checkbox'
         {...register(props.name)}
         name={props.name}
+        id={props.name}
       />
       <label className='block text-white' htmlFor={props.name}>
         {props.label}

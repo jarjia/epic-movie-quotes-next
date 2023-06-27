@@ -2,14 +2,19 @@ import React from 'react';
 import useRecoverEmail from './useRecoverEmail';
 import { HandleFormStatusTypes } from '@/types';
 import { BackArrowIcon, Input } from '@/components';
-import { useTranslation } from 'next-i18next';
 
 const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
-  const { handleSubmit, errors, form, onSubmit, FormProvider } =
-    useRecoverEmail(handleFormStatus);
-  const { t } = useTranslation('landingForms');
+  const {
+    handleSubmit,
+    errors,
+    form,
+    onSubmit,
+    recoverEmailLoading,
+    FormProvider,
+    t,
+  } = useRecoverEmail(handleFormStatus);
 
   return (
     <div className='w-full h-full'>
@@ -33,7 +38,12 @@ const RecoverEmail: React.FC<HandleFormStatusTypes> = ({
           <div className='pt-2'>
             <button
               type='submit'
-              className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
+              disabled={recoverEmailLoading}
+              className={`${
+                recoverEmailLoading
+                  ? 'bg-disabled cursor-default'
+                  : 'bg-default-btn hover:bg-hover active:bg-active'
+              } mb-[12px] w-full py-[6px] rounded text-white`}
             >
               {t('email_recover_submit')}
             </button>

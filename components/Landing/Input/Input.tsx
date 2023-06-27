@@ -13,7 +13,7 @@ const Input: React.FC<InputTypes> = (props) => {
         type={props.type}
         {...register(props.name)}
         name={props.name}
-        className={`px-2 py-1.5 placeholder-placeholder ${
+        className={`px-2 py-1.5 pr-7 placeholder-placeholder ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn'
             : input?.length > 0

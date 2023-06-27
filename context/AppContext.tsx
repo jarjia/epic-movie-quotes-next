@@ -121,11 +121,6 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);
     setFeedFormStatus(status);
-    if (status !== '') {
-      window.scrollTo({
-        top: 0,
-      });
-    }
   };
 
   const contextValue = {

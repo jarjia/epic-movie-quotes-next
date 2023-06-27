@@ -42,7 +42,7 @@ const ProfilePage = () => {
             </FormLayout>
           ) : null}
         </div>
-        <div className='pb-1 large:px-16'>
+        <div className='pb-1 large:px-16 drop-shadow-none'>
           {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
           <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>
             {t('profile_title')}
@@ -63,6 +63,7 @@ const ProfilePage = () => {
                 handleEditProfileClear={handleEditProfileClear}
                 handleEditProfile={handleEditProfile}
                 handleIsSuccess={handleIsSuccess}
+                handleIsSure={handleIsSure}
               />
             ) : (
               <MobileUserUpdate

@@ -16,6 +16,7 @@ const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
     onSubmit,
     t,
     Controller,
+    editMovieLoading,
     errors,
   } = useEditMovieModal(movie && movie.id);
 
@@ -132,7 +133,12 @@ const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
           <ReplacePhoto movieImage={movie.thumbnail} />
           <button
             type='submit'
-            className='bg-default-btn hover:bg-hover mt-4 text-white w-full py-2 rounded active:bg-active'
+            disabled={editMovieLoading}
+            className={`${
+              editMovieLoading
+                ? 'bg-disabled'
+                : 'bg-default-btn active:bg-active hover:bg-hover'
+            } mt-4 mt-2 sm:py-2 text-white w-full rounded py-2`}
           >
             {t('movieList:edit_movie')}
           </button>

@@ -19,7 +19,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
           <span
             className={`${
               error !== undefined ? 'border-default-btn' : 'border-placeholder'
-            } text-placeholder border-[1px] border-r-0 inline-flex items-center px-2 text-sm bg-transparent rounded-l-md`}
+            } text-placeholder border-[1px] border-r-0 inline-flex focus:ring-0 focus:ring-offset-0 items-center px-2 text-sm bg-transparent rounded-l-md`}
           >
             {props.label}:
           </span>

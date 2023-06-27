@@ -56,7 +56,7 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
                     }}
                     className='flex w-full items-center text-white gap-2'
                   >
-                    <EyeIcon />
+                    <EyeIcon isPassword={false} />
                     <p>{t('view_quote')}</p>
                   </button>
                   <button

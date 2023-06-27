@@ -29,17 +29,20 @@ const useAddQuote = () => {
   const queryClient = useQueryClient();
   const { t: apiErr } = useTranslation('apiErrors');
 
-  const { mutate: addQuote } = useMutation(postQuote, {
-    onSuccess: () => {
-      handleFeedFormStatus('');
-      setTimeout(() => {
-        queryClient.invalidateQueries({ queryKey: ['quotes'] });
-      }, 1000);
-    },
-    onError(err: any) {
-      errorToast(apiErr, apiErr('add_quote_failed'), err);
-    },
-  });
+  const { mutate: addQuote, isLoading: addQuoteLoading } = useMutation(
+    postQuote,
+    {
+      onSuccess: () => {
+        handleFeedFormStatus('');
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ['quotes'] });
+        }, 1000);
+      },
+      onError(err: any) {
+        errorToast(apiErr, apiErr('add_quote_failed'), err);
+      },
+    }
+  );
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     data.thumbnail = data.thumbnail[0];
@@ -50,6 +53,7 @@ const useAddQuote = () => {
   return {
     handleSubmit,
     form,
+    addQuoteLoading,
     onSubmit,
     errors,
   };

@@ -8,8 +8,8 @@ import {
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
-import { useMutation } from 'react-query';
-import { useEffect } from 'react';
+import { useMutation, useQuery } from 'react-query';
+import { useEffect, useState } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
@@ -18,12 +18,8 @@ import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
 
 const useLoginForm = () => {
-  const {
-    getCrsfToken,
-    getUserGoogleCallback,
-    getUserGoogleRedirect,
-    postLoginUser,
-  } = useAuthService();
+  const { getUserGoogleCallback, getUserGoogleRedirect, postLoginUser } =
+    useAuthService();
   const { LoginSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
@@ -32,33 +28,47 @@ const useLoginForm = () => {
   const {
     formState: { errors },
     handleSubmit,
+    setError,
     control,
   } = form;
   const router = useRouter();
+  const [isAuthorizingWithGoogle, setIsAuthorizingWithGoogle] = useState(false);
   const { t: apiErr } = useTranslation('apiErrors');
+  const { isLoading: googleRedirectLoading } = useQuery(
+    'google-redirect',
+    getUserGoogleRedirect,
+    {
+      onSuccess(res) {
+        router.push(res.data);
+        setIsAuthorizingWithGoogle(false);
+      },
+      onError(err) {
+        errorToast(apiErr, apiErr('google_auth_failed'), err);
+      },
+      enabled: isAuthorizingWithGoogle,
+    }
+  );
 
   const remember_me = useWatch({ control, name: 'remember_me' });
 
-  const { mutate: loginUser } = useMutation(postLoginUser, {
+  const { mutate: loginUser, isLoading } = useMutation(postLoginUser, {
     onSuccess: () => {
-      localStorage.setItem('auth', 'true');
       router.push('/newsfeed');
     },
     onError: (err: any) => {
-      errorToast(
-        apiErr,
-        typeof err.response.data === 'string'
-          ? err.response.data
-          : apiErr('auth_failed'),
-        err
-      );
+      if (typeof err.response.data?.user) {
+        setError('user', {
+          message: err.response.data.user,
+        });
+      } else {
+        errorToast(apiErr, apiErr('auth_failed'), err);
+      }
     },
   });
 
   const { mutate: loginViaGoogle } = useMutation(getUserGoogleCallback, {
     onSuccess: () => {
-      sessionStorage.clear();
-      localStorage.setItem('auth', 'true');
+      sessionStorage.removeItem('form-status');
       router.push('/newsfeed');
     },
     onError: (err: any) => {
@@ -91,35 +101,22 @@ const useLoginForm = () => {
       remember_me: remember_me === undefined ? false : remember_me,
     };
     try {
-      const csrfRes = await getCrsfToken();
-      if (csrfRes.status === 204) {
-        loginUser(finalData);
-      }
+      loginUser(finalData);
     } catch (err: any) {
       errorToast(apiErr, apiErr('auth_failed'), err);
     }
   };
 
-  const handleUserRedirectGoogle = async () => {
-    toast.dismiss();
-    try {
-      const res = await getUserGoogleRedirect();
-      if (res.status === 200) {
-        router.push(res.data);
-      }
-    } catch (err: any) {
-      errorToast(apiErr, apiErr('google_auth_failed'), err);
-    }
-  };
-
   return {
-    handleUserRedirectGoogle,
     handleSubmit,
     onSubmit,
     router,
+    setIsAuthorizingWithGoogle,
     errors,
     form,
     FormProvider,
+    googleRedirectLoading,
+    isLoading,
   };
 };
 

@@ -1,3 +1,4 @@
+import { PasswordInput } from '@/components';
 import { UpdateInputTypes } from './types';
 import useUpdateInput from './useUpdateInput';
 import { UserDataTypes } from '@/types';
@@ -64,40 +65,18 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                   </li>
                 </ul>
               </div>
-              <div className='flex flex-col'>
-                <label className='text-white mb-1' htmlFor={props.name}>
-                  {props.newLabel}
-                </label>
-                <input
-                  type={props.type}
-                  {...register(props.name)}
-                  className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                  placeholder={props.placeholder}
-                  autoComplete='off'
-                />
-                <div className='mt-[2px]'>
-                  <p className='absolute text-default-btn font-normal text-sm'>
-                    {props.errors['password']?.message}
-                  </p>
-                </div>
-              </div>
-              <div className='flex flex-col mt-4'>
-                <label className='text-white mb-1' htmlFor={props.repeatName}>
-                  {props.repeatLabel}
-                </label>
-                <input
-                  type={props.type}
-                  {...register(props.repeatName)}
-                  className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-                  placeholder={props.repeatLabel}
-                  autoComplete='off'
-                />
-                <div className='mt-[2px]'>
-                  <p className='absolute text-default-btn font-normal text-sm'>
-                    {props.errors['c_password']?.message}
-                  </p>
-                </div>
-              </div>
+              <PasswordInput
+                name={props.name}
+                label={props.newLabel}
+                errors={props.errors}
+                placeholder={props.placeholder}
+              />
+              <PasswordInput
+                name={props.repeatName}
+                label={props.repeatLabel as string}
+                errors={props.errors}
+                placeholder={props.repeatLabel as string}
+              />
             </>
           ) : (
             <div className='flex flex-col'>

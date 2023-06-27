@@ -5,4 +5,5 @@ export type UserUpdateTypes = {
   handleEditProfile: (data: MobileInputTypes) => void;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
+  handleIsSure: (bool: boolean) => void;
 };

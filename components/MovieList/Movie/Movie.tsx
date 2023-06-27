@@ -15,7 +15,7 @@ const Movie: React.FC<MovieTypes> = (props) => {
         <div>
           <div
             ref={containerRef}
-            className='relative w-full bg-cover bg-center bg-white rounded-movie-radius'
+            className='relative w-full bg-cover bg-white rounded-movie-radius'
             style={{
               height: containerWidth,
               backgroundImage: `url(${props.thumbnail})`,

@@ -6,23 +6,19 @@ import {
   useForm,
 } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { useAuthService } from '@/services';
 import { PostRegisterTypes } from './types';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { LoginWithGoogleQueryTypes } from '@/types';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
 
 const useRegisterForm = (handleFormStatus: (status: string) => void) => {
-  const {
-    getCrsfToken,
-    getUserGoogleCallback,
-    getUserGoogleRedirect,
-    postRegister,
-  } = useAuthService();
+  const { getUserGoogleCallback, getUserGoogleRedirect, postRegister } =
+    useAuthService();
   const { registerSchema } = useZod();
   const form: UseFormReturn = useForm({
     mode: 'onChange',
@@ -31,29 +27,51 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const {
     formState: { errors },
     handleSubmit,
+    setError,
   } = form;
   const router = useRouter();
+  const [isAuthorizingWithGoogle, setIsAuthorizingWithGoogle] = useState(false);
   const { t: apiErr } = useTranslation('apiErrors');
+  const { isLoading: googleRedirectLoading } = useQuery(
+    'google-redirect',
+    getUserGoogleRedirect,
+    {
+      onSuccess(res) {
+        router.push(res.data);
+        setIsAuthorizingWithGoogle(false);
+      },
+      onError(err) {
+        errorToast(apiErr, apiErr('google_auth_failed'), err);
+      },
+      enabled: isAuthorizingWithGoogle,
+    }
+  );
 
-  const { mutate: registerUser } = useMutation(postRegister, {
-    onSuccess: () => {
-      handleFormStatus('email-sent');
-    },
-    onError(err: any) {
-      errorToast(
-        apiErr,
-        typeof err?.response?.data?.message === 'string'
-          ? err?.response?.data?.message
-          : apiErr('registration_failed'),
-        err
-      );
-    },
-  });
+  const { mutate: registerUser, isLoading: registerLoading } = useMutation(
+    postRegister,
+    {
+      onSuccess: () => {
+        handleFormStatus('email-sent');
+      },
+      onError(err: any) {
+        if (err?.response?.data?.errors?.email.length > 0) {
+          setError('email', {
+            message: err?.response?.data?.errors?.email[0],
+          });
+        } else {
+          errorToast(
+            apiErr,
+            err?.response?.data?.message || apiErr('registration_failed'),
+            err
+          );
+        }
+      },
+    }
+  );
 
   const { mutate: loginViaGoogle } = useMutation(getUserGoogleCallback, {
     onSuccess: () => {
-      sessionStorage.clear();
-      localStorage.setItem('auth', 'true');
+      sessionStorage.removeItem('form-status');
       router.push('/newsfeed');
     },
     onError: (err: any) => {
@@ -84,28 +102,19 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
       email: data.email,
       password: data.password,
     };
-    await getCrsfToken();
-    registerUser(finalData);
-  };
 
-  const handleUserRedirectGoogle = async () => {
-    try {
-      const res = await getUserGoogleRedirect();
-      if (res.status === 200) {
-        router.push(res.data);
-      }
-    } catch (err: any) {
-      errorToast(apiErr, apiErr('google_auth_failed'), err);
-    }
+    registerUser(finalData);
   };
 
   return {
     handleSubmit,
-    handleUserRedirectGoogle,
     onSubmit,
+    registerLoading,
     errors,
     form,
+    setIsAuthorizingWithGoogle,
     FormProvider,
+    googleRedirectLoading,
   };
 };
 

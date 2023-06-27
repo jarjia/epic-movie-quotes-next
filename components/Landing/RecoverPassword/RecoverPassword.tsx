@@ -8,9 +8,8 @@ const RecoverPassword: React.FC<HandleFormStatusTypes> = ({
   const {
     handleSubmit,
     errors,
-    apiError,
     form,
-    handleClearApiError,
+    passwordRecoverLoading,
     onSubmit,
     FormProvider,
     t,
@@ -40,14 +39,15 @@ const RecoverPassword: React.FC<HandleFormStatusTypes> = ({
             label={t('password_confirm_label')}
             errors={errors}
           />
-          {apiError !== '' && (
-            <p className='text-default-btn text-center'>{apiError}</p>
-          )}
           <div className='pt-2'>
             <button
-              onClick={handleClearApiError}
               type='submit'
-              className='bg-default-btn hover:bg-hover mb-[12px] active:bg-active w-full py-[6px] rounded text-white'
+              disabled={passwordRecoverLoading}
+              className={`${
+                passwordRecoverLoading
+                  ? 'bg-disabled cursor-default'
+                  : 'bg-default-btn hover:bg-hover active:bg-active'
+              } mb-[12px] w-full py-[6px] rounded text-white`}
             >
               {t('recover_submit')}
             </button>

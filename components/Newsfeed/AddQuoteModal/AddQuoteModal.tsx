@@ -4,7 +4,8 @@ import useAddQuote from './useAddQuote';
 import { useTranslation } from 'next-i18next';
 
 const AddQuoteModal = () => {
-  const { handleSubmit, form, onSubmit, errors } = useAddQuote();
+  const { handleSubmit, form, onSubmit, errors, addQuoteLoading } =
+    useAddQuote();
   const { t } = useTranslation('newsFeed');
 
   return (
@@ -38,7 +39,12 @@ const AddQuoteModal = () => {
         </div>
         <button
           type='submit'
-          className='bg-default-btn hover:bg-hover mt-2 sm:py-2 text-white w-full rounded py-2 active:bg-active'
+          disabled={addQuoteLoading}
+          className={`${
+            addQuoteLoading
+              ? 'bg-disabled'
+              : 'bg-default-btn active:bg-active hover:bg-hover'
+          } mt-4 mt-2 sm:py-2 text-white w-full rounded py-2`}
         >
           {t('post_quote_submit')}
         </button>

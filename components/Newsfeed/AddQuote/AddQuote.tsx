@@ -18,7 +18,7 @@ const AddQuote = () => {
       <p
         className={`text-white ${
           router.locale === 'ka' ? 'text-lg' : 'text-xl'
-        }`}
+        } mid:text-lg`}
       >
         {t('write_quote')}
       </p>

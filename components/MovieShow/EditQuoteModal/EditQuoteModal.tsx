@@ -12,6 +12,7 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
     handleSubmit,
     onSubmit,
     t,
+    editQuoteLoading,
   } = useEditQuoteModal(
     props.quoteId,
     props.movieId,
@@ -46,7 +47,12 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
         <QuotePhoto thumbnail={quote.thumbnail} />
         <button
           type='submit'
-          className='bg-default-btn hover:bg-hover mt-4 text-white w-full py-2 rounded active:bg-active'
+          disabled={editQuoteLoading}
+          className={`${
+            editQuoteLoading
+              ? 'bg-disabled'
+              : 'bg-default-btn active:bg-active hover:bg-hover'
+          } mt-4 mt-2 sm:py-2 text-white w-full rounded py-2`}
         >
           {t('edit_quote_submit')}
         </button>

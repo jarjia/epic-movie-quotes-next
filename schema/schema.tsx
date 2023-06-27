@@ -34,7 +34,9 @@ const useZod = () => {
         .refine((schema) => usernameRegex.test(schema), {
           message: t('register_password_ref') as string,
         }),
-      confirm_password: z.string(),
+      confirm_password: z
+        .string()
+        .nonempty({ message: t('confirm_password_req') as string }),
     })
     .refine((schema) => schema.confirm_password === schema.password, {
       message: t('register_c_password') as string,
@@ -94,11 +96,18 @@ const useZod = () => {
           message: t('register_password_ref') as string,
         })
         .optional(),
-      c_password: z.string().optional(),
+      c_password: z
+        .string()
+        .min(1, t('confirm_password_req') as string)
+        .optional(),
     })
     .refine((schema) => schema.c_password === schema.password, {
       message: t('register_c_password') as string,
       path: ['c_password'],
+    })
+    .refine((schema) => schema.name !== userData.name, {
+      message: t('name_should_not_be_same') as string,
+      path: ['name'],
     })
     .refine((schema) => schema.email !== userData.email, {
       message: t('same_email_err') as string,
