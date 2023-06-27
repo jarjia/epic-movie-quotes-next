@@ -15,9 +15,13 @@ const useNotificationCard = (ago: string) => {
   let locale = router.locale === 'en' ? enUS : ka;
   const { handleFeedFormStatus, handleCurrentQuoteId } = useContext(AppContext);
   const queryClient = useQueryClient();
-  const [timePassed, setTimePassed] = useState(
-    formatDistanceToNow(date, { locale })
-  );
+  let initialTimeAgo = formatDistanceToNow(date, { locale });
+  if (router.locale === 'ka') {
+    initialTimeAgo = initialTimeAgo.replace('თვე', 'თვი');
+    initialTimeAgo = initialTimeAgo.replace('დღე', 'დღი');
+    initialTimeAgo = initialTimeAgo.replace('წელი', 'წლი');
+  }
+  const [timePassed, setTimePassed] = useState(initialTimeAgo);
   const { mutate: readNotificationMutate } = useMutation(readNotification, {
     onSuccess() {
       queryClient.invalidateQueries('notifications-count');
