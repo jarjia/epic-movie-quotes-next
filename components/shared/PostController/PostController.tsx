@@ -51,8 +51,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
             filteredComments.map((comment, index) => {
-              const isLastComment =
-                index === comments.slice(0, openComments).length - 1;
+              const isLastComment = index === filteredComments.length - 1;
 
               return (
                 <div
