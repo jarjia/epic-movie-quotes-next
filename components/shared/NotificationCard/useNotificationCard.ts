@@ -28,7 +28,6 @@ const useNotificationCard = (ago: string) => {
       queryClient.invalidateQueries('notifications');
     },
   });
-  console.log(formatDistanceToNow(date, { locale }));
 
   useEffect(() => {
     const interval = setInterval(() => {

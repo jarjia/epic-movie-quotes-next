@@ -2,11 +2,13 @@ import {
   BackArrowIcon,
   ChangesSuccess,
   EmailSent,
+  FeedFormLayout,
   FeedLayout,
   FormLayout,
   LinkExpired,
   MobileUserUpdate,
   UserUpdate,
+  ViewQuoteModal,
 } from '@/components';
 import useProfile from './useProfile';
 
@@ -23,6 +25,7 @@ const ProfilePage = () => {
     handleClearForms,
     isSuccess,
     handleIsSuccess,
+    currentQuoteId,
   } = useProfile();
 
   return (
@@ -42,6 +45,11 @@ const ProfilePage = () => {
             </FormLayout>
           ) : null}
         </div>
+        {feedFormStatus === 'view-quote' ? (
+          <FeedFormLayout title={`${t('view_quote')}`}>
+            <ViewQuoteModal quoteId={currentQuoteId} />
+          </FeedFormLayout>
+        ) : null}
         <div className='pb-1 large:px-16 drop-shadow-none'>
           {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
           <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>

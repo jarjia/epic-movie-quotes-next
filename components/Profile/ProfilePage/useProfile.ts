@@ -21,7 +21,8 @@ const useProfile = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('profile');
-  const { feedFormStatus, handleFeedFormStatus } = useContext(AppContext);
+  const { feedFormStatus, handleFeedFormStatus, currentQuoteId } =
+    useContext(AppContext);
 
   useEffect(() => {
     if (!editProfile.isEdit && isSure) {
@@ -52,7 +53,7 @@ const useProfile = () => {
   }, [isSuccess]);
 
   useEffect(() => {
-    let allowedModalsArr = ['link-expired', 'email-sent'];
+    let allowedModalsArr = ['link-expired', 'email-sent', 'view-quote'];
     if (!allowedModalsArr.includes(feedFormStatus as string)) {
       handleFeedFormStatus('');
     }
@@ -102,6 +103,7 @@ const useProfile = () => {
     isSuccess,
     editProfile,
     feedFormStatus,
+    currentQuoteId,
   };
 };
 
