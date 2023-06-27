@@ -30,6 +30,7 @@ export type hookUserUpdateTypes = {
   handleEditProfileClear: () => void;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
+  handleIsSure: (bool: boolean) => void;
 };
 export type MovieCreateTypes = {
   movie: Keys;
