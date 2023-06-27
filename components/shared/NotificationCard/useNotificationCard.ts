@@ -24,14 +24,21 @@ const useNotificationCard = (ago: string) => {
       queryClient.invalidateQueries('notifications');
     },
   });
+  console.log(formatDistanceToNow(date, { locale }));
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setTimePassed(formatDistanceToNow(date, { locale }));
+      let timeAgo = formatDistanceToNow(date, { locale });
+      if (router.locale === 'ka') {
+        timeAgo = timeAgo.replace('თვე', 'თვი');
+        timeAgo = timeAgo.replace('დღე', 'დღი');
+        timeAgo = timeAgo.replace('წელი', 'წლი');
+      }
+      setTimePassed(timeAgo);
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [date, locale]);
+  }, [date, locale, router.locale]);
 
   return {
     readNotification,
