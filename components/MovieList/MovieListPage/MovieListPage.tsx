@@ -4,11 +4,13 @@ import {
   FeedLayout,
   ListHeader,
   Movies,
+  ViewQuoteModal,
 } from '@/components';
 import useMovieListPage from './useMovieListPage';
 
 const MovieListPage = () => {
-  const { feedFormStatus, movies, loading, isFetched, t } = useMovieListPage();
+  const { feedFormStatus, movies, loading, isFetched, t, currentQuoteId } =
+    useMovieListPage();
 
   return (
     <FeedLayout>
@@ -16,6 +18,10 @@ const MovieListPage = () => {
         {feedFormStatus === 'add-movie' ? (
           <FeedFormLayout title={`${t('add_movie')}`}>
             <AddMovieModal />
+          </FeedFormLayout>
+        ) : feedFormStatus === 'view-quote' ? (
+          <FeedFormLayout title={`${t('view_quote')}`}>
+            <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
         <div

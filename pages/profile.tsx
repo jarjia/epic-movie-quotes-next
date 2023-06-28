@@ -16,6 +16,7 @@ export async function getServerSideProps({
         'formErrors',
         'profile',
         'landingForms',
+        'movieList',
         'apiErrors',
       ])),
     },

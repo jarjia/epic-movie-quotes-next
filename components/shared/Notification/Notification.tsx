@@ -24,7 +24,7 @@ const Notification = () => {
           className='relative top-8 p-4 sm:p-2 bg-black rounded-xl'
           style={{ boxShadow: '0 0 30px black' }}
         >
-          <div className='flex mt-4 items-center justify-between'>
+          <div className='flex mt-4 pb-2 items-center justify-between'>
             <h2 className='text-white text-3xl sm:text-2xl'>
               {t('notifications')}
               <div className='flex gap-4 absolute text-font-base'>

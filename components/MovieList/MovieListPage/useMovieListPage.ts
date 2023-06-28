@@ -6,7 +6,8 @@ import { useQuery } from 'react-query';
 import { useRouter } from 'next/router';
 
 const useMovieListPage = () => {
-  const { feedFormStatus, handleFeedFormStatus } = useContext(AppContext);
+  const { feedFormStatus, handleFeedFormStatus, currentQuoteId } =
+    useContext(AppContext);
   const { getMovies } = useMovieService();
   const [isFetched, setIsFetched] = useState(false);
   const router = useRouter();
@@ -25,7 +26,7 @@ const useMovieListPage = () => {
   const { t } = useTranslation('movieList');
 
   useEffect(() => {
-    let allowedModalsArr = ['add-movie'];
+    let allowedModalsArr = ['add-movie', 'view-quote'];
     if (!allowedModalsArr.includes(feedFormStatus as string)) {
       handleFeedFormStatus('');
     }
@@ -37,6 +38,7 @@ const useMovieListPage = () => {
     movies,
     t,
     isFetched,
+    currentQuoteId,
   };
 };
 

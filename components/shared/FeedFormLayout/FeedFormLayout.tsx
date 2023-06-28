@@ -27,7 +27,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
     >
       <div
         className={`${
-          router.pathname === '/newsfeed' ? `w-1/2 large:w-2/6` : 'w-1/2'
+          router.pathname === '/newsfeed' ? `w-1/2 huge:w-2/6` : 'w-1/2'
         } fixed sm:w-full large:max-h-screen rounded-form-radius bg-form-back`}
       >
         <div
@@ -78,7 +78,9 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
           </div>
         </div>
         <div
-          className={`px-6 py-4 my-4 sm:h-screen h-[410px] ${
+          className={`px-6 py-4 my-4 ${
+            router.pathname === '/newsfeed' ? 'sm:h-[55vh]' : 'sm:h-screen'
+          } h-[410px] ${
             feedFormStatus === 'add-quote' ||
             feedFormStatus === 'add-quote-movie'
               ? 'large:min-h-[500px]'
@@ -89,7 +91,13 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
             <UserProfile />
             <h4>{userData?.name}</h4>
           </div>
-          <div className='mb-0 sm:mb-36 drop-shadow-none'>{children}</div>
+          <div
+            className={`mb-0 pb-1 ${
+              router.pathname === '/newsfeed' ? 'sm:mb-0' : 'sm:mb-24'
+            } drop-shadow-none`}
+          >
+            {children}
+          </div>
         </div>
       </div>
     </div>
