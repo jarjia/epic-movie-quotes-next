@@ -30,7 +30,7 @@ In epic movie quotes you can go through authorization with specific email or qui
 
 - <img style="padding-right:10px;" align="left"  src="readme/assets/react-hook-form.png"   height="25"/> <p><a href="https://react-hook-form.com/" target="_blank">[React-hook-form @7.43.9]</a> - React hook form for making easy forms with react<p/>
 
-- <img style="padding-right:10px;" align="left"  src="readme/assets/date-fns.svg"   height="25"/> <p><a href="https://date-fns.org/" target="_blank">[Date-fns @2.30.0]</a> - Working with dates made easier with date-fns<p/>
+- <img style="padding-right:10px;" align="left"  src="readme/assets/date-fns.jpg"   height="25"/> <p><a href="https://date-fns.org/" target="_blank">[Date-fns @2.30.0]</a> - Working with dates made easier with date-fns<p/>
 
 - <img style="padding-right:10px;" align="left"  src="readme/assets/laravel-echo.png"   height="25"/> <p><a href="https://laravel.com/docs/10.x/broadcasting" target="_blank">[laravel-echo @1.15.1]</a> - Javascript library for subscribing to laravel events<p/>
 
@@ -93,14 +93,14 @@ npm run dev
 ```bash
 ├─── .github
 ├─── components
-    ├── icons
-    ├── Landing
-    ├── MovieList
-    ├── MovieShow
-    ├── Newsfeed
-    ├── Profile
-    ├── shared
-    ├── index.ts
+│    ├── icons
+│    ├── Landing
+│    ├── MovieList
+│    ├── MovieShow
+│    ├── Newsfeed
+│    ├── Profile
+│    ├── shared
+│    └── index.ts
 ├─── context 
 │     ├── AppContext.tsx
 │     └── index.ts
@@ -112,9 +112,9 @@ npm run dev
 │     ├── _app.tsx
 │     ├── index.tsx
 │     ├── movie-list
-│        ├── movieId
-│           ├── index.tsx
-│        ├── index.tsx
+│     │  ├── movieId
+│     │  │  └── index.tsx
+│     │  └── index.tsx
 │     ├── newsfeed.tsx
 │     ├── 403.tsx
 │     ├── 404.tsx
@@ -122,10 +122,10 @@ npm run dev
 ├─── public 
 │     ├── assets
 │     └── locales
-│     ├── ├── en
-│     └── └── ka
+│     │   ├── en
+│     │   └── ka
 ├─── readme 
-│     └── assets
+│    └── assets
 ├─── schema
 ├─── services
 ├─── styles
