@@ -19,5 +19,4 @@ export type MovieShowTypes = {
 };
 export type AddQuoteFromMovieModalTypes = {
   movie: MovieShowTypes;
-  handleRefecthQuotes: () => void;
 };

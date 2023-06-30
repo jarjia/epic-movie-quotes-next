@@ -6,7 +6,11 @@ const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
   const { quote, isLoading, isSuccess } = useViewQuoteModal(quoteId);
 
   if (isLoading || !isSuccess) {
-    return null;
+    return (
+      <div className='flex flex-col items-center gap-2 my-16 justify-center'>
+        <h1 className='text-white text-3xl'>Loading...</h1>
+      </div>
+    );
   }
 
   return (
@@ -22,7 +26,7 @@ const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
         </div>
       </div>
       <div
-        className='w-full h-[400px] sm:h-[250px] bg-cover bg-white rounded-form-radius'
+        className='w-full bg-horizon-center h-[400px] sm:h-[250px] bg-cover bg-white rounded-form-radius'
         style={{
           backgroundImage: `url(${quote.thumbnail})`,
         }}

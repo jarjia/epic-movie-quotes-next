@@ -13,14 +13,14 @@ const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
     onSubmit,
     t,
     editQuoteLoading,
-  } = useEditQuoteModal(
-    props.quoteId,
-    props.movieId,
-    props.handleRefecthQuotes
-  );
+  } = useEditQuoteModal(props.quoteId, props.movieId);
 
   if (isLoading || !quote.quote || quote.id === 0) {
-    return null;
+    return (
+      <div className='flex flex-col items-center gap-2 my-16 justify-center'>
+        <h1 className='text-white text-3xl'>Loading...</h1>
+      </div>
+    );
   }
 
   return (
