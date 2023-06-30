@@ -1,14 +1,12 @@
 import { SuccessIcon } from '@/components';
 import { HandleFormStatusTypes } from '@/types';
 import classes from '@/styles/Landing.module.css';
-import { useTranslation } from 'next-i18next';
-import { useRouter } from 'next/router';
+import usePasswordRecovered from './usePasswordRecovered';
 
 const PasswordRecovered: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
 }) => {
-  const { t } = useTranslation('landingForms');
-  const router = useRouter();
+  const { router, t } = usePasswordRecovered();
 
   return (
     <div

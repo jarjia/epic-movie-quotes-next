@@ -16,9 +16,8 @@ const useMain = () => {
       if (res?.data?.remember_token !== null) {
         router.push('/newsfeed');
       }
-      setShouldGetUser(false);
     },
-    onError: () => {
+    onSettled() {
       setShouldGetUser(false);
     },
     enabled: shouldGetUser,
@@ -53,24 +52,24 @@ const useMain = () => {
     }
   }, [router]);
 
+  const handleClearRoute = () => {
+    const { query } = router;
+    router.push('/', undefined, {
+      locale: query.locale as string,
+    });
+  };
+
   const {
     mutate: registerUser,
     isError,
     isSuccess,
   } = useMutation(postVerify, {
     onSuccess: () => {
-      const { query } = router;
-      router.push('/', undefined, {
-        locale: query.locale as string,
-      });
       handleFormStatus('verified');
     },
     onError(err: any) {
-      const { query } = router;
-      router.push('/', undefined, {
-        locale: query.locale as string,
-      });
       if (err.response.status === 401) {
+        handleClearRoute();
         handleFormStatus('link-expired');
       }
     },
@@ -91,17 +90,13 @@ const useMain = () => {
           expires,
         };
 
-        if (!isError || !isSuccess) {
-          registerUser(data);
-        }
+        handleClearRoute();
+        registerUser(data);
       } else if (router.query.recover_token !== undefined) {
         const expiresAt = new Date(expires);
         const cur = new Date();
         if (cur > expiresAt) {
-          const { query } = router;
-          router.push('/', undefined, {
-            locale: query.locale as string,
-          });
+          handleClearRoute();
           handleFormStatus('link-expired');
         } else {
           handleFormStatus('recover-password');

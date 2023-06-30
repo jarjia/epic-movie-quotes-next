@@ -55,13 +55,17 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('email-sent');
       },
       onError(err: any) {
-        if (err?.response?.data?.errors?.name.length > 0) {
+        const error = err?.response?.data?.errors;
+        const nameErr = error?.name;
+        const emailErr = error?.email;
+
+        if (nameErr.length > 0) {
           setError('name', {
-            message: err?.response?.data?.errors?.name[0],
+            message: nameErr[0],
           });
-        } else if (err?.response?.data?.errors?.email.length > 0) {
+        } else if (emailErr.length > 0) {
           setError('email', {
-            message: err?.response?.data?.errors?.email[0],
+            message: emailErr[0],
           });
         } else {
           errorToast(

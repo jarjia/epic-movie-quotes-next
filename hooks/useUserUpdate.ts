@@ -49,21 +49,19 @@ const useUserUpdate = ({
   const [enableEmail, setEnableEmail] = useState(true);
   const password = useWatch({ control, name: 'password' });
 
+  const handleClearRoute = () => {
+    router.push('/profile', undefined, {
+      locale: router.query.locale as string,
+    });
+  };
+
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
       handleFeedFormStatus('');
-      const { pathname, asPath, query } = router;
-      router.push({ pathname, query }, asPath, {
-        locale: router.query.locale as string,
-      });
       queryClient.invalidateQueries('user');
       handleIsSuccess(true);
     },
     onError(err: any) {
-      const { pathname, asPath, query } = router;
-      router.push({ pathname, query }, asPath, {
-        locale: router.query.locale as string,
-      });
       setEnableEmail(false);
       if (
         err.response.status === 401 &&
@@ -74,6 +72,9 @@ const useUserUpdate = ({
       } else {
         errorToast(apiErr, apiErr('email_update_failed'), err);
       }
+    },
+    onSettled() {
+      handleClearRoute();
     },
   });
 
@@ -160,9 +161,10 @@ const useUserUpdate = ({
       },
       onError: (error: any) => {
         let shouldNotify = true;
-        const emailErrors = error?.response?.data?.errors?.email;
+        const err = error?.response?.data?.errors;
+        const emailErrors = err?.email;
         const passwordError = error?.response?.data?.password;
-        const nameErrors = error?.response?.data?.errors?.name;
+        const nameErrors = err?.name;
 
         if (nameErrors?.length > 0) {
           shouldNotify = false;
