@@ -28,6 +28,8 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     return null;
   }
 
+  console.log(filteredComments);
+
   return (
     <>
       <div className='flex py-4 gap-6'>
@@ -92,7 +94,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
               )}
               <button
                 onClick={() => setOpenComments(0)}
-                className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
+                className='ml-[74px] sm:ml-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}
               </button>

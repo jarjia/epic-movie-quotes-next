@@ -36,11 +36,6 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const handleOpenComments = () => {
     if (openComments === 0) {
       setOpenComments(2);
-      if (data.comments.length > 0 && feedFormStatus !== 'view-quote') {
-        setTimeout(() => {
-          window.scrollTo(0, window.scrollY + 200);
-        }, 100);
-      }
     } else if (data.comments.length === 0) {
       setOpenComments(0);
     }
