@@ -1,12 +1,14 @@
 import { AppContext } from '@/context';
 import { useRouter } from 'next/router';
-import { ChangeEvent, KeyboardEvent, useContext, useState } from 'react';
+import { KeyboardEvent, useContext, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const useListHeader = () => {
   const [isSearch, setIsSearch] = useState(false);
   const { handleFeedFormStatus } = useContext(AppContext);
   const [search, setSearch] = useState('');
   const router = useRouter();
+  const { t } = useTranslation('movieList');
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -15,20 +17,13 @@ const useListHeader = () => {
     }
   };
 
-  const handleOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
-  };
-
-  const handleIsSearch = () => {
-    setIsSearch(!isSearch);
-  };
-
   return {
-    handleIsSearch,
+    setSearch,
+    setIsSearch,
     isSearch,
     handleFeedFormStatus,
+    t,
     handleOnEnter,
-    handleOnChange,
     search,
   };
 };

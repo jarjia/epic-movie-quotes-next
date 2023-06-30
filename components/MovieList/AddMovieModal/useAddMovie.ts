@@ -32,6 +32,7 @@ const useAddMovie = () => {
   const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
   const { t: apiErr } = useTranslation('apiErrors');
+  const { t: formErrors } = useTranslation('formErrors');
 
   const { mutate: createMovie, isLoading: addMovieLoading } = useMutation(
     postMovie,
@@ -65,6 +66,7 @@ const useAddMovie = () => {
     errors,
     addMovieLoading,
     control,
+    formErrors,
     t,
   };
 };

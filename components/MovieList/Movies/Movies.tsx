@@ -1,13 +1,10 @@
-import { useContext } from 'react';
 import { MovieStructureTypes } from '@/types';
-import { AppContext } from '@/context';
-import { AddIcon, Movie } from '@/components';
+import { Movie } from '@/components';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { MoviesPropTypes } from './types';
 
 const Movies: React.FC<MoviesPropTypes> = (props) => {
-  const { handleFeedFormStatus } = useContext(AppContext);
   const router = useRouter();
   const search = router.query.search;
   const { t } = useTranslation('movieList');
@@ -16,25 +13,6 @@ const Movies: React.FC<MoviesPropTypes> = (props) => {
     return (
       <div className='flex flex-col items-center gap-2 my-16 justify-center'>
         <h1 className='text-white text-3xl'>Loading...</h1>
-      </div>
-    );
-  }
-
-  if (
-    !props.loading &&
-    props.movies.length === 0 &&
-    (search === '' || search === undefined)
-  ) {
-    return (
-      <div className='flex flex-col items-center gap-2 my-16 justify-center'>
-        <h1 className='text-center text-white text-3xl'>{t('no_movies')}</h1>
-        <button
-          onClick={() => handleFeedFormStatus('add-movie')}
-          className='flex mt-2 items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
-        >
-          <AddIcon />
-          {t('add_one_movie')}
-        </button>
       </div>
     );
   }
@@ -52,7 +30,7 @@ const Movies: React.FC<MoviesPropTypes> = (props) => {
   }
 
   return (
-    <div className='grid grid-cols-3 sm:grid-cols-1 gap-8 mt-10 sm:mt-4'>
+    <div className='grid grid-cols-3 mid:grid-cols-2 sm:grid-cols-1 gap-8 mt-10 sm:mt-4'>
       {props.movies &&
         props.movies.map((movie: MovieStructureTypes) => {
           return (

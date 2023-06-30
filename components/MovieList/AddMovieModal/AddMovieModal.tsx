@@ -14,6 +14,7 @@ const AddMovieModal = () => {
     onSubmit,
     handleSubmit,
     t: addMovie,
+    formErrors,
     control,
     form,
     errors,
@@ -43,6 +44,8 @@ const AddMovieModal = () => {
           name='releaseDate'
           control={control}
           render={({ field, fieldState: { error } }) => {
+            let errorMessage = formErrors('movie_release_date');
+
             return (
               <div className='flex flex-col'>
                 <input
@@ -61,13 +64,17 @@ const AddMovieModal = () => {
                   }}
                   className={`${
                     error !== undefined
-                      ? 'border-default-btn'
-                      : 'border-placeholder'
+                      ? 'border-default-btn focus:border-default-btn'
+                      : 'border-placeholder focus:border-placeholder'
                   } w-full placeholder-white caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 block flex-1 min-w-0 w-full`}
                 />
-                <p className='text-default-btn text-sm'>
-                  {error !== undefined && error.message}
-                </p>
+                <div>
+                  <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
+                    {error !== undefined && error.message === 'Required'
+                      ? errorMessage
+                      : error?.message}
+                  </p>
+                </div>
               </div>
             );
           }}
@@ -103,11 +110,6 @@ const AddMovieModal = () => {
           errors={errors}
         />
         <FileInput />
-        <div>
-          <p className='text-default-btn text-sm'>
-            {errors['thumbnail']?.message as string}
-          </p>
-        </div>
         <button
           type='submit'
           disabled={addMovieLoading}

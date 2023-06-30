@@ -1,18 +1,17 @@
 import { AddIcon, SearchbarIcon } from '@/components';
 import useListHeader from './useListHeader';
 import { MovieStructureTypes } from '@/types';
-import { useTranslation } from 'next-i18next';
 
 const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
   const {
     isSearch,
-    handleIsSearch,
     handleFeedFormStatus,
     search,
-    handleOnChange,
     handleOnEnter,
+    setSearch,
+    setIsSearch,
+    t,
   } = useListHeader();
-  const { t } = useTranslation('movieList');
 
   return (
     <div className='flex justify-between items-center'>
@@ -28,7 +27,7 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
         <div className='block sm:hidden'>
           {!isSearch ? (
             <button
-              onClick={handleIsSearch}
+              onClick={() => setIsSearch((prev) => !prev)}
               className='flex items-center gap-2'
             >
               <SearchbarIcon />
@@ -36,14 +35,17 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
             </button>
           ) : (
             <div className='flex items-center gap-4 w-[300px]'>
-              <button onClick={handleIsSearch} className='absolute'>
+              <button
+                onClick={() => setIsSearch((prev) => !prev)}
+                className='absolute'
+              >
                 <SearchbarIcon />
               </button>
               <form className='w-full'>
                 <input
                   type='text'
                   value={search}
-                  onChange={handleOnChange}
+                  onChange={(e) => setSearch(e.target.value)}
                   onKeyDown={handleOnEnter}
                   className='w-full pl-8 caret-white text-white bg-transparent border-0 border-b-2 border-search-bar-border focus:ring-0 focus:border-search-bar-border'
                   placeholder={`${t('search_placeholder')}`}
