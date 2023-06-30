@@ -28,9 +28,9 @@ const MobileUserUpdate = ({
     onSubmit,
     updateProfileLoading,
     apiError,
-    handleClearApiError,
+    setApiError,
+    password,
   } = useUserUpdate(userUpdateProps);
-  const error: any = errors;
 
   return (
     <FormProvider {...form}>
@@ -63,7 +63,7 @@ const MobileUserUpdate = ({
                     />
                     <div className='mt-[2px]'>
                       <p className='absolute text-default-btn font-normal text-md'>
-                        {error[editProfile.name]?.message}
+                        {errors[editProfile.name]?.message as string}
                       </p>
                     </div>
                   </div>
@@ -73,19 +73,47 @@ const MobileUserUpdate = ({
                       <h3 className='text-white'>
                         {t('profile_password_rules_title')}
                       </h3>
-                      <ul className='pl-5 pt-2'>
-                        <li className='list-disc text-input'>
-                          {t('profile_password_rule_one')}
+                      <ul className='list-disc pl-5 pt-2'>
+                        <li
+                          className={`${
+                            password?.length >= 8
+                              ? 'text-disc-valid'
+                              : 'text-input'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              password?.length >= 8
+                                ? 'text-white'
+                                : 'text-input'
+                            }`}
+                          >
+                            {t('profile_password_rule_one')}
+                          </span>
                         </li>
-                        <li className='list-disc text-white'>
-                          {t('profile_password_rule_two')}
+                        <li
+                          className={`${
+                            password?.length <= 15 && password?.length > 0
+                              ? 'text-disc-valid'
+                              : 'text-input'
+                          }`}
+                        >
+                          <span
+                            className={`${
+                              password?.length <= 15 && password?.length > 0
+                                ? 'text-white'
+                                : 'text-input'
+                            }`}
+                          >
+                            {t('profile_password_rule_two')}
+                          </span>
                         </li>
                       </ul>
                     </div>
                     <PasswordInput
                       name={editProfile.name}
                       label={t('new_pass')}
-                      errors={error}
+                      errors={errors}
                       placeholder={t('new_pass')}
                     />
                     <PasswordInput
@@ -114,8 +142,8 @@ const MobileUserUpdate = ({
               <button
                 type='button'
                 onClick={() => {
-                  handleClearApiError();
-                  isObjEmpty(error) &&
+                  setApiError('');
+                  isObjEmpty(errors) &&
                     input !== undefined &&
                     handleIsSure(true);
                 }}

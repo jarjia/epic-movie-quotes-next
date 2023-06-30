@@ -39,24 +39,41 @@ const useUserUpdate = ({
     setError,
     reset,
   } = form;
-  const { userData, handleFeedFormStatus } = useContext(AppContext);
+  const { userData, handleFeedFormStatus, feedFormStatus } =
+    useContext(AppContext);
   const [cancel, setCancel] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const router = useRouter();
   const [apiError, setApiError] = useState('');
   const [img, setImg] = useState<string | null>(null);
   const [enableEmail, setEnableEmail] = useState(true);
+  const password = useWatch({ control, name: 'password' });
 
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
       handleFeedFormStatus('');
-      router.push('/profile');
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, {
+        locale: router.query.locale as string,
+      });
       queryClient.invalidateQueries('user');
       handleIsSuccess(true);
     },
     onError(err: any) {
-      errorToast(apiErr, apiErr('email_update_failed'), err);
+      const { pathname, asPath, query } = router;
+      router.push({ pathname, query }, asPath, {
+        locale: router.query.locale as string,
+      });
       setEnableEmail(false);
+      if (
+        err.response.status === 401 &&
+        feedFormStatus !== 'link-expired' &&
+        router.query.update_token !== undefined
+      ) {
+        handleFeedFormStatus('link-expired');
+      } else {
+        errorToast(apiErr, apiErr('email_update_failed'), err);
+      }
     },
   });
 
@@ -71,45 +88,25 @@ const useUserUpdate = ({
       router.query.email !== undefined &&
       router.query.expires !== undefined
     ) {
-      const expires = router.query.expires as string;
-      const targetDate = new Date(expires);
-
-      const interval = setInterval(() => {
-        const currentTime = new Date();
-
-        const elapsedMinutes = Math.floor(
-          (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
-        );
-
-        if (elapsedMinutes >= 30) {
-          clearInterval(interval);
-          handleFeedFormStatus('link-expired');
-        } else {
-          if (router.query.update_token !== undefined) {
-            let email = router.query.email as string;
-            let update_token = router.query.update_token as string;
-            let user_id = router.query.user_id as string;
-            const data: PostEmailUpdateTypes = {
-              email,
-              update_token,
-              user_id,
-            };
-            const { pathname, asPath, query } = router;
-            router.push({ pathname, query }, asPath, {
-              locale: router.query.locale as string,
-            });
-            if (enableEmail) {
-              updateEmailMutation(data);
-            }
-          }
+      if (router.query.update_token !== undefined) {
+        let email = router.query.email as string;
+        let update_token = router.query.update_token as string;
+        let user_id = router.query.user_id as string;
+        let expires = router.query.expires as string;
+        const data: PostEmailUpdateTypes = {
+          email,
+          update_token,
+          user_id,
+          expires,
+        };
+        if (enableEmail) {
+          updateEmailMutation(data);
         }
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
+      }
     }
   }, [
+    router.query,
+    enableEmail,
     handleFeedFormStatus,
     router.query.user_id,
     router.query.email,
@@ -132,10 +129,6 @@ const useUserUpdate = ({
 
   const handleEditing = (bool: boolean) => {
     setIsEditing(bool);
-  };
-
-  const handleClearApiError = () => {
-    setApiError('');
   };
 
   const thumbnail = useWatch({ control, name: 'thumbnail' });
@@ -169,7 +162,15 @@ const useUserUpdate = ({
         let shouldNotify = true;
         const emailErrors = error?.response?.data?.errors?.email;
         const passwordError = error?.response?.data?.password;
+        const nameErrors = error?.response?.data?.errors?.name;
 
+        if (nameErrors?.length > 0) {
+          shouldNotify = false;
+          setError('name', {
+            message: nameErrors[0],
+          });
+          handleIsSure(false);
+        }
         if (emailErrors?.length > 0) {
           shouldNotify = false;
           setError('email', {
@@ -218,10 +219,11 @@ const useUserUpdate = ({
     apiError,
     onSubmit,
     isObjEmpty,
-    handleClearApiError,
+    setApiError,
     userData,
     FormProvider,
     control,
+    password,
     errors,
     form,
     updateProfileLoading,
