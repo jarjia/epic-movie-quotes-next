@@ -13,7 +13,7 @@ const Post: React.FC<PostTypes> = (props) => {
             className='w-profile h-profile rounded-full bg-cover bg-center'
             style={{ backgroundImage: `url(${props.authorProfile})` }}
           ></div>
-          <p className='pl-4'>{props.author}</p>
+          <p className='pl-4 capitalize'>{props.author}</p>
         </div>
         <div className='my-4'>
           <p className='break-words sm:text-base'>

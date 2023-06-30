@@ -15,14 +15,8 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const [disabled, setDisabled] = useState(false);
   const [isLiked, setIsliked] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
-  const {
-    userData,
-    newLikes,
-    handleNewLikes,
-    handleNewComment,
-    commentsArr,
-    feedFormStatus,
-  } = useContext(AppContext);
+  const { userData, newLikes, handleNewLikes, handleNewComment, commentsArr } =
+    useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
   const lastComment = useRef<null | HTMLDivElement>(null);
