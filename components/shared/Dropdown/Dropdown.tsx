@@ -3,21 +3,21 @@ import Link from 'next/link';
 import useDropdown from './useDropdown';
 
 const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
-  const { handleDropDown, shouldDropDown, router } = useDropdown();
+  const { setShouldDropDown, shouldDropDown, router } = useDropdown();
 
   return (
     <>
       {shouldDropDown && (
         <div
           className='absolute top-0 z-[99] left-0 w-screen h-screen'
-          onClick={handleDropDown}
+          onClick={() => setShouldDropDown((prev) => !prev)}
         ></div>
       )}
       <div className={`sm:hidden z-[${props.isNotification ? '90' : '99'}]`}>
         <button
           className='text-white capitalize tracking-[1px] gap-2 px-4 py-2.5 text-center inline-flex items-center'
           type='button'
-          onClick={handleDropDown}
+          onClick={() => setShouldDropDown((prev) => !prev)}
         >
           {router.locale === 'en' ? 'Eng' : 'ქარ'}
           <div className='mt-1'>
@@ -32,7 +32,7 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
                   href={router.asPath}
                   locale='en'
                   scroll={false}
-                  onClick={handleDropDown}
+                  onClick={() => setShouldDropDown((prev) => !prev)}
                   className='block px-4 py-2 hover:bg-gray-100 text-black'
                 >
                   English
@@ -43,7 +43,7 @@ const Dropdown: React.FC<{ isNotification: boolean }> = (props) => {
                   href={router.asPath}
                   locale='ka'
                   scroll={false}
-                  onClick={handleDropDown}
+                  onClick={() => setShouldDropDown((prev) => !prev)}
                   className='block px-4 py-2 hover:bg-gray-100 text-black'
                 >
                   ქართული

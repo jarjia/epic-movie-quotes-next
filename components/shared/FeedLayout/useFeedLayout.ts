@@ -19,6 +19,7 @@ const useFeedLayout = () => {
     handleUserData,
     handleNewLikes,
     userData,
+    handleFeedFormStatus,
     handleNewComment,
   } = useContext(AppContext);
   const router = useRouter();
@@ -109,6 +110,7 @@ const useFeedLayout = () => {
     router,
     isLoading,
     isError,
+    handleFeedFormStatus,
   };
 };
 
