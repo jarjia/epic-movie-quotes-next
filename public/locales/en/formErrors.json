@@ -29,5 +29,6 @@
   "movie_director_ka_ref": "Please enter movie director in georgian.",
   "movie_release_date": "Movie release date field is required",
   "movie_image": "Movie image is required",
-  "same_email_err": "New email should not be same as the old one"
+  "same_email_err": "New email should not be same as the old one",
+  "release_date_max": "Shouldn't be more than 4 characters long"
 }

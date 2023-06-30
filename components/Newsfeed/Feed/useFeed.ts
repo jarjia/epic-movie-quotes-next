@@ -1,10 +1,12 @@
 import { AppContext } from '@/context';
 import { useCallback, useContext, useEffect, useState } from 'react';
+import { useTranslation } from 'next-i18next';
 
 const useFeed = () => {
   const { feedFormStatus, currentQuoteId, handleFeedFormStatus } =
     useContext(AppContext);
   const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
+  const { t } = useTranslation('newsFeed');
 
   const handleBackScroll = useCallback(() => {
     if (window.scrollY > window.innerHeight * 2) {
@@ -22,13 +24,14 @@ const useFeed = () => {
   }, [handleBackScroll]);
 
   useEffect(() => {
-    let allowedModalsArr = ['view-quote', 'add-quote'];
+    let allowedModalsArr = ['view-quote', 'add-quote', ''];
     if (!allowedModalsArr.includes(feedFormStatus as string)) {
       handleFeedFormStatus('');
     }
   }, [feedFormStatus, handleFeedFormStatus]);
 
   return {
+    t,
     feedFormStatus,
     currentQuoteId,
     isScrollUpNeeded,

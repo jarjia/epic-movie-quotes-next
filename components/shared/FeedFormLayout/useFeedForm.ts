@@ -1,28 +1,50 @@
 import { AppContext } from '@/context';
 import { useQuoteService } from '@/services';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
-const useFeedForm = (handleRefecthQuotes?: () => void) => {
+const useFeedForm = () => {
   const { deleteQuote } = useQuoteService();
-  const { handleFeedFormStatus, userData, feedFormStatus } =
-    useContext(AppContext);
+  const { handleFeedFormStatus, userData } = useContext(AppContext);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
   const { mutate: deleteQuoteMutate } = useMutation(deleteQuote, {
     onSuccess: () => {
-      if (handleRefecthQuotes) {
-        handleRefecthQuotes();
-      }
       handleFeedFormStatus('');
+      queryClient.invalidateQueries('movies');
     },
   });
+  const offTopRef = useRef<null | HTMLDivElement>(null);
+  const headerRef = useRef<null | HTMLDivElement>(null);
+  const [maxHeight, setMaxHeight] = useState<number | null>(null);
+
+  const handleChangeRef = () => {
+    if (offTopRef.current && headerRef.current) {
+      const newSum =
+        offTopRef.current.offsetTop + headerRef.current.clientHeight;
+      setMaxHeight(newSum);
+    }
+  };
+
+  useEffect(() => {
+    handleChangeRef();
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('resize', handleChangeRef);
+    return () => {
+      window.addEventListener('resize', handleChangeRef);
+    };
+  }, []);
 
   return {
     deleteQuoteMutate,
-    feedFormStatus,
+    maxHeight,
+    offTopRef,
+    headerRef,
     router,
     handleFeedFormStatus,
     userData,

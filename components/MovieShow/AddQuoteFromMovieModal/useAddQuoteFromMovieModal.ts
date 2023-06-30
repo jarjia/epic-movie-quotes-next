@@ -12,13 +12,10 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import { useMutation } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 import { errorToast } from '@/helpers';
 
-const useAddQuoteFromMovieModal = (
-  movieId: number,
-  handleRefecthQuotes: () => void
-) => {
+const useAddQuoteFromMovieModal = (movieId: number) => {
   const { postQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
   const form: UseFormReturn = useForm({
@@ -35,6 +32,7 @@ const useAddQuoteFromMovieModal = (
   const { t } = useTranslation('movieList');
   const { t: apiErr } = useTranslation('apiErrors');
   let locale = router.locale as string;
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     setValue('movieId', movieId);
@@ -45,7 +43,7 @@ const useAddQuoteFromMovieModal = (
     {
       onSuccess: () => {
         handleFeedFormStatus('');
-        handleRefecthQuotes();
+        queryClient.invalidateQueries('movies');
       },
       onError(err: any) {
         errorToast(apiErr, apiErr('add_quote_failed'), err);

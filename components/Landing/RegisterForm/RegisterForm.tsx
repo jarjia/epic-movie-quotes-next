@@ -1,7 +1,6 @@
 import { Input, GoogleIcon, PasswordInput } from '@/components';
 import useRegisterForm from './useRegisterForm';
 import { HandleFormStatusTypes } from '@/types';
-import { useTranslation } from 'next-i18next';
 
 const RegisterForm: React.FC<HandleFormStatusTypes> = ({
   handleFormStatus,
@@ -15,8 +14,8 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
     registerLoading,
     form,
     FormProvider,
+    t,
   } = useRegisterForm(handleFormStatus);
-  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>
@@ -80,8 +79,8 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
           </div>
         </form>
       </FormProvider>
-      <div className='flex justify-center py-3'>
-        <p className='absolute sm:relative text-form-small-title'>
+      <div className='flex justify-center pt-3'>
+        <p className='text-form-small-title'>
           {t('have_acc')}
           <button
             className='underline text-link'

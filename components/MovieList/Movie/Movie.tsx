@@ -15,17 +15,16 @@ const Movie: React.FC<MovieTypes> = (props) => {
         <div>
           <div
             ref={containerRef}
-            className='relative w-full bg-cover bg-white rounded-movie-radius'
+            className='relative w-full bg-cover bg-horizon-center bg-white rounded-movie-radius'
             style={{
               height: containerWidth,
               backgroundImage: `url(${props.thumbnail})`,
             }}
           ></div>
         </div>
-        <div className='mt-2'>
-          <p className='text-xl'>
-            {props.movie[locale]} ({props.releaseDate})
-          </p>
+        <div className='flex mt-2'>
+          <p className='text-xl truncate'>{props.movie[locale]}</p>
+          <p className='text-xl pl-1'>({props.releaseDate})</p>
         </div>
         <div className='flex mt-2 gap-3 items-center'>
           <span className='text-font-base'>{props.quotes.length}</span>{' '}

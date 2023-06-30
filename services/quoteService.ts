@@ -7,7 +7,7 @@ const useQuoteService = () => {
   let locale = router.locale;
 
   const postQuote = (data: PostQuoteTypes) => {
-    return axios.post('/api/quote/create', data, {
+    return axios.post('/api/quotes', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -22,27 +22,26 @@ const useQuoteService = () => {
   };
 
   const getQuote = (quoteId: string | null) => {
-    return axios.get('/api/movie/quote', {
-      params: { quoteId },
-    });
+    return axios.get(`/api/quotes/${quoteId}`);
   };
 
   const deleteQuote = (quoteId: string | null) => {
-    return axios.delete(`/api/quote/delete/${quoteId}`);
+    return axios.delete(`/api/quote/${quoteId}`);
   };
 
   const updateQuote = (
     data: UpdateQuotesTypes & { quoteId: string | null }
   ) => {
-    return axios.post(`/api/quote/update/${data.quoteId}`, data, {
+    return axios.post(`/api/quote/${data.quoteId}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
+      params: { _method: 'PATCH' },
     });
   };
 
   const getAllQuotes = (paginate: number, search: string) => {
-    return axios.get('/api/quotes/all', {
+    return axios.get('/api/quotes', {
       params: { paginate, search, locale },
     });
   };

@@ -1,10 +1,9 @@
-import { Keys } from '@/types';
+import { CommentTypes, Keys } from '@/types';
 
 export type QuoteCardTypes = {
   id: number;
   quote: Keys;
   thumbnail: string;
-  handleRefecthQuotes: () => void;
-  likesNumber: number;
-  commentsNumber: number;
+  likes: number[];
+  comments: CommentTypes[];
 };

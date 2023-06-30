@@ -9,7 +9,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
       : props.errors[props.errorName]?.ka;
 
   return (
-    <div className='my-2'>
+    <div className='my-6'>
       <div className='relative float-right right-9 top-1 text-white'>
         <p className='absolute text-placeholder'>{props.lang}</p>
       </div>
@@ -21,10 +21,10 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
           error !== undefined
             ? 'border-default-btn focus:border-default-btn'
             : 'border-placeholder focus:border-placeholder'
-        } w-full caret-white placeholder-white border-[1px] text-white pr-10 overflow-hidden focus:ring-0 focus:border-placeholder h-16 min-h-[50px] placeholder-placeholder bg-transparent h-16`}
+        } w-full caret-white placeholder-white border-[1px] text-white pr-10 overflow-hidden focus:ring-0 h-16 min-h-[50px] placeholder-placeholder bg-transparent h-16`}
       ></textarea>
-      <div className='mt-[2px]'>
-        <p className='text-default-btn text-sm'>
+      <div className='relative bottom-1.5'>
+        <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
           {props.lang === 'Eng'
             ? props.errors[props.errorName]?.en?.message
             : props.errors[props.errorName]?.ka?.message}

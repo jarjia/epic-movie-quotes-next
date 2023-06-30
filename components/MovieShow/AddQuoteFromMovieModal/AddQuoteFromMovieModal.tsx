@@ -7,7 +7,7 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
   props
 ) => {
   const { handleSubmit, onSubmit, errors, form, locale, t, addQuoteLoading } =
-    useAddQuoteFromMovieModal(props.movie.id, props.handleRefecthQuotes);
+    useAddQuoteFromMovieModal(props.movie.id);
 
   return (
     <FormProvider {...form}>
@@ -20,7 +20,8 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
         ></div>
         <div className='pl-4'>
           <h2 className='text-title text-xl'>
-            {props.movie.movie[locale]} ({props.movie.releaseDate})
+            <p className='text-xl truncate'>{props.movie.movie[locale]}</p>
+            <p className='text-xl pl-1'>({props.movie.releaseDate})</p>
           </h2>
           <div className='sm:flex sm:flex-col-reverse'>
             <div className='flex w-full flex-wrap py-4 gap-1 large:gap-2 sm:gap-2 sm:max-h-full max-h-[100px] sm:overflow-y-auto overflow-y-scroll scrollbar'>
@@ -36,9 +37,9 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
                   );
                 })}
             </div>
-            <h3 className='text-placeholder sm:text-white mt-2'>
+            <h3 className='text-placeholder truncate sm:text-white mt-2'>
               {t('movie_show_director')}
-              <span className='pl-2 text-white'>
+              <span className='pl-2 text-white truncate'>
                 {props.movie.director[locale]}
               </span>
             </h3>
@@ -66,11 +67,6 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
           <div className='my-2'>
             <FileInput />
           </div>
-        </div>
-        <div>
-          <p className='text-default-btn text-sm'>
-            {errors['thumbnail']?.message as string}
-          </p>
         </div>
         <button
           type='submit'

@@ -105,6 +105,7 @@ export type MovieShowTypes = {
   thumbnail: string;
   updated_at: string;
   user_id: number;
+  quotes: QuotesTypes[];
 };
 export type QuotesTypes = {
   id: number;
@@ -167,6 +168,7 @@ export type PostEmailUpdateTypes = {
   email: string;
   update_token: string;
   user_id: string;
+  expires: string;
 };
 export type NewLikeTypes = {
   quoteId: number;

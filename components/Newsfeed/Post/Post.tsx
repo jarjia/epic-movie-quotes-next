@@ -17,7 +17,7 @@ const Post: React.FC<PostTypes> = (props) => {
         </div>
         <div className='my-4'>
           <p className='break-words sm:text-base'>
-            “<span>{props.quote[locale]}</span>”
+            “<span className='break-words'>{props.quote[locale]}</span>”
             <span className='pl-1'>{t('movie')}-</span>
             <span className='text-title pr-2'>{props.movie[locale]}</span>(
             {props.releaseDate})
@@ -25,7 +25,7 @@ const Post: React.FC<PostTypes> = (props) => {
         </div>
       </div>
       <div
-        className='w-full h-[400px] sm:h-[250px] bg-cover bg-white rounded-form-radius'
+        className='w-full h-[400px] sm-mid:h-[250px] bg-cover bg-white rounded-form-radius'
         style={{
           backgroundImage: `url(${props.thumbnail})`,
         }}

@@ -11,16 +11,20 @@ module.exports = {
       screens: {
         sm: { max: '915px' },
         'sm-mid': { max: '650px' },
+        'mid-normal': { min: '916px', max: '1030px' },
         mid: { min: '916px', max: '1250px' },
         normal: { min: '1250px', max: '1680px' },
         large: { min: '1680px' },
         huge: { min: '1920px' },
+        tiny: { max: '300px' },
+        'sm-h': { raw: '(max-height: 500px)' },
       },
       backdropBlur: {
         'landing-blur': '3px',
       },
       backgroundPosition: {
         'landing-back-img': 'center',
+        'horizon-center': '50% 0%',
       },
       borderRadius: {
         'form-radius': '10px',
@@ -38,6 +42,7 @@ module.exports = {
       },
       colors: {
         'default-btn': '#E31221',
+        'disc-valid': '#198754',
         hover: '#CC0E10',
         active: '#B80D0F',
         title: '#DDCCAA',
@@ -72,6 +77,7 @@ module.exports = {
         'form-title': '32px',
         'error-page-title': '47px',
         'font-base': '18px',
+        'tiny-font': '10px',
       },
     },
   },

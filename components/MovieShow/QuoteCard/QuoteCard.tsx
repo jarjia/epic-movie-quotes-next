@@ -12,9 +12,8 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
   thumbnail,
   quote,
   id,
-  likesNumber,
-  commentsNumber,
-  handleRefecthQuotes,
+  likes,
+  comments,
 }) => {
   const {
     isBox,
@@ -22,11 +21,11 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
     t,
     locale,
     handleFeedFormStatus,
+    newLikesArr,
     deleteQuoteMutate,
     handleCurrentQuoteId,
-    newCommentsForQuote,
-    newLikesForQuote,
-  } = useQuoteCard(handleRefecthQuotes, id);
+    newComments,
+  } = useQuoteCard(id, comments, likes);
 
   return (
     <div className='bg-post-bg pt-4 px-5 rounded-form-radius'>
@@ -101,15 +100,11 @@ const QuoteCard: React.FC<QuoteCardTypes> = ({
       </div>
       <div className='flex py-4 gap-6'>
         <div className='flex gap-2 text-white'>
-          {newCommentsForQuote !== undefined
-            ? newCommentsForQuote.comment.length
-            : commentsNumber}
+          {newComments.length}
           <CommentIcon />
         </div>
         <div className='flex gap-2 text-white'>
-          {newLikesForQuote !== undefined
-            ? newLikesForQuote.likes.length
-            : likesNumber}
+          {newLikesArr.length}
           <HeartIcon hasLiked={false} />
         </div>
       </div>

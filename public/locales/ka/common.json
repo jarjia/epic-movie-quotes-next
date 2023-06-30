@@ -23,5 +23,7 @@
   "filter_by_likes": "ლაიქებით",
   "filter_by_comments": "კომენტარებით",
   "filter_by_new": "ახლით",
-  "no_notifications": "შეტყობინებები ვერ მოიძებნა"
+  "no_notifications": "შეტყობინებები ვერ მოიძებნა",
+  "uploaded": "თქვენი ფოტო ატვირთულია",
+  "reupload": "ახლიდან ატვირთვა"
 }

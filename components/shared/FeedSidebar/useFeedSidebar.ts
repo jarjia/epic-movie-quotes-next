@@ -10,10 +10,6 @@ const useFeedSidebar = () => {
     useContext(AppContext);
   const { t } = useTranslation('common');
 
-  const handleDropDown = () => {
-    setDropdown(!dropDown);
-  };
-
   return {
     userData,
     handleShouldLogout,
@@ -22,7 +18,7 @@ const useFeedSidebar = () => {
     t,
     dropDown,
     router,
-    handleDropDown,
+    setDropdown,
   };
 };
 

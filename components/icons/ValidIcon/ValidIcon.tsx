@@ -1,10 +1,18 @@
+import { useRouter } from 'next/router';
+
 const ValidIcon: React.FC = () => {
+  const router = useRouter();
+
   return (
     <svg
       width='18'
       height='18'
       viewBox='0 0 18 18'
-      className='absolute'
+      className={
+        router.pathname === '/profile' || router.pathname === '/'
+          ? 'absolute'
+          : 'relative'
+      }
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >

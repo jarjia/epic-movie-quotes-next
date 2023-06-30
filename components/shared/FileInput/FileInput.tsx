@@ -1,43 +1,48 @@
-import { FileCameraIcon } from '@/components';
-import { useFormContext } from 'react-hook-form';
-import { useTranslation } from 'next-i18next';
+import { FileCameraIcon, ValidIcon } from '@/components';
+import useFileInput from './useFileInput';
 
 const FileInput = () => {
-  const { register, setValue } = useFormContext();
-  const { t } = useTranslation('common');
-
-  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
-
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setValue('thumbnail', e.dataTransfer.files);
-  };
+  const { handleDragOver, handleDrop, image, errors, register, t } =
+    useFileInput();
 
   return (
-    <label>
-      <input type='file' {...register('thumbnail')} className='hidden' />
-      <div
-        onDrop={(e) => handleDrop(e)}
-        onDragOver={handleDragOver}
-        className='flex items-center border-[1px] border-placeholder p-3 text-white gap-2'
-      >
-        <FileCameraIcon />
-        <p className='block sm:hidden'>
-          {t('drag_drop')}
-          <span className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded'>
-            {t('choose_file')}
-          </span>
-        </p>
-        <div className='sm:flex w-full justify-between items-center hidden'>
-          <p>{t('mobile_choose_file')}</p>
-          <p className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded sm:rounded-none'>
-            {t('choose_file')}
-          </p>
+    <div className='pb-2'>
+      <label>
+        <input type='file' {...register('thumbnail')} className='hidden' />
+        <div
+          onDrop={(e) => handleDrop(e)}
+          onDragOver={handleDragOver}
+          className={`flex items-center border-[1px] ${
+            errors['thumbnail'] ? 'border-default-btn' : 'border-placeholder'
+          } p-3 text-white gap-2`}
+        >
+          <FileCameraIcon />
+          <div className='flex items-center w-full sm:hidden'>
+            <div className='flex gap-2'>
+              {image === undefined ? t('drag_drop') : t('uploaded')}
+              {image !== undefined && <ValidIcon />}
+            </div>
+            <div className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded'>
+              {image === undefined ? t('choose_file') : t('reupload')}
+            </div>
+          </div>
+          <div className='sm:flex w-full justify-between items-center hidden'>
+            <p className='flex gap-2'>
+              {image === undefined ? t('mobile_choose_file') : t('uploaded')}
+              {image !== undefined && <ValidIcon />}
+            </p>
+            <p className='cursor-pointer bg-choose-file mx-2 p-2 py-1 rounded sm:rounded-none'>
+              {image === undefined ? t('choose_file') : t('reupload')}
+            </p>
+          </div>
         </div>
+      </label>
+      <div>
+        <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
+          {errors['thumbnail']?.message as string}
+        </p>
       </div>
-    </label>
+    </div>
   );
 };
 

@@ -23,5 +23,7 @@
   "filter_by_likes": "Likes",
   "filter_by_comments": "Comments",
   "filter_by_new": "New",
-  "no_notifications": "No notifications..."
+  "no_notifications": "No notifications...",
+  "uploaded": "Your image was uploaded",
+  "reupload": "Reupload"
 }

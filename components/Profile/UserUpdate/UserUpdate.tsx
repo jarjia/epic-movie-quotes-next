@@ -28,7 +28,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     onSubmit,
     FormProvider,
     apiError,
-    handleClearApiError,
+    setApiError,
     updateProfileLoading,
     t,
     errors,
@@ -119,7 +119,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
                 className='text-input'
                 type='reset'
                 onClick={() => {
-                  handleClearApiError();
+                  setApiError('');
                   handleCancel(true);
                 }}
               >
@@ -134,7 +134,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
                     : 'bg-default-btn hover:bg-hover active:bg-active'
                 }`}
                 onClick={() => {
-                  handleClearApiError();
+                  setApiError('');
                 }}
               >
                 {t('profile_save')}

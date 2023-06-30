@@ -26,6 +26,7 @@ const useAddQuote = () => {
     formState: { errors },
   } = form;
   const { handleFeedFormStatus } = useContext(AppContext);
+  const { t } = useTranslation('newsFeed');
   const queryClient = useQueryClient();
   const { t: apiErr } = useTranslation('apiErrors');
 
@@ -56,6 +57,7 @@ const useAddQuote = () => {
     addQuoteLoading,
     onSubmit,
     errors,
+    t,
   };
 };
 

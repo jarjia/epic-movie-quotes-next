@@ -166,7 +166,8 @@ const useZod = () => {
       .min(1),
     releaseDate: z
       .string()
-      .nonempty({ message: t('movie_release_date') as string }),
+      .nonempty({ message: t('movie_release_date') as string })
+      .max(4, { message: t('release_date_max') as string }),
     thumbnail: z.any().refine((val) => {
       if (router.pathname.includes('movieId')) {
         return true;

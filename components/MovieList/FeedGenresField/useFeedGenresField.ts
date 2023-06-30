@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useMovieService } from '@/services';
 import { useQuery } from 'react-query';
@@ -23,10 +23,24 @@ const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
   const { t } = useTranslation('movieList');
   const router = useRouter();
   const locale = router.locale as string;
+  const genresRef = useRef<null | HTMLDivElement>(null);
 
-  const handleSelect = () => {
-    setSelect(!select);
-  };
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        genresRef.current &&
+        !genresRef.current.contains(event.target as Node)
+      ) {
+        setSelect(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleAddGenre = (genre: GenreObjectType) => {
     const updatedItems = [...genres, genre];
@@ -51,10 +65,11 @@ const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
   return {
     handleAddGenre,
     handleDeleteGenre,
-    handleSelect,
     filteredGenres,
     control,
+    genresRef,
     select,
+    setSelect,
     genres,
     t,
     locale,

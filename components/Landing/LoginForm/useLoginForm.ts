@@ -25,6 +25,7 @@ const useLoginForm = () => {
     mode: 'onChange',
     resolver: zodResolver(LoginSchema),
   });
+  const { t } = useTranslation('landingForms');
   const {
     formState: { errors },
     handleSubmit,
@@ -117,6 +118,7 @@ const useLoginForm = () => {
     FormProvider,
     googleRedirectLoading,
     isLoading,
+    t,
   };
 };
 

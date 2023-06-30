@@ -1,12 +1,10 @@
 import { FeedTextareaForFeed, FileInput, SelectMovie } from '@/components';
 import { FormProvider } from 'react-hook-form';
 import useAddQuote from './useAddQuote';
-import { useTranslation } from 'next-i18next';
 
 const AddQuoteModal = () => {
-  const { handleSubmit, form, onSubmit, errors, addQuoteLoading } =
+  const { handleSubmit, form, onSubmit, errors, t, addQuoteLoading } =
     useAddQuote();
-  const { t } = useTranslation('newsFeed');
 
   return (
     <FormProvider {...form}>
@@ -26,17 +24,7 @@ const AddQuoteModal = () => {
           errors={errors}
         />
         <FileInput />
-        <div>
-          <p className='text-default-btn text-sm'>
-            {errors['thumbnail']?.message as string}
-          </p>
-        </div>
         <SelectMovie />
-        <div>
-          <p className='text-default-btn text-sm'>
-            {errors['movieId'] && t('select_movie_err')}
-          </p>
-        </div>
         <button
           type='submit'
           disabled={addQuoteLoading}
@@ -44,7 +32,7 @@ const AddQuoteModal = () => {
             addQuoteLoading
               ? 'bg-disabled'
               : 'bg-default-btn active:bg-active hover:bg-hover'
-          } mt-4 mt-2 sm:py-2 text-white w-full rounded py-2`}
+          } mt-6 sm:py-2 text-white w-full rounded py-2`}
         >
           {t('post_quote_submit')}
         </button>

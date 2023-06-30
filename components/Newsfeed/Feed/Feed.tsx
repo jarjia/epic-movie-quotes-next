@@ -8,11 +8,9 @@ import {
   ViewQuoteModal,
 } from '@/components';
 import useFeed from './useFeed';
-import { useTranslation } from 'next-i18next';
 
 const Feed = () => {
-  const { feedFormStatus, currentQuoteId, isScrollUpNeeded } = useFeed();
-  const { t } = useTranslation('newsFeed');
+  const { feedFormStatus, currentQuoteId, isScrollUpNeeded, t } = useFeed();
 
   return (
     <FeedLayout>

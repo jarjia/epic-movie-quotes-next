@@ -4,5 +4,4 @@ export type FeedFormLayoutTypes = {
   isEdit?: boolean;
   isDelete?: boolean;
   quoteId?: string | null;
-  handleRefecthQuotes?: () => void;
 };

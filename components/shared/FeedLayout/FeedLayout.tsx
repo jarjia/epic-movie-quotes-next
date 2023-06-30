@@ -5,7 +5,8 @@ import useFeedLayout from './useFeedLayout';
 import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
-  const { feedFormStatus, router, isLoading, isError } = useFeedLayout();
+  const { feedFormStatus, router, isLoading, isError, handleFeedFormStatus } =
+    useFeedLayout();
 
   if (isLoading || isError) {
     return <div className={`${classes.newsfeed} w-screen h-screen`}></div>;
@@ -17,13 +18,20 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
       <FeedNavbar />
       <FeedSidebar />
       {feedFormStatus !== '' && (
-        <div className='fixed w-screen h-screen z-[998]'></div>
+        <div
+          onClick={() => handleFeedFormStatus('')}
+          className='fixed w-screen h-screen z-[998]'
+        ></div>
       )}
       <section
         className={`pt-24 h-full ${
           router.pathname.includes('movie-list')
             ? 'pl-newsfeed-layout large:pl-large-newsfeed-layout sm:pl-8 pr-8 large:pr-16'
-            : 'normal:px-newsfeed-layout sm:px-0 sm:pl-0 large:px-large-newsfeed-layout huge:px-huge-newsfeed-layout mid:pl-newsfeed-layout mid:pr-8'
+            : `normal:px-newsfeed-layout sm:px-0 sm:pl-0 large:px-large-newsfeed-layout ${
+                router.pathname === '/profile'
+                  ? 'huge:px-large-newsfeed-layout'
+                  : 'huge:px-huge-newsfeed-layout'
+              } mid:pl-newsfeed-layout mid:pr-8`
         }`}
       >
         <div>{props.children}</div>

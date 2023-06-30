@@ -8,9 +8,10 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
   const {
     handleAddGenre,
     handleDeleteGenre,
-    handleSelect,
+    setSelect,
     filteredGenres,
     control,
+    genresRef,
     genres,
     t,
     locale,
@@ -25,14 +26,14 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
         defaultValue={genres}
         render={(): any => null}
       />
-      <div className='w-full my-4'>
+      <div ref={genresRef} className='w-full my-6'>
         <div
-          className={`flex overflow-x-scroll scrollbar px-2 items-center border-[1px]  rounded bg-transparent ${
+          className={`flex overflow-x-scroll scrollbar px-2 items-center border-[1px] rounded bg-transparent ${
             genres.length < 1 && props.error['genres'] !== undefined
               ? 'border-default-btn'
               : 'border-placeholder'
           } w-full h-11`}
-          onClick={handleSelect}
+          onClick={() => setSelect((prev) => !prev)}
         >
           {genres.length === 0 ? (
             <p className='text-white select-none'>{t('genres_placeholder')}</p>
@@ -46,7 +47,9 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
                   }}
                   className='flex rounded-sm items-center gap-1 bg-placeholder text-white mx-0.5 px-2 py-[2px]'
                 >
-                  <p onClick={handleSelect}>{genre.genre[locale]}</p>
+                  <p onClick={() => setSelect((prev) => !prev)}>
+                    {genre.genre[locale]}
+                  </p>
                   <button
                     type='button'
                     onClick={() => handleDeleteGenre(genre.id)}
@@ -58,18 +61,16 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
             })
           )}
         </div>
-        <p className='text-default-btn text-sm'>
-          {genres.length < 1 &&
-            props.error['genres'] !== undefined &&
-            t('genres_error')}
-        </p>
+        <div>
+          <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
+            {genres.length < 1 &&
+              props.error['genres'] !== undefined &&
+              t('genres_error')}
+          </p>
+        </div>
         {select && (
-          <div
-            className={`relative bottom-${
-              props.error['genres'] !== undefined ? '5' : '0'
-            }`}
-          >
-            <div className='absolute max-h-60 overflow-y-scroll scrollbar bg-post-bg text-white rounded-b w-full z-[99]'>
+          <div className='relative'>
+            <div className='absolute max-h-60 overflow-y-scroll scrollbar bg-form-back text-white rounded-b w-full z-[99]'>
               {filteredGenres &&
                 filteredGenres.map((item: GenreObjectType) => {
                   return (

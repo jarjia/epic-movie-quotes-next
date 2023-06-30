@@ -1,13 +1,28 @@
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { useMutation } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { PostVerifyTypes } from './types';
+import { useTranslation } from 'next-i18next';
 
 const useMain = () => {
+  const { getUserData } = useAuthService();
   const [formStatus, setFormStatus] = useState<string | null>(null);
   const router = useRouter();
+  const [shouldGetUser, setShouldGetUser] = useState(true);
   const { postVerify } = useAuthService();
+  useQuery('user', getUserData, {
+    onSuccess(res) {
+      if (res?.data?.remember_token !== null) {
+        router.push('/newsfeed');
+      }
+    },
+    onSettled() {
+      setShouldGetUser(false);
+    },
+    enabled: shouldGetUser,
+  });
+  const { t } = useTranslation('landing');
 
   useEffect(() => {
     setFormStatus(JSON.parse(sessionStorage.getItem('form-status') || 'null'));
@@ -37,9 +52,26 @@ const useMain = () => {
     }
   }, [router]);
 
-  const { mutate: registerUser } = useMutation(postVerify, {
+  const handleClearRoute = () => {
+    const { query } = router;
+    router.push('/', undefined, {
+      locale: query.locale as string,
+    });
+  };
+
+  const {
+    mutate: registerUser,
+    isError,
+    isSuccess,
+  } = useMutation(postVerify, {
     onSuccess: () => {
       handleFormStatus('verified');
+    },
+    onError(err: any) {
+      if (err.response.status === 401) {
+        handleClearRoute();
+        handleFormStatus('link-expired');
+      }
     },
   });
 
@@ -49,41 +81,36 @@ const useMain = () => {
       router.query.expires !== undefined
     ) {
       const expires = router.query.expires as string;
-      const targetDate = new Date(expires);
+      if (router.query.token !== undefined) {
+        let email = router.query.email as string;
+        let token = router.query.token as string;
+        const data: PostVerifyTypes = {
+          email,
+          token,
+          expires,
+        };
 
-      const interval = setInterval(() => {
-        const currentTime = new Date();
-
-        const elapsedMinutes = Math.floor(
-          (currentTime.getTime() - targetDate.getTime()) / (1000 * 60)
-        );
-        const { pathname, asPath, query } = router;
-        router.push({ pathname, query }, asPath, {
-          locale: query.locale as string,
-        });
-        if (elapsedMinutes >= 30) {
-          clearInterval(interval);
+        handleClearRoute();
+        registerUser(data);
+      } else if (router.query.recover_token !== undefined) {
+        const expiresAt = new Date(expires);
+        const cur = new Date();
+        if (cur > expiresAt) {
+          handleClearRoute();
           handleFormStatus('link-expired');
         } else {
-          if (router.query.token !== undefined) {
-            let email = router.query.email as string;
-            let token = router.query.token as string;
-            const data: PostVerifyTypes = {
-              email,
-              token,
-            };
-            registerUser(data);
-          } else if (router.query.recover_token !== undefined) {
-            handleFormStatus('recover-password');
-          }
+          handleFormStatus('recover-password');
         }
-      }, 1000);
-
-      return () => {
-        clearInterval(interval);
-      };
+      }
     }
-  }, [registerUser, router, handleFormStatus, handleLocale]);
+  }, [
+    registerUser,
+    router,
+    handleFormStatus,
+    isSuccess,
+    isError,
+    handleLocale,
+  ]);
 
   useEffect(() => {
     if (
@@ -100,6 +127,7 @@ const useMain = () => {
   return {
     handleFormStatus,
     formStatus,
+    t,
   };
 };
 

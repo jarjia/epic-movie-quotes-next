@@ -8,16 +8,17 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
   quoteId,
   isEdit,
   isDelete,
-  handleRefecthQuotes,
 }) => {
   const {
     deleteQuoteMutate,
     userData,
-    feedFormStatus,
     router,
     t,
+    maxHeight,
+    offTopRef,
+    headerRef,
     handleFeedFormStatus,
-  } = useFeedForm(handleRefecthQuotes);
+  } = useFeedForm();
 
   return (
     <div
@@ -26,11 +27,13 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
       } relative sm:fixed sm:left-0 sm:top-0 w-full z-[999]`}
     >
       <div
+        ref={offTopRef}
         className={`${
           router.pathname === '/newsfeed' ? `w-1/2 huge:w-2/6` : 'w-1/2'
-        } fixed sm:w-full large:max-h-screen rounded-form-radius bg-form-back`}
+        } fixed sm:w-full mid:w-[63%] large:max-h-screen rounded-form-radius bg-post-bg`}
       >
         <div
+          ref={headerRef}
           className={`grid grid-cols-[97%_3%] border-b-[1px] border-search-bar-border p-4 py-6`}
         >
           {isEdit ? (
@@ -77,28 +80,24 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
             </button>
           </div>
         </div>
-        <div
-          className={`px-6 py-4 my-4 ${
-            router.pathname === '/newsfeed' ? 'sm:h-[55vh]' : 'sm:h-screen'
-          } h-[410px] ${
-            feedFormStatus === 'add-quote' ||
-            feedFormStatus === 'add-quote-movie'
-              ? 'large:min-h-[500px]'
-              : 'large:min-h-[700px]'
-          } large:max-h-full overflow-y-scroll scrollbar`}
-        >
-          <div className='flex items-center gap-4 text-white text-xl'>
-            <UserProfile />
-            <h4>{userData?.name}</h4>
-          </div>
+        {maxHeight !== null && (
           <div
-            className={`mb-0 pb-1 ${
-              router.pathname === '/newsfeed' ? 'sm:mb-0' : 'sm:mb-24'
-            } drop-shadow-none`}
+            className={`px-6 mb-1 py-4 my-4 h-auto ${
+              router.pathname === '/newsfeed'
+                ? 'sm:h-[70vh] sm-h:h-screen'
+                : 'sm:h-screen'
+            } overflow-y-scroll scrollbar`}
+            style={{
+              maxHeight: `calc(95vh - ${maxHeight}px)`,
+            }}
           >
-            {children}
+            <div className='flex items-center gap-4 text-white text-xl'>
+              <UserProfile />
+              <h4>{userData?.name}</h4>
+            </div>
+            <div className='pb-1 drop-shadow-none'>{children}</div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

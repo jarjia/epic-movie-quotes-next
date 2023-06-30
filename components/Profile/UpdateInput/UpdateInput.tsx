@@ -4,8 +4,17 @@ import useUpdateInput from './useUpdateInput';
 import { UserDataTypes } from '@/types';
 
 const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
-  const { register, isEdit, handleIsEdit, t, userData, index } =
-    useUpdateInput(props);
+  const {
+    register,
+    isEdit,
+    setIsEdit,
+    inputRef,
+    t,
+    inputWidth,
+    userData,
+    index,
+    password,
+  } = useUpdateInput(props);
 
   return (
     <div className='flex flex-col items-center my-2'>
@@ -13,6 +22,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
         <div className='flex flex-col'>
           <label className='text-white mb-1'>{props.label}</label>
           <input
+            ref={inputRef}
             type={props.type}
             className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
             value={userData[index as keyof UserDataTypes]}
@@ -23,7 +33,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
         {!props.isGoogle ? (
           <div className='flex items-end'>
             <button
-              onClick={handleIsEdit}
+              onClick={() => setIsEdit((prev) => !prev)}
               type='button'
               className='relative sm:hidden block bottom-2 left-4 text-white'
             >
@@ -56,12 +66,36 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                 <h3 className='text-white'>
                   {t('profile_password_rules_title')}
                 </h3>
-                <ul className='pl-5 pt-2'>
-                  <li className='list-disc text-input'>
-                    {t('profile_password_rule_one')}
+                <ul className='list-disc pl-5 pt-2'>
+                  <li
+                    className={`${
+                      password?.length >= 8 ? 'text-disc-valid' : 'text-input'
+                    }`}
+                  >
+                    <span
+                      className={`${
+                        password?.length >= 8 ? 'text-white' : 'text-input'
+                      }`}
+                    >
+                      {t('profile_password_rule_one')}
+                    </span>
                   </li>
-                  <li className='list-disc text-white'>
-                    {t('profile_password_rule_two')}
+                  <li
+                    className={`${
+                      password?.length <= 15 && password?.length > 0
+                        ? 'text-disc-valid'
+                        : 'text-input'
+                    }`}
+                  >
+                    <span
+                      className={`${
+                        password?.length <= 15 && password?.length > 0
+                          ? 'text-white'
+                          : 'text-input'
+                      }`}
+                    >
+                      {t('profile_password_rule_two')}
+                    </span>
                   </li>
                 </ul>
               </div>
@@ -87,7 +121,10 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                 type={props.type}
                 {...register(props.name)}
                 defaultValue={userData[index as keyof UserDataTypes]}
-                className='px-2 py-1.5 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
+                className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
+                style={{
+                  width: `${inputWidth as number}px`,
+                }}
                 placeholder={props.placeholder}
                 autoComplete='off'
               />

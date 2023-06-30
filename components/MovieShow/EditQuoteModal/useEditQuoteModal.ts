@@ -11,15 +11,11 @@ import {
   useForm,
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { EditQuoteStateTypes } from './types';
 import { errorToast } from '@/helpers';
 
-const useEditQuoteModal = (
-  quoteId: string | null,
-  movieId: number,
-  handleRefecthQuotes: () => void
-) => {
+const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
   const { getQuote, updateQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
   const { t: apiErr } = useTranslation('apiErrors');
@@ -29,11 +25,12 @@ const useEditQuoteModal = (
   const quote: EditQuoteStateTypes = data?.data;
   const { handleFeedFormStatus } = useContext(AppContext);
   const { t } = useTranslation('movieList');
+  const queryClient = useQueryClient();
   const { mutate: updateQuoteMutate, isLoading: editQuoteLoading } =
     useMutation(updateQuote, {
       onSuccess: () => {
-        handleRefecthQuotes();
         handleFeedFormStatus('');
+        queryClient.invalidateQueries('movies');
       },
       onError(err: any) {
         errorToast(apiErr, apiErr('update_quote_failed'), err);

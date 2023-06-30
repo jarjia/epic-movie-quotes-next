@@ -8,11 +8,12 @@ import {
 import usePasswordInput from './usePasswordInput';
 
 const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
-  const { register, input, showPassword, handleTogglePasswordShow } =
-    usePasswordInput(props.name);
+  const { register, input, showPassword, setShowPassword } = usePasswordInput(
+    props.name
+  );
 
   return (
-    <div className='flex flex-col mb-5'>
+    <div className='flex flex-col mb-10'>
       <label className='text-white mb-1' htmlFor={props.name}>
         {props.label} <span className='text-form-required'>*</span>
       </label>
@@ -40,7 +41,7 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
       >
         <button
           type='button'
-          onClick={handleTogglePasswordShow}
+          onClick={() => setShowPassword((prev) => !prev)}
           className='absolute'
         >
           {showPassword ? <EyeIcon isPassword={true} /> : <HidePasswordIcon />}
@@ -54,8 +55,8 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
         ) : null}
       </div>
       <div className='mt-[2px]'>
-        <p className='absolute text-default-btn font-normal text-sm'>
-          {props.errors[props.name]?.message}
+        <p className='w-full relative text-default-btn font-normal tiny:text-tiny-font text-sm'>
+          <span className='absolute'>{props.errors[props.name]?.message}</span>
         </p>
       </div>
     </div>

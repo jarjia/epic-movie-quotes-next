@@ -5,13 +5,9 @@ const useDropdown = () => {
   const [shouldDropDown, setShouldDropDown] = useState(false);
   const router = useRouter();
 
-  const handleDropDown = () => {
-    setShouldDropDown(!shouldDropDown);
-  };
-
   return {
     shouldDropDown,
-    handleDropDown,
+    setShouldDropDown,
     router,
   };
 };

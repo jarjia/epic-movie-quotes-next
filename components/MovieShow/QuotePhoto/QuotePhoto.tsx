@@ -12,7 +12,7 @@ const QuotePhoto: React.FC<QuotePhotoTypes> = (props) => {
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className='flex cursor-pointer justify-center items-center shadow rounded-xl w-full h-[350px] bg-cover'
+        className='flex cursor-pointer justify-center items-center shadow rounded-xl w-full h-[350px] bg-horizon-center bg-cover'
         style={{
           backgroundImage: `url(${img !== null ? img : props.thumbnail})`,
         }}

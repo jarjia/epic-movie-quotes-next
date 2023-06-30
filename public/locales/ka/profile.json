@@ -7,7 +7,7 @@
   "profile_confirm": "დადასტურება",
   "profile_password_rules_title": "პაროლი უნდა შეიცავდეს:",
   "profile_password_rule_one": "8 ან მეტ ასოს",
-  "profile_password_rule_two": "15 პატარა ასოს",
+  "profile_password_rule_two": "15 ან ნაკლებ ასოს",
   "new_pass": "ახალი პაროლი",
   "repeat_pass": "გაიმეორე პაროლი",
   "new_name_label": "სახელი",

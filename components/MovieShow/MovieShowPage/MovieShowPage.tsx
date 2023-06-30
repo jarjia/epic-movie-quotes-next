@@ -11,20 +11,13 @@ import {
 import useMovieShowPage from './useMovieShowPage';
 
 const MovieShowPage = () => {
-  const {
-    movie,
-    t,
-    feedFormStatus,
-    handleRefecthQuotes,
-    isLoading,
-    quotes,
-    currentQuoteId,
-  } = useMovieShowPage();
+  const { movie, t, feedFormStatus, isLoading, quotes, currentQuoteId } =
+    useMovieShowPage();
 
   return (
     <FeedLayout>
       <>
-        {!isLoading && movie.id !== 0 && (
+        {!isLoading && movie.id !== 0 && quotes !== undefined && (
           <>
             {feedFormStatus === 'edit-movie' ? (
               <FeedFormLayout title={`${t('update_movie_title')}`}>
@@ -32,10 +25,7 @@ const MovieShowPage = () => {
               </FeedFormLayout>
             ) : feedFormStatus === 'add-quote-movie' ? (
               <FeedFormLayout title={`${t('post_quote_title')}`}>
-                <AddQuoteFromMovieModal
-                  movie={movie}
-                  handleRefecthQuotes={handleRefecthQuotes}
-                />
+                <AddQuoteFromMovieModal movie={movie} />
               </FeedFormLayout>
             ) : feedFormStatus === 'view-quote' ? (
               <FeedFormLayout
@@ -43,7 +33,6 @@ const MovieShowPage = () => {
                 quoteId={currentQuoteId}
                 isEdit={true}
                 isDelete={false}
-                handleRefecthQuotes={handleRefecthQuotes}
               >
                 <ViewQuoteModal quoteId={currentQuoteId} />
               </FeedFormLayout>
@@ -52,13 +41,8 @@ const MovieShowPage = () => {
                 title={`${t('edit_quote_title')}`}
                 quoteId={currentQuoteId}
                 isDelete={true}
-                handleRefecthQuotes={handleRefecthQuotes}
               >
-                <EditQuoteModal
-                  handleRefecthQuotes={handleRefecthQuotes}
-                  quoteId={currentQuoteId}
-                  movieId={movie.id}
-                />
+                <EditQuoteModal quoteId={currentQuoteId} movieId={movie.id} />
               </FeedFormLayout>
             ) : null}
             {movie && (
@@ -71,11 +55,7 @@ const MovieShowPage = () => {
                   {t('movie_show_title')}
                 </h1>
                 <div className='sm:flex sm:flex-col-reverse grid grid-cols-movie-cols gap-4 px-2 py-4'>
-                  <MovieQuotes
-                    handleRefecthQuotes={handleRefecthQuotes}
-                    movieImage={movie.thumbnail}
-                    quotes={quotes}
-                  />
+                  <MovieQuotes movieImage={movie.thumbnail} quotes={quotes} />
                   <MovieDescription movie={movie} />
                 </div>
               </div>

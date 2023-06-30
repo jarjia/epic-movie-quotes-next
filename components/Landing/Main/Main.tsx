@@ -17,12 +17,10 @@ import {
 import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
 import { ToastContainer } from 'react-toastify';
-import { useTranslation } from 'next-i18next';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Main: React.FC = () => {
-  const { handleFormStatus, formStatus } = useMain();
-  const { t } = useTranslation('landing');
+  const { handleFormStatus, formStatus, t } = useMain();
 
   return (
     <section className={`${classes.linear} max-w-screen`}>

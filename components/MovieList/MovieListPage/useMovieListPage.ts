@@ -26,7 +26,7 @@ const useMovieListPage = () => {
   const { t } = useTranslation('movieList');
 
   useEffect(() => {
-    let allowedModalsArr = ['add-movie', 'view-quote'];
+    let allowedModalsArr = ['add-movie', 'view-quote', ''];
     if (!allowedModalsArr.includes(feedFormStatus as string)) {
       handleFeedFormStatus('');
     }
