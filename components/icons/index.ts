@@ -10,7 +10,6 @@ export * from './EmailSentIcon';
 export * from './SuccessIcon';
 export * from './BackArrowIcon';
 export * from './LinkExpiredIcon';
-export * from './PasswordRecoveredIcon';
 export * from './BellIcon';
 export * from './CameraIcon';
 export * from './HouseIcon';
