@@ -28,8 +28,6 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     return null;
   }
 
-  console.log(filteredComments);
-
   return (
     <>
       <div className='flex py-4 gap-6'>
