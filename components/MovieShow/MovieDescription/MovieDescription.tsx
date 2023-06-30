@@ -55,7 +55,7 @@ const MovieDescription: React.FC<MovieDescPropTypes> = (props) => {
             </span>
           </p>
         </div>
-        <p className='mt-2 pt-2 border-t-[1px] border-t-placeholder text-white leading-[150%] break-words large:text-font-base sm:max-h-full'>
+        <p className='mt-2 pt-2 text-white leading-[150%] break-words large:text-font-base sm:max-h-full'>
           {props.movie.description[locale]}
         </p>
       </div>

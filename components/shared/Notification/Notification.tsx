@@ -96,7 +96,7 @@ const Notification = () => {
           </div>
           <div
             ref={divRef}
-            className='mt-8 max-h-[400px] pr-1 overflow-y-scroll scrollbar text-white'
+            className='mt-8 max-h-[400px] sm-h:max-h-[300px] h-auto pb-1 pr-1 overflow-y-scroll scrollbar text-white'
           >
             {notifications !== undefined && notifications.length !== 0 ? (
               notifications.map((item) => {

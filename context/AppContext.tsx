@@ -42,11 +42,16 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const router = useRouter();
   const { getLogoutUser } = useAuthService();
   useQuery('log-out', getLogoutUser, {
-    onSuccess: () => {
+    onSuccess: (res) => {
+      console.log(res);
+
       router.push('/');
       query.removeQueries('log-out');
       setShouldLogout(false);
       query.invalidateQueries('user');
+    },
+    onError(err) {
+      console.log(err);
     },
     enabled: shouldLogout,
   });

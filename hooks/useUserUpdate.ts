@@ -64,7 +64,7 @@ const useUserUpdate = ({
     onError(err: any) {
       setEnableEmail(false);
       if (
-        err.response.status === 401 &&
+        err?.response?.status === 401 &&
         feedFormStatus !== 'link-expired' &&
         router.query.update_token !== undefined
       ) {
