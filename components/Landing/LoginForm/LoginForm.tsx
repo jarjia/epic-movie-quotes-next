@@ -1,7 +1,6 @@
 import { GoogleIcon, Checkbox, Input, PasswordInput } from '@/components';
 import useLoginForm from './useLoginForm';
 import { HandleFormStatusTypes } from '@/types';
-import { useTranslation } from 'next-i18next';
 
 const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
   const {
@@ -13,8 +12,8 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
     googleRedirectLoading,
     form,
     FormProvider,
+    t,
   } = useLoginForm();
-  const { t } = useTranslation('landingForms');
 
   return (
     <div className='w-full h-full'>
@@ -75,8 +74,8 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
           </div>
         </form>
       </FormProvider>
-      <div className='flex justify-center py-3'>
-        <p className='absolute text-form-small-title'>
+      <div className='flex justify-center pt-3'>
+        <p className='text-form-small-title'>
           {t('have_not_acc')}
           <button
             className='underline text-link'

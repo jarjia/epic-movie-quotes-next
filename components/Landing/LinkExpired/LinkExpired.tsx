@@ -17,9 +17,9 @@ const LinkExpired: React.FC<LinkExpiretTypes> = ({
     >
       <LinkExpiredIcon />
       <h2
-        className={`my-6 ${
+        className={`my-2 ${
           router.locale === 'ka' ? 'text-3xl' : 'text-error-page-title'
-        } text-center text-white text-3xl`}
+        } text-center text-white text-form-title`}
       >
         {t('expired_title')}
       </h2>

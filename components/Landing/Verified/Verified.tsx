@@ -13,7 +13,7 @@ const Verified: React.FC<HandleFormStatusTypes & { isLanding: boolean }> = (
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <SuccessIcon />
-      <h2 className='my-6 text-error-page-title text-white text-3xl'>
+      <h2 className='my-6 text-center text-error-page-title text-white text-form-title'>
         {t('thank_you')}
       </h2>
       <p className='my-2 text-center text-white'>{t('verified')}</p>

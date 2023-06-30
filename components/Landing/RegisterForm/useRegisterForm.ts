@@ -32,6 +32,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   const router = useRouter();
   const [isAuthorizingWithGoogle, setIsAuthorizingWithGoogle] = useState(false);
   const { t: apiErr } = useTranslation('apiErrors');
+  const { t } = useTranslation('landingForms');
   const { isLoading: googleRedirectLoading } = useQuery(
     'google-redirect',
     getUserGoogleRedirect,
@@ -54,7 +55,11 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
         handleFormStatus('email-sent');
       },
       onError(err: any) {
-        if (err?.response?.data?.errors?.email.length > 0) {
+        if (err?.response?.data?.errors?.name.length > 0) {
+          setError('name', {
+            message: err?.response?.data?.errors?.name[0],
+          });
+        } else if (err?.response?.data?.errors?.email.length > 0) {
           setError('email', {
             message: err?.response?.data?.errors?.email[0],
           });
@@ -114,6 +119,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
     form,
     setIsAuthorizingWithGoogle,
     FormProvider,
+    t,
     googleRedirectLoading,
   };
 };
