@@ -3,27 +3,33 @@ import useMovieDesc from './useMovieDesc';
 import { MovieDescPropTypes } from './types';
 
 const MovieDescription: React.FC<MovieDescPropTypes> = (props) => {
-  const { t, handleDelete, handleFeedFormStatus, locale } = useMovieDesc();
+  const { t, movieDeletionMutation, handleFeedFormStatus, locale } =
+    useMovieDesc();
 
   return (
     <div className='max-h-full'>
       <div>
         <div
-          className='w-full sm:block hidden mt-3 h-[100px] sm-mid:h-[300px] sm:h-[550px] sm:rounded-xl large:h-[130px] bg-cover rounded-[2px]'
+          className='w-full bg-cover bg-horizon-center sm:block hidden mt-3 h-[100px] sm-mid:h-[300px] sm:h-[550px] sm:rounded-xl large:h-[130px] rounded-[2px]'
           style={{
             backgroundImage: `url(${props.movie.thumbnail})`,
           }}
         ></div>
-        <div className='flex sm:flex-col items-center sm:items-start sm:py-2 gap-2 justify-between'>
-          <h2 className='text-title text-xl'>
-            {props.movie.movie[locale]} ({props.movie.releaseDate})
+        <div className='flex sm:flex-col items-start sm:items-start sm:py-2 gap-2 justify-between'>
+          <h2 className='flex text-title text-xl'>
+            <span className='break-all capitalize max-h-[250px] overflow-y-scroll scrollbar'>
+              {props.movie.movie[locale]}
+            </span>
+            <span className='pl-1'>({props.movie.releaseDate})</span>
           </h2>
           <div className='flex items-center gap-4 px-5 py-1.5 bg-add-quote-bg rounded'>
             <button onClick={() => handleFeedFormStatus('edit-movie')}>
               <PenIcon />
             </button>
             <span className='text-placeholder'>|</span>
-            <button onClick={() => handleDelete(props.movie.id)}>
+            <button
+              onClick={() => movieDeletionMutation(props.movie.id as number)}
+            >
               <TrashBinIcon />
             </button>
           </div>
@@ -42,14 +48,14 @@ const MovieDescription: React.FC<MovieDescPropTypes> = (props) => {
             })}
         </div>
         <div className='py-1.5'>
-          <p className='text-input text-font-base'>
+          <p className='text-input max-h-[100px] overflow-y-scroll scrollbar text-font-base'>
             {t('movie_show_director')}
-            <span className='pl-4 text-white'>
+            <span className='capitalize break-all pl-4 text-white'>
               {props.movie.director[locale]}
             </span>
           </p>
         </div>
-        <p className='text-white leading-[150%] break-all large:text-font-base sm:max-h-full max-h-[250px] overflow-y-scroll scrollbar'>
+        <p className='mt-2 pt-2 border-t-[1px] border-t-placeholder text-white leading-[150%] break-words large:text-font-base sm:max-h-full'>
           {props.movie.description[locale]}
         </p>
       </div>

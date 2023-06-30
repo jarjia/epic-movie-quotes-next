@@ -22,12 +22,8 @@ const useMovieDesc = () => {
   });
   let locale = router.locale as string;
 
-  const handleDelete = async (id: number) => {
-    movieDeletionMutation(id);
-  };
-
   return {
-    handleDelete,
+    movieDeletionMutation,
     t,
     locale,
     handleFeedFormStatus,

@@ -8,7 +8,7 @@ const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
   return (
     <div className='flex flex-col'>
       <div
-        className='w-full sm:hidden block h-[350px] large:h-[400px] bg-cover rounded-xl'
+        className='w-full bg-cover bg-horizon-center sm:hidden block h-[350px] large:h-[400px] bg-cover rounded-xl'
         style={{
           backgroundImage: `url(${props.movieImage})`,
         }}
@@ -31,15 +31,15 @@ const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
         </div>
         <div className='flex flex-col gap-8 mt-8'>
           {props.quotes.map((quote) => {
+            let likeIds = quote.likes.map((item) => item.id);
             return (
               <QuoteCard
-                handleRefecthQuotes={props.handleRefecthQuotes}
                 key={quote.id}
                 id={quote.id}
                 thumbnail={quote.thumbnail}
                 quote={quote.quote}
-                commentsNumber={quote.comments.length}
-                likesNumber={quote.likes.length}
+                comments={quote.comments}
+                likes={likeIds}
               />
             );
           })}
