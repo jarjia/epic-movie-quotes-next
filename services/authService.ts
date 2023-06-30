@@ -72,6 +72,9 @@ const useAuthService = () => {
   const postUserUpdateProfile = (data: FormData) => {
     return axios.post('/api/profile/update', data, {
       params: { locale },
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     });
   };
 

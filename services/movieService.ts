@@ -11,7 +11,7 @@ const useMovieService = () => {
   };
 
   const postMovie = (data: MovieCreateTypes) => {
-    return axios.post('/api/movie/create', data, {
+    return axios.post('/api/movies', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
@@ -26,26 +26,28 @@ const useMovieService = () => {
   };
 
   const getMovie = (id: string) => {
-    return axios.get(`/api/movie`, {
-      params: { id, locale },
-    });
-  };
-
-  const deleteMovie = (movie: number | null) => {
-    return axios.delete(`/api/movie/delete/${movie}`);
-  };
-
-  const updateMovie = (data: MovieCreateTypes & { movieId: number }) => {
-    return axios.post(`/api/movie/update/${data.movieId}`, data, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
+    return axios.get(`/api/movie/${id}`, {
       params: { locale },
     });
   };
 
+  const deleteMovie = (movie: number | null) => {
+    return axios.delete(`/api/movie/${movie}`);
+  };
+
+  const updateMovie = (data: MovieCreateTypes & { movieId: number }) => {
+    return axios.post(`/api/movie/${data.movieId}`, data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+      params: { locale, _method: 'PATCH' },
+    });
+  };
+
   const getMoviesForQuote = () => {
-    return axios.get('/api/movie-for-quotes');
+    return axios.get('/api/movie/titles', {
+      params: { locale },
+    });
   };
 
   return {
