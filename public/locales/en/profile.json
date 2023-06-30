@@ -7,7 +7,7 @@
   "profile_confirm": "Confirm",
   "profile_password_rules_title": "Password should contain:",
   "profile_password_rule_one": "8 or more characters",
-  "profile_password_rule_two": "15 lowercase character",
+  "profile_password_rule_two": "15 or less characters",
   "new_pass": "Enter new password",
   "repeat_pass": "Repeat new password",
   "new_name_label": "Username",
