@@ -10,7 +10,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
   const isEdit = props.defaultVal === undefined ? false : true;
 
   return (
-    <div className='my-2'>
+    <div className='my-6'>
       <div className='relative float-right right-9 top-[8px] text-white'>
         <p className='absolute text-placeholder'>{props.lang}</p>
       </div>
@@ -41,7 +41,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
         />
       </div>
       <div>
-        <p className='text-default-btn text-sm'>
+        <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
           {props.lang === 'Eng'
             ? props.errors[props.errorName]?.en?.message
             : props.errors[props.errorName]?.ka?.message}

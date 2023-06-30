@@ -11,16 +11,12 @@ const usePasswordInput = (name: string) => {
 
   const input = useWatch({ control, name });
 
-  const handleTogglePasswordShow = () => {
-    setShowPassword(!showPassword);
-  };
-
   return {
     showPassword,
+    setShowPassword,
     register,
     input,
     touchedFields,
-    handleTogglePasswordShow,
   };
 };
 
