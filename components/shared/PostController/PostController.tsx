@@ -66,7 +66,9 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
                         backgroundImage: `url(${comment.user.thumbnail})`,
                       }}
                     ></div>
-                    <p className='pl-4 break-words'>{comment.user.name}</p>
+                    <p className='pl-4 break-words capitalize'>
+                      {comment.user.name}
+                    </p>
                   </div>
                   <div className='pl-[74px] sm:pl-0 sm:pt-2'>
                     <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
@@ -92,7 +94,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
               )}
               <button
                 onClick={() => setOpenComments(0)}
-                className='pl-[74px] sm:pl-0 mt-2 text-placeholder underline text-md'
+                className='ml-[74px] sm:ml-0 mt-2 text-placeholder underline text-md'
               >
                 {t('hide')}
               </button>

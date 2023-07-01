@@ -7,10 +7,12 @@ const FeedSidebar = () => {
     handleShouldLogout,
     t,
     handleIsNotBurger,
+    dropDownRef,
     userData,
     isBurger,
     router,
     setDropdown,
+    btnRef,
     dropDown,
   } = useFeedSidebar();
 
@@ -36,7 +38,7 @@ const FeedSidebar = () => {
             <UserProfile />
           </div>
           <div>
-            <h3 className='text-2xl text-white break-words capitalize'>
+            <h3 className='capitalize text-2xl text-white break-words capitalize'>
               {userData?.name}
             </h3>
             <p className='text-input text-sm hover:text-white'>
@@ -111,6 +113,7 @@ const FeedSidebar = () => {
               <button
                 className='text-white text-xl capitalize tracking-[1px] gap-2 px-4 py-2.5 text-center inline-flex items-center'
                 type='button'
+                ref={btnRef}
                 onClick={() => setDropdown((prev) => !prev)}
               >
                 {router.locale === 'en' ? 'Eng' : 'ქარ'}
@@ -120,7 +123,10 @@ const FeedSidebar = () => {
               </button>
               {dropDown && (
                 <div className='relative bottom-12 left-20'>
-                  <div className='z-10 absolute bg-post-bg shadow-2xl divide-y divide-gray-100 rounded-lg shadow'>
+                  <div
+                    ref={dropDownRef}
+                    className='z-10 absolute bg-post-bg shadow-2xl divide-y divide-gray-100 rounded-lg shadow'
+                  >
                     <ul className='py-2 text-md text-white'>
                       <li>
                         <Link

@@ -59,11 +59,11 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
         const nameErr = error?.name;
         const emailErr = error?.email;
 
-        if (nameErr.length > 0) {
+        if (nameErr?.length > 0) {
           setError('name', {
             message: nameErr[0],
           });
-        } else if (emailErr.length > 0) {
+        } else if (emailErr?.length > 0) {
           setError('email', {
             message: emailErr[0],
           });
