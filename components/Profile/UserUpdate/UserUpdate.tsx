@@ -20,7 +20,6 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     userData,
     handleSubmit,
     cancel,
-    isEditing,
     handleCancel,
     img,
     handleEditing,
@@ -31,6 +30,9 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     setApiError,
     updateProfileLoading,
     t,
+    allEdit,
+    handleIsAllEditing,
+    shouldEdit,
     errors,
   } = useUserUpdate(userUpdateProps);
 
@@ -38,7 +40,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
     <FormProvider {...form}>
       <form onSubmit={handleSubmit(onSubmit)} noValidate>
         <div className='pb-8 w-full large:pb-24 mt-4 bg-post-bg sm:bg-add-quote-bg sm:pb-24 sm:pt-8 rounded-xl'>
-          <div className='flex items-center justify-center w-full '>
+          <div className='flex items-center justify-center w-full'>
             <div className='w-1/4 sm:w-1/2 sm:bottom-0 relative bottom-16'>
               <label className='cursor-pointer'>
                 <input
@@ -73,6 +75,8 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             handleEditing={handleEditing}
             defaultValue={userData?.name}
             handleEditProfile={handleEditProfile}
+            handleIsAllEditing={handleIsAllEditing}
+            allEdit={allEdit}
             repeatName=''
             errors={errors}
           />
@@ -87,6 +91,8 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
             handleCancel={handleCancel}
             handleEditing={handleEditing}
             handleEditProfile={handleEditProfile}
+            handleIsAllEditing={handleIsAllEditing}
+            allEdit={allEdit}
             repeatName=''
             errors={errors}
             isGoogle={userData.google_id === null ? false : true}
@@ -104,6 +110,8 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
               handleCancel={handleCancel}
               handleEditing={handleEditing}
               handleEditProfile={handleEditProfile}
+              handleIsAllEditing={handleIsAllEditing}
+              allEdit={allEdit}
               defaultValue=''
               errors={errors}
             />
@@ -113,7 +121,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
           )}
         </div>
         <div className='flex justify-end gap-4 py-3 sm:px-8'>
-          {isEditing && (
+          {shouldEdit && (
             <>
               <button
                 className='text-input'

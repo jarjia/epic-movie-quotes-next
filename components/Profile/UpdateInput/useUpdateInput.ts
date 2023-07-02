@@ -41,6 +41,10 @@ const useUpdateInput = (props: UpdateInputTypes) => {
   }, [isEdit, props.name, resetField]);
 
   useEffect(() => {
+    props.handleIsAllEditing(isEdit, props.name);
+  }, [isEdit]);
+
+  useEffect(() => {
     if (cancel) {
       setIsEdit(false);
       handleCancel(false);
