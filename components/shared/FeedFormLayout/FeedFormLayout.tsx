@@ -18,6 +18,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
     offTopRef,
     headerRef,
     handleFeedFormStatus,
+    feedFormStatus,
   } = useFeedForm();
 
   return (
@@ -83,7 +84,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
         {maxHeight !== null && (
           <div
             className={`px-6 mb-1 py-4 my-4 h-auto ${
-              router.pathname === '/newsfeed'
+              router.pathname === '/newsfeed' && feedFormStatus === 'add-quote'
                 ? 'sm:h-[70vh] sm-h:h-screen'
                 : 'sm:h-screen'
             } overflow-y-scroll scrollbar`}

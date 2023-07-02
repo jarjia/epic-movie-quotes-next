@@ -7,7 +7,7 @@ const useSearchbar = () => {
   const { isSearch, handleIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
   const router = useRouter();
-  const [search, setSearch] = useState('');
+  const [search, setSearch] = useState(router.query.search as string);
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {

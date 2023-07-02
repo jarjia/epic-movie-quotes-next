@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from 'react-query';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
+import { SpecificFieldEditType } from './types';
 
 const useUserUpdate = ({
   handleEditProfileClear,
@@ -48,6 +49,35 @@ const useUserUpdate = ({
   const [img, setImg] = useState<string | null>(null);
   const [enableEmail, setEnableEmail] = useState(true);
   const password = useWatch({ control, name: 'password' });
+  const thumbnail = useWatch({ control, name: 'thumbnail' });
+  const defaultEdit: SpecificFieldEditType[] = [
+    {
+      id: 'name',
+      boolean: false,
+    },
+    {
+      id: 'email',
+      boolean: false,
+    },
+    {
+      id: 'password',
+      boolean: false,
+    },
+  ];
+  const [allEdit, setAllEdit] = useState<SpecificFieldEditType[]>(defaultEdit);
+
+  const handleIsAllEditing = (boolean: boolean, id: string) => {
+    setAllEdit((prev) => {
+      let newItem = {
+        id,
+        boolean,
+      };
+      let newArr = prev.filter((item) => item.id !== id);
+      newArr.push(newItem);
+
+      return newArr;
+    });
+  };
 
   const handleClearRoute = () => {
     router.push('/profile', undefined, {
@@ -132,7 +162,6 @@ const useUserUpdate = ({
     setIsEditing(bool);
   };
 
-  const thumbnail = useWatch({ control, name: 'thumbnail' });
   const input = useWatch({ control, name: editProfile.name });
 
   useEffect(() => {
@@ -211,7 +240,12 @@ const useUserUpdate = ({
     UpdateUserCredentials(formData);
   };
 
+  let shouldEdit =
+    thumbnail !== undefined ||
+    (isEditing && allEdit.some((item) => item.boolean));
+
   return {
+    shouldEdit,
     handleSubmit,
     img,
     handleEditing,
@@ -223,6 +257,8 @@ const useUserUpdate = ({
     isObjEmpty,
     setApiError,
     userData,
+    allEdit,
+    handleIsAllEditing,
     FormProvider,
     control,
     password,

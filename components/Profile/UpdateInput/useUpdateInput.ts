@@ -3,6 +3,7 @@ import { useFormContext, useWatch } from 'react-hook-form';
 import { UpdateInputTypes } from './types';
 import { AppContext } from '@/context';
 import { useTranslation } from 'next-i18next';
+import { useRouter } from 'next/router';
 
 const useUpdateInput = (props: UpdateInputTypes) => {
   const { register, control, resetField } = useFormContext();
@@ -14,6 +15,7 @@ const useUpdateInput = (props: UpdateInputTypes) => {
   let index = props.name;
   const inputRef = useRef<null | HTMLInputElement>(null);
   const password = useWatch({ control, name: 'password' });
+  const router = useRouter();
 
   const handleInputWidth = () => {
     setInputWidth(inputRef.current?.offsetWidth as number);
@@ -39,6 +41,10 @@ const useUpdateInput = (props: UpdateInputTypes) => {
   }, [isEdit, props.name, resetField]);
 
   useEffect(() => {
+    props.handleIsAllEditing(isEdit, props.name);
+  }, [isEdit]);
+
+  useEffect(() => {
     if (cancel) {
       setIsEdit(false);
       handleCancel(false);
@@ -53,6 +59,7 @@ const useUpdateInput = (props: UpdateInputTypes) => {
     isEdit,
     register,
     userData,
+    router,
     index,
     t,
     inputRef,

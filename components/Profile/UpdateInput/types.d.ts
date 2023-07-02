@@ -9,6 +9,8 @@ export type UpdateInputTypes = {
   handleCancel: (bool) => void;
   handleEditing: (bool) => void;
   handleEditProfile: (bool) => void;
+  handleIsAllEditing: (boolean, id) => void;
+  allEdit: { id: string; boolean: boolean }[];
   repeatName: string;
   repeatLabel?: string;
   errors?: any;

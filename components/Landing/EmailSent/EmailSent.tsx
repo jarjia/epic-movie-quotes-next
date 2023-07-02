@@ -1,4 +1,4 @@
-import { EmailSentIcon, SuccessIcon } from '@/components';
+import { EmailSentIcon } from '@/components';
 import classes from '@/styles/Landing.module.css';
 import { useTranslation } from 'next-i18next';
 import { EmailSentTypes } from './types';
@@ -10,12 +10,7 @@ const EmailSent: React.FC<EmailSentTypes> = ({ isProfile }) => {
     <div
       className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
-      <div className='block sm:hidden'>
-        <EmailSentIcon />
-      </div>
-      <div className='sm:block hidden'>
-        <SuccessIcon />
-      </div>
+      <EmailSentIcon />
       <h2
         className={`my-2 text-error-page-title text-white ${
           isProfile ? 'text-xl' : 'text-form-title'

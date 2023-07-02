@@ -20,6 +20,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
   const lastComment = useRef<null | HTMLDivElement>(null);
+  const commentRef = useRef<null | HTMLDivElement>(null);
 
   const followComments = () => {
     if (lastComment.current && data.comments.length > 0) {
@@ -30,6 +31,11 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const handleOpenComments = () => {
     if (openComments === 0) {
       setOpenComments(2);
+      setTimeout(() => {
+        if (commentRef.current && data.comments.length > 0) {
+          commentRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
     } else if (data.comments.length === 0) {
       setOpenComments(0);
     }
@@ -143,6 +149,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     searchRef,
     comments,
     filteredComments,
+    commentRef,
     disabled,
     openComments,
     handleOpenComments,

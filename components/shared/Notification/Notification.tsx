@@ -15,7 +15,7 @@ const Notification = () => {
   } = useNotification();
 
   return (
-    <div className='bg-red-500'>
+    <div>
       <div className='relative right-[6px] top-1'>
         <TriangleIcon />
       </div>

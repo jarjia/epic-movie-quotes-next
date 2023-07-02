@@ -45,9 +45,8 @@ const SelectMovie = () => {
             </div>
           </button>
           {isSelect && (
-            <div className='relative top-2'>
-              <div className='absolute w-full h-[1px] bg-placeholder my-2'></div>
-              <div className='absolute px-3 py-1 w-full flex z-[99] shadow-xl flex-col bg-black'>
+            <div className='relative'>
+              <div className='absolute max-h-24 overflow-y-scroll scrollbar bg-black px-2 py-1 text-white rounded-b w-full z-[99]'>
                 {movies && movies.length !== 0 ? (
                   movies.map((item: { id: number; movie: Keys }) => {
                     return (

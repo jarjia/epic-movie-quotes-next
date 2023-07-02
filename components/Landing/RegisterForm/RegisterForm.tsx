@@ -79,7 +79,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
           </div>
         </form>
       </FormProvider>
-      <div className='flex justify-center pt-3'>
+      <div className='flex justify-center pt-3 sm:py-3'>
         <p className='text-form-small-title'>
           {t('have_acc')}
           <button

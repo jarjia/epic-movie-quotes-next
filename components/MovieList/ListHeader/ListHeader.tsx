@@ -24,7 +24,7 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
         </h3>
       </div>
       <div className='flex items-center justify-center gap-6'>
-        <div className='block sm:hidden'>
+        <div className='h-[50px] flex sm:hidden'>
           {!isSearch ? (
             <button
               onClick={() => setIsSearch((prev) => !prev)}
@@ -34,7 +34,7 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
               <p className='text-input text-lg'>{t('search')}</p>
             </button>
           ) : (
-            <div className='flex items-center gap-4 w-[300px]'>
+            <div className='flex items-center gap-4 mid:w-[200px] w-[300px] h-[50px]'>
               <button
                 onClick={() => setIsSearch((prev) => !prev)}
                 className='absolute'

@@ -17,6 +17,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     handleLiked,
     filteredComments,
     searchRef,
+    commentRef,
     comments,
     setOpenComments,
     isLiked,
@@ -30,7 +31,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
 
   return (
     <>
-      <div className='flex py-4 gap-6'>
+      <div ref={commentRef} className='flex py-4 gap-6'>
         <button onClick={handleOpenComments} className='select-none flex gap-2'>
           {comments.length}
           <CommentIcon />
@@ -51,7 +52,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
             filteredComments.map((comment, index) => {
-              const isLastComment = index === filteredComments.length - 1;
+              const isLastComment = index === filteredComments.length - 2;
 
               return (
                 <div
