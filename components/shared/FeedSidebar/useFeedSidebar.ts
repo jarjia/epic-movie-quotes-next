@@ -6,6 +6,7 @@ import { useTranslation } from 'next-i18next';
 const useFeedSidebar = () => {
   const router = useRouter();
   const [dropDown, setDropdown] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const dropDownRef = useRef<null | HTMLDivElement>(null);
   const btnRef = useRef<null | HTMLButtonElement>(null);
   const { userData, handleIsNotBurger, handleShouldLogout, isBurger } =
@@ -40,6 +41,8 @@ const useFeedSidebar = () => {
     t,
     dropDown,
     dropDownRef,
+    setIsHovered,
+    isHovered,
     router,
     setDropdown,
   };

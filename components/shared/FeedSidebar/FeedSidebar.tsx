@@ -14,6 +14,8 @@ const FeedSidebar = () => {
     setDropdown,
     btnRef,
     dropDown,
+    setIsHovered,
+    isHovered,
   } = useFeedSidebar();
 
   return (
@@ -25,6 +27,8 @@ const FeedSidebar = () => {
       <div className='block sm:hidden'>
         <Link
           onClick={handleIsNotBurger}
+          onMouseOver={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
           href='/profile'
           className='my-4 cursor-pointer flex items-center gap-6'
         >
@@ -41,7 +45,7 @@ const FeedSidebar = () => {
             <h3 className='capitalize text-2xl text-white break-words capitalize'>
               {userData?.name}
             </h3>
-            <p className='text-input text-sm hover:text-white'>
+            <p className={`text-sm ${isHovered ? 'text-white' : 'text-input'}`}>
               {t('edit_profile')}
             </p>
           </div>
@@ -73,6 +77,8 @@ const FeedSidebar = () => {
             <Link
               onClick={handleIsNotBurger}
               href='/profile'
+              onMouseOver={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
               className='cursor-pointer py-2 px-6 hover:bg-add-quote-bg active:bg-add-quote-bg flex items-center gap-6'
             >
               <div
@@ -88,7 +94,13 @@ const FeedSidebar = () => {
                 <h3 className='text-2xl sm:text-xl text-white break-words capitalize'>
                   {userData?.name}
                 </h3>
-                <p className='text-input'>{t('edit_profile')}</p>
+                <p
+                  className={`text-sm ${
+                    isHovered ? 'text-white' : 'text-input'
+                  }`}
+                >
+                  {t('edit_profile')}
+                </p>
               </div>
             </Link>
             <Link
