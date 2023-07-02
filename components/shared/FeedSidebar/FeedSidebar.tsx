@@ -144,6 +144,7 @@ const FeedSidebar = () => {
                         <Link
                           href=''
                           locale='en'
+                          scroll={false}
                           onClick={() => {
                             localStorage.removeItem('locale');
                             setDropdown((prev) => !prev);
@@ -157,6 +158,7 @@ const FeedSidebar = () => {
                         <Link
                           href=''
                           locale='ka'
+                          scroll={false}
                           onClick={() => {
                             localStorage.setItem('locale', 'ka');
                             setDropdown((prev) => !prev);

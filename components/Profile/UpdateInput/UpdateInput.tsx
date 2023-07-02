@@ -14,11 +14,18 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
     userData,
     index,
     password,
+    router,
   } = useUpdateInput(props);
 
   return (
     <div className='flex flex-col items-center my-2'>
-      <div className='grid grid-cols-[90%_10%] w-1/2 sm:w-full sm:px-8 mb-5'>
+      <div
+        className={`grid grid-cols-[90%_10%] ${
+          router.locale === 'ka'
+            ? 'sm:grid-cols-[80%_20%]'
+            : 'sm:grid-cols-[90%_10%]'
+        } w-1/2 sm:w-full sm:px-8 mb-5`}
+      >
         <div className='flex flex-col'>
           <label className='text-white mb-1'>{props.label}</label>
           <input
@@ -38,7 +45,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               className='capitalize relative sm:hidden block bottom-2 left-4 text-white'
             >
               <span className={isEdit ? 'text-default-btn' : 'text-white'}>
-                {isEdit ? 'cancel' : 'edit'}
+                {isEdit ? t('profile_cancel') : t('profile_edit')}
               </span>
             </button>
             <button
@@ -54,7 +61,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               type='button'
               className='capitalize relative sm:block hidden bottom-2 left-4 text-white'
             >
-              edit
+              {t('profile_edit')}
             </button>
           </div>
         ) : null}
