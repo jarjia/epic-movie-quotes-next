@@ -6,7 +6,7 @@ const Post: React.FC<PostTypes> = (props) => {
   const { locale, t, postHeight, postRef } = usePost();
 
   return (
-    <div className='text-white text-xl bg-post-bg rounded-xl sm:p-8 p-4 my-8'>
+    <div className='text-white text-xl bg-post-bg rounded-xl sm:p-6 p-4 my-8'>
       <div>
         <div className='flex items-center'>
           <div
