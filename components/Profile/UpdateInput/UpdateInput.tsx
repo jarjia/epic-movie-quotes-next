@@ -35,9 +35,11 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
             <button
               onClick={() => setIsEdit((prev) => !prev)}
               type='button'
-              className='relative sm:hidden block bottom-2 left-4 text-white'
+              className='capitalize relative sm:hidden block bottom-2 left-4 text-white'
             >
-              Edit
+              <span className={isEdit ? 'text-default-btn' : 'text-white'}>
+                {isEdit ? 'cancel' : 'edit'}
+              </span>
             </button>
             <button
               onClick={() =>
@@ -50,9 +52,9 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                 })
               }
               type='button'
-              className='relative sm:block hidden bottom-2 left-4 text-white'
+              className='capitalize relative sm:block hidden bottom-2 left-4 text-white'
             >
-              Edit
+              edit
             </button>
           </div>
         ) : null}
