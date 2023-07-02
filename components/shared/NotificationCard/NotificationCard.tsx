@@ -21,15 +21,15 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
       }}
       className='flex cursor-pointer p-4 my-3 items-center border-[1px] gap-2 border-placeholder'
     >
-      <div className='flex flex-col items-center'>
+      <div className='flex flex-col justify-center items-center'>
         <div
-          className={`w-profile h-profile rounded-full bg-center bg-cover ${
-            props.seen === 0 ? 'border-2 border-valid-form' : ''
+          className={`w-profile border-2 h-profile rounded-full bg-center bg-cover ${
+            props.seen === 0 ? 'border-valid-form' : 'border-black'
           }`}
           style={{ backgroundImage: `url(${props.thumbnail})` }}
         ></div>
-        <p className='text-valid-form text-xl sm:text-lg hidden sm:block'>
-          {props.seen === 0 ? t('new') : ''}
+        <p className='justify-center text-valid-form w-full text-xl text-center sm:text-lg hidden sm:flex'>
+          <p className='absolute'>{props.seen === 0 ? t('new') : ''}</p>
         </p>
       </div>
       <div className='w-full'>
