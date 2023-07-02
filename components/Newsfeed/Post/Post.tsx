@@ -3,7 +3,7 @@ import { PostTypes } from '@/types';
 import usePost from './usePost';
 
 const Post: React.FC<PostTypes> = (props) => {
-  const { locale, t } = usePost();
+  const { locale, t, postHeight, postRef } = usePost();
 
   return (
     <div className='text-white text-xl bg-post-bg rounded-xl sm:p-8 p-4 my-8'>
@@ -25,9 +25,11 @@ const Post: React.FC<PostTypes> = (props) => {
         </div>
       </div>
       <div
-        className='w-full h-[400px] sm-mid:h-[250px] bg-cover bg-white rounded-form-radius'
+        ref={postRef}
+        className='w-full bg-cover bg-white rounded-form-radius'
         style={{
           backgroundImage: `url(${props.thumbnail})`,
+          height: `${postHeight}px`,
         }}
       ></div>
       <PostController data={props} userId={props.user_id} />
