@@ -196,6 +196,22 @@ const useUserUpdate = ({
         const nameErrors = err?.name;
 
         if (nameErrors?.length > 0) {
+          const inputElement: HTMLInputElement | null =
+            document.querySelector('input[name="name"]');
+          inputElement?.focus();
+        } else if (emailErrors?.length > 0) {
+          const inputElement: HTMLInputElement | null = document.querySelector(
+            'input[name="email"]'
+          );
+          inputElement?.focus();
+        } else if (passwordError) {
+          const inputElement: HTMLInputElement | null = document.querySelector(
+            'input[name="password"]'
+          );
+          inputElement?.focus();
+        }
+
+        if (nameErrors?.length > 0) {
           shouldNotify = false;
           setError('name', {
             message: nameErrors[0],
