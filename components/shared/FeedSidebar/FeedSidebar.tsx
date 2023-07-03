@@ -22,7 +22,7 @@ const FeedSidebar = () => {
     <aside
       className={`fixed sm:top-[-100px] ${
         isBurger ? 'sm:z-[99]' : 'sm:z-[-1]'
-      } sm:right-[33px] sm:h-screen pt-24 px-8 sm:w-screen h-full bg-transparent w-1/4`}
+      } sm:right-[33px] sm:h-screen pt-24 px-8 sm:pt-16 sm:w-screen h-full bg-transparent w-1/4`}
     >
       <div className='block sm:hidden'>
         <Link
@@ -73,7 +73,7 @@ const FeedSidebar = () => {
             className='fixed sm:block hidden w-full h-full z-[-1]'
             onClick={handleIsNotBurger}
           ></div>
-          <div className='sm:block hidden py-16 z-[999] bg-post-bg w-full h-full rounded-xl'>
+          <div className='sm:block hidden py-16 z-[999] bg-post-bg w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
             <Link
               onClick={handleIsNotBurger}
               href='/profile'
