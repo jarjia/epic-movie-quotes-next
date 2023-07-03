@@ -119,6 +119,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
           setOpenComments(2);
         }
       }
+      commentRef.current?.scrollIntoView();
     },
   });
 
