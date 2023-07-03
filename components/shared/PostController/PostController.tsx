@@ -52,7 +52,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
             filteredComments.map((comment, index) => {
-              const isLastComment = index === filteredComments.length - 2;
+              const isLastComment = index === filteredComments.length - 4;
 
               return (
                 <div

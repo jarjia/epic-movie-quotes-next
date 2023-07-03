@@ -23,9 +23,11 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const commentRef = useRef<null | HTMLDivElement>(null);
 
   const followComments = () => {
-    if (lastComment.current && data.comments.length > 0) {
-      lastComment.current.scrollIntoView({ behavior: 'smooth' });
-    }
+    setTimeout(() => {
+      if (lastComment.current && data.comments.length > 0) {
+        lastComment.current.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 20);
   };
 
   const handleOpenComments = () => {
@@ -35,7 +37,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
         if (commentRef.current && data.comments.length > 0) {
           commentRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
+      }, 20);
     } else if (data.comments.length === 0) {
       setOpenComments(0);
     }
