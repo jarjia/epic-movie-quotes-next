@@ -28,7 +28,7 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
           }`}
           style={{ backgroundImage: `url(${props.thumbnail})` }}
         ></div>
-        <p className='justify-center text-valid-form w-full text-xl text-center sm:text-lg hidden sm:flex'>
+        <p className='relative justify-center text-valid-form w-full text-xl text-center sm:text-lg hidden sm:flex'>
           <p className='absolute'>{props.seen === 0 ? t('new') : ''}</p>
         </p>
       </div>
