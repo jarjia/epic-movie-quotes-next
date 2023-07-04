@@ -15,8 +15,14 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const [disabled, setDisabled] = useState(false);
   const [isLiked, setIsliked] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
-  const { userData, newLikes, handleNewLikes, handleNewComment, commentsArr } =
-    useContext(AppContext);
+  const {
+    userData,
+    newLikes,
+    handleNewLikes,
+    feedFormStatus,
+    handleNewComment,
+    commentsArr,
+  } = useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
   const lastComment = useRef<null | HTMLDivElement>(null);
@@ -25,7 +31,16 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const followComments = () => {
     setTimeout(() => {
       if (lastComment.current && data.comments.length > 0) {
-        lastComment.current.scrollIntoView({ behavior: 'smooth' });
+        if (feedFormStatus !== '') {
+          lastComment.current.scrollIntoView({
+            behavior: 'smooth',
+          });
+        } else {
+          window.scrollTo({
+            behavior: 'smooth',
+            top: lastComment.current.offsetTop - 200,
+          });
+        }
       }
     }, 20);
   };
@@ -119,7 +134,6 @@ const usePostConroller = (data: PostTypes, userId: number) => {
           setOpenComments(2);
         }
       }
-      commentRef.current?.scrollIntoView();
     },
   });
 

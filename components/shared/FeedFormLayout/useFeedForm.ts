@@ -21,6 +21,7 @@ const useFeedForm = () => {
   const offTopRef = useRef<null | HTMLDivElement>(null);
   const headerRef = useRef<null | HTMLDivElement>(null);
   const [maxHeight, setMaxHeight] = useState<number | null>(null);
+  const screenHeight = window.innerWidth < 916 ? 100 : 95;
 
   const handleChangeRef = () => {
     if (offTopRef.current && headerRef.current) {
@@ -51,6 +52,7 @@ const useFeedForm = () => {
     userData,
     t,
     feedFormStatus,
+    screenHeight,
   };
 };
 

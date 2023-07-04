@@ -52,7 +52,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             <p className='text-center'>{t('no_comments')}</p>
           ) : (
             filteredComments.map((comment, index) => {
-              const isLastComment = index === filteredComments.length - 4;
+              const isLastComment = index === filteredComments.length - 1;
 
               return (
                 <div
@@ -103,7 +103,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
           )}
         </div>
       )}
-      <div className='flex items-center mt-2'>
+      <div className='flex items-center mt-2 sm:pb-2'>
         <UserProfile />
         <form className='w-full ml-3' onSubmit={handleSubmit}>
           <input

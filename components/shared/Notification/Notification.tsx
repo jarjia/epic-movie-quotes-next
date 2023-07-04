@@ -11,6 +11,7 @@ const Notification = () => {
     filter,
     setFilter,
     setNotifications,
+    router,
     markAllAsReadMutation,
   } = useNotification();
 
@@ -24,59 +25,9 @@ const Notification = () => {
           className='relative top-8 p-4 sm:p-2 bg-black rounded-xl'
           style={{ boxShadow: '0 0 30px black' }}
         >
-          <div className='flex mt-4 pb-2 items-center justify-between'>
+          <div className='flex sm-max:flex-col mt-4 pb-2 items-center justify-between'>
             <h2 className='text-white text-3xl sm:text-2xl'>
               {t('notifications')}
-              <div className='flex gap-4 absolute text-font-base'>
-                <p>{t('filter_by')}: </p>
-                <div className='flex items-center gap-2 sm:text-base'>
-                  <button
-                    className={`${
-                      filter === 'like' ? 'underline text-placeholder' : ''
-                    } font-[400]`}
-                    onClick={() => {
-                      if (filter === 'like') {
-                        setFilter(null);
-                      } else {
-                        setFilter('like');
-                      }
-                    }}
-                  >
-                    {t('filter_by_likes')}
-                  </button>
-                  <div className='sm:h-[18px] h-[20px] w-[2px] bg-white'></div>
-                  <button
-                    className={`${
-                      filter === 'comment' ? 'underline text-placeholder' : ''
-                    } font-[400]`}
-                    onClick={() => {
-                      if (filter === 'comment') {
-                        setFilter(null);
-                      } else {
-                        setFilter('comment');
-                      }
-                    }}
-                  >
-                    {t('filter_by_comments')}
-                  </button>
-                  <div className='sm:h-[18px] h-[20px] w-[2px] bg-white'></div>
-                  <button
-                    className={`${
-                      filter === 'new' ? 'underline text-placeholder' : ''
-                    } font-[400]`}
-                    onClick={() => {
-                      if (filter === 'new') {
-                        setFilter(null);
-                        queryClient.invalidateQueries(['notifications', 'new']);
-                      } else {
-                        setFilter('new');
-                      }
-                    }}
-                  >
-                    {t('filter_by_new')}
-                  </button>
-                </div>
-              </div>
             </h2>
             <button
               onClick={() => {
@@ -89,10 +40,72 @@ const Notification = () => {
                   queryClient.invalidateQueries('notifications');
                 }, 200);
               }}
-              className='underline sm:text-sm text-md text-white'
+              className='sm-max:pt-2 underline sm:text-sm text-md text-white'
             >
               {t('mark_as_read')}
             </button>
+          </div>
+          <div className='flex sm-max:flex-col sm-max:text-center text-white gap-4 text-font-base'>
+            <p>{t('filter_by')}: </p>
+            <div
+              className={`flex sm-max:justify-center items-center gap-2 ${
+                router.locale === 'ka' ? 'sm:text-[11px]' : 'sm:text-base'
+              }`}
+            >
+              <button
+                className={`${
+                  filter === 'like' ? 'underline text-placeholder' : ''
+                } font-[400]`}
+                onClick={() => {
+                  if (filter === 'like') {
+                    setFilter(null);
+                  } else {
+                    setFilter('like');
+                  }
+                }}
+              >
+                {t('filter_by_likes')}
+              </button>
+              <div
+                className={`${
+                  router.locale === 'ka' ? 'sm:h-[14px]' : 'sm:h-[18px]'
+                } h-[20px] w-[2px] bg-white`}
+              ></div>
+              <button
+                className={`${
+                  filter === 'comment' ? 'underline text-placeholder' : ''
+                } font-[400]`}
+                onClick={() => {
+                  if (filter === 'comment') {
+                    setFilter(null);
+                  } else {
+                    setFilter('comment');
+                  }
+                }}
+              >
+                {t('filter_by_comments')}
+              </button>
+              <div
+                className={`${
+                  router.locale === 'ka' ? 'sm:h-[14px]' : 'sm:h-[18px]'
+                } h-[20px] w-[2px] bg-white`}
+              ></div>
+              <button
+                className={`${
+                  filter === 'new' ? 'underline text-placeholder' : ''
+                } font-[400]`}
+                onClick={() => {
+                  if (filter === 'new') {
+                    setFilter(null);
+                    queryClient.invalidateQueries(['notifications', 'new']);
+                  } else {
+                    setFilter('new');
+                  }
+                }}
+              >
+                {t('filter_by_new')}
+              </button>
+            </div>
           </div>
           <div
             ref={divRef}

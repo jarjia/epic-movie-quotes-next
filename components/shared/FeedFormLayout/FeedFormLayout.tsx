@@ -12,6 +12,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
   const {
     deleteQuoteMutate,
     userData,
+    screenHeight,
     router,
     t,
     maxHeight,
@@ -31,14 +32,14 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
         ref={offTopRef}
         className={`${
           router.pathname === '/newsfeed' ? `w-1/2 huge:w-2/6` : 'w-1/2'
-        } fixed sm:w-full mid:w-[63%] large:max-h-screen rounded-form-radius bg-post-bg`}
+        } fixed sm:w-full mid:w-[63%] large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
       >
         <div
           ref={headerRef}
-          className={`grid grid-cols-[97%_3%] border-b-[1px] border-search-bar-border p-4 py-6`}
+          className={`grid grid-cols-[3%_94%_3%] items-center border-b-[1px] border-search-bar-border p-4 py-6`}
         >
           {isEdit ? (
-            <div className='flex items-center absolute gap-4 px-5 py-1.5 rounded'>
+            <div className='flex sm-tiny:flex-col-reverse items-center gap-4 px-0 py-1.5 rounded'>
               <button
                 onClick={() => {
                   handleFeedFormStatus('edit-quote');
@@ -63,7 +64,8 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
                   deleteQuoteMutate(quoteId as string);
                 }}
               >
-                <TrashBinIcon /> {t('delete_quote')}
+                <TrashBinIcon />{' '}
+                <span className='tiny:hidden block'>{t('delete_quote')}</span>
               </button>
             </div>
           ) : null}
@@ -85,18 +87,18 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
           <div
             className={`px-6 mb-1 py-4 my-4 h-auto ${
               router.pathname === '/newsfeed' && feedFormStatus === 'add-quote'
-                ? 'sm:h-[70vh] sm-h:h-screen'
+                ? 'sm:max-h-[70vh] sm-h:max-h-screen'
                 : 'sm:h-screen'
             } overflow-y-scroll scrollbar`}
             style={{
-              maxHeight: `calc(95vh - ${maxHeight}px)`,
+              maxHeight: `calc(${screenHeight}vh - ${maxHeight}px)`,
             }}
           >
             <div className='flex items-center gap-4 text-white text-xl'>
               <UserProfile />
               <h4>{userData?.name}</h4>
             </div>
-            <div className='pb-1 drop-shadow-none'>{children}</div>
+            <div className='pb-1 drop-shadow-none sm:mb-20'>{children}</div>
           </div>
         )}
       </div>

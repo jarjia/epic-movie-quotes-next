@@ -59,7 +59,9 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                 })
               }
               type='button'
-              className='capitalize relative sm:block hidden bottom-2 left-4 text-white'
+              className={`${
+                router.locale === 'ka' ? 'sm:text-sm' : 'sm:text-base'
+              } capitalize relative sm:block hidden bottom-2 left-4 text-white`}
             >
               {t('profile_edit')}
             </button>
