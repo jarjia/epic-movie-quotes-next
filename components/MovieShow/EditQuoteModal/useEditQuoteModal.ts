@@ -19,9 +19,13 @@ const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
   const { getQuote, updateQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
   const { t: apiErr } = useTranslation('apiErrors');
-  const { isLoading, data } = useQuery('quote', () => getQuote(quoteId), {
-    enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
-  });
+  const { isLoading, data } = useQuery(
+    ['quote', quoteId],
+    () => getQuote(quoteId),
+    {
+      enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
+    }
+  );
   const quote: EditQuoteStateTypes = data?.data;
   const { handleFeedFormStatus } = useContext(AppContext);
   const { t } = useTranslation('movieList');
