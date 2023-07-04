@@ -44,6 +44,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
       router.push('/');
+      localStorage.removeItem('remember_me');
       query.removeQueries('log-out');
       setShouldLogout(false);
       query.invalidateQueries('user');
@@ -107,16 +108,6 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
       setFeedFormStatus(sessionStorage.getItem('feed-form-status'));
     }
   }, [router]);
-
-  useEffect(() => {
-    if (router.locale === 'en') {
-      document.body.classList.remove('geo');
-      document.body.classList.add('eng');
-    } else if (router.locale === 'ka') {
-      document.body.classList.remove('eng');
-      document.body.classList.add('geo');
-    }
-  }, [router.locale]);
 
   const handleFeedFormStatus = (status: string) => {
     sessionStorage.setItem('feed-form-status', status);
