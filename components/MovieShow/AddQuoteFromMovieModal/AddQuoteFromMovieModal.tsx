@@ -19,7 +19,7 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
           }}
         ></div>
         <div className='pl-4'>
-          <h2 className='text-title text-xl'>
+          <h2 className='flex text-title text-xl'>
             <p className='text-xl truncate'>{props.movie.movie[locale]}</p>
             <p className='text-xl pl-1'>({props.movie.releaseDate})</p>
           </h2>
