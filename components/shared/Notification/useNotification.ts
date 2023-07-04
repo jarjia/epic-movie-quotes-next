@@ -3,6 +3,7 @@ import { NotificationTypes } from '@/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 
 const useNotification = () => {
   const { t } = useTranslation('common');
@@ -25,6 +26,7 @@ const useNotification = () => {
       }
     );
   let scrollTime = useRef<ReturnType<typeof setTimeout>>();
+  const router = useRouter();
 
   const queryClient = useQueryClient();
 
@@ -70,6 +72,7 @@ const useNotification = () => {
   }, [refetch, filter]);
 
   return {
+    router,
     divRef,
     queryClient,
     t,
