@@ -30,7 +30,7 @@ const useUserUpdate = ({
   const { UpdateProfileSchema } = useZod();
   const queryClient = useQueryClient();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(UpdateProfileSchema),
   });
   const {

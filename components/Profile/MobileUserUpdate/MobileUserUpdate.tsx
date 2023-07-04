@@ -114,13 +114,13 @@ const MobileUserUpdate = ({
                       name={editProfile.name}
                       label={t('new_pass')}
                       errors={errors}
-                      placeholder={t('new_pass')}
+                      placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'
                     />
                     <PasswordInput
                       name='c_password'
                       label={t('repeat_pass')}
                       errors={errors}
-                      placeholder={t('repeat_pass')}
+                      placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'
                     />
                   </>
                 )}
