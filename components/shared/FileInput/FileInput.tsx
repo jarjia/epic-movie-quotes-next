@@ -14,7 +14,7 @@ const FileInput = () => {
           onDragOver={handleDragOver}
           className={`flex items-center border-[1px] ${
             errors['thumbnail'] ? 'border-default-btn' : 'border-placeholder'
-          } p-3 text-white gap-2`}
+          } p-3 text-white gap-2 rounded`}
         >
           <FileCameraIcon />
           <div className='flex items-center w-full sm:hidden'>

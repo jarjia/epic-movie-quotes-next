@@ -28,13 +28,17 @@ const SelectMovie = () => {
         <div
           ref={selectRef}
           onClick={() => setIsSelect((prev) => !prev)}
-          className='text-white bg-black border-0 py-3 my-2'
+          className={`${
+            errors['movieId'] && movieId === null
+              ? 'border-[1px] border-default-btn'
+              : 'border-[1px] border-transparent'
+          } text-white bg-black py-3 my-2 rounded`}
         >
           <button
             type='button'
             className='w-full px-3 flex text-font-base justify-between items-center gap-2'
           >
-            <div className='flex items-center gap-2'>
+            <div className='flex truncate items-center gap-2'>
               <CameraIcon isMovie={false} />
               {movieId === null
                 ? t('post_choose_movie')
@@ -71,7 +75,7 @@ const SelectMovie = () => {
       </div>
       <div className='relative bottom-1.5'>
         <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
-          {errors['movieId'] && t('select_movie_err')}
+          {errors['movieId'] && movieId === null && t('select_movie_err')}
         </p>
       </div>
     </>
