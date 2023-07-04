@@ -51,10 +51,10 @@
 @media (max-width: 915px) {
   .mobile-linear {
     background: linear-gradient(
-      290deg,
+      300deg,
       rgba(216, 216, 216, 0.1) -1%,
-      rgba(60, 28, 78, 0.05) 100%,
-      rgba(60, 28, 78, 0.05) 102.51%,
+      rgba(60, 28, 78, 0.15) 100%,
+      rgba(60, 28, 78, 0.15) 102.51%,
       rgba(239, 239, 239, 0.2) 102.52%
     );
   }
