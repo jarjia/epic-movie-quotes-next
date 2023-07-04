@@ -89,7 +89,7 @@ const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
                       } w-full caret-white text-white border-l-0 border-[1px] rounded-r bg-transparent focus:ring-0 block flex-1 min-w-0`}
                     />
                   </div>
-                  <div className='relative bottom-1.5'>
+                  <div className='relative'>
                     <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
                       {error !== undefined && error.message === 'Required'
                         ? errorMessage

@@ -8,7 +8,9 @@ const Navbar: React.FC<HandleFormStatusTypes> = (props) => {
   return (
     <nav className='flex justify-between items-center sm:px-4 z-[3] px-16 py-5 fixed bg-post-bg shadow w-full'>
       <div>
-        <h3 className='text-title uppercase sm:text-base'>Movie quotes</h3>
+        <h3 className='text-title uppercase sm:text-base font-medium'>
+          Movie quotes
+        </h3>
       </div>
       <div className='flex gap-8'>
         <DropDown isNotification={false} />

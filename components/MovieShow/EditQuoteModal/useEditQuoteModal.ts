@@ -37,7 +37,7 @@ const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
       },
     });
   const form = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(addQuoteSchema),
   });
   const {

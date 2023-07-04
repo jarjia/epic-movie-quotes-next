@@ -22,7 +22,7 @@ const useLoginForm = () => {
     useAuthService();
   const { LoginSchema } = useZod();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(LoginSchema),
   });
   const { t } = useTranslation('landingForms');
