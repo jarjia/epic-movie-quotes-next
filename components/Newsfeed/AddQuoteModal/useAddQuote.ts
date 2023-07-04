@@ -18,7 +18,7 @@ const useAddQuote = () => {
   const { postQuote } = useQuoteService();
   const { addQuoteSchema } = useZod();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(addQuoteSchema),
   });
   const {

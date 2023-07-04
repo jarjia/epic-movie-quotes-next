@@ -25,7 +25,7 @@ const FeedNavbar = () => {
   return (
     <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
       <div>
-        <h3 className='text-title uppercase sm:text-base sm:hidden'>
+        <h3 className='text-title uppercase sm:text-base sm:hidden font-medium'>
           movie quotes
         </h3>
         <button onClick={handleIsBurger} className='hidden sm:block'>

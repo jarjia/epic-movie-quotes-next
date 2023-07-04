@@ -38,37 +38,39 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
           ref={headerRef}
           className={`grid grid-cols-[3%_94%_3%] items-center border-b-[1px] border-search-bar-border p-4 py-6`}
         >
-          {isEdit ? (
-            <div className='flex sm-tiny:flex-col-reverse items-center gap-4 px-0 py-1.5 rounded'>
-              <button
-                onClick={() => {
-                  handleFeedFormStatus('edit-quote');
-                }}
-              >
-                <PenIcon />
-              </button>
-              <span className='text-placeholder'>|</span>
-              <button
-                onClick={() => {
-                  deleteQuoteMutate(quoteId as string);
-                }}
-              >
-                <TrashBinIcon />
-              </button>
-            </div>
-          ) : isDelete ? (
-            <div className='absolute'>
-              <button
-                className='flex text-white items-center gap-2 mt-2'
-                onClick={() => {
-                  deleteQuoteMutate(quoteId as string);
-                }}
-              >
-                <TrashBinIcon />{' '}
-                <span className='tiny:hidden block'>{t('delete_quote')}</span>
-              </button>
-            </div>
-          ) : null}
+          <div>
+            {isEdit ? (
+              <div className='flex sm-tiny:flex-col-reverse items-center gap-4 px-0 py-1.5 rounded'>
+                <button
+                  onClick={() => {
+                    handleFeedFormStatus('edit-quote');
+                  }}
+                >
+                  <PenIcon />
+                </button>
+                <span className='text-placeholder'>|</span>
+                <button
+                  onClick={() => {
+                    deleteQuoteMutate(quoteId as string);
+                  }}
+                >
+                  <TrashBinIcon />
+                </button>
+              </div>
+            ) : isDelete ? (
+              <div>
+                <button
+                  className='flex text-white items-center gap-2 mt-2'
+                  onClick={() => {
+                    deleteQuoteMutate(quoteId as string);
+                  }}
+                >
+                  <TrashBinIcon />{' '}
+                  <span className='tiny:hidden block'>{t('delete_quote')}</span>
+                </button>
+              </div>
+            ) : null}
+          </div>
           <div>
             <h2 className='text-white text-2xl text-center capitalize'>
               {title}

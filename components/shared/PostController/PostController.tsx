@@ -20,6 +20,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
     commentRef,
     comments,
     setOpenComments,
+    isLoading,
     isLiked,
     hasLiked,
     t,
@@ -111,6 +112,7 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
             type='text'
             className='w-full rounded-form-radius pl-4 placeholder-input pb-2 caret-white text-white border-0 bg-add-quote-bg focus:ring-0 focus:border-transparent'
             placeholder={`${t('comment_placeholder')}`}
+            disabled={isLoading}
           />
         </form>
       </div>
