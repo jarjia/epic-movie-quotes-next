@@ -7,4 +7,5 @@ export type NotificationCardTypes = {
   seen: number;
   created_at: string;
   quoteId: number;
+  handleisNotification: () => void;
 };

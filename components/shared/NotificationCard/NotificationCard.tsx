@@ -18,8 +18,9 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
         handleCurrentQuoteId(String(props.quoteId));
         readNotificationMutate(props.id);
         handleFeedFormStatus('view-quote');
+        props.handleisNotification();
       }}
-      className='flex cursor-pointer p-4 my-3 items-center border-[1px] gap-2 border-placeholder'
+      className='flex cursor-pointer p-4 my-3 items-center border-[1px] gap-2 border-placeholder-opacity rounded'
     >
       <div className='flex flex-col justify-center items-center'>
         <div
@@ -29,10 +30,10 @@ const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
           style={{ backgroundImage: `url(${props.thumbnail})` }}
         ></div>
         <p className='relative bottom-4 sm-max:text-base justify-center text-valid-form w-full text-xl text-center sm:text-lg hidden sm:flex'>
-          <p className='absolute'>{props.seen === 0 ? t('new') : ''}</p>
+          <span className='absolute'>{props.seen === 0 ? t('new') : ''}</span>
         </p>
       </div>
-      <div className='w-full'>
+      <div className='w-full pl-1'>
         <div className='flex items-center justify-between'>
           <h4 className='text-xl sm-max:text-base'>{props.name}</h4>
           <p className='text-lg capitalize sm:hidden text-date-of-notification sm:text-lg'>
