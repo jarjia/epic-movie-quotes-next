@@ -38,6 +38,7 @@ const useUserUpdate = ({
     formState: { errors },
     control,
     setError,
+    trigger,
     reset,
   } = form;
   const { userData, handleFeedFormStatus, feedFormStatus } =
@@ -281,6 +282,7 @@ const useUserUpdate = ({
     errors,
     form,
     updateProfileLoading,
+    trigger,
     input,
     thumbnail,
     t,
