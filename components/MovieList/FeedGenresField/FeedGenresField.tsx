@@ -28,11 +28,11 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
       />
       <div ref={genresRef} className='w-full my-6'>
         <div
-          className={`flex overflow-x-scroll scrollbar px-2 items-center border-[1px] rounded bg-transparent ${
+          className={`flex items-center pt-1 bg-transparent overflow-x-scroll scrollbar px-2 items-center border-[1px] rounded ${
             genres.length < 1 && props.error['genres'] !== undefined
               ? 'border-default-btn'
               : 'border-placeholder'
-          } w-full h-11`}
+          } w-full`}
           onClick={() => setSelect((prev) => !prev)}
         >
           {genres.length === 0 ? (

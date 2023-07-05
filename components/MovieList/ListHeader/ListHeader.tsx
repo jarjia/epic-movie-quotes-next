@@ -56,7 +56,7 @@ const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
         </div>
         <button
           onClick={() => handleFeedFormStatus('add-movie')}
-          className='flex items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
+          className='flex justify-center items-center text-white px-1 w-add-btn-w h-add-btn-h rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
         >
           <AddIcon />
           {t('add_movie')}
