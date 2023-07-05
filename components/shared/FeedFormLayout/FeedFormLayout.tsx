@@ -38,7 +38,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
           ref={headerRef}
           className={`grid grid-cols-[3%_94%_3%] items-center border-b-[1px] border-search-bar-border p-4 py-6`}
         >
-          <div>
+          <div className='sm:ml-3'>
             {isEdit ? (
               <div className='flex sm-tiny:flex-col-reverse items-center gap-4 px-0 py-1.5 rounded'>
                 <button
@@ -79,7 +79,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
           <div>
             <button
               onClick={() => handleFeedFormStatus('')}
-              className='relative cursor-pointer'
+              className='relative cursor-pointer sm:right-2'
             >
               <CloseIcon color={false} isSmall={false} />
             </button>
@@ -87,7 +87,7 @@ const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
         </div>
         {maxHeight !== null && (
           <div
-            className={`px-6 mb-1 py-4 my-4 h-auto ${
+            className={`px-6 mb-1 py-4 mb-4 h-auto ${
               router.pathname === '/newsfeed' && feedFormStatus === 'add-quote'
                 ? 'sm:max-h-[70vh] sm-h:max-h-screen'
                 : 'sm:h-screen'

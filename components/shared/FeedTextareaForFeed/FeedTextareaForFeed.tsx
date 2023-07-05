@@ -1,13 +1,8 @@
-import { useFormContext } from 'react-hook-form';
 import { FeedBaseTextareaTypes } from './types';
+import useFeedTextarea from './useFeedTextarea';
 
 const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
-  const { register } = useFormContext();
-  let error =
-    props.lang === 'Eng'
-      ? props.errors[props.errorName]?.en
-      : props.errors[props.errorName]?.ka;
-  const isEdit = props.defaultVal === undefined ? false : true;
+  const { error, isEdit, register } = useFeedTextarea(props);
 
   return (
     <div className='my-6'>
@@ -32,7 +27,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
           placeholder={props.defaultVal !== undefined ? '' : props.label}
           {...register(props.name)}
           defaultValue={props.defaultVal !== undefined ? props.defaultVal : ''}
-          className='w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-10 overflow-hidden scrollbar h-16 min-h-[50px] placeholder-placeholder bg-transparent h-16'
+          className='w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-10 overflow-scroll scrollbar h-16 min-h-[50px] placeholder-placeholder bg-transparent h-16'
         ></textarea>
       </div>
       <div className='relative'>
