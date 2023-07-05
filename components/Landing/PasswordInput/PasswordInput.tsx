@@ -8,9 +8,8 @@ import {
 import usePasswordInput from './usePasswordInput';
 
 const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
-  const { register, input, showPassword, setShowPassword } = usePasswordInput(
-    props.name
-  );
+  const { register, input, showPassword, setShowPassword, router } =
+    usePasswordInput(props.name);
 
   return (
     <div className='flex flex-col mb-10'>
@@ -21,7 +20,11 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
         type={showPassword ? 'text' : 'password'}
         {...register(props.name)}
         name={props.name}
-        className={`px-2 py-[6px] placeholder-placeholder ${
+        className={`px-2 py-[6px] ${
+          router.pathname === '/profile'
+            ? 'placeholder-black'
+            : 'placeholder-placeholder'
+        } ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn pr-14'
             : input?.length > 0

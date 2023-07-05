@@ -25,10 +25,16 @@ const useFeedLayout = () => {
   const router = useRouter();
   const { isLoading, isError } = useQuery('user', getUserData, {
     onSuccess(data) {
+      if (data?.data?.remember_token !== null) {
+        localStorage.setItem('remember_me', 'true');
+      } else {
+        localStorage.removeItem('remember_me');
+      }
       handleUserData(data.data);
     },
     onError: () => {
       router.push('/403');
+      localStorage.removeItem('remember_me');
     },
   });
   const queryClient = useQueryClient();

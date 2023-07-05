@@ -20,7 +20,11 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Main: React.FC = () => {
-  const { handleFormStatus, formStatus, t } = useMain();
+  const { handleFormStatus, formStatus, t, shouldGetRedirect } = useMain();
+
+  if (shouldGetRedirect) {
+    return <div className='w-screen h-screen bg-post-bg z-[999]'></div>;
+  }
 
   return (
     <section className={`${classes.linear} max-w-screen`}>

@@ -17,7 +17,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
   const { postRecoverEmail } = useAuthService();
   const { RecoverEmailSchema } = useZod();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(RecoverEmailSchema),
   });
   const {

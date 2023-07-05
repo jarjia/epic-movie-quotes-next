@@ -21,7 +21,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
     useAuthService();
   const { registerSchema } = useZod();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(registerSchema),
   });
   const {

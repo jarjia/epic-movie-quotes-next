@@ -19,7 +19,7 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
   const { RecoverPasswordSchema } = useZod();
   const { t } = useTranslation('landingForms');
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(RecoverPasswordSchema),
   });
   const {

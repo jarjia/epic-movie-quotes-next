@@ -10,7 +10,7 @@ const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {
       <div
         onDragOver={handleDragOver}
         onDrop={handleDrop}
-        className='grid grid-cols-2 min-h-[130px] border-[1px] mt-4 border-placeholder'
+        className='grid grid-cols-2 min-h-[130px] border-[1px] rounded mt-4 border-placeholder'
       >
         <div
           className='w-full bg-horizon-center bg-cover h-full'

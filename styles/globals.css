@@ -18,14 +18,15 @@ body {
   overflow-y: 'auto';
   scrollbar-color: #808189 transparent;
   scrollbar-width: 'thin';
-}
-
-body.geo {
   font-family: font;
 }
 
-body.eng {
-  font-family: sans-serif;
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: inherit;
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 body.no-scroll {

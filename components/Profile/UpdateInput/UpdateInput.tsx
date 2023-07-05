@@ -31,9 +31,11 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
           <input
             ref={inputRef}
             type={props.type}
-            className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
+            className='sm:placeholder-white px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-black sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
             value={userData[index as keyof UserDataTypes]}
-            placeholder={props.label}
+            placeholder={
+              props.name === 'password' ? props.placeholder : props.label
+            }
             disabled
           />
         </div>
@@ -120,7 +122,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
                 name={props.repeatName}
                 label={props.repeatLabel as string}
                 errors={props.errors}
-                placeholder={props.repeatLabel as string}
+                placeholder={props.placeholder}
               />
             </>
           ) : (
@@ -131,7 +133,6 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               <input
                 type={props.type}
                 {...register(props.name)}
-                defaultValue={userData[index as keyof UserDataTypes]}
                 className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
                 style={{
                   width: `${inputWidth as number}px`,

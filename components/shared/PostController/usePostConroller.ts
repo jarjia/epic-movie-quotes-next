@@ -8,7 +8,7 @@ import { useMutation, useQueryClient } from 'react-query';
 const usePostConroller = (data: PostTypes, userId: number) => {
   const { postComment, postLike } = useNotificationService();
   const initialLikes: number[] = data.likes?.map((item) => item.user.id);
-  const [openComments, setOpenComments] = useState(0);
+  const [openComments, setOpenComments] = useState(2);
   const [hasLiked, setHasLiked] = useState(false);
   const [likedIds, setLikedIds] = useState<number[]>(initialLikes);
   const [comments, setComments] = useState(data.comments);
@@ -126,7 +126,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     },
   });
 
-  const { mutate: createCommentMutate } = useMutation(postComment, {
+  const { mutate: createCommentMutate, isLoading } = useMutation(postComment, {
     onSuccess() {
       if (searchRef.current) {
         searchRef.current.value = '';
@@ -165,6 +165,7 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     t,
     searchRef,
     comments,
+    isLoading,
     filteredComments,
     commentRef,
     disabled,

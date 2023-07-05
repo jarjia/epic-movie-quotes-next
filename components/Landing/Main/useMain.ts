@@ -1,32 +1,26 @@
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { useMutation } from 'react-query';
 import { PostVerifyTypes } from './types';
 import { useTranslation } from 'next-i18next';
 
 const useMain = () => {
-  const { getUserData } = useAuthService();
   const [formStatus, setFormStatus] = useState<string | null>(null);
   const router = useRouter();
-  const [shouldGetUser, setShouldGetUser] = useState(true);
+  const [shouldGetRedirect, setShouldRedirect] = useState(true);
   const { postVerify } = useAuthService();
-  useQuery('user', getUserData, {
-    onSuccess(res) {
-      if (res?.data?.remember_token !== null) {
-        router.push('/newsfeed');
-      }
-    },
-    onSettled() {
-      setShouldGetUser(false);
-    },
-    enabled: shouldGetUser,
-  });
   const { t } = useTranslation('landing');
 
   useEffect(() => {
     setFormStatus(JSON.parse(sessionStorage.getItem('form-status') || 'null'));
-  }, []);
+    if (localStorage.getItem('remember_me') === null) {
+      setShouldRedirect(false);
+    } else {
+      setShouldRedirect(true);
+      router.push('/newsfeed');
+    }
+  }, [router]);
 
   useEffect(() => {
     localStorage.setItem('locale', router.locale as string);
@@ -126,6 +120,7 @@ const useMain = () => {
 
   return {
     handleFormStatus,
+    shouldGetRedirect,
     formStatus,
     t,
   };

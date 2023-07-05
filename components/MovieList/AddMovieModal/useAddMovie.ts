@@ -19,7 +19,7 @@ const useAddMovie = () => {
   const { postMovie } = useMovieService();
   const { AddMovieSchema } = useZod();
   const form: UseFormReturn = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     resolver: zodResolver(AddMovieSchema),
   });
   const {
