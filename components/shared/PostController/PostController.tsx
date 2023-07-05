@@ -108,7 +108,6 @@ const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
         <UserProfile />
         <form className='w-full ml-3' onSubmit={handleSubmit}>
           <input
-            ref={searchRef}
             type='text'
             className='w-full rounded-form-radius pl-4 placeholder-input pb-2 caret-white text-white border-0 bg-add-quote-bg focus:ring-0 focus:border-transparent'
             placeholder={`${t('comment_placeholder')}`}

@@ -48,6 +48,43 @@
   );
 }
 
+.autofill-for-landing::-webkit-input-placeholder {
+  color: #6c757d;
+}
+
+.autofill-for-landing:-ms-input-placeholder {
+  color: #6c757d;
+}
+
+.autofill-for-landing::placeholder {
+  color: #6c757d;
+}
+
+.autofill-for-landing {
+  -webkit-text-fill-color: inherit;
+  box-shadow: 0 0 0px 1000px transparent;
+  -webkit-box-shadow: 0 0 0px 1000px transparent;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+.autofill-for-newsfeed::-webkit-input-placeholder {
+  color: white;
+}
+
+.autofill-for-newsfeed:-ms-input-placeholder {
+  color: white;
+}
+
+.autofill-for-newsfeed::placeholder {
+  color: white;
+}
+
+.autofill-for-newsfeed {
+  -webkit-text-fill-color: white;
+  box-shadow: 0 0 0px 1000px transparent;
+  -webkit-box-shadow: 0 0 0px 1000px transparent;
+  transition: background-color 5000s ease-in-out 0s;
+}
 @media (max-width: 915px) {
   .mobile-linear {
     background: linear-gradient(
