@@ -6,6 +6,7 @@ import {
   FeedTextareaForFeed,
 } from '@/components';
 import { EditMovieTypes } from './types';
+import classes from '@/styles/Landing.module.css';
 
 const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
   const {
@@ -82,7 +83,7 @@ const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
                         }
                         field.onChange(value);
                       }}
-                      className={`${
+                      className={`${classes['autofill-for-newsfeed']} ${
                         error !== undefined
                           ? 'border-default-btn focus:border-default-btn'
                           : 'border-placeholder focus:border-placeholder'

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { AppContext } from '@/context';
@@ -32,6 +32,20 @@ const useQuoteCard = (
   const [newComments, setNewComments] = useState(comments);
   const [newLikesArr, setNewLikesArr] = useState(likes);
   const { newLikes, commentsArr } = useContext(AppContext);
+  const quoteRef = useRef<null | HTMLDivElement>(null);
+  const [quoteHeight, setQuoteHeight] = useState<null | number>(null);
+
+  const handleHeight = () => {
+    if (quoteRef.current) setQuoteHeight(quoteRef.current?.offsetWidth / 2);
+  };
+
+  useEffect(() => {
+    if (quoteRef.current) setQuoteHeight(quoteRef.current?.offsetWidth / 2);
+    window.addEventListener('resize', handleHeight);
+    return () => {
+      window.addEventListener('resize', handleHeight);
+    };
+  }, []);
 
   useEffect(() => {
     if (commentsArr !== null) {
@@ -72,6 +86,8 @@ const useQuoteCard = (
     handleCurrentQuoteId,
     newComments,
     newLikesArr,
+    quoteHeight,
+    quoteRef,
   };
 };
 
