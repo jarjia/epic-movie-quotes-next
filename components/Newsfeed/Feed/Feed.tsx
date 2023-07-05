@@ -29,7 +29,7 @@ const Feed = () => {
           <Posts />
         </div>
         {isScrollUpNeeded && (
-          <div className='fixed sm:hidden mid:hidden top-[85%] left-[90%] z-[999]'>
+          <div className='fixed sm:hidden mid:hidden top-[85%] left-[90%]'>
             <button
               onClick={() => window.scrollTo(0, 0)}
               className='rotate-90 bg-post-bg rounded-full p-4 px-3.5'

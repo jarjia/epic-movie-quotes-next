@@ -1,12 +1,20 @@
 import { AppContext } from '@/context';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
+import { useQueryClient } from 'react-query';
 
 const useFeed = () => {
   const { feedFormStatus, currentQuoteId, handleFeedFormStatus } =
     useContext(AppContext);
   const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
   const { t } = useTranslation('newsFeed');
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setTimeout(() => {
+      queryClient.invalidateQueries('quotes');
+    }, 500);
+  }, [queryClient]);
 
   const handleBackScroll = useCallback(() => {
     if (window.scrollY > window.innerHeight * 2) {
