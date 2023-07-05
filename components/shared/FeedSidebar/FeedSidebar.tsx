@@ -20,9 +20,9 @@ const FeedSidebar = () => {
 
   return (
     <aside
-      className={`fixed sm:top-[-100px] ${
+      className={`fixed ${
         isBurger ? 'sm:z-[999]' : 'sm:z-[-1]'
-      } sm:right-[33px] sm:h-screen pt-24 px-8 sm:pt-16 sm:w-screen h-full bg-transparent w-1/4`}
+      } sm:right-[33px] sm:h-screen pt-24 px-8 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
     >
       <div className='block sm:hidden'>
         <Link
@@ -70,10 +70,10 @@ const FeedSidebar = () => {
       {isBurger && (
         <>
           <div
-            className='fixed sm:block hidden w-screen h-screen z-[-1]'
+            className='fixed sm:block hidden w-full h-screen z-[-1]'
             onClick={handleIsNotBurger}
           ></div>
-          <div className='sm:block hidden py-16 z-[999] bg-post-bg w-screen h-screen rounded-xl'>
+          <div className='sm:block hidden py-16 z-[999] bg-post-bg w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
             <Link
               onClick={handleIsNotBurger}
               href='/profile'
