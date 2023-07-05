@@ -8,7 +8,7 @@ const IsSure = ({ handleIsSure, updateProfileLoading, name }: IsSureTypes) => {
   return (
     <div className='w-full flex items-center justify-center'>
       <div
-        className={`${classes['is-sure']} flex flex-col pt-12 w-5/6 items-center justify-center mt-16 rounded-xl`}
+        className={`${classes['mobile-linear']} flex flex-col pt-12 w-5/6 items-center justify-center mt-16 rounded-xl`}
       >
         <div className='w-full text-center pb-12 border-b-[1px] border-search-bar-border'>
           <p className='text-white'>{t('profile_sure')}</p>

@@ -2,6 +2,7 @@ import { PasswordInput } from '@/components';
 import { UpdateInputTypes } from './types';
 import useUpdateInput from './useUpdateInput';
 import { UserDataTypes } from '@/types';
+import classes from '@/styles/Landing.module.css';
 
 const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
   const {
@@ -20,24 +21,45 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
   return (
     <div className='flex flex-col items-center my-2'>
       <div
-        className={`grid grid-cols-[90%_10%] ${
-          router.locale === 'ka'
-            ? 'sm:grid-cols-[80%_20%]'
-            : 'sm:grid-cols-[90%_10%]'
-        } w-1/2 sm:w-full sm:px-8 mb-5`}
+        className={`grid grid-cols-[90%_10%] w-1/2 sm:w-full sm:px-6 sm:pr-2 mb-5`}
       >
         <div className='flex flex-col'>
           <label className='text-white mb-1'>{props.label}</label>
-          <input
-            ref={inputRef}
-            type={props.type}
-            className='sm:placeholder-white px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-black sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
-            value={userData[index as keyof UserDataTypes]}
-            placeholder={
-              props.name === 'password' ? props.placeholder : props.label
-            }
-            disabled
-          />
+          <div className='flex justify-between'>
+            <input
+              ref={inputRef}
+              type={props.type}
+              className={`${
+                props.name === 'password' && 'leading-[30px] pb-0'
+              } sm:placeholder-white w-full px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-black sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
+              value={userData[index as keyof UserDataTypes]}
+              placeholder={
+                props.name === 'password' ? props.placeholder : props.label
+              }
+              disabled
+            />
+            <div className='flex justify-around relative top-2'>
+              {!props.isGoogle ? (
+                <button
+                  onClick={() =>
+                    props.handleEditProfile({
+                      name: props.name,
+                      label: props.placeholder,
+                      placeholder: props.placeholder,
+                      isEdit: true,
+                      type: props.type,
+                    })
+                  }
+                  type='button'
+                  className={`right-0 ${
+                    router.locale === 'ka' ? 'sm:text-sm' : 'sm:text-base'
+                  } capitalize sm:text-input absolute sm:block hidden text-white`}
+                >
+                  {t('profile_edit')}
+                </button>
+              ) : null}
+            </div>
+          </div>
         </div>
         {!props.isGoogle ? (
           <div className='flex items-end'>
@@ -49,23 +71,6 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               <span className={isEdit ? 'text-default-btn' : 'text-white'}>
                 {isEdit ? t('profile_cancel') : t('profile_edit')}
               </span>
-            </button>
-            <button
-              onClick={() =>
-                props.handleEditProfile({
-                  name: props.name,
-                  label: props.placeholder,
-                  placeholder: props.placeholder,
-                  isEdit: true,
-                  type: props.type,
-                })
-              }
-              type='button'
-              className={`${
-                router.locale === 'ka' ? 'sm:text-sm' : 'sm:text-base'
-              } capitalize relative sm:block hidden bottom-2 left-4 text-white`}
-            >
-              {t('profile_edit')}
             </button>
           </div>
         ) : null}
@@ -133,7 +138,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               <input
                 type={props.type}
                 {...register(props.name)}
-                className='px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
+                className={`${classes['autofill-for-landing']} px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
                 style={{
                   width: `${inputWidth as number}px`,
                 }}
