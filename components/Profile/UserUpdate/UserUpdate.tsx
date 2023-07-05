@@ -100,7 +100,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
           {userData.google_id === null && (
             <UpdateInput
               type='password'
-              placeholder='&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;'
+              placeholder='***********'
               name='password'
               repeatName='c_password'
               label={t('new_password_label')}
