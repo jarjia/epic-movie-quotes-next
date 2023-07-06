@@ -1,9 +1,9 @@
 import { QuoteIcon } from '@/components';
 import useMovie from './useMovie';
-import { MovieTypes } from './types';
+import { Movie } from './types';
 import Link from 'next/link';
 
-const Movie: React.FC<MovieTypes> = (props) => {
+const Movie: React.FC<Movie> = (props) => {
   const { containerRef, containerWidth, locale } = useMovie();
 
   return (

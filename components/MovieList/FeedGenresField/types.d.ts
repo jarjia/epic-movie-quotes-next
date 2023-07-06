@@ -1,6 +1,6 @@
 import { Keys } from '@/types';
 
-export type GenreFieldTypes = {
+export type GenreField = {
   error: { genres: {} };
   defaultVal?: [
     {

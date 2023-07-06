@@ -1,34 +1,26 @@
-import { Controller } from 'react-hook-form';
-import { GenreFieldTypes } from './types';
+import { GenreField } from './types';
 import { CloseIcon } from '@/components';
 import useFeedGenresField from './useFeedGenresField';
-import { GenreObjectType } from '@/types';
+import { GenreObject } from '@/types';
 
-const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
+const FeedGenresField: React.FC<GenreField> = (props) => {
   const {
     handleAddGenre,
     handleDeleteGenre,
     setSelect,
     filteredGenres,
-    control,
     genresRef,
     genres,
     t,
     locale,
     select,
-  } = useFeedGenresField(props.defaultVal as GenreObjectType[]);
+  } = useFeedGenresField(props.defaultVal as GenreObject[]);
 
   return (
     <>
-      <Controller
-        name='genres'
-        control={control}
-        defaultValue={genres}
-        render={(): any => null}
-      />
       <div ref={genresRef} className='w-full my-6'>
         <div
-          className={`flex items-center pt-1 bg-transparent overflow-x-scroll scrollbar px-2 items-center border-[1px] rounded ${
+          className={`flex items-center pt-1 h-[42px] bg-transparent overflow-x-scroll scrollbar px-2 items-center border-[1px] rounded ${
             genres.length < 1 && props.error['genres'] !== undefined
               ? 'border-default-btn'
               : 'border-placeholder'
@@ -72,7 +64,7 @@ const FeedGenresField: React.FC<GenreFieldTypes> = (props) => {
           <div className='relative'>
             <div className='absolute max-h-60 overflow-y-scroll scrollbar bg-form-back text-white rounded-b w-full z-[99]'>
               {filteredGenres &&
-                filteredGenres.map((item: GenreObjectType) => {
+                filteredGenres.map((item: GenreObject) => {
                   return (
                     <div
                       key={item.id}

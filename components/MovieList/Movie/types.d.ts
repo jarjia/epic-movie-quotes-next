@@ -1,6 +1,6 @@
 import { Keys } from '@/types';
 
-export type MovieTypes = {
+export type Movie = {
   thumbnail: string;
   movie: Keys;
   releaseDate: string;
