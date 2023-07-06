@@ -78,7 +78,7 @@ const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
         <p className='text-form-small-title'>
           {t('have_not_acc')}
           <button
-            className='underline text-link'
+            className='underline text-link ml-1'
             onClick={() => handleFormStatus('register')}
           >
             {t('sign_up')}

@@ -61,17 +61,20 @@ module.exports = {
         'notify-color': '#E33812',
         'add-quote-bg': '#24222F',
         'search-bar-border': 'rgba(239, 239, 239, 0.3)',
-        'choose-file': '#9747FF',
+        'choose-file': 'rgba(151, 71, 255, 0.4)',
         'mobile-search': '#12101A',
         'success-message-bg': '#D1E7DD',
         liked: '#F3426C',
         disabled: 'rgba(236, 76, 87, 1)',
+        'placeholder-opacity': '#6C757D80',
       },
       width: {
-        profile: '60px',
+        profile: '52px',
+        'add-btn-w': '154px',
       },
       height: {
-        profile: '60px',
+        profile: '52px',
+        'add-btn-h': '48px',
       },
       fontSize: {
         h1: '60px',

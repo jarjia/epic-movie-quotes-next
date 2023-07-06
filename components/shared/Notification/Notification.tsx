@@ -1,7 +1,8 @@
 import { NotificationCard, TriangleIcon } from '@/components';
 import useNotification from './useNotification';
+import { NotificationPropsTypes } from './types';
 
-const Notification = () => {
+const Notification: React.FC<NotificationPropsTypes> = (props) => {
   const {
     isLoading,
     divRef,
@@ -22,7 +23,7 @@ const Notification = () => {
       </div>
       <div className='absolute sm:left-0 right-20 sm:w-full w-[40%] mid:w-[60%]'>
         <div
-          className='relative top-8 p-4 sm:p-2 bg-black rounded-xl'
+          className='relative top-8 p-4 pb-0 sm:p-2 bg-black sm:px-5 rounded-xl'
           style={{ boxShadow: '0 0 30px black' }}
         >
           <div className='flex sm-max:flex-col mt-4 pb-2 items-center justify-between'>
@@ -109,7 +110,7 @@ const Notification = () => {
           </div>
           <div
             ref={divRef}
-            className='mt-8 max-h-[400px] sm-h:max-h-[300px] h-auto pb-1 pr-1 overflow-y-scroll scrollbar text-white'
+            className='mt-8 max-h-[calc(100vh-250px)] sm:max-h-[calc(100vh-200px)] min-h-auto sm:h-auto sm-h:max-h-[300px] pb-1 pr-1 overflow-y-scroll scrollbar text-white'
           >
             {notifications !== undefined && notifications.length !== 0 ? (
               notifications.map((item) => {
@@ -124,13 +125,14 @@ const Notification = () => {
                     seen={item.seen}
                     created_at={item.created_at}
                     quoteId={item.quote_id}
+                    handleisNotification={props.handleisNotification}
                   />
                 );
               })
             ) : isLoading ? (
-              <p className='text-2xl mt-4'>Loading...</p>
+              <p className='text-2xl mt-2 mb-2'>Loading...</p>
             ) : (
-              <p className='text-2xl mt-4'>{t('no_notifications')}</p>
+              <p className='text-2xl mt-2 mb-2'>{t('no_notifications')}</p>
             )}
           </div>
         </div>

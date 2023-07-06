@@ -23,7 +23,7 @@ const FeedNavbar = () => {
   } = useFeedNavbar();
 
   return (
-    <nav className='flex justify-between items-center z-[10] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
+    <nav className='flex justify-between items-center z-[998] px-16 py-5 sm:px-8 fixed bg-form-back w-full'>
       <div>
         <h3 className='text-title uppercase sm:text-base sm:hidden font-medium'>
           movie quotes
@@ -62,14 +62,16 @@ const FeedNavbar = () => {
             )}
             <BellIcon />
           </div>
-          {isNotification && <Notification />}
+          {isNotification && (
+            <Notification handleisNotification={handleisNotification} />
+          )}
         </div>
         <DropDown isNotification={isNotification} />
         <div className='flex gap-8 sm:gap-3 sm:hidden'>
           <div>
             <button
               onClick={handleShouldLogout}
-              className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] border-2 border-white'
+              className='text-white rounded w-[96px] h-[38px] border-2 border-white'
             >
               {t('log_out')}
             </button>

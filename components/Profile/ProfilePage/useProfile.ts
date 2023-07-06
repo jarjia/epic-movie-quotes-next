@@ -80,6 +80,7 @@ const useProfile = () => {
   const handleEditProfileClear = () => {
     setEditProfile(editProfileInitials);
   };
+  console.log(router);
 
   const handleBackButton = () => {
     if (editProfile.isEdit === true) {

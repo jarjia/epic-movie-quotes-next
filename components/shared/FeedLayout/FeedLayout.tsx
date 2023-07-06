@@ -1,7 +1,7 @@
-import classes from '@/styles/Landing.module.css';
 import { FeedNavbar, FeedSidebar } from '@/components';
 import { FeedLayoutTypes } from './types';
 import useFeedLayout from './useFeedLayout';
+import classes from '@/styles/Landing.module.css';
 import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
@@ -27,10 +27,10 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
         className={`pt-24 h-full ${
           router.pathname.includes('movie-list')
             ? 'pl-newsfeed-layout large:pl-large-newsfeed-layout sm:pl-8 pr-8 large:pr-16'
-            : `normal:px-newsfeed-layout sm:px-0 sm:pl-0 large:px-large-newsfeed-layout ${
+            : `normal:px-newsfeed-layout sm:px-0 sm:pl-0 large:px-newsfeed-layout ${
                 router.pathname === '/profile'
                   ? 'huge:px-large-newsfeed-layout'
-                  : 'huge:px-huge-newsfeed-layout'
+                  : 'huge:px-large-newsfeed-layout'
               } mid:pl-newsfeed-layout mid:pr-8`
         }`}
       >

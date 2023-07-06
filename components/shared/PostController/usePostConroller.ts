@@ -15,44 +15,18 @@ const usePostConroller = (data: PostTypes, userId: number) => {
   const [disabled, setDisabled] = useState(false);
   const [isLiked, setIsliked] = useState(false);
   const searchRef = useRef<HTMLInputElement>(null);
-  const {
-    userData,
-    newLikes,
-    handleNewLikes,
-    feedFormStatus,
-    handleNewComment,
-    commentsArr,
-  } = useContext(AppContext);
+  const { userData, newLikes, handleNewLikes, handleNewComment, commentsArr } =
+    useContext(AppContext);
   const { t } = useTranslation('common');
   const queryClient = useQueryClient();
-  const lastComment = useRef<null | HTMLDivElement>(null);
-  const commentRef = useRef<null | HTMLDivElement>(null);
 
-  const followComments = () => {
-    setTimeout(() => {
-      if (lastComment.current && data.comments.length > 0) {
-        if (feedFormStatus !== '') {
-          lastComment.current.scrollIntoView({
-            behavior: 'smooth',
-          });
-        } else {
-          window.scrollTo({
-            behavior: 'smooth',
-            top: lastComment.current.offsetTop - 200,
-          });
-        }
-      }
-    }, 20);
-  };
+  useEffect(() => {
+    setComments(data.comments);
+  }, [data.comments]);
 
   const handleOpenComments = () => {
     if (openComments === 0) {
       setOpenComments(2);
-      setTimeout(() => {
-        if (commentRef.current && data.comments.length > 0) {
-          commentRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-      }, 20);
     } else if (data.comments.length === 0) {
       setOpenComments(0);
     }
@@ -167,12 +141,9 @@ const usePostConroller = (data: PostTypes, userId: number) => {
     comments,
     isLoading,
     filteredComments,
-    commentRef,
     disabled,
     openComments,
     handleOpenComments,
-    followComments,
-    lastComment,
     handleLiked,
   };
 };

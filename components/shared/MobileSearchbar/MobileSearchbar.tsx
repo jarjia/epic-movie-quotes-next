@@ -6,7 +6,7 @@ const MobileSearchbar = () => {
     useMobileSearchbar();
 
   return (
-    <div className='absolute z-[99] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 h-[calc(100vh-15vh)]'>
+    <div className='absolute z-[99] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 sm:h-screen h-[calc(100vh-15vh)]'>
       <div className='grid py-2 grid-cols-mobile-search-cols w-full'>
         <button
           className='flex items-center justify-center w-full h-full'

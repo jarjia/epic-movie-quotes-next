@@ -13,7 +13,7 @@ const AddQuoteFromMovieModal: React.FC<AddQuoteFromMovieModalTypes> = (
     <FormProvider {...form}>
       <div className='grid sm:bg-black grid-cols-quote-card mt-6 sm:rounded sm:py-4 sm:px-1'>
         <div
-          className='w-full h-[150px] bg-cover rounded-xl'
+          className='w-full max-h-[150px] bg-cover bg-horizon-center rounded-xl'
           style={{
             backgroundImage: `url(${props.movie.thumbnail})`,
           }}

@@ -3,6 +3,7 @@ import { MobileInputUpdateTypes } from './types';
 import { hookUserUpdateTypes } from '@/types';
 import { IsSure, PasswordInput } from '@/components';
 import { useTranslation } from 'next-i18next';
+import classes from '@/styles/Landing.module.css';
 
 const MobileUserUpdate = ({
   editProfile,
@@ -24,6 +25,7 @@ const MobileUserUpdate = ({
     handleSubmit,
     input,
     isObjEmpty,
+    trigger,
     errors,
     onSubmit,
     updateProfileLoading,
@@ -57,7 +59,7 @@ const MobileUserUpdate = ({
                     <input
                       type={editProfile.type}
                       {...form.register(editProfile.name)}
-                      className='px-2 py-2 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
+                      className={`${classes['autofill-for-landing']} px-2 py-2 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
                       placeholder={editProfile.placeholder}
                       autoComplete='off'
                     />
@@ -142,6 +144,7 @@ const MobileUserUpdate = ({
               <button
                 type='button'
                 onClick={() => {
+                  trigger();
                   setApiError('');
                   isObjEmpty(errors) &&
                     input !== undefined &&

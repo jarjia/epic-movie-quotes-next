@@ -136,7 +136,7 @@ const UserUpdate: React.FC<UserUpdateTypes> = ({
               <button
                 type='submit'
                 disabled={updateProfileLoading}
-                className={`text-white rounded py-2 px-3 ${
+                className={`text-white rounded w-[160px] h-[48px] ${
                   updateProfileLoading
                     ? 'bg-disabled'
                     : 'bg-default-btn hover:bg-hover active:bg-active'

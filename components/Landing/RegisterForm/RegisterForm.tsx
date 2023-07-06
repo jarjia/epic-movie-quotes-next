@@ -83,7 +83,7 @@ const RegisterForm: React.FC<HandleFormStatusTypes> = ({
         <p className='text-form-small-title'>
           {t('have_acc')}
           <button
-            className='underline text-link'
+            className='underline text-link ml-1'
             onClick={() => handleFormStatus('login')}
           >
             {t('log_in')}

@@ -17,11 +17,11 @@ const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
     <div className='text-white my-4'>
       <div className='flex flex-col gap-2 mb-4'>
         <div className='flex border-[1px] border-placeholder rounded justify-between p-2'>
-          <p className='break-all pr-1'>{quote.quote?.en}</p>
+          <p className='break-all pr-1 italic'>{quote.quote?.en}</p>
           <span className='text-placeholder'>Eng</span>
         </div>
         <div className='flex border-[1px] border-placeholder rounded justify-between p-2'>
-          <p className='break-all pr-1'>{quote.quote?.ka}</p>
+          <p className='break-all pr-1 italic'>{quote.quote?.ka}</p>
           <span className='text-placeholder'>ქარ</span>
         </div>
       </div>

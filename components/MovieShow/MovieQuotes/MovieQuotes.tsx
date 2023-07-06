@@ -13,17 +13,32 @@ const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
           backgroundImage: `url(${props.movieImage})`,
         }}
       ></div>
+      <div className='flex items-center'>
+        <button
+          onClick={() => handleFeedFormStatus('add-quote-movie')}
+          className='sm:flex px-1 hidden justify-center items-center text-white w-add-btn-w h-add-btn-h rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
+        >
+          <AddIcon />
+          {t('add_quote')}
+        </button>
+      </div>
+      <div className='bg-placeholder sm:block hidden w-full h-[1px] mt-6'></div>
       <div>
         <div className='flex items-center mt-6 gap-2'>
-          <p className='flex text-2xl text-white'>
-            <span className='pr-1'>{t('total_quotes')}</span>(
-            <span className='pl-1 block sm:hidden'>{t('total')}</span>
+          <div className='flex text-2xl text-white'>
+            <div className='pr-1'>
+              <span className='sm:hidden block'>{t('total_quotes')}</span>
+              <span className='sm:block hidden'>
+                {t('mobile_total_quotes')}
+              </span>
+            </div>
+            (<span className='pl-1 block sm:hidden'>{t('total')}</span>
             <span className='pl-2 pr-1 sm:pl-1'>{props.quotes.length}</span>)
-          </p>
-          <span className='bg-placeholder h-[25px] w-[1px] mx-2'></span>
+          </div>
+          <span className='bg-placeholder sm:hidden block h-[25px] w-[1px] mx-2'></span>
           <button
             onClick={() => handleFeedFormStatus('add-quote-movie')}
-            className='flex items-center text-white p-2 rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
+            className='sm:hidden flex justify-center items-center text-white w-add-btn-w h-add-btn-h rounded gap-2 bg-default-btn hover:bg-hover active:bg-active'
           >
             <AddIcon />
             {t('add_quote')}

@@ -1,5 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import { FeedBaseInputTypes } from './types';
+import classes from '@/styles/Landing.module.css';
 
 const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
   const { register } = useFormContext();
@@ -29,7 +30,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
           placeholder={isEdit ? '' : props.label}
           {...register(props.name)}
           defaultValue={isEdit ? props.defaultVal : ''}
-          className={`${
+          className={`${classes['autofill-for-newsfeed']} ${
             error !== undefined
               ? 'border-default-btn focus:border-default-btn'
               : 'border-placeholder focus:border-placeholder'
@@ -37,7 +38,7 @@ const FeedBaseInput: React.FC<FeedBaseInputTypes> = (props) => {
             isEdit
               ? 'border-l-0 pl-0 rounded-r'
               : 'placeholder-white pl-2 rounded'
-          } w-full caret-white text-white border-[1px] bg-transparent pr-10 focus:ring-0 block flex-1 min-w-0`}
+          } w-full caret-white text-white border-[1px] autofill:text-white bg-transparent pr-10 focus:ring-0 block flex-1 min-w-0`}
         />
       </div>
       <div>
