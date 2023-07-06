@@ -1,8 +1,8 @@
 import { AppContext } from '@/context';
 import { useContext } from 'react';
-import { UserProfileTypes } from './types';
+import { UserProfile } from './types';
 
-const UserProfile: React.FC<UserProfileTypes> = (props) => {
+const UserProfile: React.FC<UserProfile> = (props) => {
   const { userData } = useContext(AppContext);
 
   return (

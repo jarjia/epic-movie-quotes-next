@@ -9,7 +9,7 @@ import {
   NotificationEventTypes,
 } from './types';
 import { PusherChannel } from 'laravel-echo/dist/channel';
-import { useInstantiatePusher } from '@/helpers';
+import { useInstantiatePusher } from '@/hooks';
 
 const useFeedLayout = () => {
   const { getUserData } = useAuthService();

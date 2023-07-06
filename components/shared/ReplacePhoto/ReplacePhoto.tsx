@@ -1,4 +1,4 @@
-import { FileCameraIcon } from '@/components/icons';
+import { FileCameraIcon } from '@/components';
 import useReplacePhoto from './useReplacePhoto';
 
 const ReplacePhoto: React.FC<{ movieImage: string }> = (props) => {

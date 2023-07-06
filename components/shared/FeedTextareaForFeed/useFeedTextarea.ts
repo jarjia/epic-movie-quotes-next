@@ -1,7 +1,7 @@
-import { FeedBaseTextareaTypes } from './types';
+import { FeedBaseTextarea } from './types';
 import { useFormContext } from 'react-hook-form';
 
-const useFeedTextarea = (props: FeedBaseTextareaTypes) => {
+const useFeedTextarea = (props: FeedBaseTextarea) => {
   const { register } = useFormContext();
   let error =
     props.lang === 'Eng'

@@ -1,11 +1,11 @@
 import { AppContext } from '@/context';
 import { useNotificationService } from '@/services';
-import { PostTypes } from '@/types';
+import { Post } from '@/types';
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQueryClient } from 'react-query';
 
-const usePostConroller = (data: PostTypes, userId: number) => {
+const usePostConroller = (data: Post, userId: number) => {
   const { postComment, postLike } = useNotificationService();
   const initialLikes: number[] = data.likes?.map((item) => item.user.id);
   const [openComments, setOpenComments] = useState(2);

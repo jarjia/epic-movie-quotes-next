@@ -1,4 +1,4 @@
-export type NotificationCardTypes = {
+export type NotificationCard = {
   type: string;
   name: string;
   thumbnail: string;

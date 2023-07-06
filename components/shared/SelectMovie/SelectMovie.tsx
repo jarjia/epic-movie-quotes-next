@@ -4,8 +4,6 @@ import { Keys } from '@/types';
 
 const SelectMovie = () => {
   const {
-    Controller,
-    control,
     handleMovieId,
     setIsSelect,
     movieId,
@@ -20,11 +18,6 @@ const SelectMovie = () => {
   return (
     <>
       <div className='mt-4'>
-        <Controller
-          name='movieId'
-          control={control}
-          render={() => <input type='hidden' />}
-        />
         <div
           ref={selectRef}
           onClick={() => setIsSelect((prev) => !prev)}

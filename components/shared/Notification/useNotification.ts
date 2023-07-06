@@ -1,5 +1,5 @@
 import { useNotificationService } from '@/services';
-import { NotificationTypes } from '@/types';
+import { Notification } from '@/types';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useInfiniteQuery, useMutation, useQueryClient } from 'react-query';
@@ -10,7 +10,7 @@ const useNotification = () => {
   const divRef = useRef<HTMLDivElement | null>(null);
   const [filter, setFilter] = useState<string | null>(null);
   const [scrollTop, setScrollTop] = useState<number | undefined>(0);
-  const [notifications, setNotifications] = useState<NotificationTypes[]>([]);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
   const { getNotifications, readAllNotifications } = useNotificationService();
   const { data, fetchNextPage, refetch, isLoading, hasNextPage } =
     useInfiniteQuery(

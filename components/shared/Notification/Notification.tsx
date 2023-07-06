@@ -1,8 +1,8 @@
 import { NotificationCard, TriangleIcon } from '@/components';
 import useNotification from './useNotification';
-import { NotificationPropsTypes } from './types';
+import { NotificationProps } from './types';
 
-const Notification: React.FC<NotificationPropsTypes> = (props) => {
+const Notification: React.FC<NotificationProps> = (props) => {
   const {
     isLoading,
     divRef,

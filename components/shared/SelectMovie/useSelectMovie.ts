@@ -1,7 +1,7 @@
 import { useMovieService } from '@/services';
 import { useRouter } from 'next/router';
 import { useEffect, useRef, useState } from 'react';
-import { useFormContext, Controller } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useQuery } from 'react-query';
 import { Keys } from '@/types';
@@ -9,7 +9,6 @@ import { Keys } from '@/types';
 const useSelectMovie = () => {
   const { getMoviesForQuote } = useMovieService();
   const {
-    control,
     setValue,
     formState: { errors },
   } = useFormContext();
@@ -55,9 +54,7 @@ const useSelectMovie = () => {
     setIsSelect,
     handleMovieId,
     locale,
-    control,
     errors,
-    Controller,
     movieId,
     movies,
     isSelect,
