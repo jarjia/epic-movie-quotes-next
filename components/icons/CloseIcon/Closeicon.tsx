@@ -1,7 +1,6 @@
-import { CloseIconTypes } from './types';
+import { CloseIcon } from './types';
 
-const Closeicon: React.FC<CloseIconTypes> = (props) => {
-  // 10
+const Closeicon: React.FC<CloseIcon> = (props) => {
   return (
     <svg
       xmlns='http://www.w3.org/2000/svg'

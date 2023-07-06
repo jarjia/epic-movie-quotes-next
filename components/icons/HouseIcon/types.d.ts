@@ -1,3 +1,3 @@
-export type HouseIconTypes = {
+export type HouseIcon = {
   isFeed: boolean;
 };

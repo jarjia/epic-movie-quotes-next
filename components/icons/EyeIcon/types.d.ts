@@ -1,3 +1,3 @@
-export type EyeIconTypes = {
+export type EyeIcon = {
   isPassword: boolean;
 };
