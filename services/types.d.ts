@@ -29,5 +29,5 @@ export type PostComment = {
 
 export type Channel = {
   socketId: string;
-  channelName: Function;
+  channelName: string;
 };
