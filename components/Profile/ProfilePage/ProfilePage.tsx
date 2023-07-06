@@ -16,7 +16,6 @@ const ProfilePage = () => {
   const {
     handleBackButton,
     setEditProfile,
-    handleEditProfileClear,
     setIsSure,
     feedFormStatus,
     editProfile,
@@ -68,7 +67,7 @@ const ProfilePage = () => {
             {editProfile.isEdit === false ? (
               <UserUpdate
                 editProfile={editProfile}
-                handleEditProfileClear={handleEditProfileClear}
+                handleEditProfileClear={setEditProfile}
                 handleEditProfile={setEditProfile}
                 handleIsSuccess={setIsSuccess}
                 handleIsSure={setIsSure}
@@ -78,7 +77,7 @@ const ProfilePage = () => {
                 handleIsSure={setIsSure}
                 handleIsSuccess={setIsSuccess}
                 isSure={isSure}
-                handleEditProfileClear={handleEditProfileClear}
+                handleEditProfileClear={setEditProfile}
                 editProfile={editProfile}
               />
             )}

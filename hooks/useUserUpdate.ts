@@ -182,7 +182,13 @@ const useUserUpdate = ({
         }
         setCancel(true);
         setIsEditing(false);
-        handleEditProfileClear();
+        handleEditProfileClear({
+          name: '',
+          label: '',
+          placeholder: '',
+          isEdit: false,
+          type: '',
+        });
         router.push('/profile');
         queryClient.invalidateQueries('user');
         if (!router.query.update_token && !isEmail) {

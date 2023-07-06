@@ -134,7 +134,15 @@ const MobileUserUpdate = ({
             </div>
             <div className='flex p-2 items-center justify-between px-8 mt-2'>
               <button
-                onClick={handleEditProfileClear}
+                onClick={() =>
+                  handleEditProfileClear({
+                    name: '',
+                    label: '',
+                    placeholder: '',
+                    isEdit: false,
+                    type: '',
+                  })
+                }
                 type='button'
                 className='text-input text-primary-font'
               >

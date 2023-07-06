@@ -1,7 +1,7 @@
-import { MobileInput } from '@/types';
+import { MobileInput, setState } from '@/types';
 
 export type UserUpdate = {
-  handleEditProfileClear: () => void;
+  handleEditProfileClear: setState;
   handleEditProfile: (data: MobileInput) => void;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInput;
