@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useQuoteService } from '@/services';
-import { PostQuoteTypes } from '@/types';
+import { PostQuote } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import {
@@ -48,7 +48,7 @@ const useAddQuote = () => {
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     data.thumbnail = data.thumbnail[0];
 
-    addQuote(data as PostQuoteTypes);
+    addQuote(data as PostQuote);
   };
 
   return {

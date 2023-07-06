@@ -1,8 +1,8 @@
 import { PostController } from '@/components';
-import { PostTypes } from '@/types';
+import { Post } from '@/types';
 import usePost from './usePost';
 
-const Post: React.FC<PostTypes> = (props) => {
+const Post: React.FC<Post> = (props) => {
   const { locale, t, postHeight, postRef } = usePost();
 
   return (

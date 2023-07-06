@@ -1,5 +1,5 @@
 import { useQuoteService } from '@/services';
-import { PostsTypes } from '@/types';
+import { Posts } from '@/types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -45,7 +45,7 @@ const usePosts = () => {
     };
   }, []);
 
-  const posts: PostsTypes[] = data?.pages[data?.pages.length - 1]?.data?.quotes;
+  const posts: Posts[] = data?.pages[data?.pages.length - 1]?.data?.quotes;
 
   useEffect(() => {
     if ((fetchPage || atBottom) && hasNextPage) {

@@ -1,6 +1,6 @@
 import { Post } from '@/components';
 import usePosts from './usePosts';
-import { PostsTypes } from '@/types';
+import { Posts } from '@/types';
 
 const Posts = () => {
   const { posts, isLoading, t } = usePosts();
@@ -23,7 +23,7 @@ const Posts = () => {
 
   return (
     <div className='my-4 pb-2'>
-      {posts.map((post: PostsTypes) => {
+      {posts.map((post: Posts) => {
         return (
           <Post
             key={post.id}
