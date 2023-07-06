@@ -1,3 +1,5 @@
+import { setState } from '@/types';
+
 export type NotificationCard = {
   type: string;
   name: string;
@@ -7,5 +9,5 @@ export type NotificationCard = {
   seen: number;
   created_at: string;
   quoteId: number;
-  handleisNotification: () => void;
+  setIsNotification: setState;
 };

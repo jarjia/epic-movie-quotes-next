@@ -4,8 +4,8 @@ import useFeedSidebar from './useFeedSidebar';
 import { AppBars } from '@/types';
 
 const FeedSidebar: React.FC<AppBars> = ({
-  handleLogout,
-  handleBurger,
+  setShouldLogout,
+  setIsBurger,
   isBurger,
 }) => {
   const {
@@ -70,7 +70,7 @@ const FeedSidebar: React.FC<AppBars> = ({
         <>
           <div
             className='fixed sm:block hidden w-full h-screen z-[-1]'
-            onClick={handleBurger}
+            onClick={() => setIsBurger((prev: boolean) => !prev)}
           ></div>
           <div className='sm:block hidden py-16 z-[999] bg-post-bg w-[80%] sm-mid:w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
             <Link
@@ -169,7 +169,7 @@ const FeedSidebar: React.FC<AppBars> = ({
                 </div>
               )}
               <button
-                onClick={handleLogout}
+                onClick={() => setShouldLogout(true)}
                 className='w-full my-4 mt-0 pl-9 py-4 text-start text-xl text-white hover:bg-add-quote-bg active:bg-add-quote-bg'
               >
                 {t('log_out')}

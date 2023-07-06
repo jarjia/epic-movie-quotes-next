@@ -3,11 +3,7 @@ import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import {
-  CommentEventTypes,
-  LikeEventTypes,
-  NotificationEventTypes,
-} from './types';
+import { CommentEvent, LikeEvent, NotificationEvent } from './types';
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
 
@@ -59,15 +55,6 @@ const useFeedLayout = () => {
     }
   }, [feedFormStatus]);
 
-  const handleNotify = (data: NotificationEventTypes) => {
-    if (data.notification.notify) {
-      setTimeout(() => {
-        queryClient.invalidateQueries('notifications');
-        queryClient.invalidateQueries('notifications-count');
-      }, 500);
-    }
-  };
-
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
@@ -75,7 +62,14 @@ const useFeedLayout = () => {
       channel = window.Echo.private(
         `notification.${userData.id}`
       ) as PusherChannel;
-      channel!.listen('NotificationEvent', handleNotify);
+      channel!.listen('NotificationEvent', (data: NotificationEvent) => {
+        if (data.notification.notify) {
+          setTimeout(() => {
+            queryClient.invalidateQueries('notifications');
+            queryClient.invalidateQueries('notifications-count');
+          }, 500);
+        }
+      });
     }
 
     return () => {
@@ -83,18 +77,16 @@ const useFeedLayout = () => {
         channel.unsubscribe();
       }
     };
-  }, [userData.id]);
-
-  const handleQuoteLiked = (data: LikeEventTypes) => {
-    handleNewLikes(data.message);
-  };
+  }, [userData.id, queryClient]);
 
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
     if (window.Echo) {
       channel = window.Echo.channel('liked') as PusherChannel;
-      channel!.listen('QuoteLiked', handleQuoteLiked);
+      channel!.listen('QuoteLiked', (data: LikeEvent) =>
+        handleNewLikes(data.message)
+      );
     }
 
     return () => {
@@ -103,17 +95,15 @@ const useFeedLayout = () => {
       }
     };
   }, []);
-
-  const handleCommented = (data: CommentEventTypes) => {
-    handleNewComment(data.message.new_comment);
-  };
 
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
     if (window.Echo) {
       channel = window.Echo.channel('commented') as PusherChannel;
-      channel!.listen('QuoteComment', handleCommented);
+      channel!.listen('QuoteComment', (data: CommentEvent) =>
+        handleNewComment(data.message.new_comment)
+      );
     }
 
     return () => {
@@ -123,18 +113,10 @@ const useFeedLayout = () => {
     };
   }, []);
 
-  const handleLogout = () => {
-    setShouldLogout(true);
-  };
-
-  const handleBurger = () => {
-    setIsBurger(!isBurger);
-  };
-
   return {
     feedFormStatus,
-    handleLogout,
-    handleBurger,
+    setShouldLogout,
+    setIsBurger,
     router,
     isLoading,
     isError,

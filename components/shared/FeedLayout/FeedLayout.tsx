@@ -10,9 +10,9 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
     isLoading,
     isError,
     isBurger,
-    handleLogout,
+    setShouldLogout,
     handleFeedFormStatus,
-    handleBurger,
+    setIsBurger,
   } = useFeedLayout();
 
   if (isLoading || isError) {
@@ -22,10 +22,10 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
   return (
     <section className='newsfeed w-screen h-full min-h-screen'>
       <ToastContainer autoClose={3000} className='select-none' />
-      <FeedNavbar handleLogout={handleLogout} handleBurger={handleBurger} />
+      <FeedNavbar setShouldLogout={setShouldLogout} setIsBurger={setIsBurger} />
       <FeedSidebar
-        handleLogout={handleLogout}
-        handleBurger={handleBurger}
+        setShouldLogout={setShouldLogout}
+        setIsBurger={setIsBurger}
         isBurger={isBurger}
       />
       {feedFormStatus !== '' && (

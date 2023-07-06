@@ -19,7 +19,6 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
     offTopRef,
     headerRef,
     handleFeedFormStatus,
-    feedFormStatus,
   } = useFeedForm();
 
   return (

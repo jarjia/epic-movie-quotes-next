@@ -19,12 +19,8 @@ const useFeedNavbar = () => {
   const notSeenNotifications = data?.data.new;
   const { t } = useTranslation('common');
 
-  const handleisNotification = () => {
-    setIsNotification(!isNotification);
-  };
-
   return {
-    handleisNotification,
+    setIsNotification,
     notSeenNotifications,
     shouldNotify,
     isNotification,

@@ -8,7 +8,7 @@ import {
 import useFeedNavbar from './useFeedNavbar';
 import { AppBars } from '@/types';
 
-const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
+const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
   const {
     shouldNotify,
     isNotification,
@@ -16,7 +16,7 @@ const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
     notSeenNotifications,
     handleIsSearch,
     router,
-    handleisNotification,
+    setIsNotification,
   } = useFeedNavbar();
 
   return (
@@ -25,7 +25,10 @@ const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
         <h3 className='text-title uppercase sm:text-base sm:hidden font-medium'>
           movie quotes
         </h3>
-        <button onClick={handleBurger} className='hidden sm:block'>
+        <button
+          onClick={() => setIsBurger((prev: boolean) => !prev)}
+          className='hidden sm:block'
+        >
           <BurgerIcon />
         </button>
       </div>
@@ -33,7 +36,7 @@ const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
         {isNotification && (
           <div
             className='absolute top-0 z-[98] left-0 w-screen h-screen'
-            onClick={handleisNotification}
+            onClick={() => setIsNotification(!isNotification)}
           ></div>
         )}
         {router.pathname === '/newsfeed' && (
@@ -42,7 +45,10 @@ const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
           </button>
         )}
         <div className='z-[98]'>
-          <div onClick={handleisNotification} className='cursor-pointer'>
+          <div
+            onClick={() => setIsNotification(!isNotification)}
+            className='cursor-pointer'
+          >
             {shouldNotify && notSeenNotifications !== 0 && (
               <div className='relative left-3 bottom-2'>
                 <div className='absolute bg-notify-color flex justify-center items-center text-center w-[26px] h-[26px] text-white rounded-full px-2'>
@@ -59,14 +65,14 @@ const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
             <BellIcon />
           </div>
           {isNotification && (
-            <Notification handleisNotification={handleisNotification} />
+            <Notification setIsNotification={setIsNotification} />
           )}
         </div>
         <DropDown isNotification={isNotification} />
         <div className='flex gap-8 sm:gap-3 sm:hidden'>
           <div>
             <button
-              onClick={handleLogout}
+              onClick={() => setShouldLogout(true)}
               className='text-white rounded w-[96px] h-[38px] border-2 border-white'
             >
               {t('log_out')}
