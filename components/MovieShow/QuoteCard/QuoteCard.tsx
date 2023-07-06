@@ -6,9 +6,9 @@ import {
   TrashBinIcon,
 } from '@/components';
 import useQuoteCard from './useQuoteCard';
-import { QuoteCardTypes } from './types';
+import { QuoteCard } from './types';
 
-const QuoteCard: React.FC<QuoteCardTypes> = ({
+const QuoteCard: React.FC<QuoteCard> = ({
   thumbnail,
   quote,
   id,

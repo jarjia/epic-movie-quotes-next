@@ -1,8 +1,8 @@
 import { CommentIcon, HeartIcon, UserProfile } from '@/components';
 import usePostConroller from './usePostConroller';
-import { PostTypes } from '@/types';
+import { Post } from '@/types';
 
-const PostController: React.FC<{ data: PostTypes; userId: number }> = ({
+const PostController: React.FC<{ data: Post; userId: number }> = ({
   data,
   userId,
 }) => {

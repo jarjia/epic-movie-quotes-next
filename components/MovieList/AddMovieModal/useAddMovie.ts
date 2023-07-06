@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useMovieService } from '@/services';
-import { GenreObjectType, MovieCreateTypes } from '@/types';
+import { GenreObject, MovieCreate } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -49,12 +49,12 @@ const useAddMovie = () => {
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
     let genresIds: number[] = [];
-    data.genres.map((item: GenreObjectType) => genresIds.push(item.id));
+    data.genres.map((item: GenreObject) => genresIds.push(item.id));
     data.genres = genresIds;
     data.thumbnail = data.thumbnail[0];
     data.user_id = userData.id;
 
-    createMovie(data as MovieCreateTypes);
+    createMovie(data as MovieCreate);
   };
 
   return {

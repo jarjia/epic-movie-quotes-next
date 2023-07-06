@@ -1,8 +1,8 @@
 import { GoogleIcon, Checkbox, Input, PasswordInput } from '@/components';
 import useLoginForm from './useLoginForm';
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 
-const LoginForm: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const LoginForm: React.FC<HandleFormStatus> = ({ handleFormStatus }) => {
   const {
     errors,
     handleSubmit,

@@ -1,3 +1,3 @@
-export type PostRecoverEmailTypes = {
+export type PostRecoverEmail = {
   email: string;
 };

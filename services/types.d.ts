@@ -1,27 +1,27 @@
-export type PostRegisterTypes = {
+export type PostRegister = {
   name: string;
   email: string;
   password: string;
 };
-export type PostVerifyTypes = {
+export type PostVerify = {
   email: string;
   token: string;
 };
-export type PostRecoverEmailTypes = {
+export type PostRecoverEmail = {
   email: string;
 };
-export type PostRecoverPasswordTypes = {
+export type PostRecoverPassword = {
   password: string;
   email: string;
   recover_token: string;
 };
 
-export type LoginCredentialsTypes = {
+export type LoginCredentials = {
   user: string;
   password: string;
   remember_me: boolean;
 };
-export type PostCommentTypes = {
+export type PostComment = {
   quote_id: number;
   to_user: number;
   comment: string;

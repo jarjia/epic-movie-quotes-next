@@ -1,4 +1,4 @@
-import { BackArrowIcon } from '@/components/icons';
+import { BackArrowIcon } from '@/components';
 import useMobileSearchbar from './useMobileSearchbar';
 
 const MobileSearchbar = () => {

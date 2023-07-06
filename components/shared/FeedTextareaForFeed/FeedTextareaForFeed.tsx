@@ -1,7 +1,7 @@
-import { FeedBaseTextareaTypes } from './types';
+import { FeedBaseTextarea } from './types';
 import useFeedTextarea from './useFeedTextarea';
 
-const FeedTextareaForFeed: React.FC<FeedBaseTextareaTypes> = (props) => {
+const FeedTextareaForFeed: React.FC<FeedBaseTextarea> = (props) => {
   const { error, isEdit, register } = useFeedTextarea(props);
 
   return (

@@ -1,6 +1,6 @@
-import { EyeIconTypes } from './types';
+import { EyeIcon } from './types';
 
-const EyeIcon: React.FC<EyeIconTypes> = (props) => {
+const EyeIcon: React.FC<EyeIcon> = (props) => {
   return (
     <svg
       width='20'

@@ -1,8 +1,8 @@
 import { CloseIcon, PenIcon, TrashBinIcon, UserProfile } from '@/components';
-import { FeedFormLayoutTypes } from './types';
+import { FeedFormLayout } from './types';
 import useFeedForm from './useFeedForm';
 
-const FeedFormLayout: React.FC<FeedFormLayoutTypes> = ({
+const FeedFormLayout: React.FC<FeedFormLayout> = ({
   children,
   title,
   quoteId,

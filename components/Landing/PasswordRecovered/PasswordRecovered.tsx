@@ -1,17 +1,14 @@
 import { SuccessIcon } from '@/components';
-import { HandleFormStatusTypes } from '@/types';
-import classes from '@/styles/Landing.module.css';
+import { HandleFormStatus } from '@/types';
 import usePasswordRecovered from './usePasswordRecovered';
 
-const PasswordRecovered: React.FC<HandleFormStatusTypes> = ({
+const PasswordRecovered: React.FC<HandleFormStatus> = ({
   handleFormStatus,
 }) => {
   const { router, t } = usePasswordRecovered();
 
   return (
-    <div
-      className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
-    >
+    <div className='mobile-linear sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4'>
       <SuccessIcon />
       <h2
         className={`my-2 text-white ${

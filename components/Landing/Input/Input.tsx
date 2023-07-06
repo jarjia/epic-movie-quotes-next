@@ -1,9 +1,8 @@
-import { InputTypes } from './types';
+import { Input } from './types';
 import { InvalidIcon, ValidIcon } from '@/components';
 import useInput from './useInput';
-import classes from '@/styles/Landing.module.css';
 
-const Input: React.FC<InputTypes> = (props) => {
+const Input: React.FC<Input> = (props) => {
   const { input, register } = useInput(props.name);
 
   return (
@@ -15,9 +14,7 @@ const Input: React.FC<InputTypes> = (props) => {
         type={props.type}
         {...register(props.name)}
         name={props.name}
-        className={`${
-          classes['autofill-for-landing']
-        } px-2 py-1.5 pr-7 placeholder-placeholder ${
+        className={`autofill-for-landing px-2 py-1.5 pr-7 placeholder-placeholder ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn'
             : input?.length > 0

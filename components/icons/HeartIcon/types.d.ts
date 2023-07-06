@@ -1,1 +1,1 @@
-export type HeartIconTypes = { hasLiked: boolean };
+export type HeartIcon = { hasLiked: boolean };

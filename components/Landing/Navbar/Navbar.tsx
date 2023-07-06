@@ -1,8 +1,8 @@
 import { DropDown } from '@/components';
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 import { useTranslation } from 'next-i18next';
 
-const Navbar: React.FC<HandleFormStatusTypes> = (props) => {
+const Navbar: React.FC<HandleFormStatus> = (props) => {
   const { t } = useTranslation('landing');
 
   return (

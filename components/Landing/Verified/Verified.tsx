@@ -1,17 +1,14 @@
 import { SuccessIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 import { useTranslation } from 'next-i18next';
 
-const Verified: React.FC<HandleFormStatusTypes & { isLanding: boolean }> = (
+const Verified: React.FC<HandleFormStatus & { isLanding: boolean }> = (
   props
 ) => {
   const { t } = useTranslation('landingForms');
 
   return (
-    <div
-      className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
-    >
+    <div className='mobile-linear sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4'>
       <SuccessIcon />
       <h2 className='my-6 text-center text-error-page-title text-white text-form-title'>
         {t('thank_you')}

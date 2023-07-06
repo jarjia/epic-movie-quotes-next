@@ -1,4 +1,4 @@
-import { MovieStructureTypes } from '@/types';
+import { MovieStructure } from '@/types';
 import { Movie } from '@/components';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
@@ -32,7 +32,7 @@ const Movies: React.FC<MoviesPropTypes> = (props) => {
   return (
     <div className='grid grid-cols-3 mid:grid-cols-2 sm:grid-cols-1 gap-8 mt-10 sm:mt-4'>
       {props.movies &&
-        props.movies.map((movie: MovieStructureTypes) => {
+        props.movies.map((movie: MovieStructure) => {
           return (
             <Movie
               key={movie.id}

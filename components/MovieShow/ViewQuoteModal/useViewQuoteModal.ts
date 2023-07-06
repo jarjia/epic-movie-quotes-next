@@ -1,5 +1,5 @@
 import { useQuoteService } from '@/services';
-import { PostTypes } from '@/types';
+import { Post } from '@/types';
 import { useQuery } from 'react-query';
 
 const useViewQuoteModal = (quoteId: string | null) => {
@@ -12,7 +12,7 @@ const useViewQuoteModal = (quoteId: string | null) => {
     }
   );
 
-  const quote: PostTypes = data?.data;
+  const quote: Post = data?.data;
 
   return {
     isLoading,

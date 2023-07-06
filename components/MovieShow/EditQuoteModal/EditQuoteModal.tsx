@@ -1,8 +1,8 @@
 import { FeedTextareaForFeed, QuotePhoto } from '@/components';
 import useEditQuoteModal from './useEditQuoteModal';
-import { EditQuoteTypes } from './types';
+import { EditQuote } from './types';
 
-const EditQuoteModal: React.FC<EditQuoteTypes> = (props) => {
+const EditQuoteModal: React.FC<EditQuote> = (props) => {
   const {
     FormProvider,
     form,

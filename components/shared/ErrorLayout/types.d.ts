@@ -1,3 +1,3 @@
-export type ErrorLayoutTypes = {
+export type ErrorLayout = {
   children: JSX.Element;
 };

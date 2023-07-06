@@ -1,3 +1,3 @@
-import { MovieDescTypes } from '@/types';
+import { MovieDesc } from '@/types';
 
-export type MovieDescPropTypes = { movie: MovieDescTypes };
+export type MovieDescProp = { movie: MovieDesc };

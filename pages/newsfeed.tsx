@@ -6,9 +6,7 @@ const NewsFeed = () => {
   return <Feed />;
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getStaticProps({ locale }: GetServerSidePropsContext) {
   return {
     props: {
       ...(await serverSideTranslations(locale as string, [

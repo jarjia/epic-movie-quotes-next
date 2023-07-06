@@ -8,7 +8,7 @@ import {
   FieldValues,
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { PostRecoverEmailTypes } from './types';
+import { PostRecoverEmail } from './types';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
@@ -45,7 +45,7 @@ const useRecoverEmail = (handleFormStatus: (status: string) => void) => {
     });
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const finalData: PostRecoverEmailTypes = {
+    const finalData: PostRecoverEmail = {
       email: data.email,
     };
 

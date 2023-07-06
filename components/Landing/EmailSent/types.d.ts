@@ -1,3 +1,3 @@
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 
-export type EmailSentTypes = HandleFormStatusTypes & { isProfile: boolean };
+export type EmailSent = HandleFormStatus & { isProfile: boolean };

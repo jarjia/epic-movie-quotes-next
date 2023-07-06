@@ -5,7 +5,6 @@ import {
   FileInput,
 } from '@/components';
 import useAddMovie from './useAddMovie';
-import classes from '@/styles/Landing.module.css';
 import { Controller } from 'react-hook-form';
 
 const AddMovieModal = () => {
@@ -63,7 +62,7 @@ const AddMovieModal = () => {
                     }
                     field.onChange(value);
                   }}
-                  className={`${classes['autofill-for-newsfeed']} ${
+                  className={`autofill-for-newsfeed ${
                     error !== undefined
                       ? 'border-default-btn focus:border-default-btn'
                       : 'border-placeholder focus:border-placeholder'

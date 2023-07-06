@@ -1,4 +1,4 @@
-import { MovieCreateTypes } from '@/types';
+import { MovieCreate } from '@/types';
 import axios from './axios';
 import { useRouter } from 'next/router';
 
@@ -10,7 +10,7 @@ const useMovieService = () => {
     return axios.get('/api/genres');
   };
 
-  const postMovie = (data: MovieCreateTypes) => {
+  const postMovie = (data: MovieCreate) => {
     return axios.post('/api/movies', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -35,7 +35,7 @@ const useMovieService = () => {
     return axios.delete(`/api/movie/${movie}`);
   };
 
-  const updateMovie = (data: MovieCreateTypes & { movieId: number }) => {
+  const updateMovie = (data: MovieCreate & { movieId: number }) => {
     return axios.post(`/api/movie/${data.movieId}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',

@@ -1,8 +1,8 @@
 import { AddIcon, SearchbarIcon } from '@/components';
 import useListHeader from './useListHeader';
-import { MovieStructureTypes } from '@/types';
+import { MovieStructure } from '@/types';
 
-const ListHeader: React.FC<{ movies: MovieStructureTypes[] }> = (props) => {
+const ListHeader: React.FC<{ movies: MovieStructure[] }> = (props) => {
   const {
     isSearch,
     handleFeedFormStatus,

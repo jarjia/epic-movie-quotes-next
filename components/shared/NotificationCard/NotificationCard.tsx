@@ -1,8 +1,8 @@
 import { FilledHeartIcon, QuoteIcon } from '@/components';
-import { NotificationCardTypes } from './types';
+import { NotificationCard } from './types';
 import useNotificationCard from './useNotificationCard';
 
-const NotificationCard: React.FC<NotificationCardTypes> = (props) => {
+const NotificationCard: React.FC<NotificationCard> = (props) => {
   const {
     readNotificationMutate,
     timePassed,

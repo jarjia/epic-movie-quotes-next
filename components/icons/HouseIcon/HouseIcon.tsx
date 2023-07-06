@@ -1,6 +1,6 @@
-import { HouseIconTypes } from './types';
+import { HouseIcon } from './types';
 
-const HouseIcon: React.FC<HouseIconTypes> = (props) => {
+const HouseIcon: React.FC<HouseIcon> = (props) => {
   return (
     <svg
       width='31'

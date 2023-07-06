@@ -1,4 +1,4 @@
-import { MobileInputTypes } from '@/types';
+import { MobileInput } from '@/types';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'next-i18next';
@@ -16,7 +16,7 @@ const useProfile = () => {
   }, []);
 
   const [editProfile, setEditProfile] =
-    useState<MobileInputTypes>(editProfileInitials);
+    useState<MobileInput>(editProfileInitials);
   const [isSure, setIsSure] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
@@ -69,7 +69,7 @@ const useProfile = () => {
     setIsSuccess(bool);
   };
 
-  const handleEditProfile = (data: MobileInputTypes) => {
+  const handleEditProfile = (data: MobileInput) => {
     setEditProfile(data);
   };
 
@@ -84,7 +84,7 @@ const useProfile = () => {
 
   const handleBackButton = () => {
     if (editProfile.isEdit === true) {
-      setEditProfile((prev: MobileInputTypes) => {
+      setEditProfile((prev: MobileInput) => {
         return { ...prev, isEdit: false };
       });
     } else {

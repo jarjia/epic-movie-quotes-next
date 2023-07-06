@@ -1,10 +1,9 @@
-import classes from '@/styles/Landing.module.css';
-import { ErrorLayoutTypes } from './types';
+import { ErrorLayout } from './types';
 
-const ErrorLayout: React.FC<ErrorLayoutTypes> = (props) => {
+const ErrorLayout: React.FC<ErrorLayout> = (props) => {
   return (
     <div
-      className={`flex justify-center items-center ${classes['error-linear']} w-screen h-screen`}
+      className={`flex justify-center items-center error-linear w-screen h-screen`}
     >
       {props.children}
     </div>

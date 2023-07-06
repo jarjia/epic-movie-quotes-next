@@ -5,10 +5,9 @@ import {
   ReplacePhoto,
   FeedTextareaForFeed,
 } from '@/components';
-import { EditMovieTypes } from './types';
-import classes from '@/styles/Landing.module.css';
+import { EditMovie } from './types';
 
-const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
+const EditMovieModal: React.FC<EditMovie> = ({ movie }) => {
   const {
     FormProvider,
     form,
@@ -83,7 +82,7 @@ const EditMovieModal: React.FC<EditMovieTypes> = ({ movie }) => {
                         }
                         field.onChange(value);
                       }}
-                      className={`${classes['autofill-for-newsfeed']} ${
+                      className={`autofill-for-newsfeed ${
                         error !== undefined
                           ? 'border-default-btn focus:border-default-btn'
                           : 'border-placeholder focus:border-placeholder'

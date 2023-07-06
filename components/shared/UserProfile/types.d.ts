@@ -1,4 +1,4 @@
-export type UserProfileTypes = {
+export type UserProfile = {
   width?: string;
   height?: string;
 };

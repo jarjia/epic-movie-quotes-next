@@ -1,4 +1,4 @@
-export type QuoteArticleTypes = {
+export type QuoteArticle = {
   image: string;
   quote: string;
   date: string;

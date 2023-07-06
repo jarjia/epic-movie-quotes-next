@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useQuoteService } from '@/services';
-import { UpdateQuotesTypes } from '@/types';
+import { UpdateQuotes } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext, useEffect } from 'react';
 import {
@@ -12,7 +12,7 @@ import {
 } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { EditQuoteStateTypes } from './types';
+import { EditQuoteState } from './types';
 import { errorToast } from '@/helpers';
 
 const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
@@ -26,7 +26,7 @@ const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
       enabled: quoteId !== null || quoteId !== undefined || quoteId === 'null',
     }
   );
-  const quote: EditQuoteStateTypes = data?.data;
+  const quote: EditQuoteState = data?.data;
   const { handleFeedFormStatus } = useContext(AppContext);
   const { t } = useTranslation('movieList');
   const queryClient = useQueryClient();
@@ -73,7 +73,7 @@ const useEditQuoteModal = (quoteId: string | null, movieId: number) => {
     }
     data.quoteId = quoteId;
 
-    updateQuoteMutate(data as UpdateQuotesTypes & { quoteId: string | null });
+    updateQuoteMutate(data as UpdateQuotes & { quoteId: string | null });
   };
 
   return {

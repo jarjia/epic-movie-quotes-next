@@ -1,4 +1,4 @@
-export type PasswordInputTypes = {
+export type PasswordInput = {
   label: string;
   placeholder: string;
   name: string;

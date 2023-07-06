@@ -2,15 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useMovieService } from '@/services';
 import { useQuery } from 'react-query';
-import { GenreObjectType } from '@/types';
+import { GenreObject } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 import { errorToast } from '@/helpers';
 
-const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
+const useFeedGenresField = (defaultVal: GenreObject[]) => {
   const { getGenres } = useMovieService();
   const genresDef = defaultVal === undefined ? [] : defaultVal;
-  const { setValue, control } = useFormContext();
+  const { setValue } = useFormContext();
   const { t: apiErr } = useTranslation('apiErrors');
   const { data } = useQuery('genres', getGenres, {
     onError(err: any) {
@@ -18,7 +18,7 @@ const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
     },
   });
   const genresData = data?.data;
-  const [genres, setGenres] = useState<GenreObjectType[]>(genresDef);
+  const [genres, setGenres] = useState<GenreObject[]>(genresDef);
   const [select, setSelect] = useState(false);
   const { t } = useTranslation('movieList');
   const router = useRouter();
@@ -42,23 +42,21 @@ const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
     };
   }, []);
 
-  const handleAddGenre = (genre: GenreObjectType) => {
+  const handleAddGenre = (genre: GenreObject) => {
     const updatedItems = [...genres, genre];
     setGenres(updatedItems);
     setValue('genres', updatedItems);
   };
 
   const handleDeleteGenre = (id: number) => {
-    const updatedItems = genres.filter(
-      (genre: GenreObjectType) => genre.id !== id
-    );
+    const updatedItems = genres.filter((genre: GenreObject) => genre.id !== id);
     setGenres(updatedItems);
     setValue('genres', updatedItems);
   };
 
   const filteredGenres =
     genresData !== undefined &&
-    genresData.filter((option: GenreObjectType) => {
+    genresData.filter((option: GenreObject) => {
       return !genres.find((selectedItem) => selectedItem.id === option.id);
     });
 
@@ -66,7 +64,6 @@ const useFeedGenresField = (defaultVal: GenreObjectType[]) => {
     handleAddGenre,
     handleDeleteGenre,
     filteredGenres,
-    control,
     genresRef,
     select,
     setSelect,

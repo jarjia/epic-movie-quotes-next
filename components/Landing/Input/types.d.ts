@@ -1,4 +1,4 @@
-export type InputTypes = {
+export type Input = {
   label: string;
   type: string;
   placeholder: string;

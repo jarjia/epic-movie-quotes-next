@@ -1,14 +1,13 @@
 import { EmailSentIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
 import { useTranslation } from 'next-i18next';
-import { EmailSentTypes } from './types';
+import { EmailSent } from './types';
 
-const EmailSent: React.FC<EmailSentTypes> = ({ isProfile }) => {
+const EmailSent: React.FC<EmailSent> = ({ isProfile }) => {
   const { t } = useTranslation('landingForms');
 
   return (
     <div
-      className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
+      className={`mobile-linear sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
     >
       <EmailSentIcon />
       <h2

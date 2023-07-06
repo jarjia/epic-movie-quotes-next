@@ -1,4 +1,4 @@
-export type FeedFormLayoutTypes = {
+export type FeedFormLayout = {
   children: JSX.Element;
   title: string;
   isEdit?: boolean;

@@ -1,4 +1,4 @@
-export type FeedBaseInputTypes = {
+export type FeedBaseInput = {
   type: string;
   errorName: string;
   name: string;

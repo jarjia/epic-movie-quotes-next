@@ -6,9 +6,7 @@ const Profile = () => {
   return <ProfilePage />;
 };
 
-export async function getServerSideProps({
-  locale,
-}: GetServerSidePropsContext) {
+export async function getStaticProps({ locale }: GetServerSidePropsContext) {
   return {
     props: {
       ...(await serverSideTranslations(locale as string, [

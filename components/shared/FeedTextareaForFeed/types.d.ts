@@ -1,4 +1,4 @@
-export type FeedBaseTextareaTypes = {
+export type FeedBaseTextarea = {
   name: string;
   label: string;
   lang: string;

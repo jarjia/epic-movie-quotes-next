@@ -2,51 +2,57 @@ export type Keys = {
   [key: string]: string;
 };
 
-export type HandleFormStatusTypes = {
+export type HandleFormStatus = {
   handleFormStatus: (status: string) => void;
 };
-export type LoginWithGoogleQueryTypes = {
+
+export type LoginWithGoogleQuery = {
   code: string;
   authUser: string;
   prompt: string;
   scope: string;
 };
 
-export type MobileInputTypes = {
+export type MobileInput = {
   name: string;
   label: string;
   placeholder: string;
   isEdit: boolean;
   type: string;
 };
-export type UserDataTypes = {
+
+export type UserData = {
   name: string;
   id: number;
   email: string;
   google_id: string;
   thumbnail?: string;
 };
-export type hookUserUpdateTypes = {
+
+export type HookUserUpdate = {
   handleEditProfileClear: () => void;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
   handleIsSure: (bool: boolean) => void;
 };
-export type MovieCreateTypes = {
+
+export type MovieCreate = {
   movie: Keys;
   description: Keys;
   director: Keys;
   releaseDate: string;
   thumbnail: {};
 };
-export type MovieStructureTypes = {
+
+export type MovieStructure = {
   id: number;
   releaseDate: string;
   thumbnail: string;
   movie: Keys;
-  quotes: {}[];
+  quotes: Post[];
 };
-export type MovieDescTypes = {
+
+export type MovieDesc = {
   created_at: string;
   description: Keys;
   director: Keys;
@@ -63,22 +69,26 @@ export type MovieDescTypes = {
   updated_at: string;
   user_id: number;
 };
-export type PostQuoteTypes = {
+
+export type PostQuote = {
   quote: Keys;
   movieId: number;
   thumbnail: {};
 };
-export type GenreObjectType = {
+
+export type GenreObject = {
   id: number;
   genre: Keys;
 };
-export type likeTypes = {
+
+export type Like = {
   id: number;
   user: {
     id: number;
   };
 };
-export type CommentTypes = {
+
+export type Comment = {
   id: number;
   quote_id: number;
   comment: string;
@@ -89,7 +99,8 @@ export type CommentTypes = {
     thumbnail: string;
   };
 };
-export type MovieShowTypes = {
+
+export type MovieShow = {
   created_at: string;
   description: Keys;
   director: Keys;
@@ -107,7 +118,8 @@ export type MovieShowTypes = {
   user_id: number;
   quotes: QuotesTypes[];
 };
-export type QuotesTypes = {
+
+export type Quotes = {
   id: number;
   quote: Keys;
   thumbnail: string;
@@ -118,12 +130,27 @@ export type QuotesTypes = {
     user_id: number;
   };
 };
-export type UpdateQuotesTypes = {
+
+export type Post = {
+  thumbnail: string;
+  quote: Keys;
+  releaseDate: string;
+  author: string;
+  authorProfile: string;
+  movie: Keys;
+  id: number;
+  comments: CommentTypes[];
+  likes: likeTypes[];
+  user_id: number;
+};
+
+export type UpdateQuotes = {
   quote: Keys;
   movie_id: number;
   thumbnail: string;
 };
-export type PostsTypes = {
+
+export type Posts = {
   id: number;
   quote: Keys;
   thumbnail: string;
@@ -141,7 +168,8 @@ export type PostsTypes = {
   comments: CommentTypes[];
   likes: likeTypes[];
 };
-export type NotificationTypes = {
+
+export type Notification = {
   from: {
     name: string;
     thumbnail: string;
@@ -152,25 +180,15 @@ export type NotificationTypes = {
   created_at: string;
   quote_id: number;
 };
-export type PostTypes = {
-  thumbnail: string;
-  quote: Keys;
-  releaseDate: string;
-  author: string;
-  authorProfile: string;
-  movie: Keys;
-  id: number;
-  comments: CommentTypes[];
-  likes: likeTypes[];
-  user_id: number;
-};
-export type PostEmailUpdateTypes = {
+
+export type PostEmailUpdate = {
   email: string;
   update_token: string;
   user_id: string;
   expires: string;
 };
-export type NewLikeTypes = {
+
+export type NewLike = {
   quoteId: number;
   likes: number[];
 };

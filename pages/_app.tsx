@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import '@/styles/linear.css';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import type { AppProps } from 'next/app';
 import { AppContextProvider } from '@/context';

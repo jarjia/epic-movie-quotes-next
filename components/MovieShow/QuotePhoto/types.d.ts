@@ -1,1 +1,1 @@
-export type QuotePhotoTypes = { thumbnail: string };
+export type QuotePhoto = { thumbnail: string };

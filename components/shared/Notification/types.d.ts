@@ -1,3 +1,3 @@
-export type NotificationPropsTypes = {
+export type NotificationProps = {
   handleisNotification: () => void;
 };

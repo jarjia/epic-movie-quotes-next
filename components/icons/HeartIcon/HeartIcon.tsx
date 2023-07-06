@@ -1,6 +1,6 @@
-import { HeartIconTypes } from './types';
+import { HeartIcon } from './types';
 
-const HeartIcon: React.FC<HeartIconTypes> = (props) => {
+const HeartIcon: React.FC<HeartIcon> = (props) => {
   return (
     <svg
       width='32'

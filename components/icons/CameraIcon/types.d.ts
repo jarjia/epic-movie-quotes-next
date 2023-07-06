@@ -1,3 +1,3 @@
-export type CameraIconTypes = {
+export type CameraIcon = {
   isMovie: boolean;
 };

@@ -1,16 +1,11 @@
 import { EmailSentIcon } from '@/components';
-import { HandleFormStatusTypes } from '@/types';
-import classes from '@/styles/Landing.module.css';
+import { HandleFormStatus } from '@/types';
 import { useTranslation } from 'next-i18next';
 
-const RecoverEmailSent: React.FC<HandleFormStatusTypes> = ({
-  handleFormStatus,
-}) => {
+const RecoverEmailSent: React.FC<HandleFormStatus> = ({ handleFormStatus }) => {
   const { t } = useTranslation('landingForms');
   return (
-    <div
-      className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
-    >
+    <div className='mobile-linear sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4'>
       <EmailSentIcon />
       <h2 className='my-2 text-center leading-[1.15] text-error-page-title text-white text-form-title'>
         {t('check_mail')}

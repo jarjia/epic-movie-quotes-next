@@ -1,12 +1,12 @@
 import axios from './axios';
 import { useRouter } from 'next/router';
-import { PostQuoteTypes, UpdateQuotesTypes } from '@/types';
+import { PostQuote, UpdateQuotes } from '@/types';
 
 const useQuoteService = () => {
   const router = useRouter();
   let locale = router.locale;
 
-  const postQuote = (data: PostQuoteTypes) => {
+  const postQuote = (data: PostQuote) => {
     return axios.post('/api/quotes', data, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -29,9 +29,7 @@ const useQuoteService = () => {
     return axios.delete(`/api/quote/${quoteId}`);
   };
 
-  const updateQuote = (
-    data: UpdateQuotesTypes & { quoteId: string | null }
-  ) => {
+  const updateQuote = (data: UpdateQuotes & { quoteId: string | null }) => {
     return axios.post(`/api/quote/${data.quoteId}`, data, {
       headers: {
         'Content-Type': 'multipart/form-data',

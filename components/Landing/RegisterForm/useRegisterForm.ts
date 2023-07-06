@@ -8,10 +8,10 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useMutation, useQuery } from 'react-query';
 import { useAuthService } from '@/services';
-import { PostRegisterTypes } from './types';
+import { PostRegister } from './types';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { LoginWithGoogleQueryTypes } from '@/types';
+import { LoginWithGoogleQuery } from '@/types';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
@@ -90,7 +90,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
 
   useEffect(() => {
     const { code, authUser, prompt, scope } =
-      router.query as LoginWithGoogleQueryTypes;
+      router.query as LoginWithGoogleQuery;
     const loginGoogleUser = () => {
       let queryData = {
         code,
@@ -106,7 +106,7 @@ const useRegisterForm = (handleFormStatus: (status: string) => void) => {
   }, [router, loginViaGoogle]);
 
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
-    const finalData: PostRegisterTypes = {
+    const finalData: PostRegister = {
       name: data.name,
       email: data.email,
       password: data.password,

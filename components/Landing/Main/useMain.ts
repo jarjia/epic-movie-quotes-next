@@ -2,7 +2,7 @@ import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { useMutation } from 'react-query';
-import { PostVerifyTypes } from './types';
+import { PostVerify } from './types';
 import { useTranslation } from 'next-i18next';
 
 const useMain = () => {
@@ -78,7 +78,7 @@ const useMain = () => {
       if (router.query.token !== undefined) {
         let email = router.query.email as string;
         let token = router.query.token as string;
-        const data: PostVerifyTypes = {
+        const data: PostVerify = {
           email,
           token,
           expires,

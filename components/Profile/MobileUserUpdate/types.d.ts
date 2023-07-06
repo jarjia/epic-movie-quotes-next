@@ -1,7 +1,7 @@
-import { MobileInputTypes } from '@/types';
+import { MobileInput } from '@/types';
 
-export type MobileInputUpdateTypes = {
-  editProfile: MobileInputTypes;
+export type MobileInputUpdate = {
+  editProfile: MobileInput;
   handleEditProfileClear: () => void;
   handleIsSure: (bool: boolean) => void;
   isSure: boolean;

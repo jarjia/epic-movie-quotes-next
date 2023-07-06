@@ -1,8 +1,8 @@
 import { CloseIcon, ValidIcon } from '@/components';
-import { ChangeSuccessTypes } from './types';
+import { ChangeSuccess } from './types';
 import { useTranslation } from 'next-i18next';
 
-const ChangesSuccess: React.FC<ChangeSuccessTypes> = ({ handleIsSuccess }) => {
+const ChangesSuccess: React.FC<ChangeSuccess> = ({ handleIsSuccess }) => {
   const { t } = useTranslation('profile');
 
   return (

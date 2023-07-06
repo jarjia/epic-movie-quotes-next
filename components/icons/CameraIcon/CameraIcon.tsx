@@ -1,6 +1,6 @@
-import { CameraIconTypes } from './types';
+import { CameraIcon } from './types';
 
-const CameraIcon: React.FC<CameraIconTypes> = (props) => {
+const CameraIcon: React.FC<CameraIcon> = (props) => {
   return (
     <svg
       width='32'

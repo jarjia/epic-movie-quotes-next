@@ -1,7 +1,7 @@
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 import { useTranslation } from 'next-i18next';
 
-const Title: React.FC<HandleFormStatusTypes> = ({ handleFormStatus }) => {
+const Title: React.FC<HandleFormStatus> = ({ handleFormStatus }) => {
   const { t } = useTranslation('landing');
 
   return (

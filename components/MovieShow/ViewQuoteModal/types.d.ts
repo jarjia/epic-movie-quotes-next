@@ -1,3 +1,3 @@
-export type ViewQuoteModalTypes = {
+export type ViewQuoteModal = {
   quoteId: string | null;
 };
