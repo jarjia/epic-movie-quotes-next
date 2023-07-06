@@ -121,9 +121,9 @@ const FeedSidebar = () => {
                 {t('list_of_movies')}
               </p>
             </Link>
-            <div className='flex pl-4 flex-col justify-start items-start'>
+            <div className='flex flex-col justify-start items-start'>
               <button
-                className='text-white text-xl capitalize tracking-[1px] gap-2 px-4 py-2.5 text-center inline-flex items-center'
+                className='w-full text-white text-xl capitalize tracking-[1px] gap-2 px-4 pl-9 py-2.5 text-center inline-flex items-center'
                 type='button'
                 ref={btnRef}
                 onClick={() => setDropdown((prev) => !prev)}
@@ -149,7 +149,7 @@ const FeedSidebar = () => {
                             localStorage.removeItem('locale');
                             setDropdown((prev) => !prev);
                           }}
-                          className='block px-4 py-2 hover:opacity-[0.5]'
+                          className='block px-4 py-2 hover:bg-add-quote-bg active:bg-add-quote-bg'
                         >
                           English
                         </Link>
@@ -163,7 +163,7 @@ const FeedSidebar = () => {
                             localStorage.setItem('locale', 'ka');
                             setDropdown((prev) => !prev);
                           }}
-                          className='block px-4 py-2 hover:opacity-[0.5]'
+                          className='block px-4 py-2 hover:bg-add-quote-bg active:bg-add-quote-bg'
                         >
                           ქართული
                         </Link>
@@ -174,7 +174,7 @@ const FeedSidebar = () => {
               )}
               <button
                 onClick={handleShouldLogout}
-                className='mx-4 my-4 text-xl  text-white'
+                className='w-full my-4 mt-0 pl-9 py-4 text-start text-xl text-white hover:bg-add-quote-bg active:bg-add-quote-bg'
               >
                 {t('log_out')}
               </button>
