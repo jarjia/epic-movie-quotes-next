@@ -17,12 +17,12 @@ const useUpdateInput = (props: UpdateInput) => {
   const password = useWatch({ control, name: 'password' });
   const router = useRouter();
 
-  const handleInputWidth = () => {
-    setInputWidth(inputRef.current?.offsetWidth as number);
-  };
-
   useEffect(() => {
-    setInputWidth(inputRef.current?.offsetWidth as number);
+    const handleInputWidth = () => {
+      setInputWidth(inputRef.current?.offsetWidth as number);
+    };
+
+    handleInputWidth();
     window.addEventListener('resize', handleInputWidth);
     return () => {
       window.addEventListener('resize', handleInputWidth);

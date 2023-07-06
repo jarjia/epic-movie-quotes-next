@@ -65,22 +65,9 @@ const useProfile = () => {
     router.push('/profile');
   };
 
-  const handleIsSuccess = (bool: boolean) => {
-    setIsSuccess(bool);
-  };
-
-  const handleEditProfile = (data: MobileInput) => {
-    setEditProfile(data);
-  };
-
-  const handleIsSure = (bool: boolean) => {
-    setIsSure(bool);
-  };
-
   const handleEditProfileClear = () => {
     setEditProfile(editProfileInitials);
   };
-  console.log(router);
 
   const handleBackButton = () => {
     if (editProfile.isEdit === true) {
@@ -95,12 +82,12 @@ const useProfile = () => {
   return {
     handleBackButton,
     isSure,
-    handleEditProfile,
+    setEditProfile,
     handleClearForms,
     t,
     handleEditProfileClear,
-    handleIsSure,
-    handleIsSuccess,
+    setIsSure,
+    setIsSuccess,
     isSuccess,
     editProfile,
     feedFormStatus,

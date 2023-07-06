@@ -15,16 +15,16 @@ import useProfile from './useProfile';
 const ProfilePage = () => {
   const {
     handleBackButton,
-    handleEditProfile,
+    setEditProfile,
     handleEditProfileClear,
-    handleIsSure,
+    setIsSure,
     feedFormStatus,
     editProfile,
     t,
     isSure,
     handleClearForms,
     isSuccess,
-    handleIsSuccess,
+    setIsSuccess,
     currentQuoteId,
   } = useProfile();
 
@@ -51,7 +51,7 @@ const ProfilePage = () => {
           </FeedFormLayout>
         ) : null}
         <div className='pb-1 px-4 sm:px-0 large:px-0 drop-shadow-none'>
-          {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
+          {isSuccess && <ChangesSuccess handleIsSuccess={setIsSuccess} />}
           <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>
             {t('profile_title')}
           </h1>
@@ -69,14 +69,14 @@ const ProfilePage = () => {
               <UserUpdate
                 editProfile={editProfile}
                 handleEditProfileClear={handleEditProfileClear}
-                handleEditProfile={handleEditProfile}
-                handleIsSuccess={handleIsSuccess}
-                handleIsSure={handleIsSure}
+                handleEditProfile={setEditProfile}
+                handleIsSuccess={setIsSuccess}
+                handleIsSure={setIsSure}
               />
             ) : (
               <MobileUserUpdate
-                handleIsSure={handleIsSure}
-                handleIsSuccess={handleIsSuccess}
+                handleIsSure={setIsSure}
+                handleIsSuccess={setIsSuccess}
                 isSure={isSure}
                 handleEditProfileClear={handleEditProfileClear}
                 editProfile={editProfile}

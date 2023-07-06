@@ -87,11 +87,7 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
         </div>
         {maxHeight !== null && (
           <div
-            className={`px-6 mb-1 py-4 mb-4 h-auto ${
-              router.pathname === '/newsfeed' && feedFormStatus === 'add-quote'
-                ? 'sm:max-h-[70vh] sm-h:max-h-screen'
-                : 'sm:h-screen'
-            } overflow-y-scroll scrollbar`}
+            className='px-6 mb-1 py-4 mb-4 h-auto sm:h-screen overflow-y-scroll scrollbar'
             style={{
               maxHeight: `calc(${screenHeight}vh - ${maxHeight}px)`,
             }}

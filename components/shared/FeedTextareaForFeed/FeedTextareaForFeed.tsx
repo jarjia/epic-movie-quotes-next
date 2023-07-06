@@ -27,7 +27,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextarea> = (props) => {
           placeholder={props.defaultVal !== undefined ? '' : props.label}
           {...register(props.name)}
           defaultValue={props.defaultVal !== undefined ? props.defaultVal : ''}
-          className='w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-10 overflow-scroll scrollbar h-16 min-h-[50px] placeholder-placeholder bg-transparent h-16'
+          className='w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-10 overflow-scroll scrollbar h-16 min-h-[50px] placeholder-placeholder bg-transparent'
         ></textarea>
       </div>
       <div className='relative'>

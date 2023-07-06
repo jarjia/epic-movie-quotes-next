@@ -31,11 +31,11 @@ const useQuoteCard = (id: number, comments: Comment[], likes: number[]) => {
   const quoteRef = useRef<null | HTMLDivElement>(null);
   const [quoteHeight, setQuoteHeight] = useState<null | number>(null);
 
-  const handleHeight = () => {
-    if (quoteRef.current) setQuoteHeight(quoteRef.current?.offsetWidth / 2);
-  };
-
   useEffect(() => {
+    const handleHeight = () => {
+      if (quoteRef.current) setQuoteHeight(quoteRef.current?.offsetWidth / 2);
+    };
+
     if (quoteRef.current) setQuoteHeight(quoteRef.current?.offsetWidth / 2);
     window.addEventListener('resize', handleHeight);
     return () => {
