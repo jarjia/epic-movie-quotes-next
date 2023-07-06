@@ -1,4 +1,4 @@
-export type UpdateInputTypes = {
+export type UpdateInput = {
   type: string;
   placeholder: string;
   name: string;

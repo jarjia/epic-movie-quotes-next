@@ -1,10 +1,9 @@
 import { PasswordInput } from '@/components';
-import { UpdateInputTypes } from './types';
+import { UpdateInput } from './types';
 import useUpdateInput from './useUpdateInput';
-import { UserDataTypes } from '@/types';
-import classes from '@/styles/Landing.module.css';
+import { UserData } from '@/types';
 
-const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
+const UpdateInput: React.FC<UpdateInput> = (props) => {
   const {
     register,
     isEdit,
@@ -32,7 +31,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               className={`${
                 props.name === 'password' && 'leading-[30px] pb-0'
               } sm:placeholder-white w-full px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-black sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
-              value={userData[index as keyof UserDataTypes]}
+              value={userData[index as keyof UserData]}
               placeholder={
                 props.name === 'password' ? props.placeholder : props.label
               }
@@ -138,7 +137,7 @@ const UpdateInput: React.FC<UpdateInputTypes> = (props) => {
               <input
                 type={props.type}
                 {...register(props.name)}
-                className={`${classes['autofill-for-landing']} px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
+                className='autofill-for-landing px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-placeholder sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
                 style={{
                   width: `${inputWidth as number}px`,
                 }}

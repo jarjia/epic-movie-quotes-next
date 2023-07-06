@@ -1,11 +1,11 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import { useFormContext, useWatch } from 'react-hook-form';
-import { UpdateInputTypes } from './types';
+import { UpdateInput } from './types';
 import { AppContext } from '@/context';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-const useUpdateInput = (props: UpdateInputTypes) => {
+const useUpdateInput = (props: UpdateInput) => {
   const { register, control, resetField } = useFormContext();
   const [isEdit, setIsEdit] = useState(false);
   const [inputWidth, setInputWidth] = useState<number | null>(null);

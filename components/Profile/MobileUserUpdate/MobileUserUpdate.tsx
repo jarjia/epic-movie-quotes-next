@@ -1,9 +1,8 @@
 import { useUserUpdate } from '@/hooks';
-import { MobileInputUpdateTypes } from './types';
-import { hookUserUpdateTypes } from '@/types';
+import { MobileInputUpdate } from './types';
+import { HookUserUpdate } from '@/types';
 import { IsSure, PasswordInput } from '@/components';
 import { useTranslation } from 'next-i18next';
-import classes from '@/styles/Landing.module.css';
 
 const MobileUserUpdate = ({
   editProfile,
@@ -11,9 +10,9 @@ const MobileUserUpdate = ({
   handleIsSure,
   handleIsSuccess,
   isSure,
-}: MobileInputUpdateTypes) => {
+}: MobileInputUpdate) => {
   const { t } = useTranslation('profile');
-  const userUpdateProps: hookUserUpdateTypes = {
+  const userUpdateProps: HookUserUpdate = {
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,
@@ -59,7 +58,7 @@ const MobileUserUpdate = ({
                     <input
                       type={editProfile.type}
                       {...form.register(editProfile.name)}
-                      className={`${classes['autofill-for-landing']} px-2 py-2 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
+                      className='autofill-for-landing px-2 py-2 placeholder-placeholder focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded'
                       placeholder={editProfile.placeholder}
                       autoComplete='off'
                     />

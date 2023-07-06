@@ -1,16 +1,16 @@
 import { UserProfile, UpdateInput } from '@/components';
-import { UserUpdateTypes } from './types';
-import { hookUserUpdateTypes } from '@/types';
+import { UserUpdate } from './types';
+import { HookUserUpdate } from '@/types';
 import { useUserUpdate } from '@/hooks';
 
-const UserUpdate: React.FC<UserUpdateTypes> = ({
+const UserUpdate: React.FC<UserUpdate> = ({
   handleEditProfile,
   handleEditProfileClear,
   handleIsSuccess,
   editProfile,
   handleIsSure,
 }) => {
-  const userUpdateProps: hookUserUpdateTypes = {
+  const userUpdateProps: HookUserUpdate = {
     handleIsSuccess,
     handleEditProfileClear,
     editProfile,

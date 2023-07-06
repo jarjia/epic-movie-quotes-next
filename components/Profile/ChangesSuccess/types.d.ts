@@ -1,3 +1,3 @@
-export type ChangeSuccessTypes = {
+export type ChangeSuccess = {
   handleIsSuccess: (bool: boolean) => void;
 };
