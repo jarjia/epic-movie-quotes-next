@@ -1,15 +1,15 @@
 import { useAuthService } from '@/services';
 import { createContext, useEffect, useState } from 'react';
-import { CommentTypes, NewLikeTypes, UserDataTypes } from '@/types';
+import { Comment, NewLike, UserData } from '@/types';
 import { useRouter } from 'next/router';
 import { useQuery, useQueryClient } from 'react-query';
 
 export const AppContext = createContext({
   feedFormStatus: '' as string | null,
   handleFeedFormStatus: (status: string) => {},
-  handleUserData: (data: UserDataTypes) => {},
+  handleUserData: (data: UserData) => {},
   handleCurrentQuoteId: (quoteId: string | null) => {},
-  userData: {} as UserDataTypes,
+  userData: {} as UserData,
   handleIsBurger: () => {},
   handleIsSearch: () => {},
   handleIsNotBurger: () => {},
@@ -17,15 +17,15 @@ export const AppContext = createContext({
   isSearch: false,
   handleShouldLogout: () => {},
   currentQuoteId: null as string | null,
-  newLikes: null as NewLikeTypes[] | null,
-  commentsArr: null as null | CommentTypes[],
-  handleNewLikes: (likes: NewLikeTypes | null) => {},
-  handleNewComment: (comment: CommentTypes | null) => {},
+  newLikes: null as NewLike[] | null,
+  commentsArr: null as null | Comment[],
+  handleNewLikes: (likes: NewLike | null) => {},
+  handleNewComment: (comment: Comment | null) => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [feedFormStatus, setFeedFormStatus] = useState<string | null>('');
-  const [userData, setUserData] = useState<UserDataTypes>({
+  const [userData, setUserData] = useState<UserData>({
     name: '',
     id: 0,
     email: '',
@@ -35,8 +35,8 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [isBurger, setIsBurger] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [shouldLogout, setShouldLogout] = useState(false);
-  const [newLikes, setNewLikes] = useState<NewLikeTypes[] | null>(null);
-  const [commentsArr, setCommentsArr] = useState<CommentTypes[] | null>(null);
+  const [newLikes, setNewLikes] = useState<NewLike[] | null>(null);
+  const [commentsArr, setCommentsArr] = useState<Comment[] | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
   const query = useQueryClient();
   const router = useRouter();
@@ -52,7 +52,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     enabled: shouldLogout,
   });
 
-  const handleNewLikes = (likes: NewLikeTypes | null) => {
+  const handleNewLikes = (likes: NewLike | null) => {
     setNewLikes((prev) => {
       if (prev === null) {
         return likes !== null ? [likes] : null;
@@ -62,7 +62,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     });
   };
 
-  const handleNewComment = (comment: CommentTypes | null) => {
+  const handleNewComment = (comment: Comment | null) => {
     setCommentsArr((prev) => {
       if (prev === null) {
         return comment !== null ? [comment] : null;
@@ -93,7 +93,7 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     setIsBurger(false);
   };
 
-  const handleUserData = (data: UserDataTypes) => {
+  const handleUserData = (data: UserData) => {
     setUserData(data);
   };
 
