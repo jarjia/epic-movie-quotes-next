@@ -34,11 +34,12 @@ const useNotification = () => {
     setNotifications(data?.pages[data.pages.length - 1].data.notifications);
   }, [data?.pages]);
 
-  const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications, {
-    onSuccess() {
-      queryClient.invalidateQueries('notifications');
-    },
-  });
+  const { mutate: markAllAsReadMutation, isLoading: markAllAsReadLoading } =
+    useMutation(readAllNotifications, {
+      onSuccess() {
+        queryClient.invalidateQueries('notifications');
+      },
+    });
 
   useEffect(() => {
     if (
@@ -80,6 +81,7 @@ const useNotification = () => {
     divRef,
     queryClient,
     t,
+    markAllAsReadLoading,
     filter,
     notifications,
     setNotifications,

@@ -12,6 +12,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
     filter,
     setFilter,
     setNotifications,
+    markAllAsReadLoading,
     router,
     markAllAsReadMutation,
   } = useNotification();
@@ -31,6 +32,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
               {t('notifications')}
             </h2>
             <button
+              disabled={markAllAsReadLoading}
               onClick={() => {
                 setNotifications((prev) =>
                   prev.map((item) => ({ ...item, seen: 1 }))
@@ -41,7 +43,9 @@ const Notification: React.FC<NotificationProps> = (props) => {
                   queryClient.invalidateQueries('notifications');
                 }, 200);
               }}
-              className='sm-max:pt-2 underline sm:text-sm text-md text-white'
+              className={`sm-max:pt-2 underline sm:text-sm text-md ${
+                markAllAsReadLoading ? 'text-input' : 'text-white'
+              }`}
             >
               {t('mark_as_read')}
             </button>
@@ -54,6 +58,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
               }`}
             >
               <button
+                disabled={isLoading}
                 className={`${
                   filter === 'like' ? 'underline text-placeholder' : ''
                 } font-[400]`}
@@ -73,6 +78,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
                 } h-[20px] w-[2px] bg-white`}
               ></div>
               <button
+                disabled={isLoading}
                 className={`${
                   filter === 'comment' ? 'underline text-placeholder' : ''
                 } font-[400]`}
@@ -92,6 +98,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
                 } h-[20px] w-[2px] bg-white`}
               ></div>
               <button
+                disabled={isLoading}
                 className={`${
                   filter === 'new' ? 'underline text-placeholder' : ''
                 } font-[400]`}
