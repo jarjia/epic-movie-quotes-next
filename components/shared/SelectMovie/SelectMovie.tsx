@@ -38,11 +38,15 @@ const SelectMovie = () => {
             type='button'
             className='w-full px-3 flex text-font-base justify-between items-center gap-2'
           >
-            <div className='flex truncate items-center gap-2'>
-              <CameraIcon isMovie={false} />
-              {movieId === null
-                ? t('post_choose_movie')
-                : movieId.movie[locale]}
+            <div className='flex gap-4 truncate'>
+              <div>
+                <CameraIcon isMovie={false} />
+              </div>
+              <p className='flex truncate items-center gap-2'>
+                {movieId === null
+                  ? t('post_choose_movie')
+                  : movieId.movie[locale]}
+              </p>
             </div>
             <div>
               <DropDownIcon />
