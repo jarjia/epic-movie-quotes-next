@@ -1,12 +1,8 @@
 import { CloseIcon } from '@/components';
-import { FormLayoutTypes } from './types';
+import { FormLayout } from './types';
 import useFormLayout from './useFormLayout';
-import classes from '@/styles/Landing.module.css';
 
-const FormLayout: React.FC<FormLayoutTypes> = ({
-  handleFormStatus,
-  children,
-}) => {
+const FormLayout: React.FC<FormLayout> = ({ handleFormStatus, children }) => {
   const { handleFeedFormStatus } = useFormLayout();
 
   return (
@@ -23,7 +19,7 @@ const FormLayout: React.FC<FormLayoutTypes> = ({
         onClick={(e) => {
           e.stopPropagation();
         }}
-        className={`${classes['mobile-bg-linear']} w-[35%] h-auto max-h-screen overflow-y-scroll scrollbar mid:w-1/2 large:w-[30%] h-auto sm:w-full sm:h-full sm:rounded-none rounded-form-radius bg-form-back sm:px-10 px-14 py-8`}
+        className='mobile-bg-linear w-[35%] h-auto max-h-screen overflow-y-scroll scrollbar mid:w-1/2 large:w-[30%] h-auto sm:w-full sm:h-full sm:rounded-none rounded-form-radius bg-form-back sm:px-10 px-14 py-8'
       >
         <div className='float-right relative bottom-5 left-5 sm:left-2'>
           <div

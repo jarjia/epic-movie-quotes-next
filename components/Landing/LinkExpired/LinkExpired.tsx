@@ -1,10 +1,9 @@
 import { LinkExpiredIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { LinkExpiretTypes } from './types';
+import { LinkExpired } from './types';
 
-const LinkExpired: React.FC<LinkExpiretTypes> = ({
+const LinkExpired: React.FC<LinkExpired> = ({
   handleFormStatus,
   isProfile,
 }) => {
@@ -12,9 +11,7 @@ const LinkExpired: React.FC<LinkExpiretTypes> = ({
   const { t } = useTranslation('landingForms');
 
   return (
-    <div
-      className={`${classes['mobile-linear']} sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4`}
-    >
+    <div className='mobile-linear sm:p-8 sm:rounded-form-radius flex flex-col items-center justify-center sm:relative sm:top-1/4'>
       <LinkExpiredIcon />
       <h2
         className={`my-2 ${

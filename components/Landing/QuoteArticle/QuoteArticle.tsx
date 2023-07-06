@@ -1,6 +1,6 @@
-import { QuoteArticleTypes } from './types';
+import { QuoteArticle } from './types';
 
-const QuoteArticle: React.FC<QuoteArticleTypes> = (props) => {
+const QuoteArticle: React.FC<QuoteArticle> = (props) => {
   const quotePadding =
     props.movieId === 1 ? 'pb-24' : props.movieId === 3 ? 'pt-24' : '';
 

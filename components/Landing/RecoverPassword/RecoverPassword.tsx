@@ -1,10 +1,8 @@
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 import useRecoverPassword from './useRecoverPassword';
 import { BackArrowIcon, PasswordInput } from '@/components';
 
-const RecoverPassword: React.FC<HandleFormStatusTypes> = ({
-  handleFormStatus,
-}) => {
+const RecoverPassword: React.FC<HandleFormStatus> = ({ handleFormStatus }) => {
   const {
     handleSubmit,
     errors,

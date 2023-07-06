@@ -9,7 +9,7 @@ import {
   FieldValues,
 } from 'react-hook-form';
 import { useMutation } from 'react-query';
-import { PostRecoverPasswordTypes } from './types';
+import { PostRecoverPassword } from './types';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
 import { errorToast } from '@/helpers';
@@ -52,8 +52,8 @@ const useRecoverPassword = (handleFormStatus: (status: string) => void) => {
     });
 
   const onSubmit: SubmitHandler<FieldValues> = (data) => {
-    const { email, recover_token } = router.query as PostRecoverPasswordTypes;
-    const finalData: PostRecoverPasswordTypes = {
+    const { email, recover_token } = router.query as PostRecoverPassword;
+    const finalData: PostRecoverPassword = {
       password: data.password,
       email,
       recover_token,

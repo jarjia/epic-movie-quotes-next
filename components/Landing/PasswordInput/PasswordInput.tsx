@@ -1,4 +1,4 @@
-import { PasswordInputTypes } from './types';
+import { PasswordInput } from './types';
 import {
   EyeIcon,
   HidePasswordIcon,
@@ -6,9 +6,8 @@ import {
   ValidIcon,
 } from '@/components';
 import usePasswordInput from './usePasswordInput';
-import classes from '@/styles/Landing.module.css';
 
-const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
+const PasswordInput: React.FC<PasswordInput> = (props) => {
   const { register, input, showPassword, setShowPassword, router } =
     usePasswordInput(props.name);
 
@@ -21,7 +20,7 @@ const PasswordInput: React.FC<PasswordInputTypes> = (props) => {
         type={showPassword ? 'text' : 'password'}
         {...register(props.name)}
         name={props.name}
-        className={`${classes['autofill-for-landing']} px-2 py-[6px] ${
+        className={`autofill-for-landing px-2 py-[6px] ${
           router.pathname === '/profile'
             ? 'placeholder-black leading-[30px] pb-0'
             : 'placeholder-placeholder'

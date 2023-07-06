@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/router';
 import { useMutation, useQuery } from 'react-query';
 import { useEffect, useState } from 'react';
-import { LoginWithGoogleQueryTypes } from '@/types';
+import { LoginWithGoogleQuery } from '@/types';
 import { toast } from 'react-toastify';
 import { useZod } from '@/schema';
 import { useAuthService } from '@/services';
@@ -79,7 +79,7 @@ const useLoginForm = () => {
 
   useEffect(() => {
     const { code, authUser, prompt, scope } =
-      router.query as LoginWithGoogleQueryTypes;
+      router.query as LoginWithGoogleQuery;
     const loginGoogleUser = () => {
       let queryData = {
         code,

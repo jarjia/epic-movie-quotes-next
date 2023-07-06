@@ -1,3 +1,3 @@
-import { HandleFormStatusTypes } from '@/types';
+import { HandleFormStatus } from '@/types';
 
-export type LinkExpiretTypes = HandleFormStatusTypes & { isProfile: boolean };
+export type LinkExpired = HandleFormStatus & { isProfile: boolean };

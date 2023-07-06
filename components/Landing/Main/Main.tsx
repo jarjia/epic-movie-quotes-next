@@ -14,7 +14,6 @@ import {
   PasswordRecovered,
   LinkExpired,
 } from '@/components';
-import classes from '@/styles/Landing.module.css';
 import useMain from './useMain';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,7 +26,7 @@ const Main: React.FC = () => {
   }
 
   return (
-    <section className={`${classes.linear} max-w-screen`}>
+    <section className='linear max-w-screen'>
       <ToastContainer autoClose={3000} className='select-none' />
       {formStatus !== ('null' || null || undefined) ? (
         <FormLayout handleFormStatus={handleFormStatus}>
