@@ -113,7 +113,7 @@ npm run dev
 │     ├── index.tsx
 │     ├── movie-list
 │     │  ├── movieId
-│     │  |   └── index.tsx
+│     │  │   └── index.tsx
 │     │  └── index.tsx
 │     ├── newsfeed.tsx
 │     ├── 403.tsx
