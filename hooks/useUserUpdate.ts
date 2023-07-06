@@ -11,7 +11,7 @@ import {
   useForm,
   useWatch,
 } from 'react-hook-form';
-import { PostEmailUpdateTypes, hookUserUpdateTypes } from '@/types';
+import { PostEmailUpdate, HookUserUpdate } from '@/types';
 import { useMutation, useQueryClient } from 'react-query';
 import { useZod } from '@/schema';
 import { useTranslation } from 'next-i18next';
@@ -23,7 +23,7 @@ const useUserUpdate = ({
   handleIsSuccess,
   editProfile,
   handleIsSure,
-}: hookUserUpdateTypes) => {
+}: HookUserUpdate) => {
   const { postUserUpdateProfile, postUpdateUserEmail } = useAuthService();
   const { t } = useTranslation('profile');
   const { t: apiErr } = useTranslation('apiErrors');
@@ -125,7 +125,7 @@ const useUserUpdate = ({
         let update_token = router.query.update_token as string;
         let user_id = router.query.user_id as string;
         let expires = router.query.expires as string;
-        const data: PostEmailUpdateTypes = {
+        const data: PostEmailUpdate = {
           email,
           update_token,
           user_id,
