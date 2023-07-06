@@ -1,10 +1,10 @@
-import { LoginWithGoogleQueryTypes, PostEmailUpdateTypes } from '@/types';
+import { LoginWithGoogleQuery, PostEmailUpdate } from '@/types';
 import {
-  LoginCredentialsTypes,
-  PostRecoverEmailTypes,
-  PostRecoverPasswordTypes,
-  PostRegisterTypes,
-  PostVerifyTypes,
+  LoginCredentials,
+  PostRecoverEmail,
+  PostRecoverPassword,
+  PostRegister,
+  PostVerify,
 } from './types';
 import axios from './axios';
 import { useRouter } from 'next/router';
@@ -13,25 +13,25 @@ const useAuthService = () => {
   const router = useRouter();
   let locale = router.locale;
 
-  const postRegister = (data: PostRegisterTypes) => {
+  const postRegister = (data: PostRegister) => {
     return axios.post('/api/register', data, {
       params: { locale },
     });
   };
 
-  const postVerify = (data: PostVerifyTypes) => {
+  const postVerify = (data: PostVerify) => {
     return axios.post('/api/verify-email', data, {
       params: { locale },
     });
   };
 
-  const postRecoverEmail = (data: PostRecoverEmailTypes) => {
+  const postRecoverEmail = (data: PostRecoverEmail) => {
     return axios.post('/api/recover/email', data, {
       params: { locale },
     });
   };
 
-  const postRecoverPassword = (data: PostRecoverPasswordTypes) => {
+  const postRecoverPassword = (data: PostRecoverPassword) => {
     return axios.post('/api/recover/password', data, {
       params: { locale },
     });
@@ -41,7 +41,7 @@ const useAuthService = () => {
     return axios.get('/sanctum/csrf-cookie');
   };
 
-  const postLoginUser = (loginCredentials: LoginCredentialsTypes) => {
+  const postLoginUser = (loginCredentials: LoginCredentials) => {
     return axios.post('/api/login', loginCredentials, {
       params: { locale },
     });
@@ -63,7 +63,7 @@ const useAuthService = () => {
     });
   };
 
-  const getUserGoogleCallback = (query: LoginWithGoogleQueryTypes) => {
+  const getUserGoogleCallback = (query: LoginWithGoogleQuery) => {
     return axios.get('/api/auth/google/callback', {
       params: query,
     });
@@ -78,7 +78,7 @@ const useAuthService = () => {
     });
   };
 
-  const postUpdateUserEmail = (data: PostEmailUpdateTypes) => {
+  const postUpdateUserEmail = (data: PostEmailUpdate) => {
     return axios.post('/api/email', data, {
       params: { locale },
     });

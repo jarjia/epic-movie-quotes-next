@@ -1,8 +1,8 @@
 import axios from './axios';
-import { PostCommentTypes } from './types';
+import { PostComment } from './types';
 
 const useNotificationService = () => {
-  const postComment = (data: PostCommentTypes) => {
+  const postComment = (data: PostComment) => {
     return axios.post('/api/comment/create', data);
   };
 
