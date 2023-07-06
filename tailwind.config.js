@@ -96,7 +96,7 @@ module.exports = {
         '.scrollbar': {
           overflowY: 'auto',
           scrollbarColor: `#808189 transparent`,
-          scrollbarWidth: 'thin',
+          scrollbarWidth: 'auto',
         },
         '.scrollbar::-webkit-scrollbar': {
           height: '4px',
@@ -104,6 +104,18 @@ module.exports = {
         },
         '.scrollbar::-webkit-scrollbar-thumb': {
           backgroundColor: '#808189',
+          borderRadius: '50px',
+        },
+        '.scrollbar-textarea': {
+          overflowY: 'auto',
+          scrollbarWidth: 'auto',
+          scrollbarColor: `#6C757D #6C757D`,
+        },
+        '.scrollbar-textarea::-webkit-scrollbar': {
+          width: '12px',
+        },
+        '.scrollbar-textarea::-webkit-scrollbar-thumb': {
+          backgroundColor: '#6C757D',
           borderRadius: '50px',
         },
       });
