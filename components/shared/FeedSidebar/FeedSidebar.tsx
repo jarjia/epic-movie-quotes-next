@@ -1,15 +1,17 @@
 import { CameraIcon, DropDownIcon, HouseIcon, UserProfile } from '@/components';
 import Link from 'next/link';
 import useFeedSidebar from './useFeedSidebar';
+import { AppBars } from '@/types';
 
-const FeedSidebar = () => {
+const FeedSidebar: React.FC<AppBars> = ({
+  handleLogout,
+  handleBurger,
+  isBurger,
+}) => {
   const {
-    handleShouldLogout,
     t,
-    handleIsNotBurger,
     dropDownRef,
     userData,
-    isBurger,
     router,
     setDropdown,
     btnRef,
@@ -26,7 +28,6 @@ const FeedSidebar = () => {
     >
       <div className='block sm:hidden'>
         <Link
-          onClick={handleIsNotBurger}
           onMouseOver={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           href='/profile'
@@ -51,7 +52,6 @@ const FeedSidebar = () => {
           </div>
         </Link>
         <Link
-          onClick={handleIsNotBurger}
           href='/newsfeed'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
@@ -59,7 +59,6 @@ const FeedSidebar = () => {
           <p className='text-white text-2xl'>{t('news_feed')}</p>
         </Link>
         <Link
-          onClick={handleIsNotBurger}
           href='/movie-list'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
@@ -71,11 +70,10 @@ const FeedSidebar = () => {
         <>
           <div
             className='fixed sm:block hidden w-full h-screen z-[-1]'
-            onClick={handleIsNotBurger}
+            onClick={handleBurger}
           ></div>
           <div className='sm:block hidden py-16 z-[999] bg-post-bg w-[80%] sm-mid:w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
             <Link
-              onClick={handleIsNotBurger}
               href='/profile'
               onMouseOver={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
@@ -104,7 +102,6 @@ const FeedSidebar = () => {
               </div>
             </Link>
             <Link
-              onClick={handleIsNotBurger}
               href='/newsfeed'
               className='flex cursor-pointer py-4 hover:bg-add-quote-bg active:bg-add-quote-bg px-10 my-2 items-center gap-8'
             >
@@ -112,7 +109,6 @@ const FeedSidebar = () => {
               <p className='text-white text-2xl sm:text-xl'>{t('news_feed')}</p>
             </Link>
             <Link
-              onClick={handleIsNotBurger}
               href='/movie-list'
               className={`flex cursor-pointer py-4 px-10 my-2 hover:bg-add-quote-bg active:bg-add-quote-bg items-center gap-8`}
             >
@@ -173,7 +169,7 @@ const FeedSidebar = () => {
                 </div>
               )}
               <button
-                onClick={handleShouldLogout}
+                onClick={handleLogout}
                 className='w-full my-4 mt-0 pl-9 py-4 text-start text-xl text-white hover:bg-add-quote-bg active:bg-add-quote-bg'
               >
                 {t('log_out')}

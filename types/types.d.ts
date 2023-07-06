@@ -192,3 +192,14 @@ export type NewLike = {
   quoteId: number;
   likes: number[];
 };
+
+export type Search = {
+  search: string;
+  handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export type AppBars = {
+  handleLogout: () => void;
+  handleBurger: () => void;
+  isBurger?: boolean;
+};

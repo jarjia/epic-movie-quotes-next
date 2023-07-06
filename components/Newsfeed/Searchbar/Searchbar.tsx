@@ -1,9 +1,9 @@
 import { SearchbarIcon } from '@/components';
 import useSearchbar from './useSearchbar';
+import { Search } from '@/types';
 
-const Searchbar = () => {
-  const { isSearch, handleIsSearch, search, t, setSearch, handleOnEnter } =
-    useSearchbar();
+const Searchbar: React.FC<Search> = ({ search, handleChangeSearch }) => {
+  const { isSearch, handleIsSearch, t, handleOnEnter } = useSearchbar(search);
 
   return (
     <div className='flex sm:hidden items-center pl-2'>
@@ -20,7 +20,7 @@ const Searchbar = () => {
           <input
             type='text'
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleChangeSearch}
             onKeyDown={handleOnEnter}
             className='w-full pl-8 text-sm pb-2 caret-white text-white bg-transparent border-0 border-b-2 border-search-bar-border focus:ring-0 focus:border-search-bar-border'
             placeholder={`${t('search_by_placeholder')}`}

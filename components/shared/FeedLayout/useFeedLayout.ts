@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import {
   CommentEventTypes,
@@ -12,7 +12,7 @@ import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
 
 const useFeedLayout = () => {
-  const { getUserData } = useAuthService();
+  const { getUserData, getLogoutUser } = useAuthService();
   useInstantiatePusher();
   const {
     feedFormStatus,
@@ -22,7 +22,10 @@ const useFeedLayout = () => {
     handleFeedFormStatus,
     handleNewComment,
   } = useContext(AppContext);
+  const [shouldLogout, setShouldLogout] = useState(false);
+  const [isBurger, setIsBurger] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { isLoading, isError } = useQuery('user', getUserData, {
     onSuccess(data) {
       if (data?.data?.remember_token !== null) {
@@ -37,7 +40,16 @@ const useFeedLayout = () => {
       localStorage.removeItem('remember_me');
     },
   });
-  const queryClient = useQueryClient();
+  useQuery('log-out', getLogoutUser, {
+    onSuccess: () => {
+      router.push('/');
+      localStorage.removeItem('remember_me');
+      queryClient.removeQueries('log-out');
+      setShouldLogout(false);
+      queryClient.invalidateQueries('user');
+    },
+    enabled: shouldLogout,
+  });
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -111,12 +123,23 @@ const useFeedLayout = () => {
     };
   }, []);
 
+  const handleLogout = () => {
+    setShouldLogout(true);
+  };
+
+  const handleBurger = () => {
+    setIsBurger(!isBurger);
+  };
+
   return {
     feedFormStatus,
+    handleLogout,
+    handleBurger,
     router,
     isLoading,
     isError,
     handleFeedFormStatus,
+    isBurger,
   };
 };
 

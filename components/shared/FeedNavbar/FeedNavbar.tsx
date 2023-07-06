@@ -2,20 +2,17 @@ import {
   BellIcon,
   BurgerIcon,
   DropDown,
-  MobileSearchbar,
   Notification,
   SearchbarIcon,
 } from '@/components';
 import useFeedNavbar from './useFeedNavbar';
+import { AppBars } from '@/types';
 
-const FeedNavbar = () => {
+const FeedNavbar: React.FC<AppBars> = ({ handleLogout, handleBurger }) => {
   const {
-    handleShouldLogout,
     shouldNotify,
     isNotification,
-    isSearch,
     t,
-    handleIsBurger,
     notSeenNotifications,
     handleIsSearch,
     router,
@@ -28,7 +25,7 @@ const FeedNavbar = () => {
         <h3 className='text-title uppercase sm:text-base sm:hidden font-medium'>
           movie quotes
         </h3>
-        <button onClick={handleIsBurger} className='hidden sm:block'>
+        <button onClick={handleBurger} className='hidden sm:block'>
           <BurgerIcon />
         </button>
       </div>
@@ -44,7 +41,6 @@ const FeedNavbar = () => {
             <SearchbarIcon />
           </button>
         )}
-        {isSearch && <MobileSearchbar />}
         <div className='z-[98]'>
           <div onClick={handleisNotification} className='cursor-pointer'>
             {shouldNotify && notSeenNotifications !== 0 && (
@@ -70,7 +66,7 @@ const FeedNavbar = () => {
         <div className='flex gap-8 sm:gap-3 sm:hidden'>
           <div>
             <button
-              onClick={handleShouldLogout}
+              onClick={handleLogout}
               className='text-white rounded w-[96px] h-[38px] border-2 border-white'
             >
               {t('log_out')}

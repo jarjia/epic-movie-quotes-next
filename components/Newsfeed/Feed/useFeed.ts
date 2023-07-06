@@ -1,14 +1,19 @@
 import { AppContext } from '@/context';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useQueryClient } from 'react-query';
+import { useRouter } from 'next/router';
 
 const useFeed = () => {
-  const { feedFormStatus, currentQuoteId, handleFeedFormStatus } =
+  const { feedFormStatus, currentQuoteId, isSearch, handleFeedFormStatus } =
     useContext(AppContext);
+  const router = useRouter();
   const [isScrollUpNeeded, setIsScrollUpNeeded] = useState(false);
   const { t } = useTranslation('newsFeed');
   const queryClient = useQueryClient();
+  const [search, setSearch] = useState(
+    router.query.search === undefined ? '' : (router.query.search as string)
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -16,20 +21,20 @@ const useFeed = () => {
     }, 500);
   }, [queryClient]);
 
-  const handleBackScroll = useCallback(() => {
-    if (window.scrollY > window.innerHeight * 2) {
-      setIsScrollUpNeeded(true);
-    } else if (isScrollUpNeeded) {
-      setIsScrollUpNeeded(false);
-    }
-  }, [isScrollUpNeeded]);
-
   useEffect(() => {
+    const handleBackScroll = () => {
+      if (window.scrollY > window.innerHeight * 2) {
+        setIsScrollUpNeeded(true);
+      } else if (isScrollUpNeeded) {
+        setIsScrollUpNeeded(false);
+      }
+    };
+
     window.addEventListener('scroll', handleBackScroll);
     return () => {
       window.removeEventListener('scroll', handleBackScroll);
     };
-  }, [handleBackScroll]);
+  }, [isScrollUpNeeded]);
 
   useEffect(() => {
     let allowedModalsArr = ['view-quote', 'add-quote', ''];
@@ -38,11 +43,24 @@ const useFeed = () => {
     }
   }, [feedFormStatus, handleFeedFormStatus]);
 
+  useEffect(() => {
+    if (search.length === 0 && router.query.search !== undefined) {
+      router.push(`/newsfeed`);
+    }
+  }, [search, router]);
+
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
   return {
     t,
+    handleChangeSearch,
     feedFormStatus,
+    isSearch,
     currentQuoteId,
     isScrollUpNeeded,
+    search,
   };
 };
 

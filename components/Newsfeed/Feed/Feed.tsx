@@ -3,6 +3,7 @@ import {
   BackArrowIcon,
   FeedFormLayout,
   FeedLayout,
+  MobileSearchbar,
   NewsFeedControl,
   Posts,
   ViewQuoteModal,
@@ -10,7 +11,15 @@ import {
 import useFeed from './useFeed';
 
 const Feed = () => {
-  const { feedFormStatus, currentQuoteId, isScrollUpNeeded, t } = useFeed();
+  const {
+    feedFormStatus,
+    currentQuoteId,
+    isScrollUpNeeded,
+    t,
+    handleChangeSearch,
+    isSearch,
+    search,
+  } = useFeed();
 
   return (
     <FeedLayout>
@@ -25,9 +34,18 @@ const Feed = () => {
           </FeedFormLayout>
         ) : null}
         <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}>
-          <NewsFeedControl />
+          <NewsFeedControl
+            handleChangeSearch={handleChangeSearch}
+            search={search}
+          />
           <Posts />
         </div>
+        {isSearch && (
+          <MobileSearchbar
+            handleChangeSearch={handleChangeSearch}
+            search={search}
+          />
+        )}
         {isScrollUpNeeded && (
           <div className='fixed sm:hidden mid:hidden top-[85%] left-[90%]'>
             <button

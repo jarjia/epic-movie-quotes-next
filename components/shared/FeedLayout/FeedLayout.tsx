@@ -4,8 +4,16 @@ import useFeedLayout from './useFeedLayout';
 import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
-  const { feedFormStatus, router, isLoading, isError, handleFeedFormStatus } =
-    useFeedLayout();
+  const {
+    feedFormStatus,
+    router,
+    isLoading,
+    isError,
+    isBurger,
+    handleLogout,
+    handleFeedFormStatus,
+    handleBurger,
+  } = useFeedLayout();
 
   if (isLoading || isError) {
     return <div className='newsfeed w-screen h-screen'></div>;
@@ -14,8 +22,12 @@ const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
   return (
     <section className='newsfeed w-screen h-full min-h-screen'>
       <ToastContainer autoClose={3000} className='select-none' />
-      <FeedNavbar />
-      <FeedSidebar />
+      <FeedNavbar handleLogout={handleLogout} handleBurger={handleBurger} />
+      <FeedSidebar
+        handleLogout={handleLogout}
+        handleBurger={handleBurger}
+        isBurger={isBurger}
+      />
       {feedFormStatus !== '' && (
         <div
           onClick={() => handleFeedFormStatus('')}
