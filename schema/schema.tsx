@@ -168,7 +168,7 @@ const useZod = () => {
       .string()
       .nonempty({ message: t('movie_release_date') as string })
       .max(4, { message: t('release_date_max') as string }),
-    thumbnail: z.any().refine((val) => {
+    thumbnail: z.instanceof(FileList).refine((val) => {
       if (router.pathname.includes('movieId')) {
         return true;
       } else {
@@ -192,7 +192,7 @@ const useZod = () => {
           message: t('movie_name_ka_ref') as string,
         }),
     }),
-    thumbnail: z.any().refine((val) => {
+    thumbnail: z.instanceof(FileList).refine((val) => {
       if (sessionStorage.getItem('feed-form-status') === 'edit-quote') {
         return true;
       } else {
