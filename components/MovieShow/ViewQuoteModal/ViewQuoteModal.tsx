@@ -1,8 +1,8 @@
 import { PostController } from '@/components';
-import { ViewQuoteModalTypes } from './types';
+import { ViewQuoteModal } from './types';
 import useViewQuoteModal from './useViewQuoteModal';
 
-const ViewQuoteModal: React.FC<ViewQuoteModalTypes> = ({ quoteId }) => {
+const ViewQuoteModal: React.FC<ViewQuoteModal> = ({ quoteId }) => {
   const { quote, isLoading, isSuccess } = useViewQuoteModal(quoteId);
 
   if (isLoading || !isSuccess) {

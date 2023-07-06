@@ -1,9 +1,8 @@
 import { FileCameraIcon } from '@/components';
-import classes from '@/styles/Landing.module.css';
 import useQuotePhoto from './useQuotePhoto';
-import { QuotePhotoTypes } from './types';
+import { QuotePhoto } from './types';
 
-const QuotePhoto: React.FC<QuotePhotoTypes> = (props) => {
+const QuotePhoto: React.FC<QuotePhoto> = (props) => {
   const { register, handleDragOver, handleDrop, img } = useQuotePhoto();
 
   return (
@@ -17,9 +16,7 @@ const QuotePhoto: React.FC<QuotePhotoTypes> = (props) => {
           backgroundImage: `url(${img !== null ? img : props.thumbnail})`,
         }}
       >
-        <div
-          className={`${classes['change-photo']} text-white flex items-center p-2 rounded-xl flex-col bg-red-500`}
-        >
+        <div className='change-photo text-white flex items-center p-2 rounded-xl flex-col bg-red-500'>
           <FileCameraIcon />
           <p>Change photo</p>
         </div>

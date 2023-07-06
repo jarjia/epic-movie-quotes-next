@@ -5,13 +5,9 @@ import { AppContext } from '@/context';
 import { useQuoteService } from '@/services';
 import { useMutation, useQueryClient } from 'react-query';
 import { errorToast } from '@/helpers';
-import { CommentTypes } from '@/types';
+import { Comment } from '@/types';
 
-const useQuoteCard = (
-  id: number,
-  comments: CommentTypes[],
-  likes: number[]
-) => {
+const useQuoteCard = (id: number, comments: Comment[], likes: number[]) => {
   const { deleteQuote } = useQuoteService();
   const [isBox, setIsBox] = useState(false);
   const { t } = useTranslation('movieList');

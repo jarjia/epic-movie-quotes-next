@@ -1,8 +1,8 @@
 import { AddIcon, QuoteCard } from '@/components';
-import { MovieQuotesTypes } from './types';
+import { MovieQuotes } from './types';
 import useMovieQuotes from './useMovieQuotes';
 
-const MovieQuotes: React.FC<MovieQuotesTypes> = (props) => {
+const MovieQuotes: React.FC<MovieQuotes> = (props) => {
   const { t, handleFeedFormStatus } = useMovieQuotes();
 
   return (

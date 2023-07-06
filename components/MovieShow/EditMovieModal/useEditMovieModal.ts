@@ -1,7 +1,7 @@
 import { AppContext } from '@/context';
 import { useZod } from '@/schema';
 import { useMovieService } from '@/services';
-import { GenreObjectType, MovieCreateTypes } from '@/types';
+import { GenreObject, MovieCreate } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useContext } from 'react';
 import {
@@ -51,12 +51,12 @@ const useEditMovieModal = (movieId: number) => {
       data.thumbnail = data.thumbnail[0];
     }
     let genresIds: number[] = [];
-    data.genres.map((item: GenreObjectType) => genresIds.push(item.id));
+    data.genres.map((item: GenreObject) => genresIds.push(item.id));
     data.movieId = movieId;
     data.genres = genresIds;
     movieId = movieId;
 
-    updateMovieMutation(data as MovieCreateTypes & { movieId: number });
+    updateMovieMutation(data as MovieCreate & { movieId: number });
   };
 
   return {

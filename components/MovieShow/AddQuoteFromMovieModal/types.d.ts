@@ -1,6 +1,6 @@
 import { Keys } from '@/types';
 
-export type MovieShowTypes = {
+export type MovieShow = {
   created_at: string;
   description: Keys;
   director: Keys;
@@ -17,6 +17,7 @@ export type MovieShowTypes = {
   updated_at: string;
   user_id: number;
 };
-export type AddQuoteFromMovieModalTypes = {
-  movie: MovieShowTypes;
+
+export type AddQuoteFromMovieModal = {
+  movie: MovieShow;
 };

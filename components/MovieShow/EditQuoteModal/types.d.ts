@@ -1,8 +1,8 @@
-export type EditQuoteTypes = {
+export type EditQuote = {
   quoteId: string | null;
   movieId: number;
 };
-export type EditQuoteStateTypes = {
+export type EditQuoteState = {
   id: number;
   quote: Keys;
   thumbnail: string;

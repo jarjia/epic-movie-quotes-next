@@ -1,6 +1,6 @@
-import { QuotesTypes } from '@/types';
+import { Quotes } from '@/types';
 
-export type MovieQuotesTypes = {
+export type MovieQuotes = {
   movieImage: string;
-  quotes: QuotesTypes[];
+  quotes: Quotes[];
 };

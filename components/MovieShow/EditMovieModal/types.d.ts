@@ -1,5 +1,5 @@
-import { MovieDescTypes } from '@/types';
+import { MovieDesc } from '@/types';
 
-export type EditMovieTypes = {
-  movie: MovieDescTypes;
+export type EditMovie = {
+  movie: MovieDesc;
 };
