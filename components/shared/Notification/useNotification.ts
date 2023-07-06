@@ -34,7 +34,11 @@ const useNotification = () => {
     setNotifications(data?.pages[data.pages.length - 1].data.notifications);
   }, [data?.pages]);
 
-  const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications);
+  const { mutate: markAllAsReadMutation } = useMutation(readAllNotifications, {
+    onSuccess() {
+      queryClient.invalidateQueries('notifications');
+    },
+  });
 
   useEffect(() => {
     if (
