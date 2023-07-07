@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const usePost = () => {
   const { t } = useTranslation('newsFeed');
@@ -10,14 +10,14 @@ const usePost = () => {
   const postRef = useRef<null | HTMLDivElement>(null);
   const percent = 60;
 
-  const handlePostWidth = useCallback(() => {
-    if (postRef.current) {
-      let height = (percent / 100) * postRef.current.offsetWidth;
-      setPostheight(Math.floor(height));
-    }
-  }, [setPostheight]);
-
   useEffect(() => {
+    const handlePostWidth = () => {
+      if (postRef.current) {
+        let height = (percent / 100) * postRef.current.offsetWidth;
+        setPostheight(Math.floor(height));
+      }
+    };
+
     if (postRef.current) {
       let height = (percent / 100) * postRef.current.offsetWidth;
       setPostheight(Math.floor(height));
@@ -26,7 +26,7 @@ const usePost = () => {
     return () => {
       window.addEventListener('resize', handlePostWidth);
     };
-  }, [handlePostWidth]);
+  }, []);
 
   return {
     locale,

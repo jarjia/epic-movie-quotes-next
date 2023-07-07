@@ -26,3 +26,8 @@ export type PostComment = {
   to_user: number;
   comment: string;
 };
+
+export type Channel = {
+  socketId: string;
+  channelName: string;
+};

@@ -38,6 +38,7 @@ const useUserUpdate = ({
     formState: { errors },
     control,
     setError,
+    resetField,
     trigger,
     reset,
   } = form;
@@ -51,6 +52,7 @@ const useUserUpdate = ({
   const [enableEmail, setEnableEmail] = useState(true);
   const password = useWatch({ control, name: 'password' });
   const thumbnail = useWatch({ control, name: 'thumbnail' });
+  const input = useWatch({ control, name: editProfile.name });
   const defaultEdit: SpecificFieldEditType[] = [
     {
       id: 'name',
@@ -66,25 +68,6 @@ const useUserUpdate = ({
     },
   ];
   const [allEdit, setAllEdit] = useState<SpecificFieldEditType[]>(defaultEdit);
-
-  const handleIsAllEditing = (boolean: boolean, id: string) => {
-    setAllEdit((prev) => {
-      let newItem = {
-        id,
-        boolean,
-      };
-      let newArr = prev.filter((item) => item.id !== id);
-      newArr.push(newItem);
-
-      return newArr;
-    });
-  };
-
-  const handleClearRoute = () => {
-    router.push('/profile', undefined, {
-      locale: router.query.locale as string,
-    });
-  };
 
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
@@ -108,6 +91,25 @@ const useUserUpdate = ({
       handleClearRoute();
     },
   });
+
+  useEffect(() => {
+    const clearState = () => {
+      if (window.innerWidth < 916) {
+        setCancel(true);
+        setImg(null);
+        resetField('thumbnail');
+      } else {
+        setCancel(false);
+      }
+    };
+    clearState();
+    window.addEventListener('resize', clearState);
+    return () => {
+      window.addEventListener('resize', clearState);
+    };
+  }, [resetField]);
+
+  console.log(allEdit);
 
   useEffect(() => {
     if (!isEditing) {
@@ -155,16 +157,6 @@ const useUserUpdate = ({
     }
   };
 
-  const isObjEmpty = (obj: {}) => {
-    return Object.keys(obj).length === 0;
-  };
-
-  const handleEditing = (bool: boolean) => {
-    setIsEditing(bool);
-  };
-
-  const input = useWatch({ control, name: editProfile.name });
-
   useEffect(() => {
     if (thumbnail !== undefined) {
       setImg(URL.createObjectURL(thumbnail[0]));
@@ -182,7 +174,13 @@ const useUserUpdate = ({
         }
         setCancel(true);
         setIsEditing(false);
-        handleEditProfileClear();
+        handleEditProfileClear({
+          name: '',
+          label: '',
+          placeholder: '',
+          isEdit: false,
+          type: '',
+        });
         router.push('/profile');
         queryClient.invalidateQueries('user');
         if (!router.query.update_token && !isEmail) {
@@ -257,6 +255,25 @@ const useUserUpdate = ({
     UpdateUserCredentials(formData);
   };
 
+  const handleIsAllEditing = (boolean: boolean, id: string) => {
+    setAllEdit((prev) => {
+      let newItem = {
+        id,
+        boolean,
+      };
+      let newArr = prev.filter((item) => item.id !== id);
+      newArr.push(newItem);
+
+      return newArr;
+    });
+  };
+
+  const handleClearRoute = () => {
+    router.push('/profile', undefined, {
+      locale: router.query.locale as string,
+    });
+  };
+
   let shouldEdit =
     thumbnail !== undefined ||
     (isEditing && allEdit.some((item) => item.boolean));
@@ -265,13 +282,12 @@ const useUserUpdate = ({
     shouldEdit,
     handleSubmit,
     img,
-    handleEditing,
+    setIsEditing,
     handleCancel,
     cancel,
     isEditing,
     apiError,
     onSubmit,
-    isObjEmpty,
     setApiError,
     userData,
     allEdit,

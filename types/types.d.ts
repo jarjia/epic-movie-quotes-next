@@ -27,10 +27,11 @@ export type UserData = {
   email: string;
   google_id: string;
   thumbnail?: string;
+  remember_token: string | null;
 };
 
 export type HookUserUpdate = {
-  handleEditProfileClear: () => void;
+  handleEditProfileClear: SetState<MobileEdit>;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
   handleIsSure: (bool: boolean) => void;
@@ -191,4 +192,25 @@ export type PostEmailUpdate = {
 export type NewLike = {
   quoteId: number;
   likes: number[];
+};
+
+export type Search = {
+  search: string;
+  handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+};
+
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
+
+export type AppBars = {
+  setShouldLogout: SetState<boolean>;
+  setIsBurger: SetState<boolean>;
+  isBurger?: boolean;
+};
+
+export type MobileEdit = {
+  name: string;
+  label: string;
+  placeholder: string;
+  isEdit: boolean;
+  type: string;
 };

@@ -15,16 +15,16 @@ import useProfile from './useProfile';
 const ProfilePage = () => {
   const {
     handleBackButton,
-    handleEditProfile,
-    handleEditProfileClear,
-    handleIsSure,
+    setEditProfile,
+    setIsSure,
     feedFormStatus,
     editProfile,
     t,
     isSure,
+    movieList,
     handleClearForms,
     isSuccess,
-    handleIsSuccess,
+    setIsSuccess,
     currentQuoteId,
   } = useProfile();
 
@@ -46,12 +46,12 @@ const ProfilePage = () => {
           ) : null}
         </div>
         {feedFormStatus === 'view-quote' ? (
-          <FeedFormLayout title={`${t('view_quote')}`}>
+          <FeedFormLayout title={`${movieList('view_quote')}`}>
             <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
         <div className='pb-1 px-4 sm:px-0 large:px-0 drop-shadow-none'>
-          {isSuccess && <ChangesSuccess handleIsSuccess={handleIsSuccess} />}
+          {isSuccess && <ChangesSuccess handleIsSuccess={setIsSuccess} />}
           <h1 className='text-white text-2xl large:p-6 p-2 px-8 sm:hidden block'>
             {t('profile_title')}
           </h1>
@@ -68,17 +68,17 @@ const ProfilePage = () => {
             {editProfile.isEdit === false ? (
               <UserUpdate
                 editProfile={editProfile}
-                handleEditProfileClear={handleEditProfileClear}
-                handleEditProfile={handleEditProfile}
-                handleIsSuccess={handleIsSuccess}
-                handleIsSure={handleIsSure}
+                handleEditProfileClear={setEditProfile}
+                handleEditProfile={setEditProfile}
+                handleIsSuccess={setIsSuccess}
+                handleIsSure={setIsSure}
               />
             ) : (
               <MobileUserUpdate
-                handleIsSure={handleIsSure}
-                handleIsSuccess={handleIsSuccess}
+                handleIsSure={setIsSure}
+                handleIsSuccess={setIsSuccess}
                 isSure={isSure}
-                handleEditProfileClear={handleEditProfileClear}
+                handleEditProfileClear={setEditProfile}
                 editProfile={editProfile}
               />
             )}

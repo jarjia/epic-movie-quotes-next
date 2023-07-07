@@ -1,13 +1,12 @@
 import { AppContext } from '@/context';
-import { KeyboardEvent, useContext, useState } from 'react';
+import { KeyboardEvent, useContext } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-const useMobileSearchbar = () => {
-  const { handleIsSearch } = useContext(AppContext);
+const useMobileSearchbar = (search: string) => {
+  const { setIsSearch } = useContext(AppContext);
   const { t } = useTranslation('common');
   const router = useRouter();
-  const [search, setSearch] = useState<string>(router.query.search as string);
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -18,16 +17,14 @@ const useMobileSearchbar = () => {
       const onComplete = () => {
         router.events.off('routeChangeComplete', onComplete);
       };
-      handleIsSearch();
+      setIsSearch((prev: boolean) => !prev);
       router.events.on('routeChangeComplete', onComplete);
     }
   };
 
   return {
     handleOnEnter,
-    handleIsSearch,
-    search,
-    setSearch,
+    setIsSearch,
     t,
   };
 };

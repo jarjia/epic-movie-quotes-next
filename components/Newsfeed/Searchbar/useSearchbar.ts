@@ -1,21 +1,12 @@
 import { AppContext } from '@/context';
-import { KeyboardEvent, useContext, useEffect, useState } from 'react';
+import { KeyboardEvent, useContext } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
-const useSearchbar = () => {
-  const { isSearch, handleIsSearch } = useContext(AppContext);
+const useSearchbar = (search: string) => {
+  const { isSearch, setIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
   const router = useRouter();
-  const [search, setSearch] = useState(
-    router.query.search === undefined ? '' : (router.query.search as string)
-  );
-
-  useEffect(() => {
-    if (search.length === 0 && router.query.search !== undefined) {
-      router.push(`/newsfeed`);
-    }
-  }, [search, router]);
 
   const handleOnEnter = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
@@ -32,11 +23,10 @@ const useSearchbar = () => {
   };
 
   return {
-    setSearch,
     handleOnEnter,
     isSearch,
     t,
-    handleIsSearch,
+    setIsSearch,
     search,
   };
 };

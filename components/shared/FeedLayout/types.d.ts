@@ -1,21 +1,21 @@
-import { CommentTypes } from '@/types';
+import { Comment } from '@/types';
 
-export type FeedLayoutTypes = {
+export type FeedLayout = {
   children: JSX.Element;
 };
-export type NotificationEventTypes = {
+export type NotificationEvent = {
   notification: {
     notify: boolean;
   };
 };
-export type LikeEventTypes = {
+export type LikeEvent = {
   message: {
     quoteId: number;
     likes: number[];
   };
 };
-export type CommentEventTypes = {
+export type CommentEvent = {
   message: {
-    new_comment: CommentTypes;
+    new_comment: Comment;
   };
 };

@@ -9,8 +9,7 @@ const useFeedSidebar = () => {
   const [isHovered, setIsHovered] = useState(false);
   const dropDownRef = useRef<null | HTMLDivElement>(null);
   const btnRef = useRef<null | HTMLButtonElement>(null);
-  const { userData, handleIsNotBurger, handleShouldLogout, isBurger } =
-    useContext(AppContext);
+  const { userData } = useContext(AppContext);
   const { t } = useTranslation('common');
 
   useEffect(() => {
@@ -35,9 +34,6 @@ const useFeedSidebar = () => {
   return {
     btnRef,
     userData,
-    handleShouldLogout,
-    handleIsNotBurger,
-    isBurger,
     t,
     dropDown,
     dropDownRef,

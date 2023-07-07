@@ -1,28 +1,27 @@
 import { AppContext } from '@/context';
 import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
-import { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import {
-  CommentEventTypes,
-  LikeEventTypes,
-  NotificationEventTypes,
-} from './types';
+import { CommentEvent, LikeEvent, NotificationEvent } from './types';
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
 
 const useFeedLayout = () => {
-  const { getUserData } = useAuthService();
+  const { getUserData, getLogoutUser } = useAuthService();
   useInstantiatePusher();
   const {
     feedFormStatus,
-    handleUserData,
+    setUserData,
     handleNewLikes,
     userData,
     handleFeedFormStatus,
     handleNewComment,
   } = useContext(AppContext);
+  const [shouldLogout, setShouldLogout] = useState(false);
+  const [isBurger, setIsBurger] = useState(false);
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { isLoading, isError } = useQuery('user', getUserData, {
     onSuccess(data) {
       if (data?.data?.remember_token !== null) {
@@ -30,14 +29,23 @@ const useFeedLayout = () => {
       } else {
         localStorage.removeItem('remember_me');
       }
-      handleUserData(data.data);
+      setUserData(data.data);
     },
     onError: () => {
       router.push('/403');
       localStorage.removeItem('remember_me');
     },
   });
-  const queryClient = useQueryClient();
+  useQuery('log-out', getLogoutUser, {
+    onSuccess: () => {
+      router.push('/');
+      localStorage.removeItem('remember_me');
+      queryClient.removeQueries('log-out');
+      setShouldLogout(false);
+      queryClient.invalidateQueries('user');
+    },
+    enabled: shouldLogout,
+  });
 
   useEffect(() => {
     if (feedFormStatus !== '') {
@@ -47,15 +55,6 @@ const useFeedLayout = () => {
     }
   }, [feedFormStatus]);
 
-  const handleNotify = (data: NotificationEventTypes) => {
-    if (data.notification.notify) {
-      setTimeout(() => {
-        queryClient.invalidateQueries('notifications');
-        queryClient.invalidateQueries('notifications-count');
-      }, 500);
-    }
-  };
-
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
@@ -63,7 +62,14 @@ const useFeedLayout = () => {
       channel = window.Echo.private(
         `notification.${userData.id}`
       ) as PusherChannel;
-      channel!.listen('NotificationEvent', handleNotify);
+      channel!.listen('NotificationEvent', (data: NotificationEvent) => {
+        if (data.notification.notify) {
+          setTimeout(() => {
+            queryClient.invalidateQueries('notifications');
+            queryClient.invalidateQueries('notifications-count');
+          }, 500);
+        }
+      });
     }
 
     return () => {
@@ -71,18 +77,16 @@ const useFeedLayout = () => {
         channel.unsubscribe();
       }
     };
-  }, [userData.id]);
-
-  const handleQuoteLiked = (data: LikeEventTypes) => {
-    handleNewLikes(data.message);
-  };
+  }, [userData.id, queryClient]);
 
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
     if (window.Echo) {
       channel = window.Echo.channel('liked') as PusherChannel;
-      channel!.listen('QuoteLiked', handleQuoteLiked);
+      channel!.listen('QuoteLiked', (data: LikeEvent) =>
+        handleNewLikes(data.message)
+      );
     }
 
     return () => {
@@ -92,16 +96,14 @@ const useFeedLayout = () => {
     };
   }, []);
 
-  const handleCommented = (data: CommentEventTypes) => {
-    handleNewComment(data.message.new_comment);
-  };
-
   useEffect(() => {
     let channel: PusherChannel | null = null;
 
     if (window.Echo) {
       channel = window.Echo.channel('commented') as PusherChannel;
-      channel!.listen('QuoteComment', handleCommented);
+      channel!.listen('QuoteComment', (data: CommentEvent) =>
+        handleNewComment(data.message.new_comment)
+      );
     }
 
     return () => {
@@ -113,10 +115,13 @@ const useFeedLayout = () => {
 
   return {
     feedFormStatus,
+    setShouldLogout,
+    setIsBurger,
     router,
     isLoading,
     isError,
     handleFeedFormStatus,
+    isBurger,
   };
 };
 

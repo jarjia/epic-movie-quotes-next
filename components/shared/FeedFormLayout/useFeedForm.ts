@@ -7,8 +7,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 const useFeedForm = () => {
   const { deleteQuote } = useQuoteService();
-  const { handleFeedFormStatus, userData, feedFormStatus } =
-    useContext(AppContext);
+  const { handleFeedFormStatus, userData } = useContext(AppContext);
   const router = useRouter();
   const queryClient = useQueryClient();
   const { t } = useTranslation('movieList');
@@ -51,7 +50,6 @@ const useFeedForm = () => {
     handleFeedFormStatus,
     userData,
     t,
-    feedFormStatus,
     screenHeight,
   };
 };

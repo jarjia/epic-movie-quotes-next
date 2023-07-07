@@ -10,10 +10,9 @@ const PostController: React.FC<{ data: Post; userId: number }> = ({
     disabled,
     openComments,
     likedIds,
-    handleOpenComments,
     handleSubmit,
     handleLiked,
-    filteredComments,
+    sortedComments,
     searchRef,
     comments,
     setOpenComments,
@@ -30,7 +29,16 @@ const PostController: React.FC<{ data: Post; userId: number }> = ({
   return (
     <>
       <div className='flex py-4 gap-6'>
-        <button onClick={handleOpenComments} className='select-none flex gap-2'>
+        <button
+          onClick={() => {
+            if (openComments === 0) {
+              setOpenComments(2);
+            } else if (data.comments.length === 0) {
+              setOpenComments(0);
+            }
+          }}
+          className='select-none flex gap-2'
+        >
           {comments.length}
           <CommentIcon />
         </button>
@@ -44,9 +52,9 @@ const PostController: React.FC<{ data: Post; userId: number }> = ({
         </button>
       </div>
       <div className='w-full h-[1px] bg-search-bar-border'></div>
-      {openComments > 0 && filteredComments.length > 0 && (
+      {openComments > 0 && sortedComments.length > 0 && (
         <div className='py-4 sm:py-2'>
-          {filteredComments.map((comment) => {
+          {sortedComments.map((comment) => {
             return (
               <div key={comment.id} className='sm:pt-2'>
                 <div className='flex items-center'>

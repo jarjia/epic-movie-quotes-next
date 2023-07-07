@@ -132,7 +132,7 @@ const Notification: React.FC<NotificationProps> = (props) => {
                     seen={item.seen}
                     created_at={item.created_at}
                     quoteId={item.quote_id}
-                    handleisNotification={props.handleisNotification}
+                    setIsNotification={props.setIsNotification}
                   />
                 );
               })

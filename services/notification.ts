@@ -1,5 +1,5 @@
 import axios from './axios';
-import { PostComment } from './types';
+import { Channel, PostComment } from './types';
 
 const useNotificationService = () => {
   const postComment = (data: PostComment) => {
@@ -28,7 +28,7 @@ const useNotificationService = () => {
     return axios.patch(`/api/read/notification/${notifyId}`);
   };
 
-  const postBroadcasting = (data: any) => {
+  const postBroadcasting = (data: Channel) => {
     return axios.post('/broadcasting/auth', {
       socket_id: data.socketId,
       channel_name: data.channelName,

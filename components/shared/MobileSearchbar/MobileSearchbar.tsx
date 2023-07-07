@@ -1,16 +1,16 @@
 import { BackArrowIcon } from '@/components';
 import useMobileSearchbar from './useMobileSearchbar';
+import { Search } from '@/types';
 
-const MobileSearchbar = () => {
-  const { handleOnEnter, handleIsSearch, setSearch, search, t } =
-    useMobileSearchbar();
+const MobileSearchbar: React.FC<Search> = ({ search, handleChangeSearch }) => {
+  const { handleOnEnter, setIsSearch, t } = useMobileSearchbar(search);
 
   return (
-    <div className='absolute z-[99] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 sm:h-screen h-[calc(100vh-15vh)]'>
+    <div className='absolute z-[999] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 sm:h-screen h-[calc(100vh-15vh)]'>
       <div className='grid py-2 grid-cols-mobile-search-cols w-full'>
         <button
           className='flex items-center justify-center w-full h-full'
-          onClick={handleIsSearch}
+          onClick={() => setIsSearch((prev: boolean) => !prev)}
         >
           <BackArrowIcon isSearch={true} />
         </button>
@@ -18,7 +18,7 @@ const MobileSearchbar = () => {
           <input
             type='text'
             value={search}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleChangeSearch}
             onKeyDown={handleOnEnter}
             placeholder={`${t('search_by')}`}
             className='placeholder-white placeholder:text-sm w-full text-white bg-transparent border-0 caret-white focus:ring-0 focus:border-transparent'

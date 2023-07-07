@@ -10,8 +10,7 @@ const useFeedNavbar = () => {
   const { getNotificationsCount } = useNotificationService();
   const [isNotification, setIsNotification] = useState(false);
   const [shouldNotify, setShouldNotify] = useState(false);
-  const { handleIsBurger, handleIsSearch, isSearch, handleShouldLogout } =
-    useContext(AppContext);
+  const { setIsSearch } = useContext(AppContext);
   const { data } = useQuery('notifications-count', getNotificationsCount, {
     onSuccess() {
       setShouldNotify(true);
@@ -20,20 +19,13 @@ const useFeedNavbar = () => {
   const notSeenNotifications = data?.data.new;
   const { t } = useTranslation('common');
 
-  const handleisNotification = () => {
-    setIsNotification(!isNotification);
-  };
-
   return {
-    handleShouldLogout,
-    handleisNotification,
+    setIsNotification,
     notSeenNotifications,
     shouldNotify,
     isNotification,
-    isSearch,
     t,
-    handleIsSearch,
-    handleIsBurger,
+    setIsSearch,
     router,
   };
 };

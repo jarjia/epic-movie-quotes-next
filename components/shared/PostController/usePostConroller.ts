@@ -24,14 +24,6 @@ const usePostConroller = (data: Post, userId: number) => {
     setComments(data.comments);
   }, [data.comments]);
 
-  const handleOpenComments = () => {
-    if (openComments === 0) {
-      setOpenComments(2);
-    } else if (data.comments.length === 0) {
-      setOpenComments(0);
-    }
-  };
-
   useEffect(() => {
     if (newLikes !== null) {
       let likesForQuoeteArr = newLikes.filter(
@@ -122,7 +114,7 @@ const usePostConroller = (data: Post, userId: number) => {
     createCommentMutate(commentData);
   };
 
-  const filteredComments = comments
+  const sortedComments = comments
     .sort((a, b) => {
       let itemA: Date = new Date(a.created_at);
       let itemB: Date = new Date(b.created_at);
@@ -140,10 +132,9 @@ const usePostConroller = (data: Post, userId: number) => {
     searchRef,
     comments,
     isLoading,
-    filteredComments,
+    sortedComments,
     disabled,
     openComments,
-    handleOpenComments,
     handleLiked,
   };
 };

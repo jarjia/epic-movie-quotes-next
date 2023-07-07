@@ -1,8 +1,9 @@
 import { useContext } from 'react';
 import { AppContext } from '@/context';
 import { AddQuote, Searchbar } from '@/components';
+import { Search } from '@/types';
 
-const NewsFeedControl = () => {
+const NewsFeedControl: React.FC<Search> = ({ search, handleChangeSearch }) => {
   const { isSearch } = useContext(AppContext);
 
   return (
@@ -13,7 +14,7 @@ const NewsFeedControl = () => {
       }}
     >
       <AddQuote />
-      <Searchbar />
+      <Searchbar search={search} handleChangeSearch={handleChangeSearch} />
     </div>
   );
 };

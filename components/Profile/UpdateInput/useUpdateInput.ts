@@ -9,7 +9,7 @@ const useUpdateInput = (props: UpdateInput) => {
   const { register, control, resetField } = useFormContext();
   const [isEdit, setIsEdit] = useState(false);
   const [inputWidth, setInputWidth] = useState<number | null>(null);
-  const { cancel, handleCancel, handleEditing } = props;
+  const { cancel, handleCancel, setIsEditing } = props;
   const { userData } = useContext(AppContext);
   const { t } = useTranslation('profile');
   let index = props.name;
@@ -17,12 +17,12 @@ const useUpdateInput = (props: UpdateInput) => {
   const password = useWatch({ control, name: 'password' });
   const router = useRouter();
 
-  const handleInputWidth = () => {
-    setInputWidth(inputRef.current?.offsetWidth as number);
-  };
-
   useEffect(() => {
-    setInputWidth(inputRef.current?.offsetWidth as number);
+    const handleInputWidth = () => {
+      setInputWidth(inputRef.current?.offsetWidth as number);
+    };
+
+    handleInputWidth();
     window.addEventListener('resize', handleInputWidth);
     return () => {
       window.addEventListener('resize', handleInputWidth);
@@ -49,9 +49,9 @@ const useUpdateInput = (props: UpdateInput) => {
       setIsEdit(false);
       handleCancel(false);
     } else if (isEdit) {
-      handleEditing(true);
+      setIsEditing(true);
     }
-  }, [cancel, isEdit, handleCancel, handleEditing]);
+  }, [cancel, isEdit, handleCancel, setIsEditing]);
 
   return {
     inputWidth,

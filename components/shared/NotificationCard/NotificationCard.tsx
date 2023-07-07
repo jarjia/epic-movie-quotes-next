@@ -18,7 +18,7 @@ const NotificationCard: React.FC<NotificationCard> = (props) => {
         handleCurrentQuoteId(String(props.quoteId));
         readNotificationMutate(props.id);
         handleFeedFormStatus('view-quote');
-        props.handleisNotification();
+        props.setIsNotification((prev: boolean) => !prev);
       }}
       className='flex cursor-pointer p-4 my-3 items-center border-[1px] gap-2 border-placeholder-opacity rounded'
     >

@@ -21,6 +21,7 @@ const useProfile = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const router = useRouter();
   const { t } = useTranslation('profile');
+  const { t: movieList } = useTranslation('movieList');
   const { feedFormStatus, handleFeedFormStatus, currentQuoteId } =
     useContext(AppContext);
 
@@ -65,22 +66,9 @@ const useProfile = () => {
     router.push('/profile');
   };
 
-  const handleIsSuccess = (bool: boolean) => {
-    setIsSuccess(bool);
-  };
-
-  const handleEditProfile = (data: MobileInput) => {
-    setEditProfile(data);
-  };
-
-  const handleIsSure = (bool: boolean) => {
-    setIsSure(bool);
-  };
-
   const handleEditProfileClear = () => {
     setEditProfile(editProfileInitials);
   };
-  console.log(router);
 
   const handleBackButton = () => {
     if (editProfile.isEdit === true) {
@@ -95,12 +83,13 @@ const useProfile = () => {
   return {
     handleBackButton,
     isSure,
-    handleEditProfile,
+    setEditProfile,
     handleClearForms,
     t,
     handleEditProfileClear,
-    handleIsSure,
-    handleIsSuccess,
+    setIsSure,
+    movieList,
+    setIsSuccess,
     isSuccess,
     editProfile,
     feedFormStatus,

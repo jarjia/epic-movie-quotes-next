@@ -22,7 +22,7 @@ const UserUpdate: React.FC<UserUpdate> = ({
     cancel,
     handleCancel,
     img,
-    handleEditing,
+    setIsEditing,
     form,
     onSubmit,
     FormProvider,
@@ -72,7 +72,7 @@ const UserUpdate: React.FC<UserUpdate> = ({
             newLabel={t('new_name_new_label')}
             cancel={cancel}
             handleCancel={handleCancel}
-            handleEditing={handleEditing}
+            setIsEditing={setIsEditing}
             defaultValue={userData?.name}
             handleEditProfile={handleEditProfile}
             handleIsAllEditing={handleIsAllEditing}
@@ -89,7 +89,7 @@ const UserUpdate: React.FC<UserUpdate> = ({
             defaultValue={userData?.email}
             cancel={cancel}
             handleCancel={handleCancel}
-            handleEditing={handleEditing}
+            setIsEditing={setIsEditing}
             handleEditProfile={handleEditProfile}
             handleIsAllEditing={handleIsAllEditing}
             allEdit={allEdit}
@@ -108,7 +108,7 @@ const UserUpdate: React.FC<UserUpdate> = ({
               repeatLabel={t('new_password_repeat_placeholder') as string}
               cancel={cancel}
               handleCancel={handleCancel}
-              handleEditing={handleEditing}
+              setIsEditing={setIsEditing}
               handleEditProfile={handleEditProfile}
               handleIsAllEditing={handleIsAllEditing}
               allEdit={allEdit}
