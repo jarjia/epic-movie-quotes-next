@@ -3,18 +3,24 @@ import useSearchbar from './useSearchbar';
 import { Search } from '@/types';
 
 const Searchbar: React.FC<Search> = ({ search, handleChangeSearch }) => {
-  const { isSearch, handleIsSearch, t, handleOnEnter } = useSearchbar(search);
+  const { isSearch, setIsSearch, t, handleOnEnter } = useSearchbar(search);
 
   return (
     <div className='flex sm:hidden items-center pl-2'>
       {!isSearch ? (
-        <button onClick={handleIsSearch} className='flex items-center gap-4'>
+        <button
+          onClick={() => setIsSearch((prev: boolean) => !prev)}
+          className='flex items-center gap-4'
+        >
           <SearchbarIcon />
           <p className='text-input text-xl'>{t('search_by')}</p>
         </button>
       ) : (
         <div className='flex items-center gap-4 w-full'>
-          <button onClick={handleIsSearch} className='absolute'>
+          <button
+            onClick={() => setIsSearch((prev: boolean) => !prev)}
+            className='absolute'
+          >
             <SearchbarIcon />
           </button>
           <input

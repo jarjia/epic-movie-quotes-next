@@ -12,7 +12,7 @@ const useFeedLayout = () => {
   useInstantiatePusher();
   const {
     feedFormStatus,
-    handleUserData,
+    setUserData,
     handleNewLikes,
     userData,
     handleFeedFormStatus,
@@ -29,7 +29,7 @@ const useFeedLayout = () => {
       } else {
         localStorage.removeItem('remember_me');
       }
-      handleUserData(data.data);
+      setUserData(data.data);
     },
     onError: () => {
       router.push('/403');

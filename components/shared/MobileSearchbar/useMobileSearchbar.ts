@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 const useMobileSearchbar = (search: string) => {
-  const { handleIsSearch } = useContext(AppContext);
+  const { setIsSearch } = useContext(AppContext);
   const { t } = useTranslation('common');
   const router = useRouter();
 
@@ -17,14 +17,14 @@ const useMobileSearchbar = (search: string) => {
       const onComplete = () => {
         router.events.off('routeChangeComplete', onComplete);
       };
-      handleIsSearch();
+      setIsSearch((prev: boolean) => !prev);
       router.events.on('routeChangeComplete', onComplete);
     }
   };
 
   return {
     handleOnEnter,
-    handleIsSearch,
+    setIsSearch,
     t,
   };
 };

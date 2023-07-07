@@ -14,7 +14,7 @@ const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
     isNotification,
     t,
     notSeenNotifications,
-    handleIsSearch,
+    setIsSearch,
     router,
     setIsNotification,
   } = useFeedNavbar();
@@ -40,7 +40,10 @@ const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
           ></div>
         )}
         {router.pathname === '/newsfeed' && (
-          <button onClick={handleIsSearch} className='sm:block hidden'>
+          <button
+            onClick={() => setIsSearch((prev: boolean) => !prev)}
+            className='sm:block hidden'
+          >
             <SearchbarIcon />
           </button>
         )}

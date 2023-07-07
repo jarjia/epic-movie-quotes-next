@@ -1,9 +1,9 @@
 import { FeedNavbar, FeedSidebar } from '@/components';
-import { FeedLayoutTypes } from './types';
+import { FeedLayout } from './types';
 import useFeedLayout from './useFeedLayout';
 import { ToastContainer } from 'react-toastify';
 
-const FeedLayout: React.FC<FeedLayoutTypes> = (props) => {
+const FeedLayout: React.FC<FeedLayout> = (props) => {
   const {
     feedFormStatus,
     router,

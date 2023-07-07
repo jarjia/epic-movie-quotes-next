@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { useRouter } from 'next/router';
 
 const useSearchbar = (search: string) => {
-  const { isSearch, handleIsSearch } = useContext(AppContext);
+  const { isSearch, setIsSearch } = useContext(AppContext);
   const { t } = useTranslation('newsFeed');
   const router = useRouter();
 
@@ -26,7 +26,7 @@ const useSearchbar = (search: string) => {
     handleOnEnter,
     isSearch,
     t,
-    handleIsSearch,
+    setIsSearch,
     search,
   };
 };

@@ -3,14 +3,14 @@ import useMobileSearchbar from './useMobileSearchbar';
 import { Search } from '@/types';
 
 const MobileSearchbar: React.FC<Search> = ({ search, handleChangeSearch }) => {
-  const { handleOnEnter, handleIsSearch, t } = useMobileSearchbar(search);
+  const { handleOnEnter, setIsSearch, t } = useMobileSearchbar(search);
 
   return (
     <div className='absolute z-[999] sm:block hidden bg-mobile-search shadow-2xl w-screen top-0 left-0 sm:h-screen h-[calc(100vh-15vh)]'>
       <div className='grid py-2 grid-cols-mobile-search-cols w-full'>
         <button
           className='flex items-center justify-center w-full h-full'
-          onClick={handleIsSearch}
+          onClick={() => setIsSearch((prev: boolean) => !prev)}
         >
           <BackArrowIcon isSearch={true} />
         </button>
