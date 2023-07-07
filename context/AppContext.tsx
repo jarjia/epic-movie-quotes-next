@@ -1,31 +1,35 @@
 import { createContext, useEffect, useState } from 'react';
 import { Comment, NewLike, UserData } from '@/types';
 import { useRouter } from 'next/router';
+import { Context } from './types';
 
-export const AppContext = createContext({
-  feedFormStatus: '' as string | null,
-  handleFeedFormStatus: (status: string) => {},
-  handleUserData: (data: UserData) => {},
-  handleCurrentQuoteId: (quoteId: string | null) => {},
-  userData: {} as UserData,
-  handleIsSearch: () => {},
+const initialUserData = {
+  name: '',
+  id: 0,
+  email: '',
+  google_id: '',
+  thumbnail: '',
+  remember_token: null,
+};
+
+export const AppContext = createContext<Context>({
+  feedFormStatus: '',
+  handleFeedFormStatus: () => {},
+  setUserData: () => {},
+  handleCurrentQuoteId: () => {},
+  userData: initialUserData,
+  setIsSearch: () => {},
   isSearch: false,
-  currentQuoteId: null as string | null,
-  newLikes: null as NewLike[] | null,
-  commentsArr: null as null | Comment[],
-  handleNewLikes: (likes: NewLike | null) => {},
-  handleNewComment: (comment: Comment | null) => {},
+  currentQuoteId: null,
+  newLikes: null,
+  commentsArr: null,
+  handleNewLikes: () => {},
+  handleNewComment: () => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [feedFormStatus, setFeedFormStatus] = useState<string | null>('');
-  const [userData, setUserData] = useState<UserData>({
-    name: '',
-    id: 0,
-    email: '',
-    google_id: '',
-    thumbnail: '',
-  });
+  const [userData, setUserData] = useState<UserData>(initialUserData);
   const [isSearch, setIsSearch] = useState(false);
   const [newLikes, setNewLikes] = useState<NewLike[] | null>(null);
   const [commentsArr, setCommentsArr] = useState<Comment[] | null>(null);
@@ -57,14 +61,6 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     sessionStorage.setItem('quoteId', JSON.stringify(quoteId));
   };
 
-  const handleIsSearch = () => {
-    setIsSearch(!isSearch);
-  };
-
-  const handleUserData = (data: UserData) => {
-    setUserData(data);
-  };
-
   useEffect(() => {
     setCurrentQuoteId(JSON.parse(sessionStorage.getItem('quoteId') || 'null'));
   }, []);
@@ -86,9 +82,9 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     userData,
     feedFormStatus,
     handleFeedFormStatus,
-    handleIsSearch,
+    setIsSearch,
     isSearch,
-    handleUserData,
+    setUserData,
     currentQuoteId,
     handleCurrentQuoteId,
     newLikes,
