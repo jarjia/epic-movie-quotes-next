@@ -199,7 +199,7 @@ export type Search = {
   handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type setState = React.Dispatch<React.SetStateAction<T>>;
+export type setState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type AppBars = {
   setShouldLogout: setState;
