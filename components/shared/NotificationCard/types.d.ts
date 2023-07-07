@@ -9,5 +9,5 @@ export type NotificationCard = {
   seen: number;
   created_at: string;
   quoteId: number;
-  setIsNotification: setState;
+  setIsNotification: setState<boolean>;
 };

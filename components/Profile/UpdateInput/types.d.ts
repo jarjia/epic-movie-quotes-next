@@ -9,7 +9,7 @@ export type UpdateInput = {
   defaultValue: string;
   cancel?: boolean;
   handleCancel: (bool) => void;
-  setIsEditing: setState;
+  setIsEditing: setState<boolean>;
   handleEditProfile: (bool) => void;
   handleIsAllEditing: (boolean, id) => void;
   allEdit: { id: string; boolean: boolean }[];

@@ -31,7 +31,7 @@ export type UserData = {
 };
 
 export type HookUserUpdate = {
-  handleEditProfileClear: setState;
+  handleEditProfileClear: setState<MobileEdit>;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
   handleIsSure: (bool: boolean) => void;
@@ -202,7 +202,15 @@ export type Search = {
 export type setState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type AppBars = {
-  setShouldLogout: setState;
-  setIsBurger: setState;
+  setShouldLogout: setState<boolean>;
+  setIsBurger: setState<boolean>;
   isBurger?: boolean;
+};
+
+export type MobileEdit = {
+  name: string;
+  label: string;
+  placeholder: string;
+  isEdit: boolean;
+  type: string;
 };

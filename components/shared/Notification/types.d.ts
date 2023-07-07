@@ -1,5 +1,5 @@
 import { setState } from '@/types';
 
 export type NotificationProps = {
-  setIsNotification: setState;
+  setIsNotification: setState<boolean>;
 };
