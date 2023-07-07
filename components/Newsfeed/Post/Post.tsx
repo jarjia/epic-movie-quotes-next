@@ -3,10 +3,15 @@ import { Post } from '@/types';
 import usePost from './usePost';
 
 const Post: React.FC<Post> = (props) => {
-  const { locale, t, postHeight, postRef } = usePost();
+  const { locale, t, postHeight, postRef, feedRef } = usePost(
+    props.setModalWidth
+  );
 
   return (
-    <div className='text-white text-xl bg-post-bg rounded-xl sm:p-6 p-4 my-8'>
+    <div
+      ref={feedRef}
+      className='text-white text-xl bg-post-bg rounded-xl sm:p-6 p-4 my-8'
+    >
       <div>
         <div className='flex items-center'>
           <div

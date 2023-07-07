@@ -18,6 +18,8 @@ const Feed = () => {
     t,
     handleChangeSearch,
     isSearch,
+    modalWidth,
+    setModalWidth,
     search,
   } = useFeed();
 
@@ -25,20 +27,25 @@ const Feed = () => {
     <FeedLayout>
       <>
         {feedFormStatus === 'add-quote' ? (
-          <FeedFormLayout title={`${t('new_post_title')}`}>
+          <FeedFormLayout
+            title={`${t('new_post_title')}`}
+            modalWidth={modalWidth}
+          >
             <AddQuoteModal />
           </FeedFormLayout>
         ) : feedFormStatus === 'view-quote' ? (
-          <FeedFormLayout title={`${t('view_quote')}`}>
+          <FeedFormLayout title={`${t('view_quote')}`} modalWidth={modalWidth}>
             <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
+
         <div className={`${feedFormStatus !== '' && 'opacity-[0.2]'}`}>
           <NewsFeedControl
             handleChangeSearch={handleChangeSearch}
             search={search}
           />
-          <Posts />
+
+          <Posts setModalWidth={setModalWidth} />
         </div>
         {isSearch && (
           <MobileSearchbar
