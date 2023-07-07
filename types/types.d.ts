@@ -31,7 +31,7 @@ export type UserData = {
 };
 
 export type HookUserUpdate = {
-  handleEditProfileClear: setState<MobileEdit>;
+  handleEditProfileClear: SetState<MobileEdit>;
   handleIsSuccess: (bool: boolean) => void;
   editProfile: MobileInputTypes;
   handleIsSure: (bool: boolean) => void;
@@ -199,11 +199,11 @@ export type Search = {
   handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-export type setState<T> = React.Dispatch<React.SetStateAction<T>>;
+export type SetState<T> = React.Dispatch<React.SetStateAction<T>>;
 
 export type AppBars = {
-  setShouldLogout: setState<boolean>;
-  setIsBurger: setState<boolean>;
+  setShouldLogout: SetState<boolean>;
+  setIsBurger: SetState<boolean>;
   isBurger?: boolean;
 };
 

@@ -1,4 +1,4 @@
-import { setState } from '@/types';
+import { SetState } from '@/types';
 
 export type NotificationCard = {
   type: string;
@@ -9,5 +9,5 @@ export type NotificationCard = {
   seen: number;
   created_at: string;
   quoteId: number;
-  setIsNotification: setState<boolean>;
+  setIsNotification: SetState<boolean>;
 };

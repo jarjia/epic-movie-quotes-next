@@ -1,10 +1,10 @@
-import { Comment, NewLike, UserData } from '@/types';
+import { Comment, NewLike, UserData, SetState } from '@/types';
 
 export type Context = {
-  setIsSearch: setState<boolean>;
+  setIsSearch: SetState<boolean>;
   feedFormStatus: string | null;
   handleFeedFormStatus: (status: string) => void;
-  setUserData: setState<UserData>;
+  setUserData: SetState<UserData>;
   handleCurrentQuoteId: (quoteId: string | null) => void;
   userData: UserData;
   isSearch: boolean;
