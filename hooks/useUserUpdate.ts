@@ -38,6 +38,7 @@ const useUserUpdate = ({
     formState: { errors },
     control,
     setError,
+    resetField,
     trigger,
     reset,
   } = form;
@@ -68,25 +69,6 @@ const useUserUpdate = ({
   ];
   const [allEdit, setAllEdit] = useState<SpecificFieldEditType[]>(defaultEdit);
 
-  const handleIsAllEditing = (boolean: boolean, id: string) => {
-    setAllEdit((prev) => {
-      let newItem = {
-        id,
-        boolean,
-      };
-      let newArr = prev.filter((item) => item.id !== id);
-      newArr.push(newItem);
-
-      return newArr;
-    });
-  };
-
-  const handleClearRoute = () => {
-    router.push('/profile', undefined, {
-      locale: router.query.locale as string,
-    });
-  };
-
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
       handleFeedFormStatus('');
@@ -109,6 +91,25 @@ const useUserUpdate = ({
       handleClearRoute();
     },
   });
+
+  useEffect(() => {
+    const clearState = () => {
+      if (window.innerWidth < 916) {
+        setCancel(true);
+        setImg(null);
+        resetField('thumbnail');
+      } else {
+        setCancel(false);
+      }
+    };
+    clearState();
+    window.addEventListener('resize', clearState);
+    return () => {
+      window.addEventListener('resize', clearState);
+    };
+  }, [resetField]);
+
+  console.log(allEdit);
 
   useEffect(() => {
     if (!isEditing) {
@@ -252,6 +253,25 @@ const useUserUpdate = ({
     }
 
     UpdateUserCredentials(formData);
+  };
+
+  const handleIsAllEditing = (boolean: boolean, id: string) => {
+    setAllEdit((prev) => {
+      let newItem = {
+        id,
+        boolean,
+      };
+      let newArr = prev.filter((item) => item.id !== id);
+      newArr.push(newItem);
+
+      return newArr;
+    });
+  };
+
+  const handleClearRoute = () => {
+    router.push('/profile', undefined, {
+      locale: router.query.locale as string,
+    });
   };
 
   let shouldEdit =
