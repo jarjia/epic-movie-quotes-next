@@ -21,9 +21,9 @@ const PasswordInput: React.FC<PasswordInput> = (props) => {
         {...register(props.name)}
         name={props.name}
         className={`autofill-for-landing px-2 py-[6px] ${
-          router.pathname === '/profile'
+          router.pathname === '/profile' && !showPassword
             ? 'placeholder-black leading-[30px] pb-0'
-            : 'placeholder-placeholder'
+            : 'placeholder-placeholder leading-[22px]'
         } ${
           props.errors[props.name]
             ? 'border-[1px] border-default-btn pr-14'
