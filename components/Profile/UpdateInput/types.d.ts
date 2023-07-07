@@ -1,3 +1,5 @@
+import { setState } from '@/types';
+
 export type UpdateInput = {
   type: string;
   placeholder: string;
@@ -7,7 +9,7 @@ export type UpdateInput = {
   defaultValue: string;
   cancel?: boolean;
   handleCancel: (bool) => void;
-  handleEditing: (bool) => void;
+  setIsEditing: setState;
   handleEditProfile: (bool) => void;
   handleIsAllEditing: (boolean, id) => void;
   allEdit: { id: string; boolean: boolean }[];

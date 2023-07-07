@@ -27,6 +27,7 @@ export type UserData = {
   email: string;
   google_id: string;
   thumbnail?: string;
+  remember_token: string | null;
 };
 
 export type HookUserUpdate = {

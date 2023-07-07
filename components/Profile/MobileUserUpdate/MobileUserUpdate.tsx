@@ -23,7 +23,6 @@ const MobileUserUpdate = ({
     FormProvider,
     handleSubmit,
     input,
-    isObjEmpty,
     trigger,
     errors,
     onSubmit,
@@ -153,7 +152,7 @@ const MobileUserUpdate = ({
                 onClick={() => {
                   trigger();
                   setApiError('');
-                  isObjEmpty(errors) &&
+                  errors[editProfile.name] === undefined &&
                     input !== undefined &&
                     handleIsSure(true);
                 }}

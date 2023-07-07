@@ -51,6 +51,7 @@ const useUserUpdate = ({
   const [enableEmail, setEnableEmail] = useState(true);
   const password = useWatch({ control, name: 'password' });
   const thumbnail = useWatch({ control, name: 'thumbnail' });
+  const input = useWatch({ control, name: editProfile.name });
   const defaultEdit: SpecificFieldEditType[] = [
     {
       id: 'name',
@@ -154,16 +155,6 @@ const useUserUpdate = ({
       setIsEditing(false);
     }
   };
-
-  const isObjEmpty = (obj: {}) => {
-    return Object.keys(obj).length === 0;
-  };
-
-  const handleEditing = (bool: boolean) => {
-    setIsEditing(bool);
-  };
-
-  const input = useWatch({ control, name: editProfile.name });
 
   useEffect(() => {
     if (thumbnail !== undefined) {
@@ -271,13 +262,12 @@ const useUserUpdate = ({
     shouldEdit,
     handleSubmit,
     img,
-    handleEditing,
+    setIsEditing,
     handleCancel,
     cancel,
     isEditing,
     apiError,
     onSubmit,
-    isObjEmpty,
     setApiError,
     userData,
     allEdit,

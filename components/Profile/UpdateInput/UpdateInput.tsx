@@ -31,7 +31,7 @@ const UpdateInput: React.FC<UpdateInput> = (props) => {
               className={`${
                 props.name === 'password' && 'leading-[30px] pb-0'
               } sm:placeholder-white w-full px-2 py-1.5 sm:text-white sm:py-3 sm:px-0 text-primary-font placeholder-black sm:bg-transparent sm:border-0 sm:rounded-none sm:border-b-[1px] sm:border-input focus:ring-2 focus:ring-ring-offset-color outline-none bg-input rounded`}
-              value={userData[index as keyof UserData]}
+              value={userData[index as keyof Omit<UserData, 'remember_token'>]}
               placeholder={
                 props.name === 'password' ? props.placeholder : props.label
               }
