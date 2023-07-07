@@ -21,6 +21,7 @@ const ProfilePage = () => {
     editProfile,
     t,
     isSure,
+    movieList,
     handleClearForms,
     isSuccess,
     setIsSuccess,
@@ -45,7 +46,7 @@ const ProfilePage = () => {
           ) : null}
         </div>
         {feedFormStatus === 'view-quote' ? (
-          <FeedFormLayout title={`${t('view_quote')}`}>
+          <FeedFormLayout title={`${movieList('view_quote')}`}>
             <ViewQuoteModal quoteId={currentQuoteId} />
           </FeedFormLayout>
         ) : null}
