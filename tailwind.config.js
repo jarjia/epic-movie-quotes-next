@@ -112,7 +112,7 @@ module.exports = {
           scrollbarColor: `#6C757D #6C757D`,
         },
         '.scrollbar-textarea::-webkit-scrollbar': {
-          width: '12px',
+          width: '7px',
         },
         '.scrollbar-textarea::-webkit-scrollbar-thumb': {
           backgroundColor: '#6C757D',
