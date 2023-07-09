@@ -13,6 +13,4 @@ export type Context = {
   commentsArr: null | Comment[];
   handleNewLikes: (likes: NewLike | null) => void;
   handleNewComment: (comment: Comment | null) => void;
-  notificationCount: number | null;
-  setNotificationCount: SetState<number | null>;
 };

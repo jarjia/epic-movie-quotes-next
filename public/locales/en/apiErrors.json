@@ -13,5 +13,6 @@
   "delete_movie_failed": "Deleting movie failed for some reason",
   "update_quote_failed": "Updating quote failed",
   "update_movie_failed": "Updating movie failed",
-  "code": "code"
+  "code": "code",
+  "too_many_requests": "Too many requests, please refresh to fix this issue"
 }
