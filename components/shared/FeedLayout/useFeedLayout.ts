@@ -31,18 +31,21 @@ const useFeedLayout = () => {
       }
       setUserData(data.data);
     },
-    onError: () => {
-      router.push('/403');
+    onError: (err: any) => {
+      if (err?.response?.status === 403 || err?.response?.status === 401) {
+        router.push('/403');
+      }
       localStorage.removeItem('remember_me');
     },
+    enabled: userData.id === 0,
   });
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
-      router.push('/');
       localStorage.removeItem('remember_me');
       queryClient.removeQueries('log-out');
       setShouldLogout(false);
       queryClient.invalidateQueries('user');
+      window.location.pathname = '/';
     },
     enabled: shouldLogout,
   });
@@ -66,7 +69,9 @@ const useFeedLayout = () => {
         if (data.notification.notify) {
           setTimeout(() => {
             queryClient.invalidateQueries('notifications');
-            queryClient.invalidateQueries('notifications-count');
+            queryClient.invalidateQueries('notifications-count', {
+              refetchInactive: true,
+            });
           }, 500);
         }
       });

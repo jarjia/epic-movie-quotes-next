@@ -39,7 +39,9 @@ const Notification: React.FC<NotificationProps> = (props) => {
                 );
                 markAllAsReadMutation();
                 setTimeout(() => {
-                  queryClient.invalidateQueries('notifications-count');
+                  queryClient.invalidateQueries('notifications-count', {
+                    refetchInactive: true,
+                  });
                   queryClient.invalidateQueries('notifications');
                 }, 200);
               }}

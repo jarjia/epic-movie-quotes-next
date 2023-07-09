@@ -10,10 +10,10 @@ const Searchbar: React.FC<Search> = ({ search, handleChangeSearch }) => {
       {!isSearch ? (
         <button
           onClick={() => setIsSearch((prev: boolean) => !prev)}
-          className='flex items-center gap-4'
+          className='flex items-center gap-4 mid:gap-2'
         >
           <SearchbarIcon />
-          <p className='text-input text-xl'>{t('search_by')}</p>
+          <p className='text-input text-xl mid:text-sm'>{t('search_by')}</p>
         </button>
       ) : (
         <div className='flex items-center gap-4 w-full'>

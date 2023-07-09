@@ -28,9 +28,9 @@ const FeedSidebar: React.FC<AppBars> = ({
     >
       <div className='block sm:hidden'>
         <Link
+          href='/profile'
           onMouseOver={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
-          href='/profile'
           className='my-4 cursor-pointer flex items-center gap-6'
         >
           <div

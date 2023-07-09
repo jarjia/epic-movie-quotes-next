@@ -25,6 +25,8 @@ export const AppContext = createContext<Context>({
   commentsArr: null,
   handleNewLikes: () => {},
   handleNewComment: () => {},
+  notificationCount: null,
+  setNotificationCount: () => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -34,6 +36,9 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [newLikes, setNewLikes] = useState<NewLike[] | null>(null);
   const [commentsArr, setCommentsArr] = useState<Comment[] | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
+  const [notificationCount, setNotificationCount] = useState<null | number>(
+    null
+  );
   const router = useRouter();
 
   const handleNewLikes = (likes: NewLike | null) => {
@@ -91,6 +96,8 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     commentsArr,
     handleNewLikes,
     handleNewComment,
+    notificationCount,
+    setNotificationCount,
   };
 
   return (
