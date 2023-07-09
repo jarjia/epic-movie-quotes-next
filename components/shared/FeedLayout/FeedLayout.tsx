@@ -1,10 +1,11 @@
-import { FeedNavbar } from '@/components';
+import { FeedNavbar, FeedSidebar } from '@/components';
 import { FeedLayout } from './types';
 import useFeedLayout from './useFeedLayout';
 import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayout> = (props) => {
   const {
+    isBurger,
     feedFormStatus,
     router,
     isLoading,
@@ -22,7 +23,11 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
     <section className='newsfeed w-screen h-full min-h-screen'>
       <ToastContainer autoClose={3000} className='select-none' />
       <FeedNavbar setShouldLogout={setShouldLogout} setIsBurger={setIsBurger} />
-
+      <FeedSidebar
+        setShouldLogout={setShouldLogout}
+        setIsBurger={setIsBurger}
+        isBurger={isBurger}
+      />
       {feedFormStatus !== '' && (
         <div
           onClick={() => handleFeedFormStatus('')}
