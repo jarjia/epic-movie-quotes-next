@@ -27,10 +27,10 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextarea> = (props) => {
           defaultValue={props.defaultVal !== undefined ? props.defaultVal : ''}
           className='overflow-auto scrollbar-textarea w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-12 resize-vertical h-16 min-h-[50px] placeholder-placeholder bg-transparent'
         ></textarea>
-        <div className='pointer-events-none relative bottom-[0.75rem]'>
-          <div className='pointer-events-none bg-post-bg right-0 w-[16px] h-[12px] absolute'>
-            <div className='relative top-[0.4rem] left-[0.35rem] rotate-[140deg] w-[12px] h-[1.2px] bg-input'></div>
-            <div className='w-[6px] relative top-[8px] left-[10.5px] h-[1px] rotate-[140deg] bg-input'></div>
+        <div className='pointer-events-none relative bottom-[0.55rem]'>
+          <div className='pointer-events-none bg-post-bg right-0 w-[16px] h-[9px]  absolute'>
+            <div className='relative top-[0.22rem] left-[0.25rem] rotate-[140deg] w-[14px] h-[1.2px] bg-input'></div>
+            <div className='w-[7px] relative top-[5px] left-[10px] h-[1px] rotate-[140deg] bg-input'></div>
             <div
               className={`absolute bottom-0 right-0 ${
                 error !== undefined ? 'bg-default-btn' : 'bg-placeholder'

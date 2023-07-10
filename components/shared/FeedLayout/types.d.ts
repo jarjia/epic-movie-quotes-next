@@ -19,3 +19,8 @@ export type CommentEvent = {
     new_comment: Comment;
   };
 };
+
+export type OnlineUser = {
+  id: number;
+  name: string;
+};

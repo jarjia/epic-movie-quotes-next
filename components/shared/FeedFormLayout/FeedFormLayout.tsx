@@ -8,6 +8,7 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
   quoteId,
   isEdit,
   isDelete,
+  modalWidth,
 }) => {
   const {
     deleteQuoteMutate,
@@ -22,16 +23,13 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
   } = useFeedForm();
 
   return (
-    <div
-      className={`${
-        router.pathname === '/newsfeed' ? 'flex justify-center' : ''
-      } relative sm:fixed sm:left-0 sm:top-0 w-full z-[999]`}
-    >
+    <div className='flex justify-center relative sm:fixed sm:left-0 sm:top-0 w-full z-[999]'>
       <div
         ref={offTopRef}
-        className={`${
-          router.pathname === '/newsfeed' ? `w-1/2 huge:w-2/6` : 'w-1/2'
-        } fixed sm:w-full mid:w-[63%] large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
+        className={`fixed sm:w-full mid:w-[63%] w-1/2 large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
+        style={{
+          width: router.pathname === '/newsfeed' ? `${modalWidth}px` : '',
+        }}
       >
         <div
           ref={headerRef}

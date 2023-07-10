@@ -14,6 +14,7 @@ const useFeed = () => {
   const [search, setSearch] = useState(
     router.query.search === undefined ? '' : (router.query.search as string)
   );
+  const [modalWidth, setModalWidth] = useState<number | null>(null);
 
   useEffect(() => {
     setTimeout(() => {
@@ -60,6 +61,8 @@ const useFeed = () => {
     isSearch,
     currentQuoteId,
     isScrollUpNeeded,
+    setModalWidth,
+    modalWidth,
     search,
   };
 };

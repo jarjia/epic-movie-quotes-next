@@ -10,7 +10,6 @@ import { AppBars } from '@/types';
 
 const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
   const {
-    shouldNotify,
     isNotification,
     t,
     notSeenNotifications,
@@ -52,7 +51,7 @@ const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
             onClick={() => setIsNotification(!isNotification)}
             className='cursor-pointer'
           >
-            {shouldNotify && notSeenNotifications !== 0 && (
+            {!!notSeenNotifications && (
               <div className='relative left-3 bottom-2'>
                 <div className='absolute bg-notify-color flex justify-center items-center text-center w-[26px] h-[26px] text-white rounded-full px-2'>
                   <span className='text-sm'>

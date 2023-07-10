@@ -143,6 +143,7 @@ export type Post = {
   comments: CommentTypes[];
   likes: likeTypes[];
   user_id: number;
+  setModalWidth: SetState<number | null>;
 };
 
 export type UpdateQuotes = {

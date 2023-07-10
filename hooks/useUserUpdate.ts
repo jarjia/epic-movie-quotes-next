@@ -72,7 +72,9 @@ const useUserUpdate = ({
   const { mutate: updateEmailMutation } = useMutation(postUpdateUserEmail, {
     onSuccess() {
       handleFeedFormStatus('');
-      queryClient.invalidateQueries('user');
+      setTimeout(() => {
+        queryClient.invalidateQueries('user');
+      }, 500);
       handleIsSuccess(true);
     },
     onError(err: any) {
@@ -108,8 +110,6 @@ const useUserUpdate = ({
       window.addEventListener('resize', clearState);
     };
   }, [resetField]);
-
-  console.log(allEdit);
 
   useEffect(() => {
     if (!isEditing) {
@@ -182,7 +182,9 @@ const useUserUpdate = ({
           type: '',
         });
         router.push('/profile');
-        queryClient.invalidateQueries('user');
+        setTimeout(() => {
+          queryClient.invalidateQueries('user', { refetchInactive: true });
+        }, 500);
         if (!router.query.update_token && !isEmail) {
           handleIsSuccess(true);
         }

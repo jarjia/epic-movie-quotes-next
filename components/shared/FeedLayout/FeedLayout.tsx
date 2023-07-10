@@ -5,11 +5,11 @@ import { ToastContainer } from 'react-toastify';
 
 const FeedLayout: React.FC<FeedLayout> = (props) => {
   const {
+    isBurger,
     feedFormStatus,
     router,
     isLoading,
     isError,
-    isBurger,
     setShouldLogout,
     handleFeedFormStatus,
     setIsBurger,

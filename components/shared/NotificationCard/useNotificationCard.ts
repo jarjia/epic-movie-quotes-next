@@ -24,7 +24,9 @@ const useNotificationCard = (ago: string) => {
   const [timePassed, setTimePassed] = useState(initialTimeAgo);
   const { mutate: readNotificationMutate } = useMutation(readNotification, {
     onSuccess() {
-      queryClient.invalidateQueries('notifications-count');
+      queryClient.invalidateQueries('notifications-count', {
+        refetchInactive: true,
+      });
       queryClient.invalidateQueries('notifications');
     },
   });

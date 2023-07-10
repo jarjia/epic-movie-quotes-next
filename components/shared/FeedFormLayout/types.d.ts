@@ -4,4 +4,5 @@ export type FeedFormLayout = {
   isEdit?: boolean;
   isDelete?: boolean;
   quoteId?: string | null;
+  modalWidth?: number | null;
 };

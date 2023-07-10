@@ -1,8 +1,9 @@
 import { Post } from '@/components';
 import usePosts from './usePosts';
 import { Posts } from '@/types';
+import { Posts as LocalPosts } from './types';
 
-const Posts = () => {
+const Posts: React.FC<LocalPosts> = (props) => {
   const { posts, isLoading, t } = usePosts();
 
   if (isLoading) {
@@ -37,6 +38,7 @@ const Posts = () => {
             comments={post.comments}
             likes={post.likes}
             user_id={post.movies.user_id}
+            setModalWidth={props.setModalWidth}
           />
         );
       })}
