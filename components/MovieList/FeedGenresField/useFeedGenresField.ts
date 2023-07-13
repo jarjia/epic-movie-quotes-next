@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useMovieService } from '@/services';
 import { useQuery } from 'react-query';
@@ -9,7 +9,9 @@ import { errorToast } from '@/helpers';
 
 const useFeedGenresField = (defaultVal: GenreObject[]) => {
   const { getGenres } = useMovieService();
-  const genresDef = defaultVal === undefined ? [] : defaultVal;
+  const genresDef = useMemo(() => {
+    return defaultVal === undefined ? [] : defaultVal;
+  }, [defaultVal]);
   const { setValue } = useFormContext();
   const { t: apiErr } = useTranslation('apiErrors');
   const { data } = useQuery('genres', getGenres, {
@@ -41,6 +43,12 @@ const useFeedGenresField = (defaultVal: GenreObject[]) => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (sessionStorage.getItem('feed-form-status') === 'edit-movie') {
+      setValue('genres', genresDef);
+    }
+  }, [genresDef, setValue]);
 
   const handleAddGenre = (genre: GenreObject) => {
     const updatedItems = [...genres, genre];
