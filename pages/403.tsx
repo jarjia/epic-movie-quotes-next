@@ -1,8 +1,13 @@
 import { ErrorLayout, ForbiddenIcon } from '@/components';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 const Forbidden = () => {
+  useEffect(() => {
+    localStorage.removeItem('remember_me');
+  }, []);
+
   return (
     <ErrorLayout>
       <div className='flex p-2 flex-col justify-center items-center'>

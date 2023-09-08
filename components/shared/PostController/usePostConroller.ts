@@ -111,7 +111,9 @@ const usePostConroller = (data: Post, userId: number) => {
       to_user: userId,
     };
 
-    createCommentMutate(commentData);
+    if (searchRef.current?.value && searchRef.current?.value.length > 0) {
+      createCommentMutate(commentData);
+    }
   };
 
   const sortedComments = comments
