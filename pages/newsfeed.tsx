@@ -17,8 +17,8 @@ export async function getServerSideProps({
       {
         headers: {
           ...req.headers,
-          Origin: 'http://localhost:3000',
-          Referer: 'http://localhost:3000/',
+          Origin: process.env.NEXT_PUBLIC_APP_BASE_URL,
+          Referer: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/`,
         },
       }
     );
