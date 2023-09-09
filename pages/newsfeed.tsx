@@ -15,14 +15,14 @@ export async function getServerSideProps({
 }: GetServerSidePropsContext) {
   try {
     const res = await axios.get(
-      `https://api-movie-quotes.jarji-abuashvili.link/api/user`,
-      {
-        headers: {
-          ...req.headers,
-          Origin: 'https://movie-quotes.jarji-abuashvili.link',
-          Referer: `https://movie-quotes.jarji-abuashvili.link/`,
-        },
-      }
+      `https://api-movie-quotes.jarji-abuashvili.link/api/user`
+      // {
+      //   headers: {
+      //     ...req.headers,
+      //     Origin: 'https://movie-quotes.jarji-abuashvili.link',
+      //     Referer: `https://movie-quotes.jarji-abuashvili.link/`,
+      //   },
+      // }
     );
 
     return {
