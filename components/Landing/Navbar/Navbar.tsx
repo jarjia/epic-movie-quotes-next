@@ -5,11 +5,6 @@ import { useTranslation } from 'next-i18next';
 const Navbar: React.FC<HandleFormStatus> = (props) => {
   const { t } = useTranslation('landing');
 
-  console.log(
-    process.env.NEXT_PUBLIC_APP_BASE_URL,
-    process.env.NEXT_PUBLIC_API_BASE_URL_FOR_AUTH
-  );
-
   return (
     <nav className='flex justify-between items-center sm:px-4 z-[3] px-16 py-5 fixed bg-post-bg shadow w-full'>
       <div>
