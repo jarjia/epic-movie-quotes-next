@@ -13,7 +13,7 @@ export async function getServerSideProps({
   locale,
 }: GetServerSidePropsContext) {
   try {
-    const res = await axios.get(
+    await axios.get(
       `https://api-movie-quotes.jarji-abuashvili.link/api/user`
       // {
       //   headers: {
@@ -33,11 +33,10 @@ export async function getServerSideProps({
           'apiErrors',
         ])),
       },
-      data: res.data,
     };
-  } catch (error) {
+  } catch (error: any) {
     return {
-      data: error,
+      data: error?.message,
       redirect: {
         destination: '/403',
         permanent: false,
