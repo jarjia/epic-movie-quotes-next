@@ -1,7 +1,7 @@
 import { Feed } from '@/components';
-import axios from 'axios';
 import { GetServerSidePropsContext } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getData } from './api/getUser';
 
 const NewsFeed = (props: any) => {
   console.log(props);
@@ -13,16 +13,7 @@ export async function getServerSideProps({
   locale,
 }: GetServerSidePropsContext) {
   try {
-    await axios.get(
-      `https://api-movie-quotes.jarji-abuashvili.link/api/user`
-      // {
-      //   headers: {
-      //     ...req.headers,
-      //     Origin: 'https://movie-quotes.jarji-abuashvili.link',
-      //     Referer: `https://movie-quotes.jarji-abuashvili.link/`,
-      //   },
-      // }
-    );
+    await getData();
 
     return {
       props: {
@@ -34,9 +25,8 @@ export async function getServerSideProps({
         ])),
       },
     };
-  } catch (error: any) {
+  } catch (error) {
     return {
-      data: error?.message,
       redirect: {
         destination: '/403',
         permanent: false,
