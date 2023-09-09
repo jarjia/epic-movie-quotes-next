@@ -12,16 +12,13 @@ export async function getServerSideProps({
   req,
 }: GetServerSidePropsContext) {
   try {
-    await axios.get(
-      `${process.env.NEXT_PUBLIC_API_BASE_URL_FOR_AUTH}/api/user`,
-      {
-        headers: {
-          ...req.headers,
-          Origin: process.env.NEXT_PUBLIC_APP_BASE_URL,
-          Referer: `${process.env.NEXT_PUBLIC_APP_BASE_URL}/`,
-        },
-      }
-    );
+    await axios.get(`https://api-movie-quotes.jarji-abuashvili.link/api/user`, {
+      headers: {
+        ...req.headers,
+        Origin: 'https://movie-quotes.jarji-abuashvili.link',
+        Referer: `https://movie-quotes.jarji-abuashvili.link/`,
+      },
+    });
 
     return {
       props: {
