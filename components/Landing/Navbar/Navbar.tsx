@@ -1,9 +1,17 @@
 import { DropDown } from '@/components';
 import { HandleFormStatus } from '@/types';
 import { useTranslation } from 'next-i18next';
+import { useEffect } from 'react';
 
 const Navbar: React.FC<HandleFormStatus> = (props) => {
   const { t } = useTranslation('landing');
+
+  useEffect(() => {
+    console.log(
+      process.env.NEXT_PUBLIC_API_BASE_URL_FOR_AUTH,
+      process.env.NEXT_PUBLIC_APP_BASE_URL
+    );
+  }, []);
 
   return (
     <nav className='flex justify-between items-center sm:px-4 z-[3] px-16 py-5 fixed bg-post-bg shadow w-full'>

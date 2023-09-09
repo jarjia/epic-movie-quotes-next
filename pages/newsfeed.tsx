@@ -12,8 +12,6 @@ export async function getServerSideProps({
   req,
 }: GetServerSidePropsContext) {
   try {
-    console.log('jarja');
-
     await axios.get(
       `${process.env.NEXT_PUBLIC_API_BASE_URL_FOR_AUTH}/api/user`,
       {
