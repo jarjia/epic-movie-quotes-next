@@ -11,7 +11,6 @@ const NewsFeed = (props: any) => {
 
 export async function getServerSideProps({
   locale,
-  req,
 }: GetServerSidePropsContext) {
   try {
     const res = await axios.get(
