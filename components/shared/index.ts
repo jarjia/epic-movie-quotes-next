@@ -14,3 +14,4 @@ export * from './FileInput';
 export * from './FeedTextareaForFeed';
 export * from './ReplacePhoto';
 export * from './PostController';
+export * from './Comment';

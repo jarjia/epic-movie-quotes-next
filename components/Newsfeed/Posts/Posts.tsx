@@ -39,6 +39,7 @@ const Posts: React.FC<LocalPosts> = (props) => {
             likes={post.likes}
             user_id={post.movies.user_id}
             setModalWidth={props.setModalWidth}
+            created_at={post.created_at}
           />
         );
       })}

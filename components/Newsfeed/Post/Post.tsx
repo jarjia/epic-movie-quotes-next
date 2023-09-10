@@ -3,8 +3,9 @@ import { Post } from '@/types';
 import usePost from './usePost';
 
 const Post: React.FC<Post> = (props) => {
-  const { locale, t, postHeight, postRef, feedRef } = usePost(
-    props.setModalWidth
+  const { locale, t, postHeight, postRef, feedRef, timePassed, ago } = usePost(
+    props.setModalWidth,
+    props.created_at
   );
 
   return (
@@ -13,12 +14,17 @@ const Post: React.FC<Post> = (props) => {
       className='text-white text-xl bg-post-bg rounded-xl sm:p-6 p-4 my-8'
     >
       <div>
-        <div className='flex items-center'>
-          <div
-            className='w-profile h-profile rounded-full bg-cover bg-center'
-            style={{ backgroundImage: `url(${props.authorProfile})` }}
-          ></div>
-          <p className='pl-4 capitalize'>{props.author}</p>
+        <div className='flex items-center justify-between'>
+          <div className='flex items-center'>
+            <div
+              className='w-profile h-profile rounded-full bg-cover bg-center'
+              style={{ backgroundImage: `url(${props.authorProfile})` }}
+            ></div>
+            <p className='pl-4 capitalize'>{props.author}</p>
+          </div>
+          <small className='capitalize text-gray-500 text-sm'>
+            {`${timePassed}${locale === 'ka' ? 'ს' : ''}`} {ago('ago')}
+          </small>
         </div>
         <div className='my-4'>
           <p className='break-words sm:text-base'>

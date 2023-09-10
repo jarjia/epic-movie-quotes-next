@@ -144,6 +144,7 @@ export type Post = {
   likes: likeTypes[];
   user_id: number;
   setModalWidth: SetState<number | null>;
+  created_at: string;
 };
 
 export type UpdateQuotes = {
@@ -169,6 +170,7 @@ export type Posts = {
   };
   comments: CommentTypes[];
   likes: likeTypes[];
+  created_at: string;
 };
 
 export type Notification = {
