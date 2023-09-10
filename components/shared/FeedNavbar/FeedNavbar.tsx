@@ -48,7 +48,11 @@ const FeedNavbar: React.FC<AppBars> = ({ setShouldLogout, setIsBurger }) => {
         )}
         <div className='z-[98]'>
           <div
-            onClick={() => setIsNotification(!isNotification)}
+            onClick={() => {
+              setTimeout(() => {
+                setIsNotification(!isNotification);
+              }, 500);
+            }}
             className='cursor-pointer'
           >
             {!!notSeenNotifications && (
