@@ -31,12 +31,6 @@ const useFeedSidebar = () => {
     };
   }, []);
 
-  const handleLink = (path: string) => {
-    setTimeout(() => {
-      router.push(path);
-    }, 500);
-  };
-
   return {
     btnRef,
     userData,
@@ -47,7 +41,6 @@ const useFeedSidebar = () => {
     isHovered,
     router,
     setDropdown,
-    handleLink,
   };
 };
 

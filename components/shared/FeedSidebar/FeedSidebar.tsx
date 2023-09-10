@@ -18,7 +18,6 @@ const FeedSidebar: React.FC<AppBars> = ({
     dropDown,
     setIsHovered,
     isHovered,
-    handleLink,
   } = useFeedSidebar();
 
   return (
@@ -28,8 +27,8 @@ const FeedSidebar: React.FC<AppBars> = ({
       } sm:right-[33px] sm:h-screen pt-24 px-8 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
     >
       <div className='block sm:hidden'>
-        <button
-          onClick={() => handleLink('/profile')}
+        <Link
+          href='/profile'
           onMouseOver={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           className='my-4 cursor-pointer flex items-center gap-6'
@@ -51,21 +50,21 @@ const FeedSidebar: React.FC<AppBars> = ({
               {t('edit_profile')}
             </p>
           </div>
-        </button>
-        <button
-          onClick={() => handleLink('/newsfeed')}
+        </Link>
+        <Link
+          href='/newsfeed'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
           <HouseIcon isFeed={router.pathname === '/newsfeed'} />
           <p className='text-white text-2xl'>{t('news_feed')}</p>
-        </button>
-        <button
-          onClick={() => handleLink('/movie-list')}
+        </Link>
+        <Link
+          href='/movie-list'
           className='flex cursor-pointer items-center gap-8 pl-4 my-8'
         >
           <CameraIcon isMovie={router.pathname.includes('movie-list')} />
           <p className='text-white text-2xl'>{t('list_of_movies')}</p>
-        </button>
+        </Link>
       </div>
       {isBurger && (
         <>
@@ -74,8 +73,8 @@ const FeedSidebar: React.FC<AppBars> = ({
             onClick={() => setIsBurger((prev: boolean) => !prev)}
           ></div>
           <div className='sm:block hidden py-16 z-[999] bg-post-bg w-[80%] sm-mid:w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
-            <button
-              onClick={() => handleLink('/profile')}
+            <Link
+              href='/profile'
               onMouseOver={() => setIsHovered(true)}
               onMouseLeave={() => setIsHovered(false)}
               className='cursor-pointer py-2 px-6 hover:bg-add-quote-bg active:bg-add-quote-bg flex items-center gap-6'
@@ -101,23 +100,23 @@ const FeedSidebar: React.FC<AppBars> = ({
                   {t('edit_profile')}
                 </p>
               </div>
-            </button>
-            <button
-              onClick={() => handleLink('/newsfeed')}
+            </Link>
+            <Link
+              href='/newsfeed'
               className='flex cursor-pointer py-4 hover:bg-add-quote-bg active:bg-add-quote-bg px-10 my-2 items-center gap-8'
             >
               <HouseIcon isFeed={router.pathname === '/newsfeed'} />
               <p className='text-white text-2xl sm:text-xl'>{t('news_feed')}</p>
-            </button>
-            <button
-              onClick={() => handleLink('/movie-list')}
+            </Link>
+            <Link
+              href='/movie-list'
               className={`flex cursor-pointer py-4 px-10 my-2 hover:bg-add-quote-bg active:bg-add-quote-bg items-center gap-8`}
             >
               <CameraIcon isMovie={router.pathname.includes('movie-list')} />
               <p className='text-white text-2xl sm:text-xl'>
                 {t('list_of_movies')}
               </p>
-            </button>
+            </Link>
             <div className='flex flex-col justify-start items-start'>
               <button
                 className='w-full text-white text-xl capitalize tracking-[1px] gap-2 px-4 pl-9 py-2.5 text-center inline-flex items-center'
