@@ -52,7 +52,7 @@ const EditQuoteModal: React.FC<EditQuote> = (props) => {
             editQuoteLoading
               ? 'bg-disabled'
               : 'bg-default-btn active:bg-active hover:bg-hover'
-          } mt-4 mt-2 sm:py-2 text-white w-full rounded py-2`}
+          } mt-4 sm:py-2 text-white w-full rounded py-2`}
         >
           {t('edit_quote_submit')}
         </button>

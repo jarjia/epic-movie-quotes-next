@@ -17,7 +17,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextarea> = (props) => {
         } focus:ring-0 border-[1px] rounded`}
       >
         {isEdit && (
-          <span className='text-placeholder relative top-1 inline-flex focus:ring-0 focus:ring-offset-0 items-center px-2 text-sm bg-transparent rounded-l-md'>
+          <span className='text-placeholder relative pt-1 inline-flex focus:ring-0 focus:ring-offset-0 items-center px-2 text-sm bg-transparent rounded-l-md'>
             {props.label}:
           </span>
         )}{' '}
@@ -25,7 +25,7 @@ const FeedTextareaForFeed: React.FC<FeedBaseTextarea> = (props) => {
           placeholder={props.defaultVal !== undefined ? '' : props.label}
           {...register(props.name)}
           defaultValue={props.defaultVal !== undefined ? props.defaultVal : ''}
-          className='overflow-auto scrollbar-textarea w-full caret-white border-0 focus:ring-0 placeholder-white text-white pr-12 resize-vertical h-16 min-h-[50px] placeholder-placeholder bg-transparent'
+          className='overflow-auto scrollbar-textarea w-full caret-white border-0 focus:ring-0 text-white pr-12 resize-vertical h-16 min-h-[50px] placeholder-placeholder bg-transparent'
         ></textarea>
         <div className='pointer-events-none relative bottom-[0.55rem]'>
           <div className='pointer-events-none bg-post-bg right-0 w-[16px] h-[9px]  absolute'>
