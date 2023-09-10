@@ -96,7 +96,7 @@ const QuoteCard: React.FC<QuoteCard> = ({
             </button>
           </div>
           <p className='flex pl-4 sm:pl-1 items-center text-placeholder max-h-[100px] text-xl'>
-            <span className='line-clamp-3 break-all'>
+            <span className='line-clamp-3 break-all italic'>
               &quot;{quote[locale]}&quot;
             </span>
           </p>
