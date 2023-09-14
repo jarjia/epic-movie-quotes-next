@@ -10,6 +10,8 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
     router,
     isLoading,
     isError,
+    users,
+    onlineUsers,
     setShouldLogout,
     handleFeedFormStatus,
     setIsBurger,
@@ -23,11 +25,6 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
     <section className='newsfeed w-screen h-full min-h-screen'>
       <ToastContainer autoClose={3000} className='select-none' />
       <FeedNavbar setShouldLogout={setShouldLogout} setIsBurger={setIsBurger} />
-      <FeedSidebar
-        setShouldLogout={setShouldLogout}
-        setIsBurger={setIsBurger}
-        isBurger={isBurger}
-      />
       {feedFormStatus !== '' && (
         <div
           onClick={() => handleFeedFormStatus('')}
@@ -35,17 +32,57 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
         ></div>
       )}
       <section
-        className={`pt-24 h-full ${
+        className={`grid ${
           router.pathname.includes('movie-list')
-            ? 'pl-newsfeed-layout large:pl-large-newsfeed-layout sm:pl-8 pr-8 large:pr-16'
-            : `normal:px-newsfeed-layout sm:px-0 sm:pl-0 large:px-newsfeed-layout ${
-                router.pathname === '/profile'
-                  ? 'huge:px-large-newsfeed-layout'
-                  : 'huge:px-large-newsfeed-layout'
-              } mid:pl-newsfeed-layout mid:pr-8`
-        }`}
+            ? 'grid-cols-[25%_75%] pl-3 pr-6'
+            : 'grid-cols-[25%_50%_25%] mid-normal:grid-cols-[30%_70%] mid-normal:pr-4'
+        } h-full sm:grid-cols-1 pt-24`}
       >
-        <div>{props.children}</div>
+        <FeedSidebar
+          setShouldLogout={setShouldLogout}
+          setIsBurger={setIsBurger}
+          isBurger={isBurger}
+        />
+        <div className='px-4'>{props.children}</div>
+        <div
+          className={`${
+            router.pathname.includes('movie-list') ? 'hidden' : 'flex'
+          } relative sm:fixed sm:left-0 mid-normal:hidden sm:hidden`}
+        >
+          <div className='fixed sm:bg-form-back w-1/4 sm:w-[30%] sm:pl-0 px-2 pl-6 flex flex-col'>
+            {users &&
+              users.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className='flex justify-between items-center text-white gap-2 my-2'
+                  >
+                    <div className='flex gap-2 items-center'>
+                      <div>
+                        <div
+                          className='w-[30px] h-[30px] bg-contain bg-center rounded-full'
+                          style={{
+                            backgroundImage: `url(${item.thumbnail})`,
+                          }}
+                        ></div>
+                      </div>
+                      <div>
+                        <h4>{item.name}</h4>
+                      </div>
+                    </div>
+                    <div
+                      className={`h-2 w-2 ${
+                        onlineUsers.find((user) => user.id === item.id) ===
+                        undefined
+                          ? 'bg-gray-700'
+                          : 'bg-green-700'
+                      } rounded-full relative right-2`}
+                    ></div>
+                  </div>
+                );
+              })}
+          </div>
+        </div>
       </section>
     </section>
   );

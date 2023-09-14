@@ -3,12 +3,18 @@ import { useAuthService } from '@/services';
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import { CommentEvent, LikeEvent, NotificationEvent } from './types';
+import {
+  CommentEvent,
+  LikeEvent,
+  NotificationEvent,
+  OnlineUser,
+} from './types';
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
+import { UserData } from '@/types';
 
 const useFeedLayout = () => {
-  const { getUserData, getLogoutUser } = useAuthService();
+  const { getUserData, getLogoutUser, getAllUsers } = useAuthService();
   useInstantiatePusher();
   const {
     feedFormStatus,
@@ -22,6 +28,7 @@ const useFeedLayout = () => {
   const [isBurger, setIsBurger] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
+  const [onlineUsers, setOnlineUsers] = useState<OnlineUser[]>([]);
   const { isLoading, isError } = useQuery('user', getUserData, {
     onSuccess(data) {
       if (data?.data?.remember_token !== null) {
@@ -39,6 +46,7 @@ const useFeedLayout = () => {
     },
     enabled: userData.id === 0,
   });
+  const { data } = useQuery('users', getAllUsers);
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
       localStorage.removeItem('remember_me');
@@ -118,6 +126,32 @@ const useFeedLayout = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const online = window.Echo.join('online');
+
+    const handleMemberJoin = (member: OnlineUser) => {
+      setOnlineUsers((prev: OnlineUser[]) => {
+        if (prev.find((item) => item.id === member.id) === undefined) {
+          return [member, ...prev];
+        }
+        return prev;
+      });
+    };
+
+    const handleMemberLeave = (member: OnlineUser) => {
+      setOnlineUsers((prev) =>
+        prev.filter((item: OnlineUser) => item.id !== member.id)
+      );
+    };
+
+    online.here((members: OnlineUser[]) => {
+      setOnlineUsers(members);
+    });
+
+    online.joining(handleMemberJoin);
+    online.leaving(handleMemberLeave);
+  }, [onlineUsers]);
+
   return {
     feedFormStatus,
     setShouldLogout,
@@ -126,6 +160,8 @@ const useFeedLayout = () => {
     isLoading,
     isError,
     handleFeedFormStatus,
+    users: data?.data as UserData[],
+    onlineUsers,
     isBurger,
   };
 };

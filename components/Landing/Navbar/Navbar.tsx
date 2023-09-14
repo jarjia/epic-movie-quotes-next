@@ -16,7 +16,7 @@ const Navbar: React.FC<HandleFormStatus> = (props) => {
   return (
     <nav className='flex justify-between items-center sm:px-4 z-[3] px-16 py-5 fixed bg-post-bg shadow w-full'>
       <div>
-        <h3 className='text-title uppercase sm:text-base font-medium'>
+        <h3 className='text-title uppercase sm-max:text-tiny-base sm:text-base font-medium'>
           Movie quotes
         </h3>
       </div>
@@ -26,7 +26,7 @@ const Navbar: React.FC<HandleFormStatus> = (props) => {
           <div>
             <button
               onClick={() => props.handleFormStatus('register')}
-              className='text-white rounded sm:px-4 sm:py-[4px] px-6 py-[8px] bg-default-btn hover:bg-hover active:bg-active'
+              className='text-white rounded sm:px-4 sm:py-[4px] px-6 py-[8px] sm-max:text-tiny-font bg-default-btn hover:bg-hover active:bg-active'
             >
               {t('sign_up')}
             </button>
@@ -34,7 +34,7 @@ const Navbar: React.FC<HandleFormStatus> = (props) => {
           <div>
             <button
               onClick={() => props.handleFormStatus('login')}
-              className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] border-2 border-white'
+              className='text-white rounded sm:px-4 sm:py-[3px] px-6 py-[7px] sm-max:text-tiny-font border-2 border-white'
             >
               {t('log_in')}
             </button>

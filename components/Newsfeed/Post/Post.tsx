@@ -20,9 +20,14 @@ const Post: React.FC<Post> = (props) => {
               className='w-profile h-profile rounded-full bg-cover bg-center'
               style={{ backgroundImage: `url(${props.authorProfile})` }}
             ></div>
-            <p className='pl-4 capitalize'>{props.author}</p>
+            <div>
+              <p className='pl-4 capitalize'>{props.author}</p>
+              <small className='pl-4 sm-max:block hidden capitalize text-gray-500 text-sm'>
+                {`${timePassed}${locale === 'ka' ? 'ს' : ''}`} {ago('ago')}
+              </small>
+            </div>
           </div>
-          <small className='capitalize text-gray-500 text-sm'>
+          <small className='sm-max:hidden block capitalize text-gray-500 text-sm'>
             {`${timePassed}${locale === 'ka' ? 'ს' : ''}`} {ago('ago')}
           </small>
         </div>

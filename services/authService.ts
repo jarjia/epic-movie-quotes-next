@@ -84,7 +84,14 @@ const useAuthService = () => {
     });
   };
 
+  const getAllUsers = () => {
+    return axios.get('/api/users', {
+      params: { locale },
+    });
+  };
+
   return {
+    getAllUsers,
     postLoginUser,
     postRecoverEmail,
     postUpdateUserEmail,

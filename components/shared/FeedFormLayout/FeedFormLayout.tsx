@@ -28,7 +28,10 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
         ref={offTopRef}
         className={`fixed sm:w-full mid:w-[63%] w-1/2 large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
         style={{
-          width: router.pathname === '/newsfeed' ? `${modalWidth}px` : '',
+          width:
+            router.pathname === '/newsfeed' && window.innerWidth > 916
+              ? `${modalWidth}px`
+              : '',
         }}
       >
         <div
@@ -84,7 +87,7 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
         </div>
         {maxHeight !== null && (
           <div
-            className='px-6 mb-1 py-4 mb-4 h-auto sm:h-screen overflow-y-scroll scrollbar'
+            className='px-6 py-4 mb-4 h-auto sm:h-screen overflow-y-scroll scrollbar'
             style={{
               maxHeight: `calc(${screenHeight}vh - ${maxHeight}px)`,
             }}

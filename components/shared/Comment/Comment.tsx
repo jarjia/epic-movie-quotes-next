@@ -33,17 +33,24 @@ const Comment: React.FC<SingleComment> = ({ comment }) => {
 
   return (
     <div className='sm:pt-2'>
-      <div className='flex items-center justify-between pr-2'>
-        <div className='flex items-center'>
+      <div className='flex items-center sm-max:items-start sm-max:justify-start sm-max:flex-col justify-between pr-2'>
+        <div className='flex items-center sm-max:justify-start'>
           <div
             className='w-profile h-profile rounded-full bg-center bg-cover'
             style={{
               backgroundImage: `url(${comment.user.thumbnail})`,
             }}
           ></div>
-          <p className='pl-4 break-words capitalize'>{comment.user.name}</p>
+          <div className='flex flex-col items-start'>
+            <p className='pl-4 break-words capitalize'>{comment.user.name}</p>
+            <small className='pl-4 sm-max:block hidden capitalize text-sm text-gray-500'>
+              {timePassed}
+            </small>
+          </div>
         </div>
-        <small className='capitalize text-sm text-gray-500'>{timePassed}</small>
+        <small className='sm-max:hidden block capitalize text-sm text-gray-500'>
+          {timePassed}
+        </small>
       </div>
       <div className='pl-[74px] sm:pl-0 sm:pt-2'>
         <p className='text-base break-words pb-3 border-b-[1px] border-search-bar-border'>
