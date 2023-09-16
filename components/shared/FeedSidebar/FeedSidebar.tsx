@@ -25,7 +25,7 @@ const FeedSidebar: React.FC<AppBars> = ({
       <aside
         className={`fixed ${
           isBurger ? 'sm:z-[999]' : 'sm:z-[-1]'
-        } sm:right-[33px] sm:h-screen px-8 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
+        } sm:right-[33px] sm:h-screen sm:top-0 px-8 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
       >
         <div className='block sm:hidden'>
           <Link
@@ -79,7 +79,7 @@ const FeedSidebar: React.FC<AppBars> = ({
               className='fixed sm:block hidden w-full h-screen z-[-1]'
               onClick={() => setIsBurger((prev: boolean) => !prev)}
             ></div>
-            <div className='sm:block relative top-[-15%] hidden py-16 z-[999] bg-post-bg w-[80%] sm-mid:w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
+            <div className='sm:block hidden py-16 z-[999] bg-post-bg w-[80%] sm-mid:w-full tiny:w-[calc(100vw-10%)] h-full rounded-xl'>
               <Link
                 href='/profile'
                 onMouseOver={() => setIsHovered(true)}
