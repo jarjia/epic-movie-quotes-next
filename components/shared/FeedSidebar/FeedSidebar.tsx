@@ -25,7 +25,7 @@ const FeedSidebar: React.FC<AppBars> = ({
       <aside
         className={`fixed ${
           isBurger ? 'sm:z-[999]' : 'sm:z-[-1]'
-        } sm:right-[33px] sm:h-screen sm:top-0 px-8 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
+        } sm:right-[33px] sm:h-screen sm:top-0 px-8 mid-normal:px-5 mid-normal:pr-0 sm:pt-0 sm:w-screen h-full bg-transparent w-1/4`}
       >
         <div className='block sm:hidden'>
           <Link

@@ -26,7 +26,7 @@ const FeedFormLayout: React.FC<FeedFormLayout> = ({
     <div className='flex justify-center relative sm:fixed sm:left-0 sm:top-0 w-full z-[999]'>
       <div
         ref={offTopRef}
-        className={`fixed sm:w-full mid:w-[63%] w-1/2 large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
+        className={`fixed top-24 sm:top-0 sm:w-full mid:w-[63%] w-1/2 large:max-h-screen rounded-form-radius sm:rounded-none bg-post-bg`}
         style={{
           width:
             router.pathname === '/newsfeed' && window.innerWidth > 916

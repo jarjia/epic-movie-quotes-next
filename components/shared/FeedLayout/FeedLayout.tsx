@@ -43,7 +43,165 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
           setIsBurger={setIsBurger}
           isBurger={isBurger}
         />
-        <div className='px-4'>{props.children}</div>
+        <div className='px-4'>
+          {router.pathname === '/newsfeed' && (
+            <div className='mid-normal:block sm:block hidden mb-4 mt-2'>
+              <ul className='flex gap-4 pb-2 px-2 overflow-x-scroll scrollbar'>
+                {users &&
+                  users.map((item) => {
+                    return (
+                      <li
+                        key={item.id}
+                        className='grid place-items-center items-center grid-rows-2 w-20'
+                      >
+                        <div
+                          className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                          style={{
+                            backgroundImage: `url(${item.thumbnail})`,
+                          }}
+                        >
+                          <div
+                            className={`${
+                              onlineUsers.find(
+                                (user) => user.id === item.id
+                              ) === undefined
+                                ? 'bg-gray-700'
+                                : 'bg-green-700'
+                            } w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                          ></div>
+                        </div>
+                        <p className='text-white text-sm text-center'>
+                          {item.name}
+                        </p>
+                      </li>
+                    );
+                  })}
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+                <li className='grid place-items-center items-center grid-rows-2 w-20'>
+                  <div
+                    className='w-16 h-16 rounded-full bg-cover bg-no-repeat'
+                    style={{
+                      backgroundImage: `url(/assets/images/favicon.png)`,
+                    }}
+                  >
+                    <div
+                      className={`bg-green-700 w-4 h-4 relative top-0.5 right-0.5  border-2 border-white float-right rounded-full`}
+                    ></div>
+                  </div>
+                  <p className='text-white text-sm text-center'>
+                    ჯარჯი აბუაშვილი
+                  </p>
+                </li>
+              </ul>
+            </div>
+          )}
+          {props.children}
+        </div>
         <div
           className={`${
             router.pathname.includes('movie-list') ? 'hidden' : 'flex'
