@@ -34,3 +34,7 @@ body::-webkit-scrollbar-thumb {
   background-color: #808189;
   border-radius: 50px;
 }
+
+.friend-inst-class {
+  box-shadow: 0px 2px 5px #11101a;
+}

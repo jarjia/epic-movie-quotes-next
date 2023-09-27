@@ -5,6 +5,7 @@ import { useContext, useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
 import {
   CommentEvent,
+  Friend,
   LikeEvent,
   NotificationEvent,
   OnlineUser,
@@ -12,9 +13,11 @@ import {
 import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
 import { UserData } from '@/types';
+import useFriendService from '@/services/friendService';
 
 const useFeedLayout = () => {
-  const { getUserData, getLogoutUser, getAllUsers } = useAuthService();
+  const { getUsersFriends } = useFriendService();
+  const { getUserData, getLogoutUser } = useAuthService();
   useInstantiatePusher();
   const {
     feedFormStatus,
@@ -46,7 +49,7 @@ const useFeedLayout = () => {
     },
     enabled: userData.id === 0,
   });
-  const { data } = useQuery('users', getAllUsers);
+  const { data } = useQuery('friends', getUsersFriends);
   useQuery('log-out', getLogoutUser, {
     onSuccess: () => {
       localStorage.removeItem('remember_me');
@@ -81,6 +84,28 @@ const useFeedLayout = () => {
               refetchInactive: true,
             });
           }, 500);
+        }
+      });
+    }
+
+    return () => {
+      if (channel) {
+        channel.unsubscribe();
+      }
+    };
+  }, [userData.id, queryClient]);
+
+  useEffect(() => {
+    let channel: PusherChannel | null = null;
+
+    if (window.Echo) {
+      channel = window.Echo.private(`friend.${userData.id}`) as PusherChannel;
+      channel!.listen('FriendEvent', (data: Friend) => {
+        if (data.friend.activity) {
+          if (data.friend.refetchFriends) {
+            queryClient.invalidateQueries('friends');
+          }
+          queryClient.invalidateQueries('users-for-friends');
         }
       });
     }

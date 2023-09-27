@@ -177,12 +177,14 @@ export type Notification = {
   from: {
     name: string;
     thumbnail: string;
+    id: number;
   };
   id: number;
   notification: string;
   seen: number;
   created_at: string;
   quote_id: number;
+  to_user: number;
 };
 
 export type PostEmailUpdate = {

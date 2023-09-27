@@ -45,7 +45,11 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
         />
         <div className='px-4'>
           {router.pathname === '/newsfeed' && (
-            <div className='mid-normal:block sm:block hidden mb-4 mt-2'>
+            <div
+              className={`${
+                users && users.length === 0 ? 'mb-0 mt-0' : 'mt-2 mb-4'
+              }mid-normal:block sm:block hidden`}
+            >
               <ul className='flex gap-4 pb-2 px-2 overflow-x-scroll scrollbar'>
                 {users &&
                   users.map((item) => {
@@ -87,7 +91,13 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
           } relative sm:fixed sm:left-0 mid-normal:hidden sm:hidden`}
         >
           <div className='fixed sm:bg-form-back w-1/4 sm:w-[30%] sm:pl-0 px-2 pl-6 flex flex-col'>
-            {users &&
+            <h2 className='text-gray-500 capitalize text-xl text-center pb-4'>
+              your friends
+            </h2>
+            {users && users.length === 0 ? (
+              <p className='text-white text-center'>You have no friends...</p>
+            ) : (
+              users &&
               users.map((item) => {
                 return (
                   <div
@@ -117,7 +127,8 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
                     ></div>
                   </div>
                 );
-              })}
+              })
+            )}
           </div>
         </div>
       </section>

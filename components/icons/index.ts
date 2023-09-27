@@ -26,3 +26,6 @@ export * from './AddIcon';
 export * from './TrashBinIcon';
 export * from './PenIcon';
 export * from './EyeIcon';
+export * from './FriendsIcon';
+export * from './AddFriendIcon';
+export * from './PendingIcon';

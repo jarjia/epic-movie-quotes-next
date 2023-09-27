@@ -31,3 +31,15 @@ export type Channel = {
   socketId: string;
   channelName: string;
 };
+
+export type RejectFriend = {
+  friend_id: number;
+  not_id?: number;
+  unfriend?: boolean;
+};
+
+export type AcceptFriend = {
+  friend_id: number;
+  not_id?: number;
+  sender_id: number;
+};
