@@ -1,5 +1,6 @@
 import { AppContext } from '@/context';
 import { useNotificationService } from '@/services';
+import useFriendService from '@/services/friendService';
 import { formatDistanceToNow } from 'date-fns';
 import { ka, enUS } from 'date-fns/locale';
 import { useRouter } from 'next/router';
@@ -9,6 +10,7 @@ import { useMutation, useQueryClient } from 'react-query';
 
 const useNotificationCard = (ago: string) => {
   const { t } = useTranslation('common');
+  const { rejectFriend, acceptFriend } = useFriendService();
   const { readNotification } = useNotificationService();
   const date = useMemo(() => new Date(ago), [ago]);
   const router = useRouter();
@@ -45,11 +47,32 @@ const useNotificationCard = (ago: string) => {
     return () => clearInterval(interval);
   }, [date, locale, router.locale]);
 
+  const { mutate: rejectFriendMutation, isLoading: rejectLoading } =
+    useMutation(rejectFriend, {
+      onSuccess(res) {
+        console.log(res);
+      },
+    });
+
+  const { mutate: acceptFriendMutation, isLoading: acceptLoading } =
+    useMutation(acceptFriend);
+
+  const refetchUserFriends = () => {
+    return setTimeout(() => {
+      queryClient.invalidateQueries('friends');
+    }, 1000);
+  };
+
   return {
     readNotification,
+    refetchUserFriends,
     timePassed,
     readNotificationMutate,
     handleFeedFormStatus,
+    rejectFriendMutation,
+    acceptLoading,
+    acceptFriendMutation,
+    rejectLoading,
     t,
     curLocale: router.locale,
     handleCurrentQuoteId,

@@ -127,9 +127,11 @@ const Notification: React.FC<NotificationProps> = (props) => {
                   <NotificationCard
                     key={item.id}
                     id={item.id}
+                    to_user={item.to_user}
                     type={item.notification}
                     name={item.from.name}
                     thumbnail={item.from.thumbnail}
+                    from={item.from}
                     ago={item.created_at}
                     seen={item.seen}
                     created_at={item.created_at}

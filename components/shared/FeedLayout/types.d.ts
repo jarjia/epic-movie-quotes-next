@@ -24,3 +24,10 @@ export type OnlineUser = {
   id: number;
   name: string;
 };
+export type Friend = {
+  friend: {
+    to: number;
+    activity: boolean;
+    refetchFriends: boolean;
+  };
+};

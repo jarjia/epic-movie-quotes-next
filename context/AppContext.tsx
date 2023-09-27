@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 import { Comment, NewLike, UserData } from '@/types';
 import { useRouter } from 'next/router';
-import { Context } from './types';
+import { Context, FriendData } from './types';
 
 const initialUserData = {
   name: '',
@@ -25,6 +25,9 @@ export const AppContext = createContext<Context>({
   commentsArr: null,
   handleNewLikes: () => {},
   handleNewComment: () => {},
+  handleFriend: () => {},
+  friendData: null,
+  setFriendData: () => {},
 });
 
 const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
@@ -34,7 +37,15 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
   const [newLikes, setNewLikes] = useState<NewLike[] | null>(null);
   const [commentsArr, setCommentsArr] = useState<Comment[] | null>(null);
   const [currentQuoteId, setCurrentQuoteId] = useState<string | null>(null);
+  const [friendData, setFriendData] = useState<null | FriendData>(null);
   const router = useRouter();
+
+  const handleFriend = (data: any) => {
+    setFriendData({
+      from: data.from,
+      status: data.status,
+    });
+  };
 
   const handleNewLikes = (likes: NewLike | null) => {
     setNewLikes((prev) => {
@@ -91,6 +102,9 @@ const AppContextProvider: React.FC<{ children: JSX.Element }> = (props) => {
     commentsArr,
     handleNewLikes,
     handleNewComment,
+    handleFriend,
+    friendData,
+    setFriendData,
   };
 
   return (

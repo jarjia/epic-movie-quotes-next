@@ -1,4 +1,10 @@
-import { CameraIcon, DropDownIcon, HouseIcon, UserProfile } from '@/components';
+import {
+  CameraIcon,
+  DropDownIcon,
+  FriendIcon,
+  HouseIcon,
+  UserProfile,
+} from '@/components';
 import Link from 'next/link';
 import useFeedSidebar from './useFeedSidebar';
 import { AppBars } from '@/types';
@@ -72,6 +78,13 @@ const FeedSidebar: React.FC<AppBars> = ({
               {t('list_of_movies')}
             </p>
           </Link>
+          <Link
+            href='/friend-list'
+            className='flex cursor-pointer items-center gap-8 pl-4 my-8'
+          >
+            <FriendIcon isFriends={router.pathname.includes('friend-list')} />
+            <p className='text-white text-2xl mid-side:text-xl'>Social</p>
+          </Link>
         </div>
         {isBurger && (
           <>
@@ -125,6 +138,15 @@ const FeedSidebar: React.FC<AppBars> = ({
                 <p className='text-white text-2xl sm:text-xl'>
                   {t('list_of_movies')}
                 </p>
+              </Link>
+              <Link
+                href='/friend-list'
+                className={`flex cursor-pointer py-4 px-10 my-2 hover:bg-add-quote-bg active:bg-add-quote-bg items-center gap-8`}
+              >
+                <FriendIcon
+                  isFriends={router.pathname.includes('friend-list')}
+                />
+                <p className='text-white text-2xl sm:text-xl'>Social</p>
               </Link>
               <div className='flex flex-col justify-start items-start'>
                 <button

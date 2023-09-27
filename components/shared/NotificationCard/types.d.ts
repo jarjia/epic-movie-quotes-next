@@ -10,4 +10,6 @@ export type NotificationCard = {
   created_at: string;
   quoteId: number;
   setIsNotification: SetState<boolean>;
+  to_user: number;
+  from: { id: number };
 };

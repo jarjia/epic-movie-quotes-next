@@ -5,3 +5,4 @@ export * from './shared';
 export * from './Profile';
 export * from './MovieList';
 export * from './MovieShow';
+export * from './FriendList';
