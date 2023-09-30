@@ -29,7 +29,7 @@ const useFeedLayout = () => {
     handleNewComment,
   } = useContext(AppContext);
   const [shouldLogout, setShouldLogout] = useState(false);
-  const { t } = useTranslation('newsfeed');
+  const { t } = useTranslation('newsFeed');
   const [isBurger, setIsBurger] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
