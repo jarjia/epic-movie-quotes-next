@@ -16,6 +16,7 @@ export async function getStaticProps({ locale }: GetServerSidePropsContext) {
         'landingForms',
         'movieList',
         'apiErrors',
+        'newsFeed',
         'social',
       ])),
     },
