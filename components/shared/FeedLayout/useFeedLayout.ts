@@ -14,6 +14,7 @@ import { PusherChannel } from 'laravel-echo/dist/channel';
 import { useInstantiatePusher } from '@/hooks';
 import { UserData } from '@/types';
 import useFriendService from '@/services/friendService';
+import { useTranslation } from 'next-i18next';
 
 const useFeedLayout = () => {
   const { getUsersFriends } = useFriendService();
@@ -28,6 +29,7 @@ const useFeedLayout = () => {
     handleNewComment,
   } = useContext(AppContext);
   const [shouldLogout, setShouldLogout] = useState(false);
+  const { t } = useTranslation('newsfeed');
   const [isBurger, setIsBurger] = useState(false);
   const router = useRouter();
   const queryClient = useQueryClient();
@@ -182,6 +184,7 @@ const useFeedLayout = () => {
     setShouldLogout,
     setIsBurger,
     router,
+    t,
     isLoading,
     isError,
     handleFeedFormStatus,

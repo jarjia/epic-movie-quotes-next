@@ -25,5 +25,7 @@
   "filter_by_new": "New",
   "no_notifications": "No notifications...",
   "uploaded": "Your image was uploaded",
-  "reupload": "Reupload"
+  "reupload": "Reupload",
+  "social": "social",
+  "f_request": "Sent you a friend request"
 }

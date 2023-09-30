@@ -15,6 +15,7 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
     setShouldLogout,
     handleFeedFormStatus,
     setIsBurger,
+    t,
   } = useFeedLayout();
 
   if (isLoading || isError) {
@@ -92,10 +93,10 @@ const FeedLayout: React.FC<FeedLayout> = (props) => {
         >
           <div className='fixed sm:bg-form-back w-1/4 sm:w-[30%] sm:pl-0 px-2 pl-6 flex flex-col'>
             <h2 className='text-gray-500 capitalize text-xl text-center pb-4'>
-              your friends
+              {t('your_friends')}
             </h2>
             {users && users.length === 0 ? (
-              <p className='text-white text-center'>You have no friends...</p>
+              <p className='text-white text-center'>{t('no_friends')}</p>
             ) : (
               users &&
               users.map((item) => {

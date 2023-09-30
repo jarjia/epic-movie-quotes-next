@@ -83,7 +83,9 @@ const FeedSidebar: React.FC<AppBars> = ({
             className='flex cursor-pointer items-center gap-8 pl-4 my-8'
           >
             <FriendIcon isFriends={router.pathname.includes('friend-list')} />
-            <p className='text-white text-2xl mid-side:text-xl'>Social</p>
+            <p className='text-white text-2xl mid-side:text-xl'>
+              {t('social')}
+            </p>
           </Link>
         </div>
         {isBurger && (
@@ -146,7 +148,7 @@ const FeedSidebar: React.FC<AppBars> = ({
                 <FriendIcon
                   isFriends={router.pathname.includes('friend-list')}
                 />
-                <p className='text-white text-2xl sm:text-xl'>Social</p>
+                <p className='text-white text-2xl sm:text-xl'>{t('social')}</p>
               </Link>
               <div className='flex flex-col justify-start items-start'>
                 <button

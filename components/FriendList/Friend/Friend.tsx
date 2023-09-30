@@ -1,7 +1,6 @@
 import { FriendIcon, PendingIcon } from '@/components';
 import { Friend, Status } from './types';
 import useFriend from './useFriend';
-import { useEffect, useState } from 'react';
 
 const Friend: React.FC<Friend> = ({ data }) => {
   const {
@@ -9,28 +8,14 @@ const Friend: React.FC<Friend> = ({ data }) => {
     acceptLoading,
     refetchFriends,
     rejectFriendMutation,
+    t,
     addFriendMutate,
     rejectLoading,
     refetchUserFriends,
-    userData,
-  } = useFriend();
-  const [status, setStatus] = useState<Status | undefined>(undefined);
-  const [isButtonDisabled] = useState(false);
-
-  useEffect(() => {
-    let statusFriends = data.friends
-      .map((friend) => {
-        return {
-          id: friend.id,
-          status: friend.pivot.status,
-          from_id: friend.pivot.from_user,
-          friend_id: friend.pivot.friend_id,
-        };
-      })
-      .find((prev) => prev.id === userData.id);
-
-    setStatus(statusFriends);
-  }, [data.friends, userData.id]);
+    setStatus,
+    status,
+    isButtonDisabled,
+  } = useFriend(data);
 
   return (
     <div className='flex sm-max:flex-col sm-max:rounded-2xl my-2 bg-transparent justify-between rounded-full friend-inst-class p-1 pl-2 py-2'>
@@ -62,11 +47,11 @@ const Friend: React.FC<Friend> = ({ data }) => {
               refetchFriends();
             }}
           >
-            add friend
+            {t('add_friend')}
           </button>
         ) : status!.status === 'pending' ? (
           <p className='flex items-center sm-max:w-full text-white capitalize gap-1 px-2'>
-            <PendingIcon /> request sent
+            <PendingIcon /> {t('request_sent')}
           </p>
         ) : status!.status === 'recieved' ? (
           <div className='flex h-full sm-max:w-full text-white'>
@@ -85,7 +70,7 @@ const Friend: React.FC<Friend> = ({ data }) => {
               }}
               className='text-base sm-max:w-full bg-blue-700 hover:bg-blue-800 rounded-l-full px-2 py-1'
             >
-              Accept
+              {t('accept')}
             </button>
             <button
               disabled={rejectLoading || acceptLoading || isButtonDisabled}
@@ -98,7 +83,7 @@ const Friend: React.FC<Friend> = ({ data }) => {
               }}
               className='text-base sm-max:w-full bg-red-700 hover:bg-red-800 rounded-r-full px-2 py-1'
             >
-              Reject
+              {t('reject')}
             </button>
           </div>
         ) : (
@@ -115,7 +100,7 @@ const Friend: React.FC<Friend> = ({ data }) => {
               refetchUserFriends();
             }}
           >
-            <FriendIcon isFriends={false} /> unfriend
+            <FriendIcon isFriends={false} /> {t('unfriend')}
           </button>
         )}
       </div>

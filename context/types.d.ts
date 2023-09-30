@@ -13,9 +13,6 @@ export type Context = {
   commentsArr: null | Comment[];
   handleNewLikes: (likes: NewLike | null) => void;
   handleNewComment: (comment: Comment | null) => void;
-  handleFriend: (data: { to: number; status: string }) => void;
-  friendData: FriendData | null;
-  setFriendData: SetState<null | FriendData>;
 };
 
 export type FriendData = {

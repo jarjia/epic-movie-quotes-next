@@ -71,7 +71,7 @@ const NotificationCard: React.FC<NotificationCard> = (props) => {
             ) : (
               <div className='flex justify-between items-center w-full'>
                 <p className='text-base flex items-center gap-2'>
-                  <AddFriendIcon /> Sent you a friend request
+                  <AddFriendIcon /> {t('f_request')}
                 </p>
                 <div className='flex mt-2 sm-max:flex-col'>
                   <button
