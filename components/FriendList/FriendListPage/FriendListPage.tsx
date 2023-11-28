@@ -39,7 +39,9 @@ const FriendListPage = () => {
           />
           {friends &&
             friends
-              .filter((item: AddFriendList) => item.name.includes(search))
+              .filter((item: AddFriendList) =>
+                item.name.toLowerCase().includes(search.toLowerCase())
+              )
               .map((item: AddFriendList) => {
                 return <Friend key={item.id} data={item} />;
               })}
