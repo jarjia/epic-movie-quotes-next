@@ -23,6 +23,7 @@
     "laravel-echo": "^1.15.1",
     "next": "13.4.2",
     "next-i18next": "^13.3.0",
+    "next-pwa": "^5.6.0",
     "postcss": "8.4.23",
     "pusher-js": "^8.1.0",
     "react": "18.2.0",

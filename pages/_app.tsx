@@ -16,6 +16,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Head>
         <title>Movie Quotes</title>
         <link rel='icon' href='/assets/images/favicon.png' />
+        <link rel='manifest' href='/manifest.json' />
       </Head>
       <AppContextProvider>
         <MyComponent {...pageProps} />

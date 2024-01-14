@@ -1,0 +1,14 @@
+{
+  "start_url": ".",
+  "name": "Movie Quotes",
+  "background_color": "#2c2b3b",
+  "theme_color": "#2c2b3b",
+  "icons": [
+    {
+      "src": "assets/images/favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "display": "standalone"
+}
