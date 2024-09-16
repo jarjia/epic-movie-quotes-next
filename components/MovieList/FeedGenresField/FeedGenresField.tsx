@@ -20,7 +20,7 @@ const FeedGenresField: React.FC<GenreField> = (props) => {
     <>
       <div ref={genresRef} className='w-full my-6'>
         <div
-          className={`flex items-center pt-1 h-[42px] bg-transparent overflow-x-scroll scrollbar px-2 border-[1px] rounded ${
+          className={`flex items-center pt-1 bg-transparent overflow-x-scroll scrollbar px-2 border-[1px] rounded ${
             genres.length < 1 && props.error['genres'] !== undefined
               ? 'border-default-btn'
               : 'border-placeholder'

@@ -8,7 +8,7 @@ const MovieQuotes: React.FC<MovieQuotes> = (props) => {
   return (
     <div className='flex flex-col'>
       <div
-        className='w-full bg-cover bg-horizon-center sm:hidden block h-[350px] large:h-[400px] bg-cover rounded-xl'
+        className='w-full bg-cover bg-horizon-center sm:hidden block h-[350px] large:h-[400px] rounded-xl'
         style={{
           backgroundImage: `url(${props.movieImage})`,
         }}

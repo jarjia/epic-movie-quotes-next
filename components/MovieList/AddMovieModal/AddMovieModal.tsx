@@ -66,7 +66,7 @@ const AddMovieModal = () => {
                     error !== undefined
                       ? 'border-default-btn focus:border-default-btn'
                       : 'border-placeholder focus:border-placeholder'
-                  } w-full placeholder-white caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 block flex-1 min-w-0 w-full`}
+                  } placeholder-white caret-white pl-2 text-white bg-transparent pr-10 rounded border-[1px] focus:ring-0 block flex-1 min-w-0 w-full`}
                 />
                 <div>
                   <p className='absolute text-default-btn text-sm tiny:text-tiny-font'>
